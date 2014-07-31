@@ -1,0 +1,437 @@
+
+/****************************************************************************************
+ * General
+ ****************************************************************************************/
+
+	#page,
+	body .site {
+		width:100%;
+	}
+	
+	h1 {
+		padding:0px 5px;
+		margin-left:-5px;
+		margin-right:-5px;
+	}
+	
+	input {
+		outline:none;
+	}
+
+	#header, #banner, #subheader, #main, #footer {
+		width:auto;
+	}
+	
+/****************************************************************************************
+ * Header
+ ****************************************************************************************/
+
+	#header .title-box {
+		text-align:center;
+		vertical-align:middle;
+		width:100% !important;
+	}
+	
+	a.uncc-logo {
+		display:block;
+		width:100%;
+		display:table;
+		height:100px;
+		vertical-align:middle;
+		text-align:center;
+	}
+	
+	a.uncc-logo img {
+		margin-top:20px;
+	}
+
+	#header .masthead {
+		width:100% !important;
+	}
+
+/****************************************************************************************
+ * Header - Menu
+ ****************************************************************************************/
+
+	#header-menu-button {
+		width:24px;
+		height:24px;
+		background-image:url('../images/menu-header-grey-down-arrow.png');
+		background-position:center center;
+		position:absolute;
+		left:50%;
+		margin-left:-12px;
+		margin-top:-8px;
+/* 		border:solid 4px #ccc; */
+		z-index:999;
+	}
+	
+	#header-menu-button.show {
+		background-image:url('../images/menu-header-black-up-arrow.png');
+/* 		border:solid 4px #666; */
+	}
+	
+	#header-menu-button.hide {
+		background-image:url('../images/menu-header-grey-down-arrow.png');
+/* 		border:solid 4px #ccc; */
+	}
+	
+	#header-menu-button:hover {
+		cursor:pointer;
+	}
+	
+	#header-menu-wrapper {
+		position:absolute;
+		top:105%;
+		left:5px;
+		right:5px;
+		margin-bottom:5px;
+		z-index:99;
+		background-color:#fff;
+		width:auto;
+		box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
+	}
+	
+	#header-menu,
+	#header-menu-wrapper {
+		overflow:hidden;
+	}
+	
+	.sidebar {
+		padding-top:0px;
+	}
+	
+	#header-menu > h2 {
+		margin:0px;
+		font-size: 0.5em;
+		text-align: center;
+		text-transform: uppercase;
+		line-height:1.7em;
+		padding-top:6px;
+		background-color:#f6f6f6;
+	}
+	
+	#left-sidebar > h2,
+	#right-sidebar > h2 {
+		display:none;
+	}
+	
+	
+	#header-menu-wrapper.show {
+		height:auto;
+/* 		padding:5px; */
+	}
+	
+	#header-menu-wrapper.hide {
+		height:0px;
+		padding:0px;
+	}
+	
+/****************************************************************************************
+ * Widget - Search
+ ****************************************************************************************/
+
+	body.search #main form#searchform {
+		border-top:solid 1px #ccc;
+		border-bottom:solid 1px #ccc;
+		background-color:#f6f6f6;
+		padding:5px;
+		margin-left:-5px;
+		margin-right:-5px;
+	}
+	
+	body.search #main form#searchform:before,
+	body.search #main form#searchform:after {
+		content:"";
+		display:table;
+	}
+	
+	body.search #main form#searchform:after {
+		clear:both;
+	}
+	
+	/* For IE 6/7 (trigger hasLayout) */
+	body.search #main form#searchform {
+		zoom:1;
+	}
+	
+	body.search #main form#searchform {
+		padding:10px 5px;
+		border-left-width:0px;
+		border-right-width:0px;
+	}
+	
+	body.search #main form#searchform .screen-reader-text {
+		display:block;
+	}
+	
+	body.search #main form#searchform .textbox_wrapper {
+		display:block;
+		padding:0px;
+		width:100%;
+		border:solid 1px #ccc;
+		overflow:hidden;
+		margin:5px 0px;
+		background-color:white;
+	}
+	
+	body.search #main form#searchform #s {
+		display:block;
+		width:100%;
+		margin:5px;
+		border:none;
+	}
+	
+	body.search #main form#searchform #searchsubmit {
+		display:block;
+		float:right;
+		margin:0px;
+	}
+
+/****************************************************************************************
+ * Main
+ ****************************************************************************************/
+	
+	#main {
+		padding:5px;
+	}
+	
+	#left-sidebar-wrapper,
+	#right-sidebar-wrapper {
+		padding:5px;
+	}
+	
+	#content {
+		min-height:1px;
+		min-width:auto !important;
+		width:auto !important;
+	}
+	
+	#content .sidebar-controls {
+		position:relative;
+		background-color:transparent;
+		height:16px;
+		margin-bottom:10px;
+	}
+	
+	#content .sidebar-controls .button {
+		position:absolute;
+		z-index:999;
+		height:24px;
+		width:24px;
+		border:none;
+	}
+	
+	#content .sidebar-controls .left-sidebar.button {
+		left:-5px;
+		top:0px;
+	}
+
+	#content .sidebar-controls .right-sidebar.button {
+		right:-7px;
+		top:0px;
+	}
+	
+	#content .sidebar-controls .button.show {
+		border-color:#666;
+	}
+
+	#content .sidebar-controls .button.hide {
+		border-color:#ccc;
+	}
+
+	#left-sidebar-button.hide {
+		background-image:url('../images/menu-left-grey-lines.png');
+	}
+
+	#left-sidebar-button.show {
+		background-image:url('../images/menu-left-black-lines.png');
+	}
+	
+	#right-sidebar-button.hide {
+		background-image:url('../images/menu-right-grey-lines.png');
+	}
+
+	#right-sidebar-button.show {
+		background-image:url('../images/menu-right-black-lines.png');
+	}
+	
+/****************************************************************************************
+ * Sidebar
+ ****************************************************************************************/
+
+	#main {
+		position:relative;
+	}
+
+	.sidebar.wrapper {
+		position:absolute;
+		top:0px;
+		z-index:99;
+		background-color:#fff;
+		width:auto;
+		box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
+	}
+	
+	#left-sidebar-wrapper.show {
+		left:5px;
+		right:5px;
+		margin-bottom:5px;
+	}
+	
+	#right-sidebar-wrapper.show {
+		left:5px;
+		right:5px;
+		margin-bottom:5px;
+	}
+	
+	#left-sidebar-wrapper.hide {
+		left:-5000px;
+		right:5000px;
+	}
+
+	#right-sidebar-wrapper.hide {
+		left:5000px;
+		right:-5000px;
+	}
+	
+	.sidebar {
+		padding-top:30px;
+	}
+	
+/****************************************************************************************
+ * Footer
+ ****************************************************************************************/
+
+	#footer {
+		text-align:center;
+	}
+
+	#footer .links {
+		text-align:center;
+		border-bottom:solid 1px #ccc;
+		padding:10px;
+	}
+	
+	#footer .links a {
+		color:#666666;
+	}
+
+	#footer .address {
+		padding:10px;
+	}
+
+	#footer .follow {
+		margin:0;
+		margin-top:5px;
+		font-size:1em;
+		font-weight:bold;
+		padding:10px 0px;
+		border-bottom:solid 1px #ccc;
+	}
+	
+	#footer .follow > div {
+		color:#666;
+	}
+	
+	#footer .follow img {
+		margin-top:3px;
+	}
+	
+	#footer .search {
+		padding:10px;
+		border-bottom:solid 1px #ccc;
+	}
+	
+	#uncc-searchform {
+		border:solid 1px #999;
+		display:inline-block;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+	#header-menu {
+		font-family:Arial, sanserif;
+	}
+	
+	#header-menu ul {
+		list-style:none;
+		padding-left:0px;
+	}
+	
+	#header-menu .navmenu > ul {
+		margin:0px;
+	}	
+ 
+	#header-menu ul a {
+		color:#555;
+		font-size:0.9em;
+		padding:0.6em 17px;
+		padding-right:10px;
+		display:block;
+		border-top:solid 1px #ccc;
+	}
+	
+	#header-menu ul a:hover {
+		text-decoration:none;
+		color:#0A7543;
+		background-color:#eee;
+	}
+
+	#header-menu ul li.current_page_item > a {
+		font-weight:bold;
+		color:#0A7543;
+		background-color:#f6f6f6;
+	}
+
+	#header-menu ul li.current_page_item > a:hover {
+		color:#0A7543;
+		background-color:#eee;
+	}
+			
+	#header-menu ul li.current_page_item,
+	#header-menu ul li.current_page_ancestor {
+		background-color:#f6f6f6;
+	}
+
+	#header-menu ul.children a {
+		border-top:none;
+	}
+	
+	#header-menu ul.children {
+		display:none;
+	}
+	
+	#header-menu ul li.current_page_item > ul.children,
+	#header-menu ul li.current_page_ancestor > ul.children {
+		display:block;
+	}
+	
+	#header-menu ul.children {
+		padding-left:14px;
+	}
+	
+	#header-menu ul li a {
+/* 		background-image:url('../images/list-bullet2.png'); */
+	    background-repeat: no-repeat;
+	    background-position: left center;
+	}
+
+	#header-menu ul li.page_item_has_children > a {
+		background-image:url('../images/list-arrow-right.png');
+	}
+
+	#header-menu ul li.current_page_item.page_item_has_children > a,
+	#header-menu ul li.current_page_ancestor.page_item_has_children > a {
+		background-image:url('../images/list-arrow-down.png');
+	}	

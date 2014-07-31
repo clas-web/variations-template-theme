@@ -1,0 +1,93 @@
+
+
+/****************************************************************************************
+ * Header
+ ****************************************************************************************/
+
+	#header .title-box .name {
+		font-weight:normal;
+		margin:0px;
+	}
+
+	#header .title-box .description {
+		font-weight:normal;
+		margin:0px;
+	}
+
+/****************************************************************************************
+ * Widget - Pages
+ ****************************************************************************************/
+
+	.widget_pages h2 {
+		display:none;
+	}
+
+	.widget_pages ul {
+		list-style:none;
+		padding-left:0px;
+	}
+	
+	.widget_pages > ul {
+		border-bottom:solid 1px #ccc;
+		margin:0px;
+	}	
+ 
+	.widget_pages ul a {
+		color:#555;
+		font-size:0.9em;
+		padding:0.6em 17px;
+		padding-right:10px;
+		display:block;
+		border-top:solid 1px #ccc;
+	}
+	
+	.widget_pages ul a:hover {
+		text-decoration:none;
+		color:#0A7543;
+		background-color:#f6f6f6;
+		background-color:#eee;
+	}
+	
+	.widget_pages ul li.current_page_item > a {
+		font-weight:bold;
+		color:#0A7543;
+		background-color:#f6f6f6;
+	}
+	
+	.widget_pages ul li.current_page_item,
+	.widget_pages ul li.current_page_ancestor {
+		background-color:#f6f6f6;
+	}
+
+	.widget_pages ul.children a {
+		border-top:none;
+	}
+	
+	.widget_pages ul.children {
+		display:none;
+	}
+	
+	.widget_pages ul li.current_page_item > ul.children,
+	.widget_pages ul li.current_page_ancestor > ul.children {
+		display:block;
+	}
+	
+	.widget_pages ul.children {
+		padding-left:14px;
+	}
+	
+	.widget_pages ul li a {
+/* 		background-image:url('../../images/list-bullet2.png'); */
+	    background-repeat: no-repeat;
+	    background-position: left center;
+	}
+
+	.widget_pages ul li.page_item_has_children > a {
+		background-image:url('../../images/list-arrow-right.png');
+	}
+
+	.widget_pages ul li.current_page_item.page_item_has_children > a,
+	.widget_pages ul li.current_page_ancestor.page_item_has_children > a {
+		background-image:url('../../images/list-arrow-down.png');
+	}
+
