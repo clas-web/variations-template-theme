@@ -91,3 +91,93 @@
 		background-image:url('../../images/list-arrow-down.png');
 	}
 
+/****************************************************************************************
+ * Admin Bar
+ ****************************************************************************************/
+
+	#wpadminbar {
+		background: #006633 !important;
+	}
+
+	#wpadminbar .ab-top-menu>li>.ab-item:focus, 
+	#wpadminbar.nojq .quicklinks .ab-top-menu>li>.ab-item:focus, 
+	#wpadminbar .ab-top-menu>li:hover>.ab-item, 
+	#wpadminbar .ab-top-menu>li.hover>.ab-item {
+		background: #005522 !important;
+		color: #fff !important;
+	}
+
+	#wpadminbar .ab-top-menu>li>ul.ab-sub-wrapper>li>.ab-item:focus, 
+	#wpadminbar.nojq .quicklinks .ab-top-menu>li>ul.ab-sub-wrapper>li>.ab-item:focus, 
+	#wpadminbar .ab-top-menu>ul.ab-sub-wrapper>li>li:hover>.ab-item, 
+	#wpadminbar .ab-top-menu>ul.ab-sub-wrapper>li>li.hover>.ab-item {
+		background: #0000002 !important;
+		color: #ccc !important;
+	}
+
+	#wpadminbar .quicklinks .menupop ul li a:hover, 
+	#wpadminbar .quicklinks .menupop ul li a:focus, 
+	#wpadminbar .quicklinks .menupop ul li a:hover strong, 
+	#wpadminbar .quicklinks .menupop ul li a:focus strong, 
+	#wpadminbar .quicklinks .menupop.hover ul li a:hover, 
+	#wpadminbar .quicklinks .menupop.hover ul li a:focus, 
+	#wpadminbar.nojs .quicklinks .menupop:hover ul li a:hover, 
+	#wpadminbar.nojs .quicklinks .menupop:hover ul li a:focus, 
+	#wpadminbar li:hover .ab-icon:before, 
+	#wpadminbar li:hover .ab-item:before, 
+	#wpadminbar li a:focus .ab-icon:before, 
+	#wpadminbar li .ab-item:focus:before, 
+	#wpadminbar li.hover .ab-icon:before, 
+	#wpadminbar li.hover .ab-item:before, 
+	#wpadminbar li:hover #adminbarsearch:before {
+		color: #cbb563 !important;
+	}
+	
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-super-admin > li > .ab-item:before,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-list > li > .ab-item:before {
+		color: #fff !important;
+	}
+
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-super-admin > li:hover > .ab-item,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-super-admin > li.hover > .ab-item,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-list > li:hover > .ab-item,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-list > li.hover > .ab-item,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-super-admin > li:hover > .ab-item:before,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-super-admin > li.hover > .ab-item:before,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-list > li:hover > .ab-item:before,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-list > li.hover > .ab-item:before {
+		color: #cbb563 !important;
+	}
+	
+	#wpadminbar>#wp-toolbar li:hover span.ab-label, 
+	#wpadminbar>#wp-toolbar li.hover span.ab-label, 
+	#wpadminbar>#wp-toolbar a:focus span.ab-label {
+		color: #fff !important;
+	}
+
+	#wpadminbar .menupop .ab-sub-wrapper, 
+	#wpadminbar .shortlink-input {
+		background: #00703C !important;
+	}
+
+	#wpadminbar .quicklinks .menupop ul.ab-sub-secondary, 
+	#wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu {
+		background: #00703C !important;
+	}
+
+	#wpadminbar .quicklinks li .blavatar:before {
+		content: '' !important;
+		display: none !important;
+	}
+
+	#wpadminbar .ab-top-menu>li#wp-admin-bar-notes>.ab-item:focus, 
+	#wpadminbar.nojq .quicklinks .ab-top-menu>li#wp-admin-bar-notes>.ab-item:focus, 
+	#wpadminbar .ab-top-menu>li#wp-admin-bar-notes:hover>.ab-item, 
+	#wpadminbar .ab-top-menu>li#wp-admin-bar-notes.hover>.ab-item {
+		background: transparent !important;
+	}
+
+	#wpadminbar #wp-admin-bar-comments .count-0 {
+		opacity: 1 !important;
+	}
+	
