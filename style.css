@@ -133,6 +133,11 @@ Tags:
 		font-family:Times New Roman, Times, serif;
 	}
 	
+	#header .masthead {
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	
 	#header .title-box-wrapper {
 		position:absolute;
 		top:0;
