@@ -27,22 +27,23 @@ if( $description['use-site-link'] ) $description['link'] = get_site_url();
 
 		<?php uncc_image( $uncc_config->get_image_data( 'header', 'logo' ) ); ?>
 
+		<div class="title-box-wrapper" style="height:100px">
+		<div class="title-box <?php echo $position; ?>">
+		
+		<?php if( !empty($title['text']) ): ?>
+			<?php echo uncc_get_anchor( $title['link'], null, null, '<div class="name">'.$title['text'].'</div>' ); ?>
+		<?php endif; ?>
+		<?php if( !empty($description['text']) ): ?>
+			<?php if( !empty($title['text']) ): ?><br/><?php endif; ?>
+			<?php echo uncc_get_anchor( $description['link'], null, null, '<div class="description">'.$description['text'].'</div>' ); ?>
+		<?php endif; ?>
+
+		</div>
+		</div>
+		
+
 		<?php if( !$uncc_mobile_support->use_mobile_site ): ?>
 			
-			<div class="title-box-wrapper" style="height:100px">
-			<div class="title-box <?php echo $position; ?>">
-			
-			<?php if( !empty($title['text']) ): ?>
-				<?php echo uncc_get_anchor( $title['link'], null, null, '<div class="name">'.$title['text'].'</div>' ); ?>
-			<?php endif; ?>
-			<?php if( !empty($description['text']) ): ?>
-				<?php if( !empty($title['text']) ): ?><br/><?php endif; ?>
-				<?php echo uncc_get_anchor( $description['link'], null, null, '<div class="description">'.$description['text'].'</div>' ); ?>
-			<?php endif; ?>
-
-			</div>
-			</div>
-		
 			<div id="links">
 
 				<?php
