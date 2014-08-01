@@ -3,9 +3,15 @@
  * General
  ****************************************************************************************/
 
-	#page,
-	body .site {
+	html,
+	body,
+	#site-outer-wrapper,
+	#site-inner-wrapper,
+	#header-wrapper,
+	#main-wrapper,
+	#footer-wrapper {
 		width:100%;
+/* 		overflow:hidden; */
 	}
 	
 	h1 {
@@ -32,19 +38,6 @@
 		width:100% !important;
 	}
 	
-	a.uncc-logo {
-		display:block;
-		width:100%;
-		display:table;
-		height:100px;
-		vertical-align:middle;
-		text-align:center;
-	}
-	
-	a.uncc-logo img {
-		margin-top:20px;
-	}
-
 	#header .masthead {
 		width:100% !important;
 	}
@@ -199,6 +192,7 @@
 	#left-sidebar-wrapper,
 	#right-sidebar-wrapper {
 		padding:5px;
+		padding-top:34px;
 	}
 	
 	#content {
@@ -218,7 +212,7 @@
 		position:absolute;
 		z-index:999;
 		height:24px;
-		width:24px;
+		width:22px;
 		border:none;
 	}
 	
@@ -228,7 +222,7 @@
 	}
 
 	#content .sidebar-controls .right-sidebar.button {
-		right:-7px;
+		right:-5px;
 		top:0px;
 	}
 	
@@ -272,29 +266,31 @@
 		width:auto;
 		box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
 	}
-	
+
 	#left-sidebar-wrapper.show {
 		left:5px;
 		right:5px;
 		margin-bottom:5px;
 	}
-	
+
 	#right-sidebar-wrapper.show {
 		left:5px;
 		right:5px;
 		margin-bottom:5px;
 	}
-	
+
 	#left-sidebar-wrapper.hide {
-		left:-5000px;
-		right:5000px;
+		left:-105%;
+		right:105%;
 	}
 
 	#right-sidebar-wrapper.hide {
-		left:5000px;
-		right:-5000px;
+		left:105%;
+		right:-105%;
+		left:-105%;
+		right:105%;
 	}
-	
+
 	.sidebar {
 		padding-top:30px;
 	}

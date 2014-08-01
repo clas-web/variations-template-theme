@@ -39,8 +39,8 @@
 ?>
 <body <?php body_class($class); ?> >
 
-<div id="site-outside-wrapper">
-<div id="site-inside-wrapper">
+<div id="site-outside-wrapper" class="clearfix">
+<div id="site-inside-wrapper" class="clearfix">
 
 	<?php
 	uncc_get_template_part( 'header', 'part' );
