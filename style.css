@@ -519,35 +519,19 @@ Tags:
  * ClearFix
  ****************************************************************************************/
 
-	#masthead:before,
-	#masthead:after,
-	#main:before,
-	#main:after,
-	#footer:before,
-	#footer:after,
 	.clearfix:before,
-	.clearfix:after,
-	.container:before,
-	.container:after {
+	.clearfix:after {
 		content:"";
 		display:table;
 	}
 	
-	#masthead:after,
-	#main:after,
-	#footer:after,
 	.clearfix:before,
-	.clearfix:after,
-	.container:after {
+	.clearfix:after {
 		clear:both;
 	}
 	
 	/* For IE 6/7 (trigger hasLayout) */
-	#masthead,
-	#main,
-	#footer,
-	.clearfix,
-	.container {
+	.clearfix {
 		zoom:1;
 	}
 	

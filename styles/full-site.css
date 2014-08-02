@@ -58,15 +58,11 @@
 	#header #title-box .description {
 		padding:2px 5px;
 	}
-	
+
 /****************************************************************************************
- * Main
+ * Sidebar
  ****************************************************************************************/
 
-	#content .sidebar-controls {
-		margin-bottom:14px;
-	}
-	
 	#left-sidebar, #right-sidebar {
 		width:220px;
 	}
@@ -89,6 +85,28 @@
 		margin-right:-1px;
 		width:220px;
 		overflow:hidden;
+	}
+	
+	#left-sidebar-wrapper.hide,
+	#right-sidebar-wrapper.hide {
+		width:0px;
+		overflow:hidden;
+		border:none;
+		padding:0px;
+	}
+
+	#left-sidebar-wrapper.show,
+	#right-sidebar-wrapper.show {
+		width:220px;
+		overflow:hidden;
+	}
+		
+/****************************************************************************************
+ * Content
+ ****************************************************************************************/
+
+	#content .sidebar-controls {
+		margin-bottom:14px;
 	}
 	
 	#content {
@@ -136,20 +154,6 @@
 		float:right;
 	}
 	
-	#left-sidebar-wrapper.hide,
-	#right-sidebar-wrapper.hide {
-		width:0px;
-		overflow:hidden;
-		border:none;
-		padding:0px;
-	}
-
-	#left-sidebar-wrapper.show,
-	#right-sidebar-wrapper.show {
-		width:220px;
-		overflow:hidden;
-	}
-
 	#content.left-sidebar.hide-left-sidebar {
 		border-left:none;
 		padding-left:0px;
