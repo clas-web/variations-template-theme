@@ -47,38 +47,45 @@
  ****************************************************************************************/
 
 	#header-menu-button {
-		width:24px;
-		height:24px;
-		background-image:url('../images/menu-header-grey-down-arrow.png');
-		background-position:center center;
 		position:absolute;
 		left:50%;
 		margin-left:-12px;
-		margin-top:-8px;
-/* 		border:solid 4px #ccc; */
+		margin-top:-12px;
+		width:24px;
+		height:24px;
+		background-image:url('../images/menu-header-grey-search.png');
+		background-position:center center;
 		z-index:999;
 	}
 	
 	#header-menu-button.show {
-		background-image:url('../images/menu-header-black-up-arrow.png');
-/* 		border:solid 4px #666; */
+		background-image:url('../images/menu-header-black-search.png');
 	}
 	
 	#header-menu-button.hide {
-		background-image:url('../images/menu-header-grey-down-arrow.png');
-/* 		border:solid 4px #ccc; */
+		background-image:url('../images/menu-header-grey-search.png');
 	}
 	
 	#header-menu-button:hover {
 		cursor:pointer;
 	}
+
+	#header-menu-button-search-menu {
+		font-size:0.5em;
+		font-weight:bold;
+		width:100%;
+		text-align:center;
+		margin-top:13px;
+		position:absolute;
+	}
 	
 	#header-menu-wrapper {
 		position:absolute;
-		top:105%;
+		top:100%;
 		left:5px;
 		right:5px;
 		margin-bottom:5px;
+		margin-top:5px;
 		z-index:99;
 		background-color:#fff;
 		width:auto;
@@ -102,6 +109,11 @@
 		line-height:1.7em;
 		padding-top:6px;
 		background-color:#f6f6f6;
+		border-bottom:solid 1px #ccc;
+	}
+	
+	#header-menu > h2.menu {
+		border:none;
 	}
 	
 	#left-sidebar > h2,
@@ -112,7 +124,6 @@
 	
 	#header-menu-wrapper.show {
 		height:auto;
-/* 		padding:5px; */
 	}
 	
 	#header-menu-wrapper.hide {
@@ -363,9 +374,6 @@
 	#header-menu ul {
 		list-style:none;
 		padding-left:0px;
-	}
-	
-	#header-menu .navmenu > ul {
 		margin:0px;
 	}	
  
@@ -431,3 +439,38 @@
 	#header-menu ul li.current_page_ancestor.page_item_has_children > a {
 		background-image:url('../images/list-arrow-down.png');
 	}	
+
+
+	#header-menu #site-searchform {
+		display: block;
+		padding: 5px 24px;
+	}
+	
+	#header-menu .textbox_wrapper {
+		height: 20px;
+		padding: 5px;
+		border: solid 1px #666;
+		padding-right: 35px;
+    	position: relative;
+	}
+	
+	#header-menu .textbox_wrapper input[type=text] {
+		font-size: 1.0em;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+	}
+	
+	#header-menu .textbox_wrapper input[type=submit] {
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    width: 30px;
+	    height: 30px;
+	    padding: 0;
+	    background: #666 url('../images/google-search-button.png') no-repeat center center;
+	    color: transparent;
+	    border: solid 1px #666;
+	}
+
+

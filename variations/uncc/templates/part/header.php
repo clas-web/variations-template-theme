@@ -76,6 +76,28 @@ if( $description['use-site-link'] ) $description['link'] = get_site_url();
 <div id="banner-wrapper" class="clearfix">
 	<div id="banner" class="clearfix" style="background-image:url('<?php echo $banner_url; ?>'); width:<?php echo $banner_width; ?>px; height:<?php echo $banner_height; ?>px;">
 		<a href="<?php echo home_url( '/' ); ?>" title="<?php echo get_bloginfo('name'); ?>"></a>
-	</div>
-</div>
+		
+		<?php if( $uncc_mobile_support->use_mobile_site ): ?>
+
+	<div id="header-menu-wrapper" class="clearfix">
+		<div id="header-menu" class="clearfix">
+		
+			<h2 class="search">Search</h2>
+			<form id="site-searchform" role="search" method="get" class="searchform" action="http://thinkingmatters.uncc.edu/">
+				<script>var main_search_used = false;</script>
+				<div class="textbox_wrapper">
+					<input type="text" name="s" id="header-search" class="s" size="30" value="<?php if( is_search() ) { the_search_query(); } else { echo "Search ".get_bloginfo('name'); } ?>" onfocus="if (!main_search_used) { this.value = ''; main_search_used = true; }" />
+					<input type="submit" id="searchsubmit" value="Search">
+				</div>
+			</form><!-- #site-searchform -->
+
+		</div><!-- #header-menu -->
+	</div><!-- #header-menu-wrapper -->
+
+	<div id="header-menu-button" class="button" controls="header-menu"></div>
+
+	<?php endif; ?>
+	
+	</div><!-- #banner -->
+</div><!-- #banner-wrapper -->
 

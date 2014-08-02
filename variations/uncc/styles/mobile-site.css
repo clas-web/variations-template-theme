@@ -87,5 +87,11 @@
 	width:100% !important;
 	background-repeat:no-repeat;
 	background-position:center center;
+	position:relative;
 }
+
+#header-menu-button {
+	bottom: -12px;
+}
+
 

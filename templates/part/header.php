@@ -46,19 +46,45 @@ if( $description['use-site-link'] ) $description['link'] = get_site_url();
 	<?php endif; ?>
 
 
-	<?php if( count(wp_get_nav_menu_items('header-navigation')) > 0 ): ?>
-
+	<?php
+		$header_menu = wp_nav_menu( 
+			array(
+				'menu_class' => 'header-navigation',
+				'theme_location' => 'header-navigation',
+				'echo' => false,
+			)
+		);
+	?>
+	
 	<div id="header-menu-wrapper" class="clearfix">
 		<div id="header-menu" class="clearfix">
-		<?php if( $uncc_mobile_support->use_mobile_site ): ?><h2>Menu</h2><?php endif; ?>
-		<?php wp_nav_menu( array( 'menu_class' => 'navmenu', 'theme_location' => 'header-navigation' ) ); ?>
+		
+		<?php if( $uncc_mobile_support->use_mobile_site ): ?>
+			<h2 class="search">Search</h2>
+			<form id="site-searchform" role="search" method="get" class="searchform" action="http://thinkingmatters.uncc.edu/">
+				<script>var main_search_used = false;</script>
+				<div class="textbox_wrapper">
+					<input type="text" name="s" id="header-search" class="s" size="30" value="<?php if( is_search() ) { the_search_query(); } else { echo "Search ".get_bloginfo('name'); } ?>" onfocus="if (!main_search_used) { this.value = ''; main_search_used = true; }" />
+					<input type="submit" id="searchsubmit" value="Search">
+				</div>
+			</form><!-- #site-searchform -->
+		<?php endif; ?>
+
+		<?php if( strpos( $header_menu, '</li>' ) !== false ): ?>
+			<?php if( $uncc_mobile_support->use_mobile_site ): ?><h2 class="menu">Menu</h2><?php endif; ?>
+			<?php echo $header_menu; ?>
+		<?php endif; ?>
+
 		</div><!-- #header-menu -->
 	</div><!-- #header-menu-wrapper -->
 	
+	
+	<?php if( $uncc_mobile_support->use_mobile_site ): ?>
+		<div id="header-menu-button"></div>
+		<div id="header-menu-button-search-menu">
+			SEARCH<?php if( strpos( $header_menu, '</li>' ) !== false ): ?> / MENU<?php endif; ?>
+		</div>
 	<?php endif; ?>
-	
-	
-	<div id="header-menu-button" class="button" controls="header-menu"></div>
 
 
 	</div><!-- #header -->
