@@ -121,7 +121,30 @@
 		right:0px;
 		bottom:0px;
 	}
+
+/****************************************************************************************
+ * Header and Footer Search
+ ****************************************************************************************/
+
+	#header form.searchform input[type=text],
+	#footer form.searchform input[type=text] {
+		height: 15px;
+		line-height: 15px;
+		margin: 0;
+		vertical-align: middle;
+		border: none;
+		outline: none;
+		padding:2px 5px;
+	}
 	
+	#header form.searchform input[type=image],
+	#footer form.searchform input[type=image] {
+	    display: inline-block;
+	    vertical-align: middle;
+	    height:19px;
+	    width:19px;
+	}
+
 /****************************************************************************************
  * Main
  ****************************************************************************************/

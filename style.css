@@ -208,65 +208,54 @@ Tags:
  * Widget - Search
  ****************************************************************************************/
 
-	.searchform input[type="text"] {
-		margin: 0px;
-		padding: 0 0 0 3px;
-		border: 0px;
-		min-height: 19px;
-		border-radius:0;
-		width:160px;
-	}
-
-	.searchform input[type="image"] {
-		margin: 0px;
-		padding: 0px;
-		min-height: 19px;
-		display: inline-block;
-		outline: none;
-		vertical-align:bottom;
-		border-radius:0;
+	.widget_search {
+		position:relative;
 	}
 	
-	#content .searchform {
-		/*
-		margin: 10px 0px 20px 0px;
-		*/
+	.widget_search .searchform {
+		width:100%;
+		height:30px;
 	}
 	
-	#content .searchform .screen-reader-text {
+	.widget_search .searchform > div {
+		position: absolute;
+		left: 0;
+		height: 26px;
+		border: solid 1px #666;
+		right: 0px;
+		top: 0;
+		padding: 2px 5px;
+		padding-right: 35px;
+	}
+	
+	.widget_search .searchform .screen-reader-text {
 		display:none;
 	}
-	
-	#content .searchform .textbox_wrapper {
-		display:inline-block;
-	}
-		
-	#content .searchform input[type="text"] {
-		margin:0px;
-		min-height:2em;
-		border-radius:0;
-		width:548px;
-		/* margin-left:5px; */
-		border:solid 1px #ccc;
-		padding-left:5px;
-		padding-right:5px;
+
+	.widget_search .searchform input[type=text] {
+		display: block;
+		line-height: 26px;
+		margin: 0px;
+		padding: 0px;
+		width: 100%;
+		border: none;
+		outline:none;
 	}
 	
-	#content .searchform input[type="submit"] {
-		width:120px;
-		border-radius:0;
-		font-size:1.3em;
-		margin-left:5px;
-	}
-	
-	body.search-no-results #content p {
-		margin:10px 0px;
-	}
-		
-	#uncc-searchform,
-	#uncc-searchform #q,
-	#uncc-searchform #edit-submit {
-		vertical-align:middle;
+	.widget_search .searchform input[type=submit] {
+		position: absolute;
+		width: 30px;
+		height: 30px;
+		line-height: 30px;
+		color: transparent;
+		background-color: #666;
+		border: solid 1px #666;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		background-image:url('images/google-search-button.png');
+		background-position: center;
+		background-repeat: no-repeat;
 	}
 
 /****************************************************************************************
