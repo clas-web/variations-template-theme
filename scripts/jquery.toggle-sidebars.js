@@ -94,11 +94,13 @@ function toggle_sidebar( id )
 			
 			jQuery(sidebar).switchClass('hide', 'show', 200);
 			jQuery('#'+id+'-button').switchClass('hide', 'show', 0);
+			jQuery('#overlay').switchClass('hide', 'show', 200);
 		}
 		else
 		{
 			jQuery(sidebar).switchClass('show', 'hide', 200);
 			jQuery('#'+id+'-button').switchClass('show', 'hide', 0);
+			jQuery('#overlay').switchClass('show', 'hide', 0);
 		}
 	}
 	else

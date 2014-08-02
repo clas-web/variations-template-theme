@@ -39,6 +39,8 @@
 ?>
 <body <?php body_class($class); ?> >
 
+<div id="overlay"></div>
+
 <div id="site-outside-wrapper" class="clearfix">
 <div id="site-inside-wrapper" class="clearfix">
 
