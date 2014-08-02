@@ -269,41 +269,49 @@
 		position:relative;
 	}
 
-	.sidebar.wrapper {
-		position:absolute;
-		top:0px;
-		z-index:99;
+	body { 
+		overflow-x:hidden;
+	}
+	
+	#left-sidebar-wrapper,
+	#right-sidebar-wrapper {
+		box-shadow:0px 0px 5px rgba(0,0,0,0.4);
 		background-color:#fff;
-		width:auto;
-		box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
-	}
-
-	#left-sidebar-wrapper.show {
-		left:5px;
-		right:5px;
 		margin-bottom:5px;
+		z-index:99;
+		top:-5px;
+	}
+	
+	#left-sidebar-wrapper {
+		position:absolute;
+		left:-105%;
+		right:105%;
 	}
 
-	#right-sidebar-wrapper.show {
-		left:5px;
-		right:5px;
-		margin-bottom:5px;
+	#right-sidebar-wrapper {
+		position:absolute;
+		left:105%;
+		right:-105%;
 	}
-
+	
 	#left-sidebar-wrapper.hide {
 		left:-105%;
 		right:105%;
 	}
-
+	
+	#left-sidebar-wrapper.show {
+		left:5px;
+		right:5px;
+	}
+	
 	#right-sidebar-wrapper.hide {
 		left:105%;
 		right:-105%;
-		left:-105%;
-		right:105%;
 	}
-
-	.sidebar {
-		padding-top:30px;
+	
+	#right-sidebar-wrapper.show {
+		left:5px;
+		right:5px;
 	}
 	
 /****************************************************************************************
