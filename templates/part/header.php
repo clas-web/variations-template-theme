@@ -22,8 +22,9 @@ if( $description['use-site-link'] ) $description['link'] = get_site_url();
 
 	<div class="masthead" style="background-image:url('<?php echo $header_url; ?>'); width:<?php echo $header_width; ?>px; height:<?php echo $header_height; ?>px;">
 	
-		<div class="title-box-wrapper" style="height:<?php echo $header_height; ?>px;">
-		<div class="title-box <?php echo $position; ?>">
+		<div id="title-box-placeholder">
+		<div id="title-box-wrapper" style="height:<?php echo $header_height; ?>px;">
+		<div id="title-box" class="<?php echo $position; ?>">
 		
 		<?php if( !empty($title['text']) ): ?>
 			<?php echo uncc_get_anchor( $title['link'], null, null, '<div class="name">'.$title['text'].'</div>' ); ?>
@@ -33,8 +34,9 @@ if( $description['use-site-link'] ) $description['link'] = get_site_url();
 			<?php echo uncc_get_anchor( $description['link'], null, null, '<div class="description">'.$description['text'].'</div>' ); ?>
 		<?php endif; ?>
 		
-		</div><!-- .title-box -->
-		</div><!-- .title-box-wrapper -->
+		</div><!-- #title-box -->
+		</div><!-- #title-box-wrapper -->
+		</div><!-- #title-box-placeholder -->
 		
 	</div><!-- .masthead -->
 	

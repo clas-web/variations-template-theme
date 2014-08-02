@@ -19,16 +19,17 @@ if( $description['use-blog-info'] ) $description['text'] = get_bloginfo('descrip
 if( $description['use-site-link'] ) $description['link'] = get_site_url();
 ?>
 
-<div id="header-wrapper" class="clearfix" style="background-image:url('<?php echo $header_wrapper_bg; ?>'); height:<?php echo $header_height; ?>px;">
+<div id="header-wrapper" class="clearfix" style="background-image:url('<?php echo $header_wrapper_bg; ?>');">
 	<div id="header" class="clearfix">
 
 
-	<div class="masthead" style="background-image:url('<?php echo $header_bg; ?>'); height:<?php echo $header_height; ?>px; width:<?php echo $header_width; ?>px;">
+	<div class="masthead" style="background-image:url('<?php echo $header_bg; ?>');">
 
 		<?php uncc_image( $uncc_config->get_image_data( 'header', 'logo' ) ); ?>
 
-		<div class="title-box-wrapper" style="height:100px">
-		<div class="title-box <?php echo $position; ?>">
+		<div id="title-box-placeholder">
+		<div id="title-box-wrapper">
+		<div id="title-box" class="<?php echo $position; ?>">
 		
 		<?php if( !empty($title['text']) ): ?>
 			<?php echo uncc_get_anchor( $title['link'], null, null, '<div class="name">'.$title['text'].'</div>' ); ?>
@@ -38,8 +39,9 @@ if( $description['use-site-link'] ) $description['link'] = get_site_url();
 			<?php echo uncc_get_anchor( $description['link'], null, null, '<div class="description">'.$description['text'].'</div>' ); ?>
 		<?php endif; ?>
 
-		</div>
-		</div>
+		</div><!-- #title-box -->
+		</div><!-- #title-box-wrapper -->
+		</div><!-- #title-box-placeholder -->
 		
 
 		<?php if( !$uncc_mobile_support->use_mobile_site ): ?>
@@ -65,7 +67,7 @@ if( $description['use-site-link'] ) $description['link'] = get_site_url();
 		<?php endif; ?>
 	
 	</div><!-- .masthead -->
-	
+
 
 	</div><!-- #header -->
 </div><!-- #header-wrapper -->

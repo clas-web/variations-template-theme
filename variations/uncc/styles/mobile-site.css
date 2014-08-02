@@ -22,26 +22,28 @@
 		left:10px;
 	}
 	
-	#header .title-box-wrapper {
+	#header #title-box-placeholder {
+		position:absolute;
+		display:block;
 		top:0;
 		left:100px;
 		right:0px;
 		bottom:0;
-		display:table;
 		height:70px !important;
-		font-size:0.8em;
-		text-align:left;
-		width:auto;
 	}
 	
-	#header .title-box {
+	#header #title-box-wrapper {
+		display:table;
+		font-size:0.8em;
+	}
+	
+	#header #title-box {
 		font-family: "Times New Roman", Times, serif !important;
 		text-align:left;
-		width:auto;
 	}
 	
-	#header .title-box .name,
-	#header .title-box .description {
+	#header #title-box .name,
+	#header #title-box .description {
 		background-color:inherit;
 		color:#fff;
 		padding:0px;
@@ -49,21 +51,21 @@
 		width:auto;
 	}
 
-	#header .title-box .name {
+	#header #title-box .name {
 		font-size: 1.5em;
 		letter-spacing: 0.05em;
 	}
 
-	#header .title-box .description {
+	#header #title-box .description {
 		display:none;
 	}
 	
-	#header .title-box a {
+	#header #title-box a {
 		color:#fff;
 		padding:0px;
 	}
 
-	#header .title-box a:hover {
+	#header #title-box a:hover {
 		text-decoration:underline;
 	}
 

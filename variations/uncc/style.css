@@ -4,12 +4,16 @@
  * Header
  ****************************************************************************************/
 
-	#header .title-box .name {
+	#header {
+		height:100px;
+	}
+	
+	#header #title-box .name {
 		font-weight:normal;
 		margin:0px;
 	}
 
-	#header .title-box .description {
+	#header #title-box .description {
 		font-weight:normal;
 		margin:0px;
 	}
