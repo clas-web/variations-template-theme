@@ -3,7 +3,7 @@
  * @author Crystal Barton
  */
  
- 
+
 jQuery(document).ready( function()
 {
 	setup_sidebar( 'left-sidebar' );
@@ -12,6 +12,7 @@ jQuery(document).ready( function()
 	jQuery('#left-sidebar-button').click( function() { toggle_sidebar('left-sidebar'); } );
 	jQuery('#right-sidebar-button').click( function() { toggle_sidebar('right-sidebar'); } );
 	jQuery('#header-menu-button').click( function() { toggle_sidebar('header-menu'); } );
+	jQuery('#overlay').click( function() { hide_all_sidebars(); } );
 });
 
 
@@ -66,6 +67,21 @@ function setup_sidebar( id )
 			jQuery('#'+l+'-button').addClass('show');
 		}
 	}
+}
+
+
+function hide_all_sidebars()
+{
+	var sidebars = [ 'left-sidebar', 'right-sidebar', 'header-menu' ];
+	
+	for( var i in sidebars )
+	{
+		var id = sidebars[i];
+		jQuery( '#'+id+'-wrapper' ).switchClass('show', 'hide', 200);
+		jQuery( '#'+id+'-button').switchClass('show', 'hide', 0);
+	}
+	
+	jQuery('#overlay').switchClass('show', 'hide', 0);
 }
 
 
