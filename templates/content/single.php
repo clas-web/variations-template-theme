@@ -8,11 +8,13 @@
 <div class="post clearfix">
 
 	<div class="details">
-
-	<div class="contents">
+	<div class="entry-meta">
+	<?php // uncc_posted_on(); //should only be added to posts not pages ?>
+	</div><!-- .entry-meta -->
+	<div class="entry-content">
 	<?php echo apply_filters( 'the_content', $post->post_content ); ?>
 	</div><!-- .contents -->
-
+	
 	</div><!-- .details -->
 
 </div><!-- .post -->

@@ -716,6 +716,27 @@ function uncc_get_section( $wpquery = null )
 }
 endif;
 
+//----------------------------------------------------------------------------------------
+// Need to add support for displaying multiple authors...
+//----------------------------------------------------------------------------------------
+if ( ! function_exists( 'uncc_posted_on' ) ) :
+function uncc_posted_on() {
+	printf( __( '<span class="%1$s"></span> %2$s <span class="meta-sep">by</span> %3$s', '2010-translucence' ),
+		'meta-prep meta-prep-author',
+		sprintf( '<a href="%1$s" title="%2$s" rel="bookmark"><span class="entry-date">%3$s</span></a>',
+			get_permalink(),
+			esc_attr( get_the_time() ),
+			get_the_date()
+		),
+		sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s">%3$s</a></span>',
+			get_author_posts_url( get_the_author_meta( 'ID' ) ),
+			sprintf( esc_attr__( 'View all posts by %s', '2010-translucence' ), get_the_author() ),
+			get_the_author()
+		)
+	);
+}
+endif;
+
 
 
 //----------------------------------------------------------------------------------------
