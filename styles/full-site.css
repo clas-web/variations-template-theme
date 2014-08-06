@@ -68,7 +68,7 @@
 	}
 
 	#left-sidebar-wrapper {
-		border-right:solid 1px #CCCCCC;
+		border-right:solid 1px transparent;
 		padding-right:20px;
 		position:relative;
 		right:-1px;
@@ -78,7 +78,7 @@
 	}
 	
 	#right-sidebar-wrapper {
-		border-left:solid 1px #CCCCCC;
+		border-left:solid 1px transparent;
 		padding-left:20px;
 		position:relative;
 		left:-1px;
@@ -106,7 +106,7 @@
  ****************************************************************************************/
 
 	#content .sidebar-controls {
-		margin-bottom:14px;
+		margin: 10px 0 14px 0;
 	}
 	
 	#content {
@@ -137,12 +137,12 @@
 	}
 	
 	#content.left-sidebar {
-		border-left:solid 1px #CCCCCC;
+		border-left:solid 1px transparent;
 		padding-left:20px;
 	}
 	
 	#content.right-sidebar {
-		border-right:solid 1px #CCCCCC;
+		border:solid 1px transparent;
 		padding-right:20px;
 	}
 	
@@ -216,7 +216,7 @@
  ****************************************************************************************/
 	
 	.sidebar .widget {
-		margin:20px 0px;
+		margin:10px 0px;
 		color: #333333;
 		font-size: 1em;
 		line-height: 1.3em;
