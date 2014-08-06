@@ -80,7 +80,7 @@ class UNCC_AdminMain
 			default: return false; break;
 		}
 		
-		if( array_key_exists($page, $uncc_admin_pages) )
+		if( isset($uncc_admin_pages) && array_key_exists($page, $uncc_admin_pages))
 		{
 			$info = $uncc_admin_pages[$page];
 			$path = uncc_get_theme_file_path( 'admin/admin-page/'.$info['file'] );
