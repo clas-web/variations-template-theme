@@ -163,6 +163,53 @@
 		border-right:none;
 		padding-right:0px;
 	}
+	
+	#content .entry-content,
+	#content .excerpt {
+		color: #333333;
+		font-size: 1em;
+		line-height: 1.5em;
+		padding: 12px 0 0 0;
+	}
+	
+	#content .entry-title {
+		font-family: times,"times new roman",serif;
+		color: #000;
+		font-weight: normal;
+		line-height: 1.3em;
+		margin-bottom: 0;
+		display: block;
+		border-bottom: 1px solid #CCCCCC;
+		padding: 12px 0 0 0;
+	}
+
+	#content .entry-title a {
+		display: block;
+		color: #000;
+	}
+
+	#content .entry-title:hover {
+		border-bottom: 1px solid #000;
+	}
+
+	#content .entry-title a:hover {
+		text-decoration: none;
+	}
+
+	#content .entry-meta {
+		font-size: .8em;
+		color: #333333;
+		padding: 4px 0 0 0;
+	}
+	
+	.avatar {
+		float: right;
+	}
+	
+	.stats .description {
+		padding: 0 0 12px 0;
+	}
+	
 
 /****************************************************************************************
  * Sidebar
@@ -170,6 +217,10 @@
 	
 	.sidebar .widget {
 		margin:20px 0px;
+		color: #333333;
+		font-size: 1em;
+		line-height: 1.3em;
+		padding: 0px 0 0 0;
 	}
 	
 	.sidebar h2.widget-title {
@@ -185,6 +236,15 @@
 		font-size:1em;
 		font-family:Times, "Times New Roman", serif;
 		text-transform:uppercase;
+	}
+	
+	.sidebar .widget ul {
+		list-style: none;
+		padding: 0px;
+	}
+	.sidebar .widget_recent_entries li,
+	.sidebar .widget_links li {
+		padding: 3px;
 	}
 
 /****************************************************************************************
