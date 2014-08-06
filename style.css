@@ -68,6 +68,10 @@ Tags:
 		font-size:1.0em;
 	}
 	
+	#content p {
+		margin-bottom: 24px;
+	}
+	
 	#content > h1 {
 		border-bottom:solid 1px #ccc;
 	}
