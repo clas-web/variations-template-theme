@@ -240,7 +240,10 @@ function uncc_get_header_image()
 	}
 	else
 	{
-		list( $header_width, $header_height ) = getimagesize( $header_url );
+		$header_url_parts = parse_url($header_url,PHP_URL_PATH);
+		//list( $header_width, $header_height ) = getimagesize( $header_url );
+		$header_width = 950;
+		$header_height = 200;
 	}
 	
 	return array(
