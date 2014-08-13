@@ -4,10 +4,6 @@
 <?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars, $wp_query; ?>
 
 
-<?php if( isset($uncc_template_vars['description']) ): ?>
-	<div class="description"><?php echo $uncc_template_vars['description']; ?></div>
-<?php endif; ?>
-
 <div class="author-info clearfix">
 
 	<?php echo get_avatar( get_the_author_meta('ID') ); ?>
