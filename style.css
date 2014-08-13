@@ -23,8 +23,7 @@ Tags:
 		font-size:0.95em;
 	}
 
-	#page,
-	body .site {
+	#site-inside-wrapper {
 		margin:0 auto;
 		padding:0;
 		background-color:#fff;
