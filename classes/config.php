@@ -376,9 +376,11 @@ class UNCC_Config
 	//------------------------------------------------------------------------------------
 	private function get_directories( $folders )
 	{
-		$directories = array();		
+		$directories = array( 'default' );		
 		foreach( $folders as $folder )
 		{
+			if( !file_exists($folder) ) continue;
+			
 			$files = scandir( $folder );
 			foreach( $files as $file )
 			{
