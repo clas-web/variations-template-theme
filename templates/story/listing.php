@@ -11,9 +11,13 @@
 	
 	<div class="entry-meta"><?php echo uncc_get_byline($post); ?></div><!-- .entry-meta -->
 	
+	<?php if( $post->post_type == 'post' ): echo uncc_get_taxonomy_list('category', $post); endif; ?>
+
 	<div class="excerpt">
 	<?php echo get_the_excerpt(); ?>
 	</div><!-- .excerpt -->
+
+	<?php if( $post->post_type == 'post' ): echo uncc_get_taxonomy_list('post_tag', $post); endif; ?>
 
 </div><!-- .description -->
 

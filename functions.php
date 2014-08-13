@@ -772,6 +772,43 @@ function uncc_get_breadcrumbs( $post )
 endif;
 
 
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists( 'uncc_get_taxonomy_list' ) ):
+function uncc_get_taxonomy_list( $taxonomy_name, $post )
+{
+	$taxonomy = get_taxonomy( $taxonomy_name );
+	if( !$taxonomy ) return '';
+
+	$terms = wp_get_post_terms( $post->ID, $taxonomy_name );
+
+	$html = '';
+	$html .= '<div class="taxonomy-list '.$taxonomy->name.'-list">';	
+
+	$html .= $taxonomy->label.': ';
+
+	if( count($terms) > 0 )
+	{
+		$list = array();
+		foreach( $terms as $t )
+		{
+			$list[] = uncc_get_anchor( get_term_link($t->term_id, $taxonomy_name), $t->name, $t->slug, $t->name );
+		}
+		$html .= implode( ', ', $list );
+	}
+	else
+	{
+		$html .= '-';
+	}
+	
+	$html .= '</div>';
+	
+// 	echo '<pre>'; var_dump($html); echo '</pre>';
+	return $html;
+}
+endif;
+
 
 //----------------------------------------------------------------------------------------
 // 
