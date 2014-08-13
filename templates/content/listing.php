@@ -27,7 +27,7 @@ else:
 	while( have_posts() ):
 
 		the_post();
-		uncc_get_template_part( 'listing', 'story' );
+		uncc_get_template_part( 'listing', 'post' );
 	
 	endwhile; // while( have_posts() )
  

@@ -15,5 +15,5 @@
 
 </div><!-- .description -->
 
-</div><!-- .story -->
+</div><!-- .post -->
 
