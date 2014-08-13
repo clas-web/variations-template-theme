@@ -20,6 +20,19 @@ add_action( 'init', 'uncc_register_menus' );
 add_action( 'after_setup_theme', 'uncc_add_featured_image_support' );
 add_action( 'wp_enqueue_scripts', 'uncc_enqueue_scripts', 0 );
 
+add_filter( 'embed_oembed_html', 'uncc_embed_html', 10, 3 );
+add_filter( 'video_embed_html', 'uncc_embed_html' );
+
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_embed_html') ):
+function uncc_embed_html( $html )
+{
+	return '<div class="video-container">' . $html . '</div>';
+}
+endif; 
 
 //----------------------------------------------------------------------------------------
 // 
@@ -32,7 +45,9 @@ function uncc_show_admin_bar( $show_admin_bar )
 endif;
 
 
-
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
 if( !function_exists('uncc_register_menus') ):
 function uncc_register_menus()
 {
