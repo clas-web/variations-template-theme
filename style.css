@@ -90,6 +90,15 @@ Tags:
 		border:0;
 	}
 	
+	img {
+		max-width:100%;
+		height:auto;
+	}
+	
+	div {
+		max-width:100%;
+	}
+		
 	p {
 		margin:5px 0px;
 	}
