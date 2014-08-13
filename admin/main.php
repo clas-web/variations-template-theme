@@ -111,6 +111,7 @@ class UNCC_AdminMain
 	
 	public static function process_input( $input, $option )
 	{
+		global $uncc_config;
 		$page = $_POST['option_page'];
 		$tab = ( !empty($_POST['tab']) ? $_POST['tab'] : null );
 		$post = ( !empty($_POST[$option]) ? $_POST[$option] : null );
