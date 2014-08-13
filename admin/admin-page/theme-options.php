@@ -4,7 +4,7 @@
 /**
  *
  */
-class NH_AdminPage_Options extends NH_AdminPage
+class NH_AdminPage_ThemeOptions extends NH_AdminPage
 {
 
 	private static $_instance = null;
@@ -44,7 +44,7 @@ class NH_AdminPage_Options extends NH_AdminPage
 	{
 		if( self::$_instance === null )
 		{
-			self::$_instance = new NH_AdminPage_Options( $slug );
+			self::$_instance = new NH_AdminPage_ThemeOptions( $slug );
 		}
 		
 		return self::$_instance;
@@ -625,10 +625,6 @@ class NH_AdminPage_Options extends NH_AdminPage
 		?>
 		
 		<select name="<?php uncc_input_name_e( $this->tab, 'variation' ); ?>">
-			<option value="default" 
-			        <?php selected( 'default', $current_variation ); ?>>
-			    default
-			</option>
 		
 		<?php foreach( $variations as $variation ): ?>
 			<option value="<?php echo $variation; ?>" 
