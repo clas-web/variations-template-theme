@@ -382,6 +382,40 @@ Tags:
 	#content .taxonomy-list {
 		margin:10px 0px;
 	}
+	
+	#content .comments {
+		clear:both;
+		margin:2em 0;
+		padding:1em 0;
+		border-top:solid 1px #ccc;
+	}
+
+	#content .comments textarea {
+		max-width:100%;
+	}
+	
+	#content .comments ol,
+	#content .comments ul {
+		list-style:none;
+	}
+
+	#content .comments .commentlist {
+		padding:0px;
+		border-bottom:solid 1px #ccc;
+	}
+
+	#content .comments .commentlist .comment-body {
+		padding:10px;
+		border-top:solid 1px #ccc;
+	}
+	
+	#content .comments .children {
+		padding-left:1em;
+	}
+	
+	#content .comments .commentlist .reply {
+		text-align:right;
+	}
 
 /****************************************************************************************
  * Sidebar

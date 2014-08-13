@@ -23,5 +23,11 @@
 	
 	</div><!-- .details -->
 
+	<div class="comments">
+	
+	<?php comments_template(); ?> 
+	
+	</div><!-- .comments -->
+	
 </div><!-- .post -->
 
