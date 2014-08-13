@@ -275,7 +275,7 @@ Tags:
  * Content
  ****************************************************************************************/
 
-	.sidebar-controls {
+	#content .sidebar-controls {
 		min-height:16px;
 		height:16px;
 		margin-bottom:5px;
@@ -283,7 +283,7 @@ Tags:
 		padding:0px;
 	}
 	
-	.sidebar-controls .button {
+	#content .sidebar-controls .button {
 		width:16px;
 		height:16px;
 		background-image:url('images/menu16.png');
@@ -291,11 +291,11 @@ Tags:
 		border:solid 1px #ccc;
 	}
 
-	.sidebar-controls .button.show {
+	#content .sidebar-controls .button.show {
 		background-image:url('images/menu16.png');
 	}
 
-	.sidebar-controls .button.hide {
+	#content .sidebar-controls .button.hide {
 		background-image:url('images/menu16-hide.png');
 	}
 		

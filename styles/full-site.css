@@ -68,21 +68,17 @@
 	}
 
 	#left-sidebar-wrapper {
-		border-right:solid 1px transparent;
+		border:solid 1px transparent;
 		padding-right:20px;
 		position:relative;
-		right:-1px;
-		margin-left:-1px;
 		width:220px;
 		overflow:hidden;
 	}
 	
 	#right-sidebar-wrapper {
-		border-left:solid 1px transparent;
+		border:solid 1px transparent;
 		padding-left:20px;
 		position:relative;
-		left:-1px;
-		margin-right:-1px;
 		width:220px;
 		overflow:hidden;
 	}
@@ -116,8 +112,8 @@
 	
 	#content.full-width,
 	#content.two-sidebars-width.hide-left-sidebar.hide-right-sidebar,
-	#content.one-sidebar-width.hide-left-sidebar,
-	#content.one-sidebar-width.hide-right-sdiebar {
+	#content.one-sidebar-width.left-sidebar.hide-left-sidebar,
+	#content.one-sidebar-width.right-sidebar.hide-right-sidebar {
 		min-width:950px;
 		width:950px;
 	}
@@ -126,18 +122,18 @@
 	#content.two-sidebars-width.hide-left-sidebar,
 	#content.two-sidebars-width.hide-right-sidebar {
 		float:left;
-		min-width:689px;
-		width:689px;
+		min-width:686px;
+		width:686px;
 	}
 
 	#content.two-sidebars-width {
 		float:left;
-		min-width:428px;
-		width:428px;
+		min-width:424px;
+		width:424px;
 	}
 	
 	#content.left-sidebar {
-		border-left:solid 1px transparent;
+		border:solid 1px transparent;
 		padding-left:20px;
 	}
 	
@@ -155,12 +151,12 @@
 	}
 	
 	#content.left-sidebar.hide-left-sidebar {
-		border-left:none;
+		border:solid 0px transparent;
 		padding-left:0px;
 	}
 	
 	#content.right-sidebar.hide-right-sidebar {
-		border-right:none;
+		border:solid 0px transparent;
 		padding-right:0px;
 	}
 	
