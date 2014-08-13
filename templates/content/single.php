@@ -3,6 +3,8 @@
 <?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars, $post, $wp_query; ?>
 
 
+<div class="breadcrumbs"><?php echo uncc_get_breadcrumbs( $post ); ?></div>
+
 <h1><?php echo apply_filters( 'the_title', $post->post_title ); ?></h1>
 
 <div class="post clearfix">

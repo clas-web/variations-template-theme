@@ -302,6 +302,12 @@ Tags:
 	#content .sidebar-controls .button:hover {
 		cursor:pointer;
 	}
+	
+	#content .breadcrumbs {
+		font-size: 0.6em;
+		margin: 10px 0px;
+	}
+	
 
 /****************************************************************************************
  * Widget - Pages

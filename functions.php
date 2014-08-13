@@ -738,6 +738,32 @@ function uncc_posted_on() {
 endif;
 
 
+if( !function_exists( 'uncc_get_breadcrumbs' ) ):
+function uncc_get_breadcrumbs( $post )
+{
+	$breadcrumbs = array();
+	$breadcrumbs[] = get_the_title( $post->ID );
+
+	if( $post->post_parent )
+	{
+		$parent_id = $post->post_parent;
+		while( $parent_id )
+		{
+			$page = get_page( $parent_id );
+			$link = get_permalink($page->ID);
+			$title = get_the_title($page->ID);
+			$breadcrumbs[] = '<a href="'.$link.'" title="'.$title.'">'.$title.'</a>';
+			$parent_id = $page->post_parent;
+		}
+	}
+
+	if( count($breadcrumbs) > 1 )
+		return implode( ' &raquo; ',  array_reverse($breadcrumbs) );
+	return '';
+}
+endif;
+
+
 
 //----------------------------------------------------------------------------------------
 // 
