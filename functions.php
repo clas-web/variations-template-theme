@@ -240,10 +240,7 @@ function uncc_get_header_image()
 	}
 	else
 	{
-		$header_url_parts = parse_url($header_url,PHP_URL_PATH);
-		//list( $header_width, $header_height ) = getimagesize( $header_url );
-		$header_width = 950;
-		$header_height = 200;
+		list( $header_width, $header_height ) = getimagesize( uncc_url_to_path($header_url) );
 	}
 	
 	return array(
@@ -254,6 +251,22 @@ function uncc_get_header_image()
 }
 endif;
 
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_url_to_path') ):
+function uncc_url_to_path( $url )
+{
+	if( (is_child_theme()) && ( strpos($url, get_stylesheet_directory_uri()) !== false ) )
+		return str_replace( get_stylesheet_directory_uri(), get_stylesheet_directory(), $url );
+
+	if( strpos($url, get_template_directory_uri()) !== false )
+		return str_replace( get_template_directory_uri(), get_template_directory(), $url );
+	
+	return $url;
+}
+endif;
 
 
 //----------------------------------------------------------------------------------------

@@ -5,9 +5,7 @@
 <?php
 $header_wrapper_bg = uncc_get_image_url( $uncc_config->get_value( 'header', 'header-wrapper-bg', 'path' ) );
 $header_bg = uncc_get_image_url( $uncc_config->get_value( 'header', 'header-bg', 'path' ) );
-//list( $header_width, $header_height ) = getimagesize( $header_bg );
-$header_width = 950;
-$header_height = 200;
+list( $header_width, $header_height ) = getimagesize( uncc_url_to_path($header_bg) );
 
 list( $banner_url, $banner_width, $banner_height ) = array_values( uncc_get_header_image() );
 
