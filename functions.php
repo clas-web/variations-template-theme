@@ -9,6 +9,24 @@
 //========================================================================================
 
 
+
+// 
+// Setup the config information.
+//----------------------------------------------------------------------------------------
+require_once( get_template_directory().'/classes/config.php' );
+$uncc_config = new uncc_config;
+$uncc_config->load_config();
+
+// 
+// Include variation's functions.php
+//----------------------------------------------------------------------------------------
+if( file_exists(get_stylesheet_directory().'/variations/'.$uncc_config->get_current_variation().'/functions.php') )
+require_once( get_stylesheet_directory().'/variations/'.$uncc_config->get_current_variation().'/functions.php' );
+
+if( file_exists(get_template_directory().'/variations/'.$uncc_config->get_current_variation().'/functions.php') )
+require_once( get_template_directory().'/variations/'.$uncc_config->get_current_variation().'/functions.php' );
+
+
 //========================================================================================
 //====================================================== Default filters and actions =====
 
@@ -919,13 +937,6 @@ add_image_size( 'thumbnail_landscape', 324 );
 require_once( get_template_directory().'/classes/mobile-support.php' );
 $uncc_mobile_support = new Mobile_Support;
 
-// 
-// Setup the config information.
-//----------------------------------------------------------------------------------------
-require_once( get_template_directory().'/classes/config.php' );
-$uncc_config = new uncc_config;
-$uncc_config->load_config();
-
 //
 // Include the admin backend. 
 //----------------------------------------------------------------------------------------
@@ -939,11 +950,4 @@ $filepath = uncc_get_theme_file_path( '/admin/main.php', 'variation' );
 if( $filepath ) require_once( $filepath );
 
 endif;
-
-// 
-// Include variation's functions.php
-//----------------------------------------------------------------------------------------
-$filepath = uncc_get_theme_file_path( 'variations/'.$uncc_config->get_current_variation().'/functions.php' );
-if( $filepath ) require_once( $filepath );
-
 

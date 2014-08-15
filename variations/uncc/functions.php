@@ -1,7 +1,6 @@
 <?php
 
 
-
 add_action( 'after_setup_theme', 'uncc_modify_custom_header', 99 );
 
 
@@ -28,10 +27,12 @@ function uncc_modify_custom_header()
 endif;
 
 
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
 if( !function_exists('uncc_register_menus') ):
 function uncc_register_menus()
 {
-	uncc_print('uncc_register_menus');
 	register_nav_menus(
 		array(
 			'header-links' => __( 'Header Links' ),
