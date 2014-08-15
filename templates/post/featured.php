@@ -9,13 +9,21 @@
 
 	<a href="<?php echo get_permalink($post->ID); ?>"><h3><?php echo $post->post_title; ?></h3></a>
 
-	<?php if( $post->post_type == 'post' ): echo uncc_get_taxonomy_list('category', $post); endif; ?>
+	<?php if( $post->post_type === 'post' ): ?>
+		<div class="entry-meta"><?php echo uncc_get_byline($post); ?></div><!-- .entry-meta -->
+	<?php endif; ?>
 
+	<?php if( $post->post_type === 'post' ): ?>
+		<?php echo uncc_get_taxonomy_list('category', $post); ?>
+	<?php endif; ?>
+	
 	<div class="excerpt">
 	<?php echo get_the_excerpt(); ?>
 	</div><!-- .excerpt -->
 
-	<?php if( $post->post_type == 'post' ): echo uncc_get_taxonomy_list('post_tag', $post); endif; ?>
+	<?php if( $post->post_type === 'post' ): ?>
+		<?php echo uncc_get_taxonomy_list('post_tag', $post); ?>
+	<?php endif; ?>
 
 </div><!-- .description -->
 

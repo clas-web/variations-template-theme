@@ -11,15 +11,21 @@
 
 	<div class="details clearfix">
 
-	<div class="entry-meta"><?php echo uncc_get_byline($post); ?></div><!-- .entry-meta -->
+	<?php if( $post->post_type === 'post' ): ?>
+		<div class="entry-meta"><?php echo uncc_get_byline($post); ?></div><!-- .entry-meta -->
+	<?php endif; ?>
 
-	<?php if( $post->post_type == 'post' ): echo uncc_get_taxonomy_list('category', $post); endif; ?>
+	<?php if( $post->post_type === 'post' ): ?>
+		<?php echo uncc_get_taxonomy_list('category', $post); ?>
+	<?php endif; ?>
 	
 	<div class="entry-content">
-	<?php echo apply_filters( 'the_content', $post->post_content ); ?>
-	</div><!-- .contents -->
+		<?php echo apply_filters( 'the_content', $post->post_content ); ?>
+	</div><!-- .entry-content -->
 	
-	<?php if( $post->post_type == 'post' ): echo uncc_get_taxonomy_list('post_tag', $post); endif; ?>
+	<?php if( $post->post_type === 'post' ): ?>
+		<?php echo uncc_get_taxonomy_list('post_tag', $post); ?>
+	<?php endif; ?>
 	
 	</div><!-- .details -->
 
