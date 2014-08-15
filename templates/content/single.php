@@ -9,7 +9,7 @@
 
 <div class="post clearfix">
 
-	<div class="details">
+	<div class="details clearfix">
 
 	<div class="entry-meta"><?php echo uncc_get_byline($post); ?></div><!-- .entry-meta -->
 

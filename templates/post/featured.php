@@ -5,7 +5,7 @@
 
 <div class="post clearfix">
 
-<div class="details">
+<div class="details clearfix">
 
 	<a href="<?php echo get_permalink($post->ID); ?>"><h3><?php echo $post->post_title; ?></h3></a>
 
