@@ -287,8 +287,6 @@ function uncc_get_header_image()
 		$header_path = uncc_url_to_path($header_url);
 		$header_url = uncc_path_to_url($header_path);
 		list( $header_width, $header_height ) = getimagesize( $header_path );
-// 		uncc_print($header_url, 'header_url');
-// 		uncc_print(uncc_url_to_path($header_url), 'header_path');
 	}
 	
 	return array(
@@ -342,7 +340,7 @@ function uncc_url_to_path( $url )
 	}
 
 	$upload = wp_upload_dir();
-	if( strpos($url, $upload['baseurl'] !== false) )
+	if( strpos($url, $upload['baseurl']) !== false )
 	{
 		$path = str_replace( $upload['baseurl'], $upload['basedir'], $url );
 		if( file_exists($path) ) return $path;
@@ -374,7 +372,7 @@ function uncc_path_to_url( $path )
 	}
 
 	$upload = wp_upload_dir();
-	if( strpos($path, $upload['basedir'] !== false) )
+	if( strpos($path, $upload['basedir']) !== false )
 	{
 		return str_replace( $upload['basedir'], $upload['baseurl'], $path );
 	}
