@@ -123,7 +123,7 @@ function toggle_sidebar( id )
 	{
 		if( is_hidden[id] )
 		{
-			jQuery('#content').switchClass('hide-'+id, 'show-'+id, 250);
+			jQuery('#content').switchClass('hide-'+id, 'show-'+id, 245);
 			jQuery(sidebar).switchClass('hide', 'show', 250);
 			jQuery('#'+id+'-button').switchClass('hide', 'show', 0);
 			sessionStorage.setItem( id, 'true' );
@@ -131,7 +131,7 @@ function toggle_sidebar( id )
 		else
 		{
 			jQuery('#content').switchClass('show-'+id, 'hide-'+id, 250);
-			jQuery(sidebar).switchClass('show', 'hide', 250);
+			jQuery(sidebar).switchClass('show', 'hide', 245);
 			jQuery('#'+id+'-button').switchClass('show', 'hide', 0);
 			sessionStorage.setItem( id, 'false' );
 		}

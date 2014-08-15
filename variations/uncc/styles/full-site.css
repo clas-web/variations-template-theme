@@ -107,7 +107,7 @@
 		color:white;
 		margin-bottom:5px;
 	}
-	
+
 /****************************************************************************************
  * Banner
  ****************************************************************************************/
@@ -157,6 +157,7 @@
 		border:none;
 		padding-right:20px;
 		width:220px;
+		border:none !important;
 	}
 
 	#left-sidebar-wrapper.hide {
@@ -167,6 +168,7 @@
 		border:none;
 		padding-left:20px;
 		width:220px;
+		border:none !important;
 	}
 	
 	#right-sidebar-wrapper.hide {
@@ -180,6 +182,7 @@
 	#content {
 		min-height:1px;
 		margin-bottom:30px;
+		border:none !important;
 	}
 	
 	#content.full-width,

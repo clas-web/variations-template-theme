@@ -21,8 +21,12 @@
 		box-shadow:0px 0px 5px rgba(0,0,0,0.2);
 	}
 
-	#left-sidebar-wrapper, #right-sidebar-wrapper, #content-wrapper {
+	#left-sidebar-wrapper, #content-wrapper {
 		float:left;
+	}
+	
+	#right-sidebar-wrapper {
+		float:right;
 	}
 	
 /****************************************************************************************
@@ -64,7 +68,8 @@
  ****************************************************************************************/
 
 	#left-sidebar, #right-sidebar {
-		width:220px;
+		width:220px !important;
+		max-width:220px !important;
 	}
 
 	#left-sidebar-wrapper {
