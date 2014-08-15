@@ -399,7 +399,10 @@ Tags:
 		clear:both;
 		margin:2em 0;
 		padding:1em 0;
-		border-top:solid 1px #ccc;
+	}
+	
+	#content .comments .nocomments {
+		display:none;
 	}
 
 	#content .comments textarea {
