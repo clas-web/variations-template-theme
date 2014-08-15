@@ -60,7 +60,7 @@ if( $description['use-site-link'] ) $description['link'] = get_site_url();
 			<div id="header-utility">
 				<form id="site-searchform" class="searchform" method="get" action="<?php echo home_url( '/' ); ?>">
 					<script>var header_search_used = false;</script>
-					<input type="text" name="s" id="header-search" class="s" size="30" value="<?php if( is_search() ) { the_search_query(); } else { echo "Search ".get_bloginfo('name'); } ?>" onfocus="if (!header_search_used) { this.value = ''; header_search_used = true; }" /><input type="image" name="op" value="Search" id="edit-submit" alt="search" title="Search this site" src="<?php print get_stylesheet_directory_uri() ?>/images/search-button.png">
+					<input type="text" name="s" id="header-search" class="s" size="30" value="<?php if( is_search() ) { the_search_query(); } else { echo "Search this site"; } ?>" onfocus="if (!header_search_used) { this.value = ''; header_search_used = true; }" /><input type="image" name="op" value="Search" id="edit-submit" alt="search" title="Search this site" src="<?php echo uncc_get_theme_file_url('images/search-button.png', 'theme', false); ?>">
 				</form>
 			</div><!-- #header-utility -->
 			
