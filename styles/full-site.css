@@ -92,7 +92,7 @@
 	#right-sidebar-wrapper.hide {
 		width:0px;
 		overflow:hidden;
-		border:none;
+		border:solid 0px transparent;
 		padding:0px;
 	}
 
@@ -227,17 +227,18 @@
  * Header - Menu
  ****************************************************************************************/
 
-	#header #header-menu {
+	#header-menu {
 		display:block;
 		width:100%;
 		font-family:Arial, sanserif;
 		font-size:13px;
 		background-color:#fff;
-		margin:0px;
+		width:950px;
+		margin:0px auto;
 		padding:0px;
 	}
 
-	#header #header-menu a {
+	#header-menu a {
 		color:#333;
 		display:block;
 		line-height:39px;
@@ -247,18 +248,18 @@
 		border:solid 1px transparent;
 	}
 	
-	#header #header-menu ul {
+	#header-menu ul {
 		list-style:none;
 		margin:0;
 		padding:0;
 	}
 	
-	#header #header-menu li {
+	#header-menu li {
 		float:left;
 		position:relative;
 	}
 	
-	#header #header-menu ul ul {
+	#header-menu ul ul {
 		display:none;
 		position:absolute;
 		top:38px;
@@ -273,53 +274,53 @@
 		border-bottom:solid 1px #ccc;
 	}
 	
-	#header #header-menu ul ul a {
+	#header-menu ul ul a {
 		border:solid 1px transparent;
 	}
 
-	#header #header-menu ul > li:hover > a {
+	#header-menu ul > li:hover > a {
 		border:solid 1px;
 		border-color:#ccc;
 		border-top-color:#fff;
 	}
 
-	#header #header-menu ul ul > li:hover > a {
+	#header-menu ul ul > li:hover > a {
 		border-color:transparent;
 	}
 
-	#header #header-menu ul ul li {
+	#header-menu ul ul li {
 		min-width:180px;
 	}
 
-	#header #header-menu ul ul a {
+	#header-menu ul ul a {
 		line-height:1em;
 		padding:10px;
 		width:158px;
 		height:auto;
 	}
 
-	#header #header-menu ul ul ul {
+	#header-menu ul ul ul {
 		left:100%;
 		top:0;
 	}
 	
-	#header #header-menu ul li:hover > ul {
+	#header-menu ul li:hover > ul {
 		display:block;
 	}
 	
-	#header #header-menu li:hover > a {
+	#header-menu li:hover > a {
 		background:#f6f6f6;
 	}
 	
-	#header #header-menu ul ul li:hover > a {
+	#header-menu ul ul li:hover > a {
 		background:#eee;
 	}
 	
-	#header #header-menu a:hover {
+	#header-menu a:hover {
 		color:green;
 	}
 
-	#header #header-menu li.current_page_item > a {
+	#header-menu li.current_page_item > a {
 		color:green;
 		font-weight:bold;
 	}

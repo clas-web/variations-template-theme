@@ -68,36 +68,70 @@ if( $description['use-site-link'] ) $description['link'] = get_site_url();
 	
 	</div><!-- .masthead -->
 
-
 	</div><!-- #header -->
 </div><!-- #header-wrapper -->
 
 
 <div id="banner-wrapper" class="clearfix">
 	<div id="banner" class="clearfix" style="background-image:url('<?php echo $banner_url; ?>'); width:<?php echo $banner_width; ?>px; height:<?php echo $banner_height; ?>px;">
-		<a href="<?php echo home_url( '/' ); ?>" title="<?php echo get_bloginfo('name'); ?>"></a>
+
+		<a href="<?php echo home_url( '/' ); ?>" title="<?php echo get_bloginfo('name'); ?>" class="click-box"></a>
 		
-		<?php if( $uncc_mobile_support->use_mobile_site ): ?>
-
-	<div id="header-menu-wrapper" class="clearfix">
-		<div id="header-menu" class="clearfix">
-		
-			<h2 class="search">Search</h2>
-			<form id="site-searchform" role="search" method="get" class="searchform" action="http://thinkingmatters.uncc.edu/">
-				<script>var main_search_used = false;</script>
-				<div class="textbox_wrapper">
-					<input type="text" name="s" id="header-search" class="s" size="30" value="<?php if( is_search() ) { the_search_query(); } else { echo "Search ".get_bloginfo('name'); } ?>" onfocus="if (!main_search_used) { this.value = ''; main_search_used = true; }" />
-					<input type="submit" id="searchsubmit" value="Search">
-				</div>
-			</form><!-- #site-searchform -->
-
-		</div><!-- #header-menu -->
-	</div><!-- #header-menu-wrapper -->
-
-	<div id="header-menu-button" class="button" controls="header-menu"></div>
-
-	<?php endif; ?>
-	
 	</div><!-- #banner -->
 </div><!-- #banner-wrapper -->
+
+
+<?php
+	if( wp_get_nav_menu_object('Header Menu') !== false )
+	{
+		$header_menu = wp_nav_menu( 
+			array(
+				'menu_class' => 'header-navigation',
+				'theme_location' => 'header-navigation',
+				'echo' => false,
+				'fallback_cb' => false,
+			)
+		);
+	}
+	else
+	{
+		$header_menu = '';
+	}
+?>
+
+<div id="header-menu-wrapper" class="clearfix">
+	<div id="header-menu" class="clearfix">
+
+	<?php if( $uncc_mobile_support->use_mobile_site ): ?>
+		<h2 class="search">Search</h2>
+		<form id="site-searchform" role="search" method="get" class="searchform" action="<?php echo home_url( '/' ); ?>">
+			<script>var main_search_used = false;</script>
+			<div class="textbox_wrapper">
+				<input type="text" name="s" id="header-search" class="s" size="30" value="<?php if( is_search() ) { the_search_query(); } else { echo "Search this site"; } ?>" onfocus="if (!main_search_used) { this.value = ''; main_search_used = true; }" />
+				<input type="submit" id="searchsubmit" value="Search">
+			</div>
+		</form><!-- #site-searchform -->
+	<?php endif; ?>
+
+	<?php if( strpos( $header_menu, '</li>' ) !== false ): ?>
+		<?php if( $uncc_mobile_support->use_mobile_site ): ?><h2 class="menu">Menu</h2><?php endif; ?>
+		<?php echo $header_menu; ?>
+	<?php endif; ?>
+
+	</div><!-- #header-menu -->
+</div><!-- #header-menu-wrapper -->
+
+
+<div id="header-menu-icon-wrapper">
+	<div id="header-menu-icon">
+	
+	<?php if( $uncc_mobile_support->use_mobile_site ): ?>
+		<div id="header-menu-button"></div>
+		<div id="header-menu-button-search-menu">
+			SEARCH<?php if( strpos( $header_menu, '</li>' ) !== false ): ?> / MENU<?php endif; ?>
+		</div>
+	<?php endif; ?>
+
+	</div><!-- #header-menu-icon -->
+</div><!-- #header-menu-icon-wrapper -->
 

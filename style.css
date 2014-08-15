@@ -109,7 +109,11 @@ Tags:
 /****************************************************************************************
  * Header
  ****************************************************************************************/
-
+	
+	#header-menu-icon-wrapper {
+		position:relative;
+	}
+	
 	#header {
 		position:relative;
 		font-family:Times New Roman, Times, serif;
