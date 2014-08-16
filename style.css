@@ -540,6 +540,7 @@ Tags:
 	.widget_pages ul li.current_page_ancestor > ul.children,
 	.widget_nav_menu ul li.current-menu-item > ul.sub-menu,
 	.widget_nav_menu ul li.current-menu-ancestor > ul.sub-menu,
+	.widget_categories ul li.current-cat > ul.children,
 	.widget_categories ul li.current-cat-parent > ul.children {
 		display:block;
 	}
