@@ -909,7 +909,22 @@ function uncc_get_taxonomy_list( $taxonomy_name, $post )
 	$html = '';
 	$html .= '<div class="taxonomy-list '.$taxonomy->name.'-list">';	
 
-	$html .= $taxonomy->label.': ';
+	if ($taxonomy->label == "Categories") 
+	{
+		$taxonomy_label = get_option('category_base');
+		$taxonomy_label_style = "<span style='category-label'>";
+	} 
+	else if ($taxonomy->label == "Tags") 
+	{
+		$taxonomy_label = get_option('tag_base');
+		$taxonomy_label_style = "<span style='tag-label'>";
+	}
+	else
+	{
+		$taxonomy_label_style = "<span style='taxonomy-label'>";
+	}
+	
+	$html .= $taxonomy_label_style.$taxonomy_label.': </span>';
 
 	if( count($terms) > 0 )
 	{
