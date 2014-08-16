@@ -933,7 +933,7 @@ function uncc_get_taxonomy_list( $taxonomy_name, $post )
 		{
 			$list[] = uncc_get_anchor( get_term_link($t->term_id, $taxonomy_name), $t->name, $t->slug, $t->name );
 		}
-		$html .= implode( ', ', $list );
+		$html .= implode( '', $list );
 	}
 	else
 	{
