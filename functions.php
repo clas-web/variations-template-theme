@@ -894,6 +894,20 @@ function uncc_get_breadcrumbs( $post )
 }
 endif;
 
+if( !function_exists( 'uncc_get_category_breadcrumbs' ) ):
+function uncc_get_category_breadcrumbs ( $cat_id )
+{
+	if( get_category_parents( $cat_id ) )
+	{
+		$breadcrumbs = get_category_parents( $cat_id, true, ' &raquo; ' );
+		$items = explode( '&raquo;', $breadcrumbs );
+		if (count( $items) > 2 )
+		{
+			return $breadcrumbs;
+		}
+	}
+}
+endif;
 
 //----------------------------------------------------------------------------------------
 // 

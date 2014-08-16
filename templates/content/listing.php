@@ -6,6 +6,10 @@
 	<div class="listing-name"><?php echo $uncc_template_vars['listing-name']; ?></div>
 <?php endif; ?>
 
+<?php if( is_category() ): ?>
+	<div class="breadcrumbs"><?php echo uncc_get_category_breadcrumbs(get_cat_ID($uncc_template_vars['page-title'])); ?></div>	
+<?php endif; ?>
+
 <h1><?php echo $uncc_template_vars['page-title']; ?></h1>
 
 <?php if( isset($uncc_template_vars['description']) ): ?>
