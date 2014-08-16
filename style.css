@@ -455,17 +455,19 @@ Tags:
 	}
 
 	.widget_pages ul,
-	.widget_nav_menu ul {
+	.widget_nav_menu ul,
+	.widget_categories ul {
 		list-style:none;
 		padding-left:0px;
 	}
 	
 	.widget_pages > ul,
-	.widget_nav_menu > ul {
+	.widget_nav_menu > ul,
+	.widget_categories > ul  {
 		border-bottom:solid 1px #ccc;
 		margin:0px;
-	}	
- 
+	}
+	 
 	.widget_pages ul a,
 	.widget_nav_menu ul a {
 		color:#555;
@@ -476,6 +478,18 @@ Tags:
 		border-top:solid 1px #ccc;
 	}
 	
+	.widget_categories ul li {
+		padding:0.3em 17px;
+		padding-right:10px;
+	}
+
+	.widget_categories ul a {
+		color:#555;
+		font-size:0.9em;
+		padding:0.3em 17px;
+		padding-right:10px;
+	}
+	
 	.widget_pages ul a:hover,
 	.widget_nav_menu ul a:hover {
 		text-decoration:none;
@@ -484,8 +498,19 @@ Tags:
 		background-color:#eee;
 	}
 	
+	.widget_categories ul li:hover {
+		background-color:#f6f6f6;
+		background-color:#eee;	
+	}
+	
+	.widget_categories ul a:hover {
+		text-decoration:none;
+		color:#0A7543;	
+	}
+	
 	.widget_pages ul li.current_page_item > a,
-	.widget_nav_menu ul li.current-menu-item > a {
+	.widget_nav_menu ul li.current-menu-item > a,
+	.widget_categories ul li.current-cat > a {
 		font-weight:bold;
 		color:#0A7543;
 		background-color:#f6f6f6;
@@ -493,6 +518,8 @@ Tags:
 	
 	.widget_pages ul li.current_page_item,
 	.widget_pages ul li.current_page_ancestor,
+	.widget_categories li.current-cat,
+	.widget_categories li.current-cat-parent,
 	.widget_nav_menu ul li.current-menu-item,
 	.widget_nav_menu ul li.current-menu-ancestor {
 		background-color:#f6f6f6;
@@ -504,14 +531,16 @@ Tags:
 	}
 	
 	.widget_pages ul.children,
-	.widget_nav_menu ul.sub-menu {
+	.widget_nav_menu ul.sub-menu,
+	.widget_categories ul.children {
 		display:none;
 	}
 	
 	.widget_pages ul li.current_page_item > ul.children,
 	.widget_pages ul li.current_page_ancestor > ul.children,
 	.widget_nav_menu ul li.current-menu-item > ul.sub-menu,
-	.widget_nav_menu ul li.current-menu-ancestor > ul.sub-menu {
+	.widget_nav_menu ul li.current-menu-ancestor > ul.sub-menu,
+	.widget_categories ul li.current-cat-parent > ul.children {
 		display:block;
 	}
 	
