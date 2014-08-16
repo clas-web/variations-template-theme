@@ -546,7 +546,8 @@ Tags:
 	}
 	
 	.widget_pages ul.children,
-	.widget_nav_menu ul.sub-menu {
+	.widget_nav_menu ul.sub-menu,
+	.widget_categories ul.children {
 		padding-left:14px;
 	}
 	
