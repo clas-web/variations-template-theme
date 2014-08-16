@@ -926,11 +926,29 @@ function uncc_get_taxonomy_list( $taxonomy_name, $post )
 	if ($taxonomy->label == "Categories") 
 	{
 		$taxonomy_label = get_option('category_base');
+
+		if( isset( $taxonomy_label )  && $taxonomy_label !="" )
+		{
+			$taxonomy_label = get_option('category_base');
+		}
+		else
+		{
+			$taxonomy_label = $taxonomy->label;
+		}
 		$taxonomy_label_style = "<span style='category-label'>";
 	} 
 	else if ($taxonomy->label == "Tags") 
 	{
 		$taxonomy_label = get_option('tag_base');
+
+		if( isset( $taxonomy_label )  && $taxonomy_label !="" )
+		{
+			$taxonomy_label = get_option('tag_base');
+		}
+		else
+		{
+			$taxonomy_label = $taxonomy->label;
+		}
 		$taxonomy_label_style = "<span style='tag-label'>";
 	}
 	else
