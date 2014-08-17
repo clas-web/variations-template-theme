@@ -20,6 +20,8 @@ class Mobile_Support
 		$this->device_type = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
 		$this->is_mobile = ($detect->isMobile() && !$detect->isTablet());
 
+		if(!session_id()) session_start();
+		
 		//for testing purposes...
 		//$this->is_mobile = true;
 		//$this->set_use_mobile_site(true);
@@ -28,45 +30,54 @@ class Mobile_Support
 		if( isset($_GET['mobile']) )
 		{
 			$this->set_use_mobile_site(true);
-			return;
+			/*
+			switch( $_GET['mobile'] )
+			{
+				case '0':
+					$this->set_use_mobile_site(false);
+					return; break;
+					
+				case '1':
+					$this->set_use_mobile_site(true);
+					return; break;
+			}
+			*/
 		}
 
 		if( isset($_GET['full']) )
 		{
 			$this->set_use_mobile_site(false);
-			return;
 		}
 		
-		switch( get_transient('use_site_type') )
+		if( isset($_SESSION['use_mobile_site']) )
 		{
-			case 'full':
-				$this->set_use_mobile_site(false, false);
-				return;
-				
-			case 'mobile':
-				$this->set_use_mobile_site(true, false);
-				return;
-		}
+			switch( $_SESSION['use_mobile_site'] )
+			{
+				case '0':
+					$this->set_use_mobile_site(false);
+					return; break;
+					
+				case '1':
+					$this->set_use_mobile_site(true);
+					return; break;
+			}
+		}	
 
-		$this->set_use_mobile_site($this->is_mobile, false);
+		$this->set_use_mobile_site($this->is_mobile);
 	}
 	
-	private function set_use_mobile_site( $use_mobile_site, $set_transient = true )
+	private function set_use_mobile_site( $use_mobile_site )
 	{
 		$this->use_mobile_site = $use_mobile_site;
 
-		if( $use_mobile_site ) $value = 'mobile';
-		else $value = 'full';
+		$session_value = '0';
+		if( $use_mobile_site ) $session_value = '1';
 		
-		if( $set_transient ) set_transient( 'use_site_type', $value );
+		$_SESSION['use_mobile_site'] = $session_value;
 
 		//$expire_time = time() + (60 * 60 * 24 * 30);
 		//setcookie( 'use_mobile_site', $cookie_value, $expire_time );
 	}
 	
 }
-
-
-
-
 
