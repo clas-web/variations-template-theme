@@ -318,9 +318,9 @@ class UNCC_Config
 		if( $variation === false ) return $this->set_variation();
 		
 		$variations = $this->get_variations();
-		foreach( $variations as $var )
+		foreach( $variations as $key => $name )
 		{
-			if( $variation === $var ) return $variation;
+			if( $variation === $key ) return $variation;
 		}
 		
 		return $this->set_variation();
@@ -346,7 +346,24 @@ class UNCC_Config
 		if( is_child_theme() )
 			array_push( $folders, get_stylesheet_directory().'/variations' );
 
-		return $this->get_directories( $folders );
+		$directories = $this->get_directories( $folders );
+
+		$variations = array();
+		foreach( $directories as $dir )
+		{
+			$variation_name = '';
+			
+			if( file_exists($dir.'/style.css') )
+			{
+				$data = get_file_data( $dir.'/style.css', array('variation'=>'Variation Name') );
+				if( array_key_exists('variation', $data) ) $variation_name = $data['variation'];
+			}
+			
+			if( $variation_name === '' ) $variation_name = basename($dir);
+			$variations[basename($dir)] = $variation_name;
+		}
+		
+		return $variations;
 	}
 	
 	
@@ -363,7 +380,7 @@ class UNCC_Config
 		if( is_child_theme() )
 			array_push( $folders, get_stylesheet_directory().'/custom-post-types' );
 
-		return $this->get_directories( $folders );
+		return array_keys( $this->get_directories( $folders ) );
 	}
 	
 	
@@ -374,25 +391,37 @@ class UNCC_Config
 	//------------------------------------------------------------------------------------
 	// 
 	//------------------------------------------------------------------------------------
-	private function get_directories( $folders )
+	private function get_directories( $folders, $find_style_css = false )
 	{
-		$directories = array( 'default' );		
+		$filename = '';
+		if( $find_style_css ) $filename = DIRECTORY_SEPARATOR.'style.css';
+		
+		
+		$directories['default'] = get_template_directory().$filename;
+		foreach( $folders as $folder )
+		{
+			if(is_dir($folder.DIRECTORY_SEPARATOR.'default'))
+			{
+				$directories['default'] = $folder.DIRECTORY_SEPARATOR.'default'.$filename;
+			}
+		}
+		
 		foreach( $folders as $folder )
 		{
 			if( !file_exists($folder) ) continue;
 			
 			$files = scandir( $folder );
-			foreach( $files as $file )
+			foreach( $files as $name )
 			{
-				if( (!in_array($file, array('.','..'))) && 
-				    (is_dir($folder.DIRECTORY_SEPARATOR.$file)) )
+				if( (!in_array($name, array('.','..'))) && 
+				    (is_dir($folder.DIRECTORY_SEPARATOR.$name)) )
 				{
-					array_push( $directories, $file );
+					$directories[$file] = $folder.DIRECTORY_SEPARATOR.$name.$filename;
 				}
 			}
 		}
 		
-		return array_unique( $directories );
+		return $directories;
 	}
 
 

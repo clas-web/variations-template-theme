@@ -463,7 +463,7 @@ class NH_AdminPage_ThemeOptions extends NH_AdminPage
 				if( isset($tab_input['variation']) ):
 					$variations = $uncc_config->get_variations();
 					$chosen_variation = $tab_input['variation'];
-					if( (!in_array($chosen_variation, $variations)) && ($chosen_variation !== 'default') )
+					if( (!array_key_exists($chosen_variation, $variations)) && ($chosen_variation !== 'default') )
 					{
 						add_settings_error( '', '', 'Invalid variation: '.$chosen_variation );
 						return $options;
@@ -626,10 +626,10 @@ class NH_AdminPage_ThemeOptions extends NH_AdminPage
 		
 		<select name="<?php uncc_input_name_e( $this->tab, 'variation' ); ?>">
 		
-		<?php foreach( $variations as $variation ): ?>
-			<option value="<?php echo $variation; ?>" 
-			        <?php selected( $variation, $current_variation); ?>>
-				<?php echo $variation; ?>
+		<?php foreach( $variations as $key => $name ): ?>
+			<option value="<?php echo $key; ?>" 
+			        <?php selected( $key, $current_variation); ?>>
+				<?php echo $name; ?>
 			</option>
 		<?php endforeach; ?>
 		
