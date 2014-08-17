@@ -317,7 +317,6 @@
 	}
 
 	#header-menu li.current_page_item > a {
-		font-weight:bold;
 		color:#003366;
 	}
 
@@ -335,4 +334,8 @@
 	#header-menu .current_page_ancestor .children a {
 		background-color: #f6f6f6;
 		border: solid 1px transparent;
+	}
+	
+	#header-menu .children .current_page_item a {
+		background-color: #F0F0F0;
 	}
