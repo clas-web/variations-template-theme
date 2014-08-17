@@ -236,11 +236,13 @@ function uncc_add_featured_image_support()
 	{
 		$headers_fullpath = get_stylesheet_directory().'/images/headers/full';
 		$headers_thumbpath = get_stylesheet_directory().'/images/headers/thumbnail';
+		$sprintf = '%2$s';
 	}
 	elseif( (file_exists(get_template_directory().'/images/headers/full')) )
 	{
 		$headers_fullpath = get_template_directory().'/images/headers/full';
 		$headers_thumbpath = get_template_directory().'/images/headers/thumbnail';
+		$sprintf = '%s';
 	}
 	else
 	{
@@ -256,8 +258,8 @@ function uncc_add_featured_image_support()
 		if( !file_exists($headers_thumbpath.'/'.$file) ) continue;
 		
 		list( $dirname, $filename, $extension, $basename ) = array_values( pathinfo($headers_fullpath.'/'.$file) );
-		$images[$basename]['url'] = '%s/images/headers/full/'.$filename;
-		$images[$basename]['thumbnail_url'] = '%s/images/headers/thumbnail/'.$filename;
+		$images[$basename]['url'] = $sprintf.'/images/headers/full/'.$filename;
+		$images[$basename]['thumbnail_url'] = $sprintf.'/images/headers/thumbnail/'.$filename;
 		$images[$basename]['description'] = $filename;
 	}
 	
@@ -284,8 +286,8 @@ function uncc_get_header_image()
 	}
 	else
 	{
+// 		uncc_print($header_url);
 		$header_path = uncc_url_to_path($header_url);
-		$header_url = uncc_path_to_url($header_path);
 		list( $header_width, $header_height ) = getimagesize( $header_path );
 	}
 	
@@ -304,25 +306,34 @@ endif;
 if( !function_exists('uncc_url_to_path') ):
 function uncc_url_to_path( $url )
 {
+	$url_parts = parse_url($url);
+	$url_path = $url_parts['host'].$url_parts['path'];
+
+	$template_parts = parse_url(get_template_directory_uri());
+	$template_path = $template_parts['host'].$template_parts['path'];
+	
 	if( is_child_theme() )
 	{
-		if( strpos($url, get_stylesheet_directory_uri()) !== false )
+		$stylesheet_parts = parse_url(get_stylesheet_directory_uri());
+		$stylesheet_path = $stylesheet_parts['host'].$stylesheet_parts['path'];
+		
+		if( strpos($url_path, $stylesheet_path) !== false )
 		{
-			$path = str_replace( get_stylesheet_directory_uri(), get_stylesheet_directory(), $url );
+			$path = str_replace( $stylesheet_path, get_stylesheet_directory(), $url_path );
 			if( file_exists($path) ) return $path;
 
-			$path = str_replace( get_stylesheet_directory_uri(), get_template_directory(), $url );
+			$path = str_replace( $stylesheet_path, get_template_directory(), $url_path );
 			if( file_exists($path) ) return $path;
 			
 			return '';
 		}
-
-		if( strpos($url, get_template_directory_uri()) !== false )
+		
+		if( strpos($url_path, $template_path) !== false )
 		{
-			$path = str_replace( get_template_directory_uri(), get_stylesheet_directory(), $url );
+			$path = str_replace( $template_path, get_stylesheet_directory(), $url_path );
 			if( file_exists($path) ) return $path;
 
-			$path = str_replace( get_template_directory_uri(), get_template_directory(), $url );
+			$path = str_replace( $template_path, get_template_directory(), $url_path );
 			if( file_exists($path) ) return $path;
 			
 			return '';
@@ -330,9 +341,9 @@ function uncc_url_to_path( $url )
 	}
 	else
 	{
-		if( strpos($url, get_template_directory_uri()) !== false )
+		if( strpos($url_path, $template_path) !== false )
 		{
-			$path = str_replace( get_template_directory_uri(), get_template_directory(), $url );
+			$path = str_replace( $template_path, get_template_directory(), $url_path );
 			if( file_exists($path) ) return $path;
 			
 			return '';
@@ -340,9 +351,12 @@ function uncc_url_to_path( $url )
 	}
 
 	$upload = wp_upload_dir();
-	if( strpos($url, $upload['baseurl']) !== false )
+	$upload_parts = parse_url($upload['baseurl']);
+	$upload_path = $upload_parts['host'].$upload_parts['path'];
+	
+	if( strpos($url_path, $upload_path) !== false )
 	{
-		$path = str_replace( $upload['baseurl'], $upload['basedir'], $url );
+		$path = str_replace( $upload_path, $upload['basedir'], $url_path );
 		if( file_exists($path) ) return $path;
 		
 		return '';
