@@ -21,6 +21,7 @@ Tags:
 		background-color:#fff;
 		font-family:Arial, sanserif;
 		font-size:0.95em;
+		min-height:100%;
 	}
 
 	#site-inside-wrapper {
