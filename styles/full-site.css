@@ -178,18 +178,13 @@
 	}
 	
 	.sidebar h2.widget-title {
-		background-color:#f6f6f6;
-		color:#006633;
-		border-bottom:solid 1px #bbb;
-		margin:0px;
-		line-height:1.8em;
-		height:1.8em;
-		padding-left:10px;
-		padding-top:2px;
-		font-weight:normal;
-		font-size:1em;
-		font-family:Times, "Times New Roman", serif;
-		text-transform:uppercase;
+		font-family: "Helvetica Neue", Arial, Helvetica, "Nimbus Sans L", sans-serif;
+		color: #222222;
+		border-bottom: 1px solid #CCCCCC;
+		font-size: 18px;
+		font-variant: small-caps;
+		font-weight: normal;
+		padding: 5px;
 	}
 	
 /****************************************************************************************
