@@ -175,6 +175,21 @@
 		padding-left:0px;
 	}
 
+	.sidebar h2.widget-title {
+		background-color:#f6f6f6;
+		color:#006633;
+		border-bottom:solid 1px #bbb;
+		margin:0px;
+		line-height:1.8em;
+		height:1.8em;
+		padding-left:10px;
+		padding-top:2px;
+		font-weight:normal;
+		font-size:1em;
+		font-family:Times, "Times New Roman", serif;
+		text-transform:uppercase;
+	}
+
 /****************************************************************************************
  * Content
  ****************************************************************************************/
