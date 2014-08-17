@@ -358,19 +358,19 @@
 	}
 
 	#left-sidebar-button.hide {
-		background-image:url('../images/menu-left-grey-lines.png');
+		background-image:url('../images/menu-left-grey-lines.png') !important;
 	}
 
 	#left-sidebar-button.show {
-		background-image:url('../images/menu-left-black-lines.png');
+		background-image:url('../images/menu-left-black-lines.png') !important;
 	}
 	
 	#right-sidebar-button.hide {
-		background-image:url('../images/menu-right-grey-lines.png');
+		background-image:url('../images/menu-right-grey-lines.png') !important;
 	}
 
 	#right-sidebar-button.show {
-		background-image:url('../images/menu-right-black-lines.png');
+		background-image:url('../images/menu-right-black-lines.png') !important;
 	}
 	
 	#content .comments .children {
