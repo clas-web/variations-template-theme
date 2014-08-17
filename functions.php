@@ -1072,10 +1072,12 @@ function uncc_get_page_url()
 	$page_url = 'http';
 	if( isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on') ) $page_url .= 's';
 	$page_url .= '://';
+	$request_uri_parts = explode('?', $_SERVER['REQUEST_URI']);
+	$request_uri = $request_uri_parts[0];
 	if( $_SERVER['SERVER_PORT'] != '80' )
-		$page_url .= $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];
+		$page_url .= $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$request_uri;
 	else
-		$page_url .= $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+		$page_url .= $_SERVER['SERVER_NAME'].$request_uri;
 	return $page_url;
 }
 endif;
