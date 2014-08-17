@@ -314,6 +314,33 @@ Tags:
  * Content
  ****************************************************************************************/
 
+	#content ul,
+	#content ol {
+		margin: 5px 0px 0px -15px;
+	}
+
+	#content ul {
+		list-style: square;
+	}
+	#content ol {
+		list-style: decimal;
+	}
+	#content ol ol {
+		list-style: upper-alpha;
+	}
+	#content ol ol ol {
+		list-style: lower-roman;
+	}
+	#content ol ol ol ol {
+		list-style: lower-alpha;
+	}
+	#content ul ul,
+	#content ol ol,
+	#content ul ol,
+	#content ol ul {
+		margin-bottom: 0;
+	}
+
 	#content .sidebar-controls {
 		min-height:16px;
 		height:16px;
