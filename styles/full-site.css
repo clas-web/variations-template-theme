@@ -236,6 +236,7 @@
 		width:950px;
 		margin:0px auto;
 		padding:0px;
+		border-bottom: 1px solid transparent;
 	}
 
 	#header-menu a {
@@ -325,3 +326,18 @@
 		font-weight:bold;
 	}
 
+	#header-menu .current_page_item a,
+	#header-menu .current_page_parent a,
+	#header-menu .current_page_ancestor a {
+		background-color: #f6f6f6;
+		border: solid 1px transparent;
+		border-color: #ccc;
+		border-top-color: #fff;
+	}
+
+	#header-menu .current_page_item .children a,
+	#header-menu .current_page_parent .children a,
+	#header-menu .current_page_ancestor .children a {
+		background-color: #f6f6f6;
+		border: solid 1px transparent;
+	}
