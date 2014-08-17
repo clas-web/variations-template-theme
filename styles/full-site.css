@@ -318,12 +318,12 @@
 	}
 	
 	#header-menu a:hover {
-		color:green;
+		color:#003366;
 	}
 
 	#header-menu li.current_page_item > a {
-		color:green;
 		font-weight:bold;
+		color:#003366;
 	}
 
 	#header-menu .current_page_item a,
