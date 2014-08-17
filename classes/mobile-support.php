@@ -40,25 +40,25 @@ class Mobile_Support
 		switch( get_transient('use_site_type') )
 		{
 			case 'full':
-				$this->set_use_mobile_site(false);
+				$this->set_use_mobile_site(false, false);
 				return;
 				
 			case 'mobile':
-				$this->set_use_mobile_site(true);
+				$this->set_use_mobile_site(true, false);
 				return;
 		}
 
-		$this->set_use_mobile_site($this->is_mobile);
+		$this->set_use_mobile_site($this->is_mobile, false);
 	}
 	
-	private function set_use_mobile_site( $use_mobile_site )
+	private function set_use_mobile_site( $use_mobile_site, $set_transient = true )
 	{
 		$this->use_mobile_site = $use_mobile_site;
 
 		if( $use_mobile_site ) $value = 'mobile';
 		else $value = 'full';
 		
-		set_transient( 'use_site_type', $value );
+		if( $set_transient ) set_transient( 'use_site_type', $value );
 
 		//$expire_time = time() + (60 * 60 * 24 * 30);
 		//setcookie( 'use_mobile_site', $cookie_value, $expire_time );
