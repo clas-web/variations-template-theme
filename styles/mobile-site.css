@@ -11,9 +11,7 @@
 	#main-wrapper,
 	#footer-wrapper {
 		width:100%;
-	}
-	
-	body { 
+		max-width:100%;
 		overflow-x:hidden;
 	}
 	
