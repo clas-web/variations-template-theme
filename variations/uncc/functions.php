@@ -36,6 +36,7 @@ function uncc_register_menus()
 	register_nav_menus(
 		array(
 			'header-links' => __( 'Header Links' ),
+			'header-navigation' => __( 'Header Menu' ),
 		)
 	);
 }
