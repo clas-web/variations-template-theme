@@ -19,7 +19,7 @@ Tags:
 		padding:0px;
 		margin:0px;
 		background-color:#fff;
-		font-family:Arial, sanserif;
+		font-family:Helvetica, Arial, sanserif;
 		font-size:0.95em;
 		min-height:100%;
 	}
@@ -33,14 +33,17 @@ Tags:
 
 	h1, h2, h3, h4, h5, h6 {
 		margin:0; padding:0;
-		font-family: Times, "Times New Roman", serif;
+		font-family:Helvetica, Arial, sanserif;
+		font-weight: normal;
 	}
 	
 	h1, h2, h3 {
+		margin-top: 10px;
 		margin-bottom:10px;
 	}
 	
 	h4, h5, h6 {
+		margin-top: 5px;
 		margin-bottom:5px;
 	}
 	
@@ -383,7 +386,7 @@ Tags:
 	}
 	
 	#content .entry-title {
-		font-family: times,"times new roman",serif;
+		font-family:Helvetica, Arial, sanserif;
 		color: #000;
 		font-weight: normal;
 		line-height: 1.3em;
