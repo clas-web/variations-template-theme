@@ -52,31 +52,42 @@ class UNCC_Config
 	{
 		$this->check_db();
 
-		$variation = $this->get_current_variation();
+		$this->data = array();
+		$this->config = array();
+		$this->options = array();
 		
 		$config_ini = array();
 		$options_ini = array();
 		$db_options = array();
 		
-		// 
-		// load config.ini data.
-		// 
-		if( $this->load_from_ini( $config_ini, get_stylesheet_directory().'/variations/'.$variation.'/'.self::CONFIG_INI_FILENAME ) );
-		elseif( $this->load_from_ini( $config_ini, get_template_directory().'/variations/'.$variation.'/'.self::CONFIG_INI_FILENAME ) );
-		elseif( $this->load_from_ini( $config_ini, get_stylesheet_directory().'/'.self::CONFIG_INI_FILENAME ) );
-		elseif( $this->load_from_ini( $config_ini, get_template_directory().'/'.self::CONFIG_INI_FILENAME ) );
-		elseif( $this->load_from_ini( $config_ini, get_template_directory().'/'.self::CONFIG_DEFAULT_INI_FILENAME ) );
+		//
+		// load theme config.ini data
+		//
+		if( $this->load_from_ini( $this->config, get_stylesheet_directory().'/'.self::CONFIG_INI_FILENAME ) );
+		elseif( $this->load_from_ini( $this->config, get_template_directory().'/'.self::CONFIG_INI_FILENAME ) );
+		elseif( $this->load_from_ini( $this->config, get_template_directory().'/'.self::CONFIG_DEFAULT_INI_FILENAME ) );
 		else exit( 'Unable to locate theme '.self::CONFIG_INI_FILENAME.' file.' );
 		
+		//
+		// get / set variation
+		//
+		$variation = $this->get_current_variation();
+		
 		// 
-		// load options.ini data.
+		// load variation config.ini data.
+		// 
+		if( $this->load_from_ini( $this->config, get_stylesheet_directory().'/variations/'.$variation.'/'.self::CONFIG_INI_FILENAME ) );
+		elseif( $this->load_from_ini( $this->config, get_template_directory().'/variations/'.$variation.'/'.self::CONFIG_INI_FILENAME ) );
+		
+		// 
+		// load theme and variation options.ini data.
 		// 
 		if( $this->load_from_ini( $options_ini, get_stylesheet_directory().'/variations/'.$variation.'/'.self::OPTIONS_INI_FILENAME ) );
 		elseif( $this->load_from_ini( $options_ini, get_template_directory().'/variations/'.$variation.'/'.self::OPTIONS_INI_FILENAME ) );
 		elseif( $this->load_from_ini( $options_ini, get_stylesheet_directory().'/'.self::OPTIONS_INI_FILENAME ) );
 		elseif( $this->load_from_ini( $options_ini, get_template_directory().'/'.self::OPTIONS_INI_FILENAME ) );
 		elseif( $this->load_from_ini( $options_ini, get_template_directory().'/'.self::OPTIONS_DEFAULT_INI_FILENAME ) );
-		else exit( 'Unable to locate theme '.self::OPTIONS_INI_FILENAME.' file.' );
+		else exit( 'Unable to locate variation '.self::OPTIONS_INI_FILENAME.' file.' );
 		
 		// 
 		// load database options.
@@ -86,17 +97,6 @@ class UNCC_Config
 
 		$replace = array();
 		
-// 		if( !isset($_POST) || empty($_POST) )
-// 		{
-// 		nh_print( $options_ini, 'options ini' );
-// 		nh_print( $db_options, 'db options' );
-// 		}
-
-		//
-		// set config data.
-		//
-		$this->config = $config_ini;
-				
 		// 
 		// merge options.ini and database options.
 		// 
@@ -111,7 +111,7 @@ class UNCC_Config
 		// 
 		// merge config.ini with complete options.
 		// 
-		$this->data = array_replace_recursive( $this->options, $config_ini );
+		$this->data = array_replace_recursive( $this->options, $this->config );
 		foreach( $replace as $key )
 		{
 			if( isset($this->options[$key]) ) { $this->data[$key] = $this->options[$key]; continue; }
@@ -317,11 +317,7 @@ class UNCC_Config
 		
 		if( $variation === false ) return $this->set_variation();
 		
-		$variations = $this->get_variations();
-		foreach( $variations as $key => $name )
-		{
-			if( $variation === $key ) return $variation;
-		}
+		if( array_key_exists($variation, $this->get_variations()) ) return $variation;
 		
 		return $this->set_variation();
 	}
@@ -330,8 +326,22 @@ class UNCC_Config
 	//------------------------------------------------------------------------------------
 	// 
 	//------------------------------------------------------------------------------------
-	public function set_variation( $name = 'default' )
+	public function set_variation( $name = '' )
 	{
+		if( $name === '' )
+		{
+			if( (array_key_exists('variations', $this->config)) && 
+			    (is_array($this->config['variations'])) &&
+			    (count($this->config['variations']) > 0) )
+			{
+				$name = $this->config['variations'][0];
+			}
+			else
+			{
+				$name = 'default';
+			}
+		}
+		
 		update_option( 'uncc-variation', $name );
 		return $name;
 	}
@@ -340,7 +350,7 @@ class UNCC_Config
 	//------------------------------------------------------------------------------------
 	// 
 	//------------------------------------------------------------------------------------
-	public function get_variations()
+	public function get_variations( $filter_variations = true )
 	{
 		$folders = array( get_template_directory().'/variations' );
 		if( is_child_theme() )
@@ -361,6 +371,16 @@ class UNCC_Config
 			
 			if( $variation_name === '' ) $variation_name = basename($dir);
 			$variations[basename($dir)] = $variation_name;
+		}
+		
+		if( $filter_variations && array_key_exists('variations', $this->config) )
+		{
+			$allowed_variations = $this->config['variations'];
+			foreach( array_keys($variations) as $variation_key )
+			{
+				if( !in_array($variation_key, $allowed_variations) )
+					unset( $variations[$variation_key] );
+			}
 		}
 		
 		return $variations;
