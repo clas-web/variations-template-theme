@@ -1,5 +1,6 @@
 
 
+<?php //uncc_print('single.php'); ?>
 <?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars, $post, $wp_query; ?>
 
 
