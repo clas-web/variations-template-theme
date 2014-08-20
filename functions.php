@@ -9,7 +9,6 @@
 //========================================================================================
 
 
-
 // 
 // Setup the config information.
 //----------------------------------------------------------------------------------------
@@ -41,6 +40,7 @@ add_action( 'wp_enqueue_scripts', 'uncc_enqueue_scripts', 0 );
 add_filter( 'embed_oembed_html', 'uncc_embed_html', 10, 3 );
 add_filter( 'video_embed_html', 'uncc_embed_html' );
 
+add_action( 'customize_register', 'uncc_customize_register' );
 
 //----------------------------------------------------------------------------------------
 // 
@@ -1083,6 +1083,53 @@ function uncc_get_page_url()
 endif;
 
 
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_customize_register') ):
+function uncc_customize_register( $wp_customize )
+{
+	global $uncc_config;
+	
+	$wp_customize->add_setting(
+		'uncc-variation',
+		array(
+			'default'     => $uncc_config->get_current_variation(),
+			'transport'   => 'refresh',
+		)
+	);
+	
+	$wp_customize->add_section(
+		'uncc-variation-section',
+		array(
+			'title'      => 'Variation',
+			'priority'   => 0,
+		)
+	);
+	
+	$wp_customize->add_control( 
+		new WP_Customize_Control( 
+			$wp_customize, 
+			'uncc-variation-control', 
+			array(
+				'label'      => 'Name',
+				'section'    => 'uncc-variation-section',
+				'settings'   => 'uncc-variation',
+				'type'       => 'select',
+				'choices'    => $uncc_config->get_variations(),
+			)
+		)
+	);
+	
+	
+// 	uncc_print( $uncc_config->get_current_variation(), 'current variation' );
+// 	uncc_print( get_theme_mod( 'uncc-variation', false ), 'theme-mod variation' );
+}
+endif;
+
+
+
 //========================================================================================
 //======================================================================= Main Setup =====
 
@@ -1119,6 +1166,8 @@ if( (is_child_theme()) && (file_exists(get_stylesheet_directory().'/admin/main.p
 
 $filepath = uncc_get_theme_file_path( '/admin/main.php', 'variation' );
 if( $filepath ) require_once( $filepath );
+
+//require_once( uncc_get_theme_file_path( '/classes/wp-customize-variation-control.php', 'theme' ) );
 
 endif;
 

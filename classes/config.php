@@ -313,13 +313,16 @@ class UNCC_Config
 	//------------------------------------------------------------------------------------
 	public function get_current_variation()
 	{
-		$variation = get_option( 'uncc-variation', false );
+// 		echo 'get_theme_mod';
+		$variation = get_theme_mod( 'uncc-variation', false );
+		if( $variation !== false ) return $variation;
 		
+// 		echo 'get_option';
+		$variation = get_option( 'uncc-variation', false );
 		if( $variation === false ) return $this->set_variation();
 		
 		if( array_key_exists($variation, $this->get_variations()) ) return $variation;
-		
-		return $this->set_variation();
+		return $this->set_variation( $variation );
 	}
 	
 	
