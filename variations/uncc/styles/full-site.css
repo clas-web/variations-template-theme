@@ -143,34 +143,77 @@
 	
 	#header form.searchform input[type=image],
 	#footer form.searchform input[type=image] {
-	    display: inline-block;
-	    vertical-align: middle;
-	    height:19px;
-	    width:19px;
+	   display: inline-block;
+	   vertical-align: middle;
+	   height:19px;
+	   width:19px;
 	}
 	
 /****************************************************************************************
  * Header - Menu
  ****************************************************************************************/
 
-	#header-menu ul > li > a {
+	#header-menu .menu-header-menu-container {
+		display: table;
+		width: 949px;
+		table-layout: fixed;
+		border-collapse: collapse;
+	}
+	
+	#header-menu ul {
+		margin:0;
+		display:table-row;
+	}
+	
+	#header-menu ul > li {
+		display:table-cell;
+		float:none;
+		border:solid 1px transparent;
+		border-left:dotted 1px #ccc;
 		border-right:dotted 1px #ccc;
 	}
 	
-	#header-menu ul > li:first-child > a {
-		border-left:dotted 1px #ccc;
+	#header-menu ul > li:hover {
+		border-top-color:#fff;
+		border-bottom-color:#ccc;
+	}
+
+	#header-menu ul > li.current_page_item,
+	#header-menu ul > li.current_page_parent,
+	#header-menu ul > li.current_page_ancestor {
+		background-color: #f0f0f0;
+		border-color:#ccc;
+		border-top-color:#fff;
+		border-right-style:solid;
+		border-left-style:solid;
 	}
 	
-	#header-menu ul > li:first-child:hover > a {
-		border-left-style:solid;
+	#header-menu ul ul > li.current_page_item,
+	#header-menu ul ul > li.current_page_parent,
+	#header-menu ul ul > li.current_page_ancestor {
+		border:none;
+	}
+	
+	#header-menu ul > li > a {
+		text-align:center;
+		border:none;
+	}
+	
+	#header-menu ul ul > li {
+		display:block;
+	}
+	
+	#header-menu ul ul {
+		margin-left:-1px;
+	}
+	
+	#header-menu ul ul > li {
+		border:none;
 	}
 	
 	#header-menu ul ul > li > a {
 		border:solid 1px transparent;
-	}
-
-	#header-menu ul ul > li:first-child > a {
-		border:solid 1px transparent;
+		text-align:left;
 	}
 
 	#header-menu a:hover {
