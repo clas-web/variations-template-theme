@@ -49,15 +49,13 @@ Variation Name: UNC Charlotte
 	}
 
 	.widget_pages ul,
-	.widget_nav_menu ul,
-	.widget_categories ul {
+	.widget_nav_menu ul{
 		list-style:none;
 		padding-left:0px;
 	}
 	
 	.widget_pages > ul,
-	.widget_nav_menu .menu,
-	.widget_categories > ul  {
+	.widget_nav_menu .menu {
 		border-bottom:solid 1px #ccc;
 		margin:0px;
 	}
@@ -72,18 +70,6 @@ Variation Name: UNC Charlotte
 		border-top:solid 1px #ccc;
 	}
 	
-	.widget_categories ul li {
-		padding:0.3em 1px;
-		padding-right:0px;
-	}
-
-	.widget_categories ul a {
-		color:#555;
-		font-size:0.9em;
-		padding:0.3em 1px;
-		padding-right:2px;
-	}
-	
 	.widget_pages ul a:hover,
 	.widget_nav_menu ul a:hover {
 		text-decoration:none;
@@ -92,19 +78,8 @@ Variation Name: UNC Charlotte
 		background-color:#eee;
 	}
 	
-	.widget_categories ul li:hover {
-		background-color:#f6f6f6;
-		background-color:#eee;	
-	}
-	
-	.widget_categories ul a:hover {
-		text-decoration:none;
-		color:#0A7543;	
-	}
-	
 	.widget_pages ul li.current_page_item > a,
-	.widget_nav_menu ul li.current-menu-item > a,
-	.widget_categories ul li.current-cat > a {
+	.widget_nav_menu ul li.current-menu-item > a {
 		font-weight:bold;
 		color:#0A7543;
 		background-color:#f6f6f6;
@@ -112,8 +87,6 @@ Variation Name: UNC Charlotte
 	
 	.widget_pages ul li.current_page_item,
 	.widget_pages ul li.current_page_ancestor,
-	.widget_categories li.current-cat,
-	.widget_categories li.current-cat-parent,
 	.widget_nav_menu ul li.current-menu-item,
 	.widget_nav_menu ul li.current-menu-ancestor {
 		background-color:#f6f6f6;
@@ -125,29 +98,24 @@ Variation Name: UNC Charlotte
 	}
 	
 	.widget_pages ul.children,
-	.widget_nav_menu ul.sub-menu,
-	.widget_categories ul.children {
+	.widget_nav_menu ul.sub-menu {
 		display:none;
 	}
 	
 	.widget_pages ul li.current_page_item > ul.children,
 	.widget_pages ul li.current_page_ancestor > ul.children,
 	.widget_nav_menu ul li.current-menu-item > ul.sub-menu,
-	.widget_nav_menu ul li.current-menu-ancestor > ul.sub-menu,
-	.widget_categories ul li.current-cat > ul.children,
-	.widget_categories ul li.current-cat-parent > ul.children {
+	.widget_nav_menu ul li.current-menu-ancestor > ul.sub-menu {
 		display:block;
 	}
 	
 	.widget_pages ul.children,
-	.widget_nav_menu ul.sub-menu,
-	.widget_categories ul.children {
+	.widget_nav_menu ul.sub-menu {
 		padding-left:14px;
 	}
 	
 	.widget_pages ul li a,
-	.widget_nav_menu ul li a,
-	.widget_categories ul li a {
+	.widget_nav_menu ul li a {
 /* 		background-image:url('images/list-bullet2.png'); */
 	    background-repeat: no-repeat;
 	    background-position: left center;
@@ -158,15 +126,6 @@ Variation Name: UNC Charlotte
 		background-image:url('images/list-arrow-right.png');
 	}
 	
-	.widget_categories li > a:before { 
-		content: url('images/list-arrow-right.png'); 
-		padding:0.3em 4px;
-	}
-	
-	.widget_categories li > a:only-child:before { 
-		content: ''; 
-		padding:0.3em 10px;
-	}
 	.widget_pages ul li.current_page_item.page_item_has_children > a,
 	.widget_pages ul li.current_page_ancestor.page_item_has_children > a,
 	.widget_nav_menu ul li.current-menu-item.menu-item-has-children > a,
@@ -174,6 +133,17 @@ Variation Name: UNC Charlotte
 		background-image:url('images/list-arrow-down.png');
 	}
 
+
+
+
+	/* Categories Widget */
+	
+	.widget_categories ul li.current-cat > a,
+	.widget_categories ul li > a:hover {
+		color:#0A7543;
+	}
+
+	
 /****************************************************************************************
  * Admin Bar
  ****************************************************************************************/
