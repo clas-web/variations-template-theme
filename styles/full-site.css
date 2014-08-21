@@ -273,6 +273,7 @@
 		top:38px;
 		left:0;
 		float:left;
+		min-width:100%;
 		width:180px;
 		z-index:999;
 		margin:0px;
@@ -287,6 +288,7 @@
 	
 	#header-menu ul ul ul {
 		margin-top:-1px;
+		margin-left:0px;
 	}
 
 	#header-menu ul > li:hover > a {
@@ -299,14 +301,14 @@
 	}
 
 	#header-menu ul ul li {
-		min-width:180px;
+		width:100%;
 	}
 
 	#header-menu ul ul a {
 		line-height:1em;
 		padding:10px;
-		width:158px;
 		height:auto;
+		display:block;
 	}
 
 	#header-menu ul ul ul {

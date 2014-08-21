@@ -153,7 +153,7 @@
  * Header - Menu
  ****************************************************************************************/
 
-	#header-menu .menu-header-menu-container {
+	#header-menu > div {
 		display: table;
 		width: 949px;
 		table-layout: fixed;
@@ -176,6 +176,11 @@
 	#header-menu ul > li:hover {
 		border-top-color:#fff;
 		border-bottom-color:#ccc;
+		border-style: solid;
+	}
+
+	#header-menu ul ul > li:hover {
+		border:none;
 	}
 
 	#header-menu ul > li.current_page_item,
