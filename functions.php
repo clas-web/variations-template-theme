@@ -10,7 +10,7 @@
 
 
 //========================================================================================
-//======================================================  =====
+//======================================================================= Main setup =====
 
 // 
 // Setup the config information.
@@ -1239,23 +1239,7 @@ function uncc_customize_update_options( $old_value, $new_value )
 {
 	global $wp_customize;
 	if( isset($wp_customize) ) return;
-}
-endif;
-
-
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_theme_mod') ):
-function uncc_get_theme_mod( $key, $default = false )
-{
-	if( isset($_POST['customized']) )
-	{
-		$values = json_decode(wp_unslash($_POST['customized']), true);
-		if( array_key_exists($key, $values) ) return $values[$key];
-	}
-
-	return get_theme_mod( $key, $default );
+	
 }
 endif;
 
