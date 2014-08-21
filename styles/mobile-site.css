@@ -12,6 +12,14 @@
 	#footer-wrapper {
 		width:100%;
 		max-width:100%;
+/* 		overflow-x:hidden; */
+/* 		overflow-y:visible; */
+	}
+
+	html,
+	body,
+	#site-outer-wrapper,
+	#site-inner-wrapper {
 		overflow-x:hidden;
 	}
 	
@@ -97,10 +105,15 @@
 		position:absolute;
 	}
 	
+	#header-menu-placeholder {
+		position:relative;
+	}
+	
 	#header-menu-wrapper {
 		position:absolute;
 		left:5px;
 		right:5px;
+		top:0px;
 		margin-bottom:5px;
 		margin-top:5px;
 		z-index:99;

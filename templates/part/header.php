@@ -59,6 +59,8 @@ if( $description['use-site-link'] ) $description['link'] = get_site_url();
 	);
 ?>
 
+<div id="header-menu-placeholder" class="clearfix">
+
 <div id="header-menu-wrapper" class="clearfix">
 	<div id="header-menu" class="clearfix">
 
@@ -95,4 +97,5 @@ if( $description['use-site-link'] ) $description['link'] = get_site_url();
 	</div><!-- #header-menu-icon -->
 </div><!-- #header-menu-icon-wrapper -->
 
+</div><!-- #header-menu-placeholder -->
 
