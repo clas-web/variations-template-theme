@@ -6,14 +6,31 @@ $widgets = wp_get_sidebars_widgets();
 if( array_key_exists('uncc-left-sidebar', $widgets) && count($widgets['uncc-left-sidebar']) ):
 ?>
 
-<div id="left-sidebar-wrapper" class="sidebar-wrapper clearfix">
-	<div id="left-sidebar" class="sidebar clearfix">
+	<div id="left-sidebar-wrapper" class="sidebar-wrapper clearfix">
+		<div id="left-sidebar" class="sidebar clearfix">
 	
-		<?php if( $uncc_mobile_support->use_mobile_site ): ?><h2>Left Sidebar</h2><?php endif; ?>
-		<?php dynamic_sidebar( 'uncc-left-sidebar' ); ?>
+			<?php if( $uncc_mobile_support->use_mobile_site ): ?>
+				<h2>Left Sidebar</h2>
+			<?php endif; ?>
+			<?php dynamic_sidebar( 'uncc-left-sidebar' ); ?>
 	
-	</div><!-- #left-sidebar -->
-</div><!-- #left-sidebar-wrapper -->
+		</div><!-- #left-sidebar -->
+	</div><!-- #left-sidebar-wrapper -->
+
+<?php else: ?>
+
+	<?php 
+	global $wp_customize;
+	if( isset($wp_customize) ):
+
+		?>
+		<div style="display:none;">
+			<?php dynamic_sidebar( 'uncc-left-sidebar' ); ?>
+		</div>
+		<?php
+	
+	endif;
+	?>
 
 <?php endif; ?>
 

@@ -9,6 +9,9 @@
 //========================================================================================
 
 
+//========================================================================================
+//======================================================  =====
+
 // 
 // Setup the config information.
 //----------------------------------------------------------------------------------------
@@ -17,30 +20,103 @@ $uncc_config = new uncc_config;
 $uncc_config->load_config();
 
 // 
+// Setup mobile support.
+//----------------------------------------------------------------------------------------
+require_once( get_template_directory().'/classes/mobile-support.php' );
+$uncc_mobile_support = new Mobile_Support;
+
+// 
+// Set the log's file path.
+//----------------------------------------------------------------------------------------
+$uncc_logfile = dirname(__FILE__).'/uncc.log';
+
+// 
+// Set blog name.
+//----------------------------------------------------------------------------------------
+define( 'UNCC_BLOG_NAME', trim( preg_replace("/[^A-Za-z0-9 ]/", '-', get_blog_details()->path), '-' ) );
+
+// 
+// Add the image sizes for thumbnails.
+//----------------------------------------------------------------------------------------
+add_image_size( 'thumbnail_portrait', 120 );
+add_image_size( 'thumbnail_landscape', 324 );
+
+// 
 // Include variation's functions.php
 //----------------------------------------------------------------------------------------
+if( is_child_theme() ):
 if( file_exists(get_stylesheet_directory().'/variations/'.$uncc_config->get_current_variation().'/functions.php') )
 require_once( get_stylesheet_directory().'/variations/'.$uncc_config->get_current_variation().'/functions.php' );
+endif;
 
 if( file_exists(get_template_directory().'/variations/'.$uncc_config->get_current_variation().'/functions.php') )
 require_once( get_template_directory().'/variations/'.$uncc_config->get_current_variation().'/functions.php' );
+
+//
+// Include the admin backend. 
+//----------------------------------------------------------------------------------------
+if( is_admin() ):
+
+// parent admin main.
+require_once( get_template_directory().'/admin/main.php' );
+
+// child admin main.
+if( is_child_theme() ):
+if( file_exists(get_stylesheet_directory().'/admin/main.php') ) 
+require_once( get_stylesheet_directory().'/admin/main.php' );
+endif;
+
+// parent variation admin main.
+if( file_exists(get_template_directory().'/variations/'.$uncc_config->get_current_variation().'/admin/main.php') )
+require_once( get_template_directory().'/variations/'.$uncc_config->get_current_variation().'/admin/main.php' );
+
+// child variation admin main.
+if( is_child_theme() ):
+if( file_exists(get_stylesheet_directory().'/variations/'.$uncc_config->get_current_variation().'/admin/main.php') )
+require_once( get_stylesheet_directory().'/variations/'.$uncc_config->get_current_variation().'/admin/main.php' );
+endif;
+
+endif; // admin backend
 
 
 //========================================================================================
 //====================================================== Default filters and actions =====
 
+// Admin Bar
 add_filter( 'show_admin_bar', 'uncc_show_admin_bar', 10 );
 add_action( 'admin_bar_menu', 'uncc_setup_admin_bar' );
 
+// Theme setup
+add_action( 'theme_setup', 'uncc_theme_setup', 1 );
 add_action( 'init', 'uncc_setup_widget_areas' );
 add_action( 'init', 'uncc_register_menus' );
 add_action( 'after_setup_theme', 'uncc_add_featured_image_support' );
 add_action( 'wp_enqueue_scripts', 'uncc_enqueue_scripts', 0 );
 
+// Embeded content
 add_filter( 'embed_oembed_html', 'uncc_embed_html', 10, 3 );
 add_filter( 'video_embed_html', 'uncc_embed_html' );
 
+// Theme Customizer
 add_action( 'customize_register', 'uncc_customize_register' );
+add_action( 'customize_save_after', 'uncc_customize_save' );
+add_action( 'update_option_uncc-variation', 'uncc_customize_update_variation', 99, 2 );
+add_action( 'update_option_uncc-options', 'uncc_customize_update_options', 99, 2 );
+
+
+//========================================================================================
+//======================================================================== Functions =====
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_theme_setup') ):
+function uncc_theme_setup()
+{
+
+}
+endif; 
+
 
 //----------------------------------------------------------------------------------------
 // 
@@ -275,7 +351,7 @@ endif;
 if( !function_exists('uncc_get_header_image') ):
 function uncc_get_header_image()
 {
-	$header_url = get_custom_header()->url;
+	$header_url = get_header_image();
 	if( !$header_url ) $header_url = get_random_header_image();
 
 	if( !$header_url )
@@ -1130,44 +1206,57 @@ endif;
 
 
 
-//========================================================================================
-//======================================================================= Main Setup =====
-
+//----------------------------------------------------------------------------------------
 // 
-// Set the log's file path.
 //----------------------------------------------------------------------------------------
-$uncc_logfile = dirname(__FILE__).'/uncc.log';
-
-// 
-// Set blog name.
-//----------------------------------------------------------------------------------------
-define( 'UNCC_BLOG_NAME', trim( preg_replace("/[^A-Za-z0-9 ]/", '-', get_blog_details()->path), '-' ) );
-
-// 
-// Add the image sizes for thumbnails.
-//----------------------------------------------------------------------------------------
-add_image_size( 'thumbnail_portrait', 120 );
-add_image_size( 'thumbnail_landscape', 324 );
-
-// 
-// Setup mobile support.
-//----------------------------------------------------------------------------------------
-require_once( get_template_directory().'/classes/mobile-support.php' );
-$uncc_mobile_support = new Mobile_Support;
-
-//
-// Include the admin backend. 
-//----------------------------------------------------------------------------------------
-if( is_admin() ):
-
-require_once( get_template_directory().'/admin/main.php' );
-if( (is_child_theme()) && (file_exists(get_stylesheet_directory().'/admin/main.php')) ) 
-	require_once( get_stylesheet_directory().'/admin/main.php' );
-
-$filepath = uncc_get_theme_file_path( '/admin/main.php', 'variation' );
-if( $filepath ) require_once( $filepath );
-
-//require_once( uncc_get_theme_file_path( '/classes/wp-customize-variation-control.php', 'theme' ) );
-
+if( !function_exists('uncc_customize_save') ):
+function uncc_customize_save( $wp_customize )
+{
+	global $uncc_config;
+	$uncc_config->set_variation( get_theme_mod('uncc-variation'), true );
+}
 endif;
+
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_customize_update_variation') ):
+function uncc_customize_update_variation( $old_value, $new_value )
+{
+	global $wp_customize;
+	if( isset($wp_customize) ) return;
+	set_theme_mod( 'uncc-variation', $new_value );
+}
+endif;
+
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_customize_update_options') ):
+function uncc_customize_update_options( $old_value, $new_value )
+{
+	global $wp_customize;
+	if( isset($wp_customize) ) return;
+}
+endif;
+
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_get_theme_mod') ):
+function uncc_get_theme_mod( $key, $default = false )
+{
+	if( isset($_POST['customized']) )
+	{
+		$values = json_decode(wp_unslash($_POST['customized']), true);
+		if( array_key_exists($key, $values) ) return $values[$key];
+	}
+
+	return get_theme_mod( $key, $default );
+}
+endif;
+
 

@@ -50,7 +50,11 @@ class UNCC_Config
 	//------------------------------------------------------------------------------------
 	public function load_config()
 	{
-		$this->check_db();
+		global $wp_customize;
+		if( !isset($wp_customize) )
+		{
+			$this->check_db();
+		}
 
 		$this->data = array();
 		$this->config = array();
@@ -92,9 +96,19 @@ class UNCC_Config
 		// 
 		// load database options.
 		// 
-		$db_options = get_option( 'uncc-options', array() );
-		if( empty($db_options) || !is_array($db_options) ) $db_options = array();
-
+		$db_options = array();
+		if( !isset($wp_customize) )
+		{
+			$db_options = get_option( 'uncc-options', array() );
+			if( empty($db_options) || !is_array($db_options) ) $db_options = array();
+		}
+		else
+		{
+			// theme customizer options
+			
+			$db_options = apply_filters( 'uncc-theme-customizer-options', $db_options );
+		}
+		
 		$replace = array();
 		
 		// 
@@ -128,7 +142,10 @@ class UNCC_Config
 		//
 		// Update the database version.
 		//
-		update_option( 'uncc-db-version', self::DB_VERSION );
+		if( !isset($wp_customize) )
+		{
+			update_option( 'uncc-db-version', self::DB_VERSION );
+		}
 		
 // 		nh_print( $config_ini, 'config-ini' );
 // 		nh_print( $options_ini, 'options-ini' );
@@ -231,6 +248,21 @@ class UNCC_Config
 	//------------------------------------------------------------------------------------
 	// 
 	//------------------------------------------------------------------------------------
+	public function get_theme_mod( $key, $default = false )
+	{
+		if( isset($_POST['customized']) )
+		{
+			$values = json_decode(wp_unslash($_POST['customized']), true);
+			if( array_key_exists($key, $values) ) return $values[$key];
+		}
+
+		return get_theme_mod( $key, $default );
+	}
+	
+	
+	//------------------------------------------------------------------------------------
+	// 
+	//------------------------------------------------------------------------------------
 	public function get_image_data()
 	{
 		$args = func_get_args();
@@ -313,11 +345,13 @@ class UNCC_Config
 	//------------------------------------------------------------------------------------
 	public function get_current_variation()
 	{
-// 		echo 'get_theme_mod';
-		$variation = get_theme_mod( 'uncc-variation', false );
-		if( $variation !== false ) return $variation;
+		global $wp_customize;
+		if( isset($wp_customize) )
+		{
+	        $variation = $this->get_theme_mod( 'uncc-variation', false );
+			if( $variation !== false ) return $variation;
+		}
 		
-// 		echo 'get_option';
 		$variation = get_option( 'uncc-variation', false );
 		if( $variation === false ) return $this->set_variation();
 		
@@ -329,7 +363,7 @@ class UNCC_Config
 	//------------------------------------------------------------------------------------
 	// 
 	//------------------------------------------------------------------------------------
-	public function set_variation( $name = '' )
+	public function set_variation( $name = '', $saving_theme_customizer = false )
 	{
 		if( $name === '' )
 		{
@@ -345,7 +379,12 @@ class UNCC_Config
 			}
 		}
 		
-		update_option( 'uncc-variation', $name );
+		global $wp_customize;
+		if( (!isset($wp_customize)) || ($saving_theme_customizer) )
+		{
+			update_option( 'uncc-variation', $name );
+		}
+		
 		return $name;
 	}
 	
@@ -439,7 +478,7 @@ class UNCC_Config
 				if( (!in_array($name, array('.','..'))) && 
 				    (is_dir($folder.DIRECTORY_SEPARATOR.$name)) )
 				{
-					$directories[$file] = $folder.DIRECTORY_SEPARATOR.$name.$filename;
+					$directories[$name] = $folder.DIRECTORY_SEPARATOR.$name.$filename;
 				}
 			}
 		}

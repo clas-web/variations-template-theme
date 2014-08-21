@@ -171,7 +171,7 @@ Tags:
 	
 	#header #title-box .description {
 		font-size:1.2em;
-		background-color:#333;
+		background-color:#000;
 		background-color:rgba(0,0,0,0.6);
 		color:#fff;
 		display:inline-block;
@@ -585,7 +585,20 @@ Tags:
 	.widget_categories ul > li {
 	    font-size: 0.5em;
 	    vertical-align: top;
+	    padding:0.2em;
 	    padding-left: 20px;
+	    display:block;
+	    clear:both;
+		zoom:1;
+	}
+	
+	.widget_categories ul > li:before,
+	.widget_categories ul > li:after,
+	.widget_categories ul > li > a:before,
+	.widget_categories ul > li > a:after {
+		content:" ";
+		display:table;
+		clear:both;
 	}
 	
 	.widget_categories ul ul > li {
@@ -597,6 +610,8 @@ Tags:
 	    vertical-align: text-top;
 	    line-height:1.2em;
 	    padding:0.2em;
+	    display:block;
+	    float:left;
 	}
 	
 	.widget_categories ul ul.children {
@@ -604,7 +619,7 @@ Tags:
 		margin-top: -2em;
 		background-image: url('images/list-arrow-right.png');
 		background-repeat: no-repeat;
-		background-position-y: 0.5em;
+		background-position-y: 1em;
 		background-position-x: 2px;
 		margin-left: -20px;
 		height: 1em;
@@ -620,7 +635,7 @@ Tags:
 		margin-top: -2em;
 		background-image: url('images/list-arrow-down.png');
 		background-repeat: no-repeat;
-		background-position-y: 0.5em;
+		background-position-y: 1em;
 		background-position-x: 2px;
 		margin-left: -20px;
 		height:auto;
