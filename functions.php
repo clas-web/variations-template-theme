@@ -343,7 +343,17 @@ function uncc_add_featured_image_support()
 }
 endif;
 
+//----------------------------------------------------------------------------------------
+// Adds editor styles that use similar css to what is specified in style.css
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_add_editor_styles') ):
+function uncc_add_editor_styles() 
+{
+    add_editor_style( 'editor-style.css' );
+}
+endif;
 
+add_action( 'after_setup_theme', 'uncc_add_editor_styles' );
 
 //----------------------------------------------------------------------------------------
 // 

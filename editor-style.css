@@ -1,0 +1,144 @@
+/*
+Theme Name: UNC Charlotte
+editor style
+*/
+
+
+/****************************************************************************************
+ * General
+ ****************************************************************************************/
+
+	html .mceContentBody {
+		max-width:640px;
+	}
+	* {
+		font-family: 'Helvetica Neue',Arial,Helvetica,sans-serif;
+		color: #444;
+		line-height: 1.5;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		margin:0; padding:0;
+		font-family:Helvetica, Arial, sanserif;
+		font-weight: normal;
+	}
+	
+	h1, h2, h3 {
+		margin-top: 10px;
+		margin-bottom:10px;
+	}
+	
+	h4, h5, h6 {
+		margin-top: 5px;
+		margin-bottom:5px;
+	}
+	
+	h1 {
+		font-size:1.5em;
+	}
+	
+	h2 {
+		font-size:1.4em;
+	}
+	
+	h3 {
+		font-size:1.3em;
+	}
+	
+	h4 {
+		font-size:1.2em;
+	}
+	
+	h5 {
+		font-size:1.1em;
+	}
+	
+	h6 {
+		font-size:1.0em;
+	}
+	
+		
+	a {
+		color:#003366;
+		text-decoration:none;
+		outline:none;
+	}
+
+	a:hover {
+		text-decoration:underline;
+	}
+	
+	a img {
+		outline:none;
+		border:0;
+	}
+	
+	.alignleft {
+		float:left;
+		margin-right:15px;
+	}
+	
+	.alignright {
+		float:right;
+		margin-left:15px;
+	}
+	
+	.aligncenter {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+/****************************************************************************************
+ * Main
+ ****************************************************************************************/
+
+	 img {
+		max-width:100%;
+		height:auto;
+	}
+	
+	blockquote  {
+		padding:10px 30px;
+		margin:0px;
+		border-top:solid 1px #ccc;
+		border-bottom:solid 1px #ccc;
+		font-size:1.05em;
+		line-height:1.2em;
+	}
+	
+	blockquote > div,
+	blockquote > p {
+		margin:0px;
+	}
+	
+/****************************************************************************************
+ * Content
+ ****************************************************************************************/
+
+	ul,
+	ol {
+		margin: 5px 0px 0px -15px;
+	}
+
+	ul {
+		list-style: square;
+	}
+	ol {
+		list-style: decimal;
+	}
+	ol ol {
+		list-style: upper-alpha;
+	}
+	ol ol ol {
+		list-style: lower-roman;
+	}
+	ol ol ol ol {
+		list-style: lower-alpha;
+	}
+	ul ul,
+	ol ol,
+	ul ol,
+	ol ul {
+		margin-bottom: 0;
+	}
