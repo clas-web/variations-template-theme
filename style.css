@@ -319,7 +319,7 @@ Tags:
 
 	#content ul,
 	#content ol {
-		margin: 5px 0px 0px -15px;
+		margin: 5px 0px 0px 0px;
 	}
 
 	#content ul {
@@ -426,40 +426,55 @@ Tags:
 		margin:10px 0px;
 	}
 	
-	#content .comments {
+	#comments {
 		clear:both;
 		margin:2em 0;
 		padding:1em 0;
 	}
 	
-	#content .comments .nocomments {
+	#comments .nocomments {
 		display:none;
 	}
 
-	#content .comments textarea {
-		max-width:100%;
+	#comments .comment-list {
+		padding:0px;
+		border-bottom:solid 1px #ccc;
+		margin-bottom:20px;
 	}
-	
-	#content .comments ol,
-	#content .comments ul {
+
+	#comments ol,
+	#comments ul {
 		list-style:none;
 	}
 
-	#content .comments .commentlist {
-		padding:0px;
-		border-bottom:solid 1px #ccc;
-	}
-
-	#content .comments .commentlist .comment-body {
+	#comments .comment-list .comment-body {
 		padding:10px;
 		border-top:solid 1px #ccc;
 	}
 	
-	#content .comments .children {
-		padding-left:1em;
+	#comments .comment-list .children {
+		margin-left:1em;
+		padding:0;
+		list-style:none;
 	}
 	
-	#content .comments .commentlist .reply {
+	#comments .comment-list .reply {
+		text-align:right;
+	}
+	
+	#respond label {
+		display:block;
+	}
+	
+	#respond textarea {
+		width:100%;
+		min-width:100%;
+		max-width:100%;
+		padding:0;
+		margin:0;
+	}
+	
+	#respond .form-submit {
 		text-align:right;
 	}
 

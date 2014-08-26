@@ -103,6 +103,8 @@ add_action( 'customize_save_after', 'uncc_customize_save' );
 add_action( 'update_option_uncc-variation', 'uncc_customize_update_variation', 99, 2 );
 add_action( 'update_option_uncc-options', 'uncc_customize_update_options', 99, 2 );
 
+// Comments
+add_filter( 'comments_template', 'uncc_find_comments_template_part', 999 );
 
 //========================================================================================
 //======================================================================== Functions =====
@@ -1250,6 +1252,20 @@ function uncc_customize_update_options( $old_value, $new_value )
 	global $wp_customize;
 	if( isset($wp_customize) ) return;
 	
+}
+endif;
+
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_find_comments_template_part') ):
+function uncc_find_comments_template_part( $path )
+{
+	$filepath = uncc_get_theme_file_path( 'templates/other/comments.php' );
+	if( $filepath ) $path = $filepath;
+
+	return $path;
 }
 endif;
 

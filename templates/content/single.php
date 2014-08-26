@@ -30,7 +30,7 @@
 	
 	</div><!-- .details -->
 
-	<?php uncc_get_template_part( 'comments', 'other' ); ?>
+	<?php comments_template() ?>
 	
 </div><!-- .post -->
 
