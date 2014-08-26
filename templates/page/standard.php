@@ -46,6 +46,7 @@
 
 	<?php
 	uncc_get_template_part( 'header', 'part' );
+	uncc_get_template_part( 'header-menu', 'part' );
 	uncc_get_template_part( 'main', 'part' );
 	uncc_get_template_part( 'footer', 'part' );
 	?>
