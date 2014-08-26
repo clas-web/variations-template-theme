@@ -109,6 +109,7 @@ add_filter( 'comments_template', 'uncc_find_comments_template_part', 999 );
 //========================================================================================
 //======================================================================== Functions =====
 
+
 //----------------------------------------------------------------------------------------
 // 
 //----------------------------------------------------------------------------------------
@@ -300,6 +301,32 @@ function uncc_enqueue_file( $type, $name, $filepath )
 endif;
 
 
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_admin_preview_callback') ):
+function uncc_admin_preview_callback()
+{
+	uncc_get_template_part( 'header', 'part' );
+}
+endif;
+
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_admin_head_callback') ):
+function uncc_admin_head_callback()
+{
+	global $uncc_config;
+	$name = $uncc_config->get_current_variation();
+	$folder = 'variations/'.$name;
+	
+	uncc_enqueue_files( 'style', 'header-style', 'styles/admin-header.css' );
+	uncc_enqueue_files( 'style', 'header-style-'.$name, $folder.'/styles/admin-header.css' );	
+}
+endif;
+
 
 //----------------------------------------------------------------------------------------
 // Adds support for featured images.
@@ -308,7 +335,14 @@ if( !function_exists('uncc_add_featured_image_support') ):
 function uncc_add_featured_image_support()
 {
 	add_theme_support( 'post-thumbnails' );
-	add_theme_support( 'custom-header', array( 'width' => 950, 'random-default' => true ) );
+	add_theme_support( 'custom-header',
+		array( 
+			'width' => 950, 
+			'random-default' => true,
+			'admin-head-callback' => 'uncc_admin_head_callback',
+			'admin-preview-callback' => 'uncc_admin_preview_callback'
+		)
+	);
 	
 	if( (is_child_theme()) && (file_exists(get_stylesheet_directory().'/images/headers/full')) )
 	{
@@ -1209,6 +1243,8 @@ function uncc_customize_register( $wp_customize )
 			)
 		)
 	);
+	
+	
 	
 	
 // 	uncc_print( $uncc_config->get_current_variation(), 'current variation' );

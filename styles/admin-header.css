@@ -1,0 +1,149 @@
+
+
+/****************************************************************************************
+ *
+ * From main template style.css
+ *
+ ****************************************************************************************/
+
+
+/****************************************************************************************
+ * Header
+ ****************************************************************************************/
+	
+	#header-menu-icon-wrapper {
+		position:relative;
+	}
+	
+	#header {
+		position:relative;
+		font-family:Times New Roman, Times, serif;
+	}
+	
+	#header .masthead {
+		background-repeat:no-repeat;
+		background-position:center center;
+		position:relative;
+	}
+	
+	#header #title-box-placeholder {
+		display:block;
+		position:absolute;
+		top:0;
+		left:0;
+		right:0;
+		bottom:0;
+	}
+	
+	#header #title-box-wrapper {
+		display:table;
+		width:100%;
+		height:100%;
+	}
+	
+	#header #title-box {
+		display:table-cell;
+		font-family:Helvetica, Arial, sanserif;
+		width:100%;
+		height:100%;
+		padding:1em;
+	}
+	
+	#header #title-box > a {
+		display:block;
+	}
+	
+	html.old-ie #header #title-box-wrapper {
+		display:block;
+	}
+
+	html.old-ie #header #title-box {
+		display:block;
+	}
+	
+	#header #title-box .name {
+		font-size:2.2em;
+		background-color:#333;
+		background-color:rgba(0,0,0,0.6);
+		color:#fff;
+		display:inline-block;
+		padding:2px 5px;
+	}
+	
+	#header #title-box .description {
+		font-size:1.2em;
+		background-color:#000;
+		background-color:rgba(0,0,0,0.6);
+		color:#fff;
+		display:inline-block;
+		margin-top:5px;
+		font-weight:normal;
+		padding:2px 5px;
+		font-style:italic;
+	}
+	
+	#header .click-box {
+		display:block;
+		position:absolute;
+		top:0;
+		left:0;
+		bottom:0;
+		right:0;
+	}
+
+	#header .click-box:hover {
+		/* background-color:rgba(0,0,0,0.2); */
+	}
+	
+	
+
+
+/****************************************************************************************
+ *
+ * From main template full-site.css
+ *
+ ****************************************************************************************/
+
+
+/****************************************************************************************
+ * General
+ ****************************************************************************************/
+	
+	#header {
+		width:950px;
+	}
+	
+/****************************************************************************************
+ * Header
+ ****************************************************************************************/
+
+	#header #title-box.hleft {
+		text-align:left;
+	}
+	
+	#header #title-box.hcenter {
+		text-align:center;
+	}
+
+	#header #title-box.hright {
+		text-align:right;
+	}
+
+	#header #title-box.vtop {
+		vertical-align:top;
+	}
+
+	#header #title-box.vcenter {
+		vertical-align:middle;
+	}
+
+	#header #title-box.vbottom {
+		vertical-align:bottom;
+		padding-bottom:1em;
+	}
+	
+	#header #title-box .name,
+	#header #title-box .description {
+		padding:2px 5px;
+	}
+

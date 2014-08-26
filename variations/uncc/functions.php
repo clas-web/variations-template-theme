@@ -21,8 +21,21 @@ endif;
 if( !function_exists('uncc_modify_custom_header') ):
 function uncc_modify_custom_header()
 {
-	remove_theme_support( 'custom-header' );
-	add_theme_support( 'custom-header', array( 'width' => 950, 'random-default' => false ) );
+	global $_wp_theme_features;
+	
+	if( array_key_exists('custom-header', $_wp_theme_features) && count($_wp_theme_features['custom-header'] > 0) )
+	{
+		$_wp_theme_features['custom-header'][0]['random-default'] = false;
+	}
+	else
+	{
+		add_theme_support( 'custom-header',
+			array( 
+				'width' => 950, 
+				'random-default' => false,
+			)
+		);
+	}
 }
 endif;
 
