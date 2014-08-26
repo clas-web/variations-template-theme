@@ -766,43 +766,44 @@ Tags:
 /****************************************************************************************
  * Categories and Tags
  ****************************************************************************************/
-.taxonomy-list a {
-	cursor:pointer; 
-	display:inline-block; 
-	margin:2px 0.2em; padding:0.1em 0.2em;	
-	border: 1px solid #ccc;
-}
 
-.taxonomy-list a:hover {
-	text-decoration:none;
-	border: 1px solid #000;
-}
+	.taxonomy-list a {
+		cursor:pointer; 
+		display:inline-block; 
+		margin:2px 0.2em; padding:0.1em 0.2em;	
+		border: 1px solid #ccc;
+	}
 
-.category-list a {
-	background-color:#f6f6f6;
-}
+	.taxonomy-list a:hover {
+		text-decoration:none;
+		border: 1px solid #000;
+	}
 
-.post_tag-list a {
-	background-color:#FFFACD;
-}
+	.category-list a {
+		background-color:#f6f6f6;
+	}
 
-.category-label {
+	.post_tag-list a {
+		background-color:#FFFACD;
+	}
 
-}
+	.category-label {
 
-.tag-label {
+	}
 
-}
+	.tag-label {
 
-.tagcloud {
-	padding: 10px 0 10px 0;
-	margin-top: 5px;
-	text-align:justify;
-}
+	}
 
-.tagcloud a {
-	white-space: nowrap;
-}
+	.tagcloud {
+		padding: 10px 0 10px 0;
+		margin-top: 5px;
+		text-align:justify;
+	}
+
+	.tagcloud a {
+		white-space: nowrap;
+	}
 
 /****************************************************************************************
  * Footer
