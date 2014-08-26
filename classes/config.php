@@ -96,18 +96,19 @@ class UNCC_Config
 		// 
 		// load database options.
 		// 
-		$db_options = array();
 		if( !isset($wp_customize) )
 		{
 			$db_options = get_option( 'uncc-options', array() );
-			if( empty($db_options) || !is_array($db_options) ) $db_options = array();
 		}
 		else
 		{
+			$db_options = $this->get_upgraded_db_options();
+
 			// theme customizer options
 			
 			$db_options = apply_filters( 'uncc-theme-customizer-options', $db_options );
 		}
+		if( empty($db_options) || !is_array($db_options) ) $db_options = array();
 		
 		$replace = array();
 		
@@ -138,14 +139,6 @@ class UNCC_Config
 		// convert values.
 		//
 		$this->convert_values( $this->data );
-		
-		//
-		// Update the database version.
-		//
-		if( !isset($wp_customize) )
-		{
-			update_option( 'uncc-db-version', self::DB_VERSION );
-		}
 		
 // 		nh_print( $config_ini, 'config-ini' );
 // 		nh_print( $options_ini, 'options-ini' );
@@ -494,6 +487,26 @@ class UNCC_Config
 	//------------------------------------------------------------------------------------
 	// 
 	//------------------------------------------------------------------------------------
+	private function get_upgraded_db_options()
+	{
+		$db_version = get_option( 'uncc-db-version', false );
+		
+		switch( $db_version )
+		{
+			case '1.0':
+				break;
+			
+			default:
+				break;
+		}
+		
+		return get_option( 'uncc-options', array() );
+	}
+	
+	
+	//------------------------------------------------------------------------------------
+	// 
+	//------------------------------------------------------------------------------------
 	private function check_db()
 	{
 		$db_version = get_option( 'uncc-db-version', false );
@@ -507,6 +520,8 @@ class UNCC_Config
 			default:
 				break;
 		}
+		
+		update_option( 'uncc-db-version', self::DB_VERSION );
 	}
 	
 	

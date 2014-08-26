@@ -152,6 +152,10 @@ Tags:
 		padding:1em;
 	}
 	
+	#header #title-box > a {
+		display:block;
+	}
+	
 	html.old-ie #header #title-box-wrapper {
 		display:block;
 	}
