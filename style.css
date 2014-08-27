@@ -346,6 +346,7 @@ Tags:
 	#content ul ol,
 	#content ol ul {
 		margin-bottom: 0;
+		padding-left: 20px;
 	}
 
 	#content .sidebar-controls {
