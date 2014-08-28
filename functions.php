@@ -106,8 +106,37 @@ add_action( 'update_option_uncc-options', 'uncc_customize_update_options', 99, 2
 // Comments
 add_filter( 'comments_template', 'uncc_find_comments_template_part', 999 );
 
+// Categories Widget
+add_action( 'init', 'uncc_setup_categories_walker' );
+add_filter( 'widget_categories_args', 'uncc_alter_categories_widget_args' );
+
+
 //========================================================================================
 //======================================================================== Functions =====
+
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_alter_categories_widget_args') ):
+function uncc_alter_categories_widget_args( $args )
+{
+	$args['walker'] = new UNCC_Categories_Walker;
+	return $args;
+}
+endif; 
+
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_setup_categories_walker') ):
+function uncc_setup_categories_walker()
+{
+	$filepath = uncc_get_theme_file_path( 'classes/categories-walker.php' );
+	if( $filepath ) require_once( $filepath );
+}
+endif;
 
 
 //----------------------------------------------------------------------------------------
@@ -116,7 +145,6 @@ add_filter( 'comments_template', 'uncc_find_comments_template_part', 999 );
 if( !function_exists('uncc_theme_setup') ):
 function uncc_theme_setup()
 {
-
 }
 endif; 
 
@@ -225,8 +253,8 @@ function uncc_enqueue_scripts()
 	
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui', '//code.jquery.com/ui/1.11.0/jquery-ui.js' );
-	uncc_enqueue_files( 'style', 'main-style', 'style.css' );
-	uncc_enqueue_files( 'style', 'main-style-'.$name, $folder.'/style.css' );
+	uncc_enqueue_files( 'style', 'main-style', 'style.css', array(), '1.0.0' );
+	uncc_enqueue_files( 'style', 'main-style-'.$name, $folder.'/style.css', array(), '1.0.0' );
 	
 	if( $uncc_mobile_support->use_mobile_site )
 	{
@@ -253,7 +281,7 @@ endif;
 // @param	$filepath	string		The relative path to filename.
 //----------------------------------------------------------------------------------------
 if( !function_exists('uncc_enqueue_files') ):
-function uncc_enqueue_files( $type, $name, $filepath )
+function uncc_enqueue_files( $type, $name, $filepath, $dependents = array(), $version = false  )
 {
 	if( $type !== 'script' && $type !== 'style' ) return;
 
@@ -269,7 +297,7 @@ function uncc_enqueue_files( $type, $name, $filepath )
 	{	
 		if( $theme_filepath !== null )
 		{
-			call_user_func( 'wp_register_'.$type, $name.'-'.$key, $theme_filepath );
+			call_user_func( 'wp_register_'.$type, $name.'-'.$key, $theme_filepath, $dependents, $version );
 			call_user_func( 'wp_enqueue_'.$type, $name.'-'.$key );
 		}
 	}
@@ -286,7 +314,7 @@ endif;
 // @param	$filepath	string		The relative path to filename.
 //----------------------------------------------------------------------------------------
 if( !function_exists('uncc_enqueue_file') ):
-function uncc_enqueue_file( $type, $name, $filepath )
+function uncc_enqueue_file( $type, $name, $filepath, $dependents = array(), $version = false )
 {
 	if( $type !== 'script' && $type !== 'style' ) return;
 	
@@ -294,7 +322,7 @@ function uncc_enqueue_file( $type, $name, $filepath )
 	
 	if( $theme_filepath !== null )
 	{
-		call_user_func( 'wp_register_'.$type, $name, $theme_filepath );
+		call_user_func( 'wp_register_'.$type, $name, $theme_filepath, $dependents, $version );
 		call_user_func( 'wp_enqueue_'.$type, $name );
 	}
 }

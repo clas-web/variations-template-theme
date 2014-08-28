@@ -602,79 +602,51 @@ Tags:
 		color:#555;
 	}
 	
-	.widget_categories ul > li {
-	    font-size: 0.5em;
-	    vertical-align: top;
-	    padding:0.2em;
-	    padding-left: 20px;
-	    display:block;
-	    clear:both;
-		zoom:1;
-	}
-	
-	.widget_categories ul > li:before,
-	.widget_categories ul > li:after,
-	.widget_categories ul > li > a:before,
-	.widget_categories ul > li > a:after {
-		content:" ";
-		display:table;
-		clear:both;
-	}
-	
-	.widget_categories ul ul > li {
-		font-size: 1.0em;
-	}
-	
 	.widget_categories ul li a {
-	    font-size: 2.0em;
-	    vertical-align: text-top;
 	    line-height:1.2em;
 	    padding:0.2em;
+		padding-left:20px;
 	    display:block;
-	    float:left;
+	}
+	
+	.widget_categories ul li a > .cat-count {
+		font-size:0.5em;
+		vertical-align:text-top;
 	}
 	
 	.widget_categories ul ul.children {
-		padding-top: 1em;
-		margin-top: -2em;
-		background-image: url('images/list-arrow-right.png');
-		background-repeat: no-repeat;
-		background-position-y: 1em;
-		background-position-x: 2px;
-		margin-left: -20px;
-		height: 1em;
+		display:none;
+		padding-left:20px;
+	}
+
+	.widget_categories ul li {
 	}
 	
-	.widget_categories ul.children > li {
-		display:none;
+	.widget_categories ul li.has-children > a {
+		background-image: url('images/list-arrow-right.png');
+		background-repeat: no-repeat;
+		background-position-y: 0.5em;
+		background-position-x: 4px;
+	}
+	
+	.widget_categories ul li.has-children.current-cat > a,
+	.widget_categories ul li.has-children.current-cat-parent > a,
+	.widget_categories ul li.has-children.current-cat-ancestor > a {
+		background-image: url('images/list-arrow-down.png');
 	}
 	
 	.widget_categories ul li.current-cat > ul.children,
-	.widget_categories ul li.current-cat-parent > ul.children {
-		padding-top: 2em;
-		margin-top: -2em;
-		background-image: url('images/list-arrow-down.png');
-		background-repeat: no-repeat;
-		background-position-y: 1em;
-		background-position-x: 2px;
-		margin-left: -20px;
-		height:auto;
+	.widget_categories ul li.current-cat-parent > ul.children,
+	.widget_categories ul li.current-cat-ancestor > ul.children {
+		display:block;
 	}
 	
 	.widget_categories > ul > li.current-cat,
-	.widget_categories > ul > li.current-cat-parent {
+	.widget_categories > ul > li.current-cat-parent,
+	.widget_categories > ul > li.current-cat-ancestor {
 		background-color:#f6f6f6;
-		padding:0px;
-		padding-left:20px;
 		border-top:solid 1px #ccc;
 		border-bottom:solid 1px #ccc;
-	}
-	
-	.widget_categories ul li.current-cat > ul.children > li,
-	.widget_categories ul li.current-cat-parent > ul.children > li {
-		display:list-item;
-		padding-left:30px;
-		background-color:#f6f6f6;
 	}
 	
 	.widget_categories ul li.current-cat > a {
@@ -687,6 +659,14 @@ Tags:
 		text-decoration: none;
 		background-color:#e9e9e9;
 		color:#003366;
+	}
+	
+	.widget_categories ul li.flat-list {
+		padding-left:0px;
+	}
+	
+	.widget_categories ul li.flat-list > a {
+		padding:0.2em 20px;
 	}
 	
 	
