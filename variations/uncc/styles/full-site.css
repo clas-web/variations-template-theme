@@ -202,6 +202,13 @@
 	#header-menu ul > li > a {
 		text-align:center;
 		border:none;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+	
+	#header-menu ul ul > li > a {
+		white-space: normal;
+		text-overflow: clip;
 	}
 	
 	#header-menu ul ul > li {
