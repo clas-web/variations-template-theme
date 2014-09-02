@@ -204,6 +204,7 @@
 		border:none;
 		white-space: nowrap;
 		text-overflow: ellipsis;
+		overflow:hidden;
 	}
 	
 	#header-menu ul ul > li > a {
