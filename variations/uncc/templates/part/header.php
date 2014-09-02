@@ -35,7 +35,6 @@ if( $description['use-site-link'] ) $description['link'] = get_site_url();
 			<?php echo uncc_get_anchor( $title['link'], null, null, '<div class="name">'.$title['text'].'</div>' ); ?>
 		<?php endif; ?>
 		<?php if( !empty($description['text']) ): ?>
-			<?php if( !empty($title['text']) ): ?><br/><?php endif; ?>
 			<?php echo uncc_get_anchor( $description['link'], null, null, '<div class="description">'.$description['text'].'</div>' ); ?>
 		<?php endif; ?>
 
