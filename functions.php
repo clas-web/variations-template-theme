@@ -110,6 +110,9 @@ add_filter( 'comments_template', 'uncc_find_comments_template_part', 999 );
 add_action( 'init', 'uncc_setup_categories_walker' );
 add_filter( 'widget_categories_args', 'uncc_alter_categories_widget_args' );
 
+// Add / Remove MIME types
+add_filter( 'upload_mimes', 'uncc_add_custom_mime_types' );
+
 
 //========================================================================================
 //======================================================================== Functions =====
@@ -1330,6 +1333,30 @@ function uncc_find_comments_template_part( $path )
 	if( $filepath ) $path = $filepath;
 
 	return $path;
+}
+endif;
+
+
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_add_custom_mime_types') ):
+function uncc_add_custom_mime_types( $mimes )
+{
+	// Mime types to remove include:
+	// .mp4, .mov, .wmv, .avi
+	unset( $mimes['mp4'] );
+	unset( $mimes['mov'] );
+	unset( $mimes['wmv'] );
+	unset( $mimes['avi'] );
+
+	// Mime types to include:
+	// .exe, .zip
+	$mimes['exe'] = 'application/x-msdownload';
+	$mimes['zip'] = 'application/zip';
+	
+	return $mimes;
 }
 endif;
 
