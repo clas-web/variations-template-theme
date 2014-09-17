@@ -89,7 +89,7 @@ function uncc_footer_address()
 			<span class="name"><a href="http://www.uncc.edu" title="www.uncc.edu">The University of North Carolina at Charlotte</a></span>
 			<span>9201 University City Blvd., Charlotte, NC 28223-0001</span>
 			<span>704-687-UNCC (8622)</span>
-			<span>&copy; 2013 UNC Charlotte | All Rights Reserved</span>
+			<span>&copy; 2014 UNC Charlotte | All Rights Reserved</span>
 			<span><a href="http://legal.uncc.edu/termsofuse/">Terms of Use</a> | <a href="http://legal.uncc.edu/policies/">Policy Statements</a> | <a href="http://www.uncc.edu/contact">Contact Us</a></span>
 		</div>
 	<?php
@@ -98,7 +98,7 @@ function uncc_footer_address()
 		<div class="address">
 			<span class="name"><a href="http://www.uncc.edu" title="www.uncc.edu">The University of North Carolina at Charlotte</a></span>
 			<span>9201 University City Blvd., Charlotte, NC 28223-0001 <b>&middot;</b> 704-687-UNCC (8622)</span>
-			<span>&copy; 2013 UNC Charlotte | All Rights Reserved | <a href="http://legal.uncc.edu/termsofuse/">Terms of Use</a> | <a href="http://legal.uncc.edu/policies/">Policy Statements</a> | <a href="http://www.uncc.edu/contact">Contact Us</a></span>
+			<span>&copy; 2014 UNC Charlotte | All Rights Reserved | <a href="http://legal.uncc.edu/termsofuse/">Terms of Use</a> | <a href="http://legal.uncc.edu/policies/">Policy Statements</a> | <a href="http://www.uncc.edu/contact">Contact Us</a></span>
 		</div>
 	<?php
 	endif;
