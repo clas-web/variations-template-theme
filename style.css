@@ -321,6 +321,15 @@ Tags:
  * Content
  ****************************************************************************************/
 
+	#content p, 
+	#content ul, 
+	#content ol, 
+	#content dd, 
+	#content pre, 
+	#content hr {
+		margin-bottom: 1em;
+	}
+	
 	#content ul,
 	#content ol {
 		margin: 5px 0px 0px 0px;
@@ -387,7 +396,6 @@ Tags:
 		color: #333333;
 		font-size: 1em;
 		line-height: 1.5em;
-		padding:1em 0px;
 	}
 	
 	#content .entry-title {
