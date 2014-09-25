@@ -434,7 +434,10 @@ function uncc_get_header_image()
 	$header_url = get_header_image();
 	if( !$header_url ) $header_url = get_random_header_image();
 
-	if( !$header_url )
+	$header_path = '';
+	if( $header_url ) $header_path = uncc_url_to_path($header_url);
+		
+	if( !$header_path )
 	{
 		$header_url = '';
 		$header_width = 0;
@@ -442,8 +445,6 @@ function uncc_get_header_image()
 	}
 	else
 	{
-// 		uncc_print($header_url);
-		$header_path = uncc_url_to_path($header_url);
 		list( $header_width, $header_height ) = getimagesize( $header_path );
 	}
 	
