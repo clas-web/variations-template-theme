@@ -389,6 +389,16 @@
 	#content .comments .children {
 		padding-left:0px;
 	}
+
+	#content .entry-content div.featured-image {
+		text-align:center;
+	}
+	
+	#content .excerpt div.featured-image {
+		float:right;
+		width:20%;
+	}
+	
 	
 /****************************************************************************************
  * Footer

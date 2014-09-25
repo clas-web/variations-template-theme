@@ -21,7 +21,16 @@
 	<?php endif; ?>
 	
 	<div class="entry-content">
+	
+		<?php if( has_post_thumbnail($post->ID) ): ?>
+			<?php $image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large' ); ?>
+			<div class="featured-image">
+				<img src="<?php echo $image[0]; ?>" title="Featured Image" />
+			</div>
+		<?php endif; ?>
+
 		<?php echo apply_filters( 'the_content', $post->post_content ); ?>
+		
 	</div><!-- .entry-content -->
 	
 	<?php if( $post->post_type === 'post' ): ?>

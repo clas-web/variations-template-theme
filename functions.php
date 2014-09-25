@@ -151,6 +151,7 @@ endif;
 if( !function_exists('uncc_theme_setup') ):
 function uncc_theme_setup()
 {
+	add_theme_support( 'post-thumbnails' );
 }
 endif; 
 

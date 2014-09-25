@@ -164,6 +164,12 @@
 		border:solid 0px transparent;
 		padding-right:0px;
 	}
+
+	#content .entry-content div.featured-image,
+	#content .excerpt div.featured-image {
+		float:right;
+	}
+
 	
 /****************************************************************************************
  * Sidebar

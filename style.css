@@ -397,6 +397,10 @@ Tags:
 		font-size: 1em;
 		line-height: 1.5em;
 	}
+
+	#content .excerpt div.featured-image > img {
+		width:100%;
+	}
 	
 	#content .entry-title {
 		font-family:Helvetica, Arial, sanserif;
