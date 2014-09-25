@@ -113,6 +113,9 @@ add_filter( 'widget_categories_args', 'uncc_alter_categories_widget_args' );
 // Add / Remove MIME types
 add_filter( 'upload_mimes', 'uncc_add_custom_mime_types' );
 
+// Enable Links subpanel
+add_filter( 'pre_option_link_manager_enabled', '__return_true' );
+
 
 //========================================================================================
 //======================================================================== Functions =====

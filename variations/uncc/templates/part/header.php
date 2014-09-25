@@ -48,7 +48,12 @@ if( $description['use-site-link'] ) $description['link'] = get_site_url();
 			<div id="links">
 
 				<?php
-				$links = get_bookmarks( array('category' => 'header') );
+				$links = get_bookmarks( 
+					array(
+						'category_name' => 'header',
+						'limit' => 3,
+					)
+				);
 				foreach( $links as $l ):
 					printf( '<a href="%s" title="%s">%s</a>', $l->link_url, $l->link_name, $l->link_name );
 				endforeach;

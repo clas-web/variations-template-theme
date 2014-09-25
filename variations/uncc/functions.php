@@ -40,18 +40,3 @@ function uncc_modify_custom_header()
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_register_menus') ):
-function uncc_register_menus()
-{
-	register_nav_menus(
-		array(
-			'header-links' => __( 'Header Links' ),
-			'header-navigation' => __( 'Header Menu' ),
-		)
-	);
-}
-endif;
-
