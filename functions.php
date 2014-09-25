@@ -1091,6 +1091,7 @@ function uncc_get_taxonomy_list( $taxonomy_name, $post )
 	if( !$taxonomy ) return '';
 
 	$terms = wp_get_post_terms( $post->ID, $taxonomy_name );
+	if( count($terms) == 0 ) return '';
 
 	$html = '';
 	$html .= '<div class="taxonomy-list '.$taxonomy->name.'-list">';	
