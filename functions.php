@@ -124,6 +124,17 @@ add_filter( 'pre_option_link_manager_enabled', '__return_true' );
 //----------------------------------------------------------------------------------------
 // 
 //----------------------------------------------------------------------------------------
+if( !function_exists('uncc_return_nothing') ):
+function uncc_return_nothing()
+{
+	return '';
+}
+endif; 
+
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
 if( !function_exists('uncc_alter_categories_widget_args') ):
 function uncc_alter_categories_widget_args( $args )
 {

@@ -2,21 +2,14 @@
 <?php //uncc_print('PART: header-menu'); ?>
 <?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars; ?>
 <?php
-	if( wp_get_nav_menu_object('Header Menu') !== false )
-	{
-		$header_menu = wp_nav_menu( 
-			array(
-				'menu_class' => 'header-navigation',
-				'theme_location' => 'header-navigation',
-				'echo' => false,
-				'fallback_cb' => false,
-			)
-		);
-	}
-	else
-	{
-		$header_menu = '';
-	}
+	$header_menu = wp_nav_menu( 
+		array(
+			'menu_class' => 'header-navigation',
+			'theme_location' => 'header-navigation',
+			'echo' => false,
+			'fallback_cb' => 'uncc_return_nothing',
+		)
+	);
 ?>
 
 <div id="header-menu-placeholder" class="clearfix">
