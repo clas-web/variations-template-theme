@@ -11,7 +11,9 @@
 	<div class="breadcrumbs"><?php echo uncc_get_category_breadcrumbs(get_cat_ID($uncc_template_vars['page-title'])); ?></div>	
 <?php endif; ?>
 
-<h1><?php echo $uncc_template_vars['page-title']; ?></h1>
+<?php if( !is_home() ): ?>
+	<h1><?php echo $uncc_template_vars['page-title']; ?></h1>
+<?php endif; ?>
 
 <?php if( isset($uncc_template_vars['description']) ): ?>
 	<div class="description"><?php echo $uncc_template_vars['description']; ?></div>
