@@ -17,7 +17,7 @@
 		<?php echo uncc_get_taxonomy_list('category', $post); ?>
 	<?php endif; ?>
 	
-	<div class="excerpt">
+	<div class="entry-content">
 
 		<?php if( has_post_thumbnail($post->ID) ): ?>
 			<?php $image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail' ); ?>
@@ -26,9 +26,9 @@
 			</div>
 		<?php endif; ?>
 		
-		<?php echo get_the_excerpt(); ?>
+		<?php echo the_content(); ?>
 		
-	</div><!-- .excerpt -->
+	</div><!-- .entry-content -->
 
 	<?php if( $post->post_type === 'post' ): ?>
 		<?php echo uncc_get_taxonomy_list('post_tag', $post); ?>
