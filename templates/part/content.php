@@ -56,6 +56,7 @@ switch( $sidebar_count )
 	<?php endif; ?>
 
 	<?php
+	// content-type can be: single, listing, search, author, 404
 	uncc_get_template_part( $uncc_template_vars['content-type'], 'content' );
 	?>
 
