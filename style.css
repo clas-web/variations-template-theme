@@ -522,6 +522,18 @@ Tags:
 	#content tr.odd td {
 		background: #f2f7fc;
 	}
+	
+	#content .more-link {
+		display: block;			
+		text-align: center;
+		border-top: 1px solid #CCCCCC;
+		border-bottom: 1px dotted #CCCCCC;
+		text-decoration: none;		
+	}
+	
+	#content .more-link:hover {
+		background: #f6f6f6;
+	}
 
 /****************************************************************************************
  * Sidebar
