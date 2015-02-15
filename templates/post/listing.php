@@ -25,8 +25,11 @@
 				<img src="<?php echo $image[0]; ?>" title="Featured Image" />
 			</div>
 		<?php endif; ?>
-		
-		<?php echo the_content(); ?>
+		<?php if( $post->post_excerpt ): ?>
+			<?php echo the_excerpt(); ?>
+		<?php else:?>
+			<?php echo the_content(); ?>
+		<?php endif; ?>
 		
 	</div><!-- .entry-content -->
 
