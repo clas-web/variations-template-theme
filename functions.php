@@ -1364,3 +1364,10 @@ function uncc_add_custom_mime_types( $mimes )
 endif;
 
 
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+function uncc_read_more_link() {
+	return '<a class="more-link" href="' . get_permalink() . '">Read more...</a>';
+}
+add_filter( 'the_content_more_link', 'uncc_read_more_link' );
