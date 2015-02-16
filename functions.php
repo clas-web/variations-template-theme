@@ -1041,7 +1041,7 @@ endif;
 if( !function_exists( 'uncc_get_byline' ) ) :
 function uncc_get_byline( $post )
 {
-	$date = date( 'F d, Y', strtotime($post->post_modified) );
+	$date = date( 'F d, Y', strtotime($post->post_date) );
 	
 	$author = get_the_author_meta( 'display_name', $post->post_author );
 	$url = get_author_posts_url($post->post_author);
