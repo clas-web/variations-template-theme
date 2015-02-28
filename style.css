@@ -21,6 +21,13 @@ Tags:
 		background-color:#fff;
 		font-family:Helvetica, Arial, sanserif;
 		font-size:0.95em;
+	}
+	
+	html {
+		height:100%;
+	}
+	
+	body {
 		min-height:100%;
 	}
 
