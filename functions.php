@@ -1109,20 +1109,31 @@ function uncc_get_breadcrumbs( $post )
 }
 endif;
 
-if( !function_exists( 'uncc_get_category_breadcrumbs' ) ):
-function uncc_get_category_breadcrumbs ( $cat_id )
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists( 'uncc_get_taxonomy_breadcrumbs' ) ):
+function uncc_get_taxonomy_breadcrumbs( $term_id, $taxonomy = 'category' )
 {
-	if( get_category_parents( $cat_id ) )
+	$term = get_term( $term_id, $taxonomy );
+	if( $term === null || is_wp_error($term) ) return '';
+	
+	$breadcrumbs = array();
+	while( $term->parent )
 	{
-		$breadcrumbs = get_category_parents( $cat_id, true, ' &raquo; ' );
-		$items = explode( '&raquo;', $breadcrumbs );
-		if (count( $items) > 2 )
-		{
-			return $breadcrumbs;
-		}
+		$term = get_term( $term->parent, $taxonomy );
+		$link = get_term_link( $term, $taxonomy );
+		$title = $term->name;
+		$breadcrumbs[] = '<a href="'.$link.'" title="'.$title.'">'.$title.'</a>';
 	}
+	
+	if( count($breadcrumbs) > 0 )
+		return implode( ' &raquo; ',  $breadcrumbs ).' &raquo; ';
+	return '';
 }
 endif;
+
 
 //----------------------------------------------------------------------------------------
 // 

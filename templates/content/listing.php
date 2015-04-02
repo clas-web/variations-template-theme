@@ -8,7 +8,7 @@
 <?php endif; ?>
 
 <?php if( is_category() ): ?>
-	<div class="breadcrumbs"><?php echo uncc_get_category_breadcrumbs(get_cat_ID($uncc_template_vars['page-title'])); ?></div>	
+	<div class="breadcrumbs"><?php echo uncc_get_taxonomy_breadcrumbs(get_cat_ID($uncc_template_vars['page-title'])); ?></div>	
 <?php endif; ?>
 
 <?php if( !is_home() ): ?>
