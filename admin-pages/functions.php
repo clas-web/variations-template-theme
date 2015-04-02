@@ -1,36 +1,31 @@
 <?php
 
 
-
-if( !function_exists('uncc_echo_name') ):
-function uncc_input_name_e()
-{
-	echo 'uncc-options'.uncc_input_name( func_get_args() );
-}
-endif;
-
-if( !function_exists('uncc_echo_name') ):
-function uncc_input_name()
+/**
+ * 
+ */
+if( !function_exists('uncc_name_e') ):
+function uncc_name_e()
 {
 	$args = func_get_args();
-	if( count($args) == 1 && is_array($args[0]) ) $args = $args[0];
+	$fargs = array();
+    array_walk_recursive(
+    	$args,
+    	function( $item, $key ) use (&$fargs)
+    	{
+    		$fargs[] = $item;
+    	}
+    );
+	$fargs = array_merge( array(UNC_CHARLOTTE_THEME_OPTIONS), $fargs );
 	
-	$name = '';
-	
-	foreach( $args as $arg )
-	{
-		if( is_array($arg) )
-			$name .= uncc_input_name( $arg );
-		else
-			$name .= "[$arg]";
-	}
-
-	return $name;
+	apl_name_e( $fargs );
 }
 endif;
 
 
-
+/**
+ * 
+ */
 if( !function_exists('uncc_string_to_value') ):
 function uncc_string_to_value( $value )
 {
@@ -51,6 +46,4 @@ function uncc_string_to_value( $value )
 	return $value;
 }
 endif;
-
-
 

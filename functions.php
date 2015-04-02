@@ -10,6 +10,29 @@
 
 
 //========================================================================================
+//======================================================================== Constants =====
+
+if( !defined('UNC_CHARLOTTE_THEME') ):
+
+define( 'UNC_CHARLOTTE_THEME', 'UNC Charlotte Theme' );
+
+define( 'UNC_CHARLOTTE_THEME_DEBUG', true );
+
+define( 'UNC_CHARLOTTE_THEME_PATH', dirname(__FILE__) );
+define( 'UNC_CHARLOTTE_THEME_URL', plugins_url('', __FILE__) );
+
+define( 'UNC_CHARLOTTE_THEME_VERSION', '2.0.0' );
+define( 'UNC_CHARLOTTE_THEME_DB_VERSION', '1.0' );
+
+define( 'UNC_CHARLOTTE_THEME_VERSION_OPTION', 'uncc-hub-version' );
+define( 'UNC_CHARLOTTE_THEME_DB_VERSION_OPTION', 'uncc-db-version' );
+
+define( 'UNC_CHARLOTTE_THEME_OPTIONS', 'uncc-options' );
+
+endif;
+
+
+//========================================================================================
 //======================================================================= Main setup =====
 
 // 
@@ -57,24 +80,8 @@ require_once( get_template_directory().'/variations/'.$uncc_config->get_current_
 //----------------------------------------------------------------------------------------
 if( is_admin() ):
 
-// parent admin main.
-require_once( get_template_directory().'/admin/main.php' );
-
-// child admin main.
-if( is_child_theme() ):
-if( file_exists(get_stylesheet_directory().'/admin/main.php') ) 
-require_once( get_stylesheet_directory().'/admin/main.php' );
-endif;
-
-// parent variation admin main.
-if( file_exists(get_template_directory().'/variations/'.$uncc_config->get_current_variation().'/admin/main.php') )
-require_once( get_template_directory().'/variations/'.$uncc_config->get_current_variation().'/admin/main.php' );
-
-// child variation admin main.
-if( is_child_theme() ):
-if( file_exists(get_stylesheet_directory().'/variations/'.$uncc_config->get_current_variation().'/admin/main.php') )
-require_once( get_stylesheet_directory().'/variations/'.$uncc_config->get_current_variation().'/admin/main.php' );
-endif;
+require_once( dirname(__FILE__).'/libraries/apl/apl.php' );
+add_action( 'wp_loaded', 'uncc_load_apl_admin' );
 
 endif; // admin backend
 
@@ -119,6 +126,31 @@ add_filter( 'pre_option_link_manager_enabled', '__return_true' );
 
 //========================================================================================
 //======================================================================== Functions =====
+
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_load_apl_admin') ):
+function uncc_load_apl_admin()
+{
+	// child admin main.
+	if( is_child_theme() && file_exists(get_stylesheet_directory().'/admin-pages/require.php') ):
+	require_once( get_stylesheet_directory().'/admin-pages/require.php' );
+	endif;
+	
+	// parent admin main.
+	require_once( get_template_directory().'/admin-pages/require.php' );
+		
+	// Site admin page.
+	$uncc_pages = new APL_Handler( false );
+	
+	$uncc_pages->add_page( new UNCC_ThemeOptionsAdminPage(), 'themes.php' );
+	$uncc_pages = apply_filters( 'uncc-theme-admin-populate', $uncc_pages );
+	
+	$uncc_pages->setup();
+}
+endif;
 
 
 //----------------------------------------------------------------------------------------
