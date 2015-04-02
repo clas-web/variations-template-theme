@@ -348,8 +348,13 @@ class UNCC_Config
 		$variation = get_option( 'uncc-variation', false );
 		if( $variation === false ) return $this->set_variation();
 		
-		if( array_key_exists($variation, $this->get_variations()) ) return $variation;
-		return $this->set_variation( $variation );
+		$available_variations = $this->get_variations();
+		if( array_key_exists($variation, $available_variations) ) return $variation;
+		
+		$keys = array_keys($available_variations);
+		if( count($available_variations) > 0 )
+			return $this->set_variation( $available_variations[$keys[0]] );
+		return $this->set_variation('default');
 	}
 	
 	
@@ -360,11 +365,11 @@ class UNCC_Config
 	{
 		if( $name === '' )
 		{
-			if( (array_key_exists('variations', $this->config)) && 
-			    (is_array($this->config['variations'])) &&
-			    (count($this->config['variations']) > 0) )
+			$available_variations = $this->get_variations();
+			$keys = array_keys($available_variations);
+			if( count($available_variations) > 0 )
 			{
-				$name = $this->config['variations'][0];
+				$name = $available_variations[$keys[0]];
 			}
 			else
 			{
