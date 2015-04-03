@@ -6,6 +6,34 @@
 <div id="footer-wrapper" class="clearfix">
 	<div id="footer" class="clearfix">
 
+<?php
+$widgets = wp_get_sidebars_widgets();
+$footer_widgets = array();
+$footer_widgets_count = 0;
+for( $i = 0; $i < 4; $i++ )
+{
+	$widget_area = 'uncc-footer-'.($i+1);
+	$footer_widgets[$widget_area] = false;
+	if( array_key_exists($widget_area, $widgets) && count($widgets[$widget_area]) )
+	{
+		$footer_widgets[$widget_area] = true;
+		$footer_widgets_count++;
+	}
+}
+?>
+
+<div class="widget-area num-cols-<?php echo $footer_widgets_count ?> clearfix">
+	<?php
+	foreach( $footer_widgets as $widget_area => $show_area ):
+		if( $show_area ):
+			dynamic_sidebar( $widget_area );
+		else:
+			?><div style="display:none;"><?php
+			dynamic_sidebar( $widget_area );
+			?></div><?php
+		endif;
+	endforeach; ?>
+</div>
 
 <?php if( $uncc_mobile_support->is_mobile || $uncc_mobile_support->use_mobile_site ): ?>
 

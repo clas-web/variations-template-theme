@@ -197,6 +197,43 @@
  * Footer
  ****************************************************************************************/
 	
+	#footer .widget-area {
+		text-align:center;
+		margin:0 auto;
+		display:table;
+	}
+	
+	#footer .widget-area .widget {
+		padding:0px 20px;
+		border-right:solid 1px #ccc;
+		display:table-cell;
+	}
+	
+	#footer .widget-area .widget:first-child {
+		padding-left:0px;
+	}
+
+	#footer .widget-area .widget:last-child {
+		padding-right:0px;
+		border-right-width:0px;
+	}
+
+	#footer .widget-area.num-cols-1 .widget {
+		width:940px;
+	}
+
+	#footer .widget-area.num-cols-2 .widget {
+		width:446px;
+	}
+
+	#footer .widget-area.num-cols-3 .widget {
+		width:280px;
+	}
+
+	#footer .widget-area.num-cols-4 .widget {
+		width:207px;
+	}
+	
 	#footer .links {
 		display:inline-block;
 		margin-left:30px;

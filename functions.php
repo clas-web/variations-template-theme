@@ -270,6 +270,22 @@ function uncc_setup_widget_areas()
 			'id'   => 'uncc-right-sidebar',
 			'name' => 'Right Sidebar',
 		),
+		array(
+			'id'   => 'uncc-footer-1',
+			'name' => 'Footer Column 1',
+		),
+		array(
+			'id'   => 'uncc-footer-2',
+			'name' => 'Footer Column 2',
+		),
+		array(
+			'id'   => 'uncc-footer-3',
+			'name' => 'Footer Column 3',
+		),
+		array(
+			'id'   => 'uncc-footer-4',
+			'name' => 'Footer Column 4',
+		),
 	);
 	
 	$widget_area = array();

@@ -406,8 +406,23 @@
 
 	#footer {
 		text-align:center;
+		padding:20px 0px;
 	}
 
+	#footer .widget-area {
+		text-align:center;
+		margin:0 auto;
+	}
+	
+	#footer .widget-area .widget {
+		padding:20px;
+		border-bottom:solid 1px #ccc;
+	}
+
+	#footer .widget-area .widget:first-child {
+		padding-top:0px;
+	}
+	
 	#footer .links {
 		text-align:center;
 		border-bottom:solid 1px #ccc;
@@ -452,18 +467,4 @@
 	#footer .mobile-links {
 		padding:1em;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
