@@ -530,17 +530,20 @@ Tags:
 		background: #f2f7fc;
 	}
 	
-	#content .more-link {
+	#content .more-link,
+	#content .continue-reading {
 		display: block;			
 		text-align: center;
 		border-top: 1px solid #CCCCCC;
-		border-bottom: 1px dotted #CCCCCC;
+		border-bottom: 1px dotted transparent;
 		text-decoration: none;
 		margin-top: 20px;	
 	}
 	
-	#content .more-link:hover {
+	#content .more-link:hover,
+	#content .continue-reading:hover {
 		background: #f6f6f6;
+		border-bottom: 1px dotted #CCCCCC;
 	}
 
 /****************************************************************************************
