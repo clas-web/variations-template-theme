@@ -550,8 +550,11 @@ Tags:
 	.sidebar .widget ul {
 		list-style: none;
 		padding: 0px;
+		margin: 0px;
 	}
+	
 	.sidebar .widget_recent_entries li,
+	.sidebar .widget_authors li,
 	.sidebar .widget_links li {
 		padding: 3px;
 	}
@@ -837,7 +840,7 @@ Tags:
 	}
 
 	.tagcloud {
-		padding: 10px 0 10px 0;
+		padding: 0px 0 10px 0;
 		margin-top: 5px;
 		text-align:justify;
 	}
