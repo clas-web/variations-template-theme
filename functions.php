@@ -288,6 +288,8 @@ function uncc_setup_widget_areas()
 		),
 	);
 	
+	$widgets = apply_filters( 'uncc-widget-areas', $widgets );
+	
 	$widget_area = array();
 	$widget_area['before_widget'] = '<div id="%1$s" class="widget %2$s">';
 	$widget_area['after_widget'] = '</div>';

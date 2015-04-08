@@ -2,7 +2,7 @@
 
 
 add_action( 'after_setup_theme', 'uncc_modify_custom_header', 99 );
-
+add_filter( 'uncc-widget-areas', 'uncc_modify_widgets' );
 
 //----------------------------------------------------------------------------------------
 // 
@@ -36,6 +36,28 @@ function uncc_modify_custom_header()
 			)
 		);
 	}
+}
+endif;
+
+
+//----------------------------------------------------------------------------------------
+// 
+//----------------------------------------------------------------------------------------
+if( !function_exists('uncc_modify_widgets') ):
+function uncc_modify_widgets( $widgets )
+{
+	$widgets = array(
+		array(
+			'id'   => 'uncc-left-sidebar',
+			'name' => 'Left Sidebar',
+		),
+		array(
+			'id'   => 'uncc-right-sidebar',
+			'name' => 'Right Sidebar',
+		)
+	);
+	
+	return $widgets;
 }
 endif;
 

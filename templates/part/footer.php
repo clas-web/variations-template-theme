@@ -26,7 +26,9 @@ for( $i = 0; $i < 4; $i++ )
 	<?php
 	foreach( $footer_widgets as $widget_area => $show_area ):
 		if( $show_area ):
+			?><div class="widget-column <?php echo $widget_area; ?>"><?php
 			dynamic_sidebar( $widget_area );
+			?></div><?php
 		else:
 			?><div style="display:none;"><?php
 			dynamic_sidebar( $widget_area );
