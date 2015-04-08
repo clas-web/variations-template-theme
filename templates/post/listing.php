@@ -17,6 +17,10 @@
 		<?php echo uncc_get_taxonomy_list('category', $post); ?>
 	<?php endif; ?>
 	
+	<?php if( $post->post_type === 'post' ): ?>
+		<?php echo uncc_get_taxonomy_list('post_tag', $post); ?>
+	<?php endif; ?>
+
 	<div class="entry-content">
 
 		<?php if( has_post_thumbnail($post->ID) ): ?>
@@ -32,10 +36,6 @@
 		<?php endif; ?>
 		
 	</div><!-- .entry-content -->
-
-	<?php if( $post->post_type === 'post' ): ?>
-		<?php echo uncc_get_taxonomy_list('post_tag', $post); ?>
-	<?php endif; ?>
 
 </div><!-- .description -->
 

@@ -17,6 +17,10 @@
 		<?php echo uncc_get_taxonomy_list('category', $post); ?>
 	<?php endif; ?>
 	
+	<?php if( $post->post_type === 'post' ): ?>
+		<?php echo uncc_get_taxonomy_list('post_tag', $post); ?>
+	<?php endif; ?>
+
 	<div class="excerpt">
 
 		<?php if( has_post_thumbnail($post->ID) ): ?>
@@ -29,10 +33,6 @@
 		<?php echo get_the_excerpt(); ?>
 		
 	</div><!-- .excerpt -->
-
-	<?php if( $post->post_type === 'post' ): ?>
-		<?php echo uncc_get_taxonomy_list('post_tag', $post); ?>
-	<?php endif; ?>
 
 </div><!-- .description -->
 
