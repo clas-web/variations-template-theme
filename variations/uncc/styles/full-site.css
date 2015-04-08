@@ -7,10 +7,10 @@
 	#site-inside-wrapper {
 		width:auto;
 		border:none;
-		margin-top:0px;
-		margin-bottom:0px;
-		padding:0px;
-		box-shadow: 0px 0px 0px rgba(0,0,0,0);
+		margin-top:0;
+		margin-bottom:0;
+		padding:0;
+		box-shadow:0 0 0 rgba(0,0,0,0);
 	}
 		
 /****************************************************************************************
@@ -66,12 +66,12 @@
 	}
 
 	#header #title-box {
-		font-family: "Times New Roman", Times, serif !important;
+		font-family:"Times New Roman", Times, serif !important;
 	}
 	
 	#header #title-box .name {
-		font-size: 1.5em;
-		letter-spacing: 0.05em;
+		font-size:1.5em;
+		letter-spacing:0.05em;
 	}
 
 	#header #title-box .description {
@@ -120,10 +120,10 @@
 	
 	#banner > a {
 		position:absolute;
-		top:0px;
-		left:0px;
-		right:0px;
-		bottom:0px;
+		top:0;
+		left:0;
+		right:0;
+		bottom:0;
 	}
 
 /****************************************************************************************
@@ -132,19 +132,19 @@
 
 	#header form.searchform input[type=text],
 	#footer form.searchform input[type=text] {
-		height: 15px;
-		line-height: 15px;
-		margin: 0;
-		vertical-align: middle;
-		border: none;
-		outline: none;
+		height:15px;
+		line-height:15px;
+		margin:0;
+		vertical-align:middle;
+		border:none;
+		outline:none;
 		padding:2px 5px;
 	}
 	
 	#header form.searchform input[type=image],
 	#footer form.searchform input[type=image] {
-	   display: inline-block;
-	   vertical-align: middle;
+	   display:inline-block;
+	   vertical-align:middle;
 	   height:19px;
 	   width:19px;
 	}
@@ -154,10 +154,10 @@
  ****************************************************************************************/
 
 	#header-menu > div {
-		display: table;
-		width: 949px;
-		table-layout: fixed;
-		border-collapse: collapse;
+		display:table;
+		width:949px;
+		table-layout:fixed;
+		border-collapse:collapse;
 	}
 	
 	#header-menu ul {
@@ -176,7 +176,7 @@
 	#header-menu ul > li:hover {
 		border-top-color:#fff;
 		border-bottom-color:#ccc;
-		border-style: solid;
+		border-style:solid;
 	}
 
 	#header-menu ul ul > li:hover {
@@ -186,7 +186,7 @@
 	#header-menu ul > li.current_page_item,
 	#header-menu ul > li.current_page_parent,
 	#header-menu ul > li.current_page_ancestor {
-		background-color: #f0f0f0;
+		background-color:#f0f0f0;
 		border-color:#ccc;
 		border-top-color:#fff;
 		border-right-style:solid;
@@ -202,14 +202,14 @@
 	#header-menu ul > li > a {
 		text-align:center;
 		border:none;
-		white-space: nowrap;
-		text-overflow: ellipsis;
+		white-space:nowrap;
+		text-overflow:ellipsis;
 		overflow:hidden;
 	}
 	
 	#header-menu ul ul > li > a {
-		white-space: normal;
-		text-overflow: clip;
+		white-space:normal;
+		text-overflow:clip;
 	}
 	
 	#header-menu ul ul > li {
@@ -263,22 +263,6 @@
 		padding-left:0px;
 	}
 
-	.sidebar h2.widget-title {
-		background-color:#f6f6f6;
-		color:#006633;
-		border-bottom:solid 1px #bbb;
-		margin:0px;
-		line-height:1.8em;
-		height:1.8em;
-		padding-left:10px;
-		padding-top:2px;
-		padding-bottom: 0px;
-		font-weight:normal;
-		font-size:1em;
-		font-family:Times, "Times New Roman", serif;
-		text-transform:uppercase;
-	}
-
 /****************************************************************************************
  * Content
  ****************************************************************************************/
@@ -313,12 +297,12 @@
 	
 	#content.left-sidebar {
 		border:none;
-		padding-left:0px;
+		padding-left:0;
 	}
 	
 	#content.right-sidebar {
 		border:none;
-		padding-right:0px;
+		padding-right:0;
 	}
 	
 	#content .sidebar-controls .left.button {
@@ -330,26 +314,46 @@
 	}
 	
 	#content.left-sidebar.hide-left-sidebar {
-		padding-left:0px;
-		width:0px;
+		padding-left:0;
+		width:0;
 	}
 	
 	#content.right-sidebar.hide-right-sidebar {
-		padding-right:0px;
-		width:0px;
+		padding-right:0;
+		width:0;
 	}
 	
-/****************************************************************************************
- * Widget - Pages
- ****************************************************************************************/
-	
-	.sidebar .widget_pages {
-		padding:0px;
-	}
-
 /****************************************************************************************
  * Footer
  ****************************************************************************************/
+	
+	
+	#footer .links {
+		display:inline-block;
+		margin-left:30px;
+	}
+	
+	#footer .search {
+		float:right;
+		margin-right:30px;
+	}
+
+	#footer .address {
+		margin-left:40px;
+		padding-bottom:10px;
+		width:600px;
+		display:block; 
+		float:left;
+	}
+
+	#footer .follow {
+		position:absolute;
+		right:30px;
+		bottom:10px;
+		margin:0;
+		font-size:1em;
+		font-weight:bold;
+	}	
 	
 	#footer .links img {
 		vertical-align:middle;

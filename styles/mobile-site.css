@@ -119,7 +119,7 @@
 		z-index:99;
 		background-color:#fff;
 		width:auto;
-		box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
+		box-shadow:0px 0px 5px rgba(0,0,0,0.4);
 	}
 	
 	#header-menu,
@@ -129,9 +129,9 @@
 	
 	#header-menu > h2 {
 		margin:0px;
-		font-size: 0.5em;
-		text-align: center;
-		text-transform: uppercase;
+		font-size:0.5em;
+		text-align:center;
+		text-transform:uppercase;
 		line-height:1.7em;
 		padding-top:6px;
 		background-color:#f6f6f6;
@@ -160,37 +160,37 @@
  ****************************************************************************************/
 
 	#header-menu #site-searchform {
-		display: block;
-		padding: 5px 24px;
+		display:block;
+		padding:5px 24px;
 	}
 	
 	#header-menu .textbox_wrapper {
-		height: 20px;
-		padding: 5px;
-		border: solid 1px #666;
-		padding-right: 35px;
-    	position: relative;
+		height:20px;
+		padding:5px;
+		border:solid 1px #666;
+		padding-right:35px;
+    	position:relative;
 	}
 	
 	#header-menu .textbox_wrapper input[type=text] {
-		font-size: 1.0em;
-		width: 100%;
-		margin: 0;
-		padding: 0;
+		font-size:1.0em;
+		width:100%;
+		margin:0;
+		padding:0;
 		border:none;
 		outline:none;
 	}
 	
 	#header-menu .textbox_wrapper input[type=submit] {
-	    position: absolute;
-	    top: 0;
-	    right: 0;
-	    width: 30px;
-	    height: 30px;
-	    padding: 0;
-	    background: #666 url('../images/google-search-button.png') no-repeat center center;
-	    color: transparent;
-	    border: solid 1px #666;
+	    position:absolute;
+	    top:0;
+	    right:0;
+	    width:30px;
+	    height:30px;
+	    padding:0;
+	    background:#666 url('../images/google-search-button.png') no-repeat center center;
+	    color:transparent;
+	    border:solid 1px #666;
 	}
 
 /****************************************************************************************
@@ -253,8 +253,8 @@
 	
 	#header-menu ul li a {
 /* 		background-image:url('../images/list-bullet2.png'); */
-	    background-repeat: no-repeat;
-	    background-position: left center;
+	    background-repeat:no-repeat;
+	    background-position:left center;
 	}
 
 	#header-menu ul li.page_item_has_children > a {
@@ -390,6 +390,13 @@
 		padding-left:0px;
 	}
 
+	#content .entry-title {
+		margin-left:-5px;
+		margin-right:-5px;
+		padding-left:5px;
+		padding-right:5px;
+	}
+
 	#content .entry-content div.featured-image {
 		text-align:center;
 	}
@@ -414,11 +421,6 @@
 		margin:0 auto;
 	}
 	
-	#footer .widget-area .widget {
-		padding:20px;
-		border-bottom:solid 1px #ccc;
-	}
-
 	#footer .widget-area .widget:first-child {
 		padding-top:0px;
 	}
@@ -468,3 +470,13 @@
 		padding:1em;
 	}
 
+/****************************************************************************************
+ * Widget - Pages, Menus, Categories
+ ****************************************************************************************/
+
+   	h2.widget-title {
+		margin-left:-5px;
+		margin-right:-5px;
+	}
+	
+	
