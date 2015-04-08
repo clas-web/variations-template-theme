@@ -576,19 +576,6 @@ Tags:
 		background:#f2f7fc;
 	}
 	
-<<<<<<< HEAD
-	#content .more-link {
-		display:block;			
-		text-align:center;
-		border-top:1px solid #CCCCCC;
-		border-bottom:1px dotted #CCCCCC;
-		text-decoration:none;
-		margin-top:2em;	
-	}
-	
-	#content .more-link:hover {
-		background:#f6f6f6;
-=======
 	#content .more-link,
 	#content .continue-reading {
 		display: block;			
@@ -603,7 +590,6 @@ Tags:
 	#content .continue-reading:hover {
 		background: #f6f6f6;
 		border-bottom: 1px dotted #CCCCCC;
->>>>>>> origin/master
 	}
 
 /****************************************************************************************
@@ -852,12 +838,7 @@ Tags:
 	}
 
 	.tagcloud {
-<<<<<<< HEAD
 		margin-top:0.5em;
-=======
-		padding: 0px 0 10px 0;
-		margin-top: 5px;
->>>>>>> origin/master
 		text-align:justify;
 	}
 
