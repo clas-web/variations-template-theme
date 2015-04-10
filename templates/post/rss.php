@@ -1,6 +1,6 @@
 
 
-<?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars, $post; ?>
+<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $post; ?>
 
 
 <div class="post clearfix">

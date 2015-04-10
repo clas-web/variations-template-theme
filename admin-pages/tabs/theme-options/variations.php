@@ -1,16 +1,16 @@
 <?php
 /**
- * UNCC_ThemeOptionsVariationsTabAdminPage
+ * VTT_ThemeOptionsVariationsTabAdminPage
  * 
  * This class controls the admin page "Theme Options > Variations".
  * 
- * @package    uncc
+ * @package    variations-template-theme
  * @subpackage admin-pages/pages
  * @author     Crystal Barton <cbarto11@uncc.edu>
  */
 
-if( !class_exists('UNCC_ThemeOptionsVariationsTabAdminPage') ):
-class UNCC_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
+if( !class_exists('VTT_ThemeOptionsVariationsTabAdminPage') ):
+class VTT_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
 {
 	
 	private $model = null;	
@@ -23,7 +23,7 @@ class UNCC_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
 	
 	
 	/**
-	 * Creates an UNCC_ThemeOptionsVariationsTabAdminPage object.
+	 * Creates an VTT_ThemeOptionsVariationsTabAdminPage object.
 	 */
 	public function __construct( 
 		$parent,
@@ -40,7 +40,7 @@ class UNCC_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
 	 */
 	public function register_settings()
 	{
-		$this->register_setting( UNC_CHARLOTTE_THEME_OPTIONS );
+		$this->register_setting( VARIATIONS_TEMPLATE_THEME_OPTIONS );
 	}
 	
 
@@ -50,7 +50,7 @@ class UNCC_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
 	public function add_settings_sections()
 	{
 		$this->add_section(
-			'uncc-theme-variations',
+			'vtt-theme-variations',
 			'Variations',
 			'print_section_variations'
 		);
@@ -63,7 +63,7 @@ class UNCC_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
 	public function add_settings_fields()
 	{
 		$this->add_field(
-			'uncc-theme-variations',
+			'vtt-theme-variations',
 			'current-variation',
 			'Current Variation',
 			'print_field_current_variation'
@@ -78,13 +78,13 @@ class UNCC_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
 	
 	public function print_field_current_variation( $args )
 	{
-		global $uncc_config;
+		global $vtt_config;
 		
-		$current_variation = $uncc_config->get_current_variation();
-		$variations = $uncc_config->get_variations();
+		$current_variation = $vtt_config->get_variation_name();
+		$variations = $vtt_config->get_all_variation_names();
 		?>
 		
-		<select name="<?php uncc_name_e( 'variations', 'variation' ); ?>">
+		<select name="<?php vtt_name_e( 'variations', 'variation' ); ?>">
 		
 		<?php foreach( $variations as $key => $name ): ?>
 			<option value="<?php echo $key; ?>" 
@@ -97,7 +97,7 @@ class UNCC_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
 		
 		<div>
 		<input type="checkbox" 
-		       name="<?php uncc_name_e( 'variations', 'reset-options' ); ?>" 
+		       name="<?php vtt_name_e( 'variations', 'reset-options' ); ?>" 
 		       value="reset-options" />
 		Reset options?
 		</div>
@@ -129,16 +129,16 @@ class UNCC_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
 	 */
 	public function process_settings( $settings, $option )
 	{
-		if( $option !== UNC_CHARLOTTE_THEME_OPTIONS ) return $settings;
+		if( $option !== VARIATIONS_TEMPLATE_THEME_OPTIONS ) return $settings;
 
-		global $uncc_config;
+		global $vtt_config;
 		if( isset($settings['variations']) ):
 			
 			$tab_input = $settings['variations'];
 			
 			if( isset($tab_input['variation']) ):
 				
-				$variations = $uncc_config->get_variations();
+				$variations = $vtt_config->get_variations();
 				$chosen_variation = $tab_input['variation'];
 				
 				if( (!array_key_exists($chosen_variation, $variations)) && ($chosen_variation !== 'default') )
@@ -147,7 +147,7 @@ class UNCC_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
 					return parent::process_settings( $settings, $option );
 				}
 				
-				$uncc_config->set_variation( $chosen_variation );
+				$vtt_config->set_variation( $chosen_variation );
 				
 			endif;
 
@@ -174,6 +174,6 @@ class UNCC_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
 		$this->print_settings();
 	}
 	
-} // class UNCC_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
-endif; // if( !class_exists('UNCC_ThemeOptionsVariationsTabAdminPage') )
+} // class VTT_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
+endif; // if( !class_exists('VTT_ThemeOptionsVariationsTabAdminPage') )
 

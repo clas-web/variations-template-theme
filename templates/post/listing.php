@@ -1,6 +1,6 @@
 
 
-<?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars, $post; ?>
+<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $post; ?>
 
 
 <div class="post clearfix">
@@ -10,15 +10,15 @@
 	<h2 class="entry-title"><a href="<?php echo get_permalink($post->ID); ?>"><?php echo $post->post_title; ?></a></h2>
 	
 	<?php if( $post->post_type === 'post' ): ?>
-		<div class="entry-meta"><?php echo uncc_get_byline($post); ?></div><!-- .entry-meta -->
+		<div class="entry-meta"><?php echo vtt_get_byline($post); ?></div><!-- .entry-meta -->
 	<?php endif; ?>
 
 	<?php if( $post->post_type === 'post' ): ?>
-		<?php echo uncc_get_taxonomy_list('category', $post); ?>
+		<?php echo vtt_get_taxonomy_list('category', $post); ?>
 	<?php endif; ?>
 	
 	<?php if( $post->post_type === 'post' ): ?>
-		<?php echo uncc_get_taxonomy_list('post_tag', $post); ?>
+		<?php echo vtt_get_taxonomy_list('post_tag', $post); ?>
 	<?php endif; ?>
 
 	<div class="entry-content">

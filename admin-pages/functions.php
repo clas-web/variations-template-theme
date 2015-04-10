@@ -4,8 +4,8 @@
 /**
  * 
  */
-if( !function_exists('uncc_name_e') ):
-function uncc_name_e()
+if( !function_exists('vtt_name_e') ):
+function vtt_name_e()
 {
 	$args = func_get_args();
 	$fargs = array();
@@ -16,7 +16,7 @@ function uncc_name_e()
     		$fargs[] = $item;
     	}
     );
-	$fargs = array_merge( array(UNC_CHARLOTTE_THEME_OPTIONS), $fargs );
+	$fargs = array_merge( array(VARIATIONS_TEMPLATE_THEME_OPTIONS), $fargs );
 	
 	apl_name_e( $fargs );
 }
@@ -26,10 +26,10 @@ endif;
 /**
  * 
  */
-if( !function_exists('uncc_string_to_value') ):
-function uncc_string_to_value( $value )
+if( !function_exists('vtt_string_to_value') ):
+function vtt_string_to_value( $value )
 {
-	if( is_array($value) ) $value = array_map( 'uncc_string_to_value', $value );
+	if( is_array($value) ) $value = array_map( 'vtt_string_to_value', $value );
 	if( !is_string($value) ) return $value;
 	
 	switch( substr( $value, 0, 2 ) )

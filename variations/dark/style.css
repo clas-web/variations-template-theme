@@ -1,0 +1,289 @@
+/*
+Variation Name:Dark
+Description:
+Version:1.0.0
+Author:Crystal Barton
+Author URI:
+License:GNU General Public License v2 or later
+License URI:http://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+/****************************************************************************************
+ * General
+ ****************************************************************************************/
+
+	html, body {
+		background-color:#333;
+	}
+	
+	#site-inside-wrapper {
+		background-color:#333;
+	}
+
+	#content > h1 {
+		border-bottom-color:#ccc;
+	}
+	
+	a {
+		color:#069;
+	}
+
+/****************************************************************************************
+ * Header
+ ****************************************************************************************/
+	
+	#header #title-box .name {
+		background-color:#333;
+		background-color:rgba(0,0,0,0.6);
+		color:#fff;
+	}
+	
+	#header #title-box .description {
+		background-color:#000;
+		background-color:rgba(0,0,0,0.6);
+		color:#fff;
+	}
+	
+/****************************************************************************************
+ * Widget - Search
+ ****************************************************************************************/
+
+	.widget_search .searchform > div {
+		border-color:#666;
+	}
+	
+	.widget_search .searchform input[type=submit] {
+		color:transparent;
+		background-color:#666;
+		border-color:#666;
+	}
+	
+	.widget_calendar thead th,
+	.widget_calendar tbody td {
+		border-color:#666;
+		color:#fff;
+	}
+
+	.widget_calendar thead th {
+		background-color:#333;
+	}
+
+	.widget_calendar tbody td.pad {
+		background-color:#f6f6f6;
+	}
+
+/****************************************************************************************
+ * Main
+ ****************************************************************************************/
+
+	#content blockquote,
+	.sidebar blockquote,
+	#footer blockquote {
+		border-top-color:#ccc;
+		border-bottom:#ccc;
+	}
+		
+/****************************************************************************************
+ * Content
+ ****************************************************************************************/
+
+	#content .sidebar-controls {
+		background-color:#fff;
+	}
+	
+	#content .sidebar-controls .button {
+		border-color:#ccc;
+	}
+
+	#content .entry-content,
+	#content .excerpt,
+	#content .description {
+		color:#333333;
+	}
+
+	#content .entry-title {
+		color:#000;
+		border-bottom-color:#ccc;
+	}
+
+	#content .entry-title a {
+		color:#000;
+	}
+
+	#content .entry-title:hover {
+		border-bottom-color:#000;
+	}
+
+	#content .entry-meta {
+		color:#333;
+	}
+	
+	#comments .comment-list {
+		border-bottom-color:#ccc;
+	}
+
+	#comments .comment-list .comment-body {
+		border-top-color:#ccc;
+	}
+	
+/****************************************************************************************
+ * tables
+ ****************************************************************************************/
+
+	#content table {
+		border-color:#e7e7e7;
+	}
+	
+	#content tr th,
+	#content thead th {
+		color:#888;
+	}
+	
+	#content tr td {
+		border-top-color:#e7e7e7;
+	}
+	
+	#content tr.odd td {
+		background:#f2f7fc;
+	}
+	
+	#content .more-link,
+	#content .continue-reading {
+		border-top-color: #ccc;
+	}
+	
+	#content .more-link:hover,
+	#content .continue-reading:hover {
+		background:#f6f6f6;
+		border-bottom-color:#CCCCCC;
+	}
+
+/****************************************************************************************
+ * Sidebar
+ ****************************************************************************************/
+
+	/* none */
+
+/****************************************************************************************
+ * Widget - Pages, Menus, Categories
+ ****************************************************************************************/
+
+	.widget {
+		color:#333;
+	}
+	
+   h2.widget-title {
+		color:#222;
+		border-bottom-color:#ccc;
+	}
+	
+	.widget_pages > ul,
+	.widget_nav_menu .menu  {
+		border-bottom-color:#ccc;
+	}
+	 
+	.widget_pages ul a,
+	.widget_nav_menu ul a {
+		color:#555;
+		border-top-color:#ccc;
+	}
+	
+	.widget_pages ul a:hover,
+	.widget_nav_menu ul a:hover {
+		color:#003366;
+		background-color:#e9e9e9;
+	}
+	
+	.widget_pages ul li.current_page_item > a,
+	.widget_nav_menu ul li.current-menu-item > a {
+		color:#003366;
+		background-color:#f0f0f0;
+	}
+	
+	.widget_pages ul li.current_page_item,
+	.widget_pages ul li.current_page_ancestor,
+	.widget_nav_menu ul li.current-menu-item,
+	.widget_nav_menu ul li.current-menu-ancestor {
+		background-color:#f6f6f6;
+	}
+
+	.widget_pages ul li.current_page_item > a:hover {
+		background-color:#e9e9e9;
+	}
+
+
+	/* Categories Widget */
+	
+	.widget_categories a {
+		color:#555;
+	}
+	
+	.widget_categories > ul > li.current-cat,
+	.widget_categories > ul > li.current-cat-parent,
+	.widget_categories > ul > li.current-cat-ancestor {
+		background-color:#f6f6f6;
+		border-top-color:#ccc;
+		border-bottom-color:#ccc;
+	}
+	
+	.widget_categories ul li.current-cat > a {
+		background-color:#f0f0f0;
+		color:#003366;
+	}
+	
+	.widget_categories ul li > a:hover {
+		background-color:#e9e9e9;
+		color:#003366;
+	}
+	
+/****************************************************************************************
+ * Categories and Tags
+ ****************************************************************************************/
+
+	.taxonomy-list a {
+		border-color:#ccc;
+	}
+
+	.taxonomy-list a:hover {
+		border-color:#000;
+	}
+
+	.category-list a {
+		background-color:#f6f6f6;
+	}
+
+	.post_tag-list a {
+		background-color:#FFFACD;
+	}
+
+/****************************************************************************************
+ * Pagination
+ ****************************************************************************************/
+	.nav-next,
+	.nav-prev {
+		border-top-color:#ccc;
+	}
+
+/****************************************************************************************
+ * Footer
+ ****************************************************************************************/
+
+	/* none */
+	
+/****************************************************************************************
+ * Contact Form
+ ****************************************************************************************/
+	
+	.contact-form label span {
+		color:#aaa;
+	}
+
+	.contact-form input[type='text'], .contact-form input[type='email'] {
+		border-color:#999;
+	}
+
+	.contact-form textarea {
+		border-color:#999;
+	}
+	
+

@@ -1,7 +1,7 @@
 
 
-<?php //uncc_print('search.php'); ?>
-<?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars, $wp_query; ?>
+<?php //vtt_print('search.php'); ?>
+<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $wp_query; ?>
 
 <?php
 //------------------------------------------------------------------------------------
@@ -9,18 +9,18 @@
 //------------------------------------------------------------------------------------
 if( have_posts() ):
 
-	uncc_get_template_part( 'listing', 'content', 'none' );
+	vtt_get_template_part( 'listing', 'content', 'none' );
 	
 else:
 
-	if( isset($uncc_template_vars['listing-name']) ):
-		?><div class="listing-name"><?php echo $uncc_template_vars['listing-name']; ?></div><?php
+	if( isset($vtt_template_vars['listing-name']) ):
+		?><div class="listing-name"><?php echo $vtt_template_vars['listing-name']; ?></div><?php
 	endif;
 
-	?><h1><?php echo $uncc_template_vars['page-title']; ?></h1><?php
+	?><h1><?php echo $vtt_template_vars['page-title']; ?></h1><?php
 
-	if( isset($uncc_template_vars['description']) ):
-		?><div class="description"><?php echo $uncc_template_vars['description']; ?></div><?php
+	if( isset($vtt_template_vars['description']) ):
+		?><div class="description"><?php echo $vtt_template_vars['description']; ?></div><?php
 	endif;
 
 	?>

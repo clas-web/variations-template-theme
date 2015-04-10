@@ -7,7 +7,7 @@
  * @since 
  * @uses Walker
  */
-class UNCC_Categories_Walker extends Walker 
+class VTT_Categories_Walker extends Walker 
 {
 	/**
 	 * What the class handles.

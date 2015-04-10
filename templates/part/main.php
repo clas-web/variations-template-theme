@@ -1,6 +1,6 @@
 
 
-<?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars; ?>
+<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars; ?>
 
 
 <div id="main-wrapper" class="clearfix">
@@ -8,9 +8,9 @@
 	
 	
 	<?php
-	uncc_get_template_part( 'sidebar', 'part', 'left' );
-	uncc_get_template_part( 'content', 'part' );
-	uncc_get_template_part( 'sidebar', 'part', 'right' );
+	vtt_get_template_part( 'sidebar', 'part', 'left' );
+	vtt_get_template_part( 'content', 'part' );
+	vtt_get_template_part( 'sidebar', 'part', 'right' );
 	?>
 	
 	
