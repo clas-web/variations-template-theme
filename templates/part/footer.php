@@ -1,6 +1,6 @@
 
-<?php //vtt_print('PART: footer'); ?>
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars; ?>
+<?php //uncc_print('PART: footer'); ?>
+<?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars; ?>
 
 
 <div id="footer-wrapper" class="clearfix">
@@ -12,7 +12,7 @@ $footer_widgets = array();
 $footer_widgets_count = 0;
 for( $i = 0; $i < 4; $i++ )
 {
-	$widget_area = 'vtt-footer-'.($i+1);
+	$widget_area = 'uncc-footer-'.($i+1);
 	$footer_widgets[$widget_area] = false;
 	if( array_key_exists($widget_area, $widgets) && count($widgets[$widget_area]) )
 	{
@@ -37,14 +37,14 @@ for( $i = 0; $i < 4; $i++ )
 	endforeach; ?>
 </div>
 
-<?php if( $vtt_mobile_support->is_mobile || $vtt_mobile_support->use_mobile_site ): ?>
+<?php if( $uncc_mobile_support->is_mobile || $uncc_mobile_support->use_mobile_site ): ?>
 
 	<div class="mobile-links">
 
-	<?php if( $vtt_mobile_support->use_mobile_site ): ?>
-		<a href="<?php echo vtt_get_page_url(); ?>?full">Full Site</a> | Mobile Site
+	<?php if( $uncc_mobile_support->use_mobile_site ): ?>
+		<a href="<?php echo uncc_get_page_url(); ?>?full">Full Site</a> | Mobile Site
 	<?php else: ?>
-		Full Site | <a href="<?php echo vtt_get_page_url(); ?>?mobile">Mobile Site</a>
+		Full Site | <a href="<?php echo uncc_get_page_url(); ?>?mobile">Mobile Site</a>
 	<?php endif; ?>
 	
 	</div> <!-- .mobile-links -->

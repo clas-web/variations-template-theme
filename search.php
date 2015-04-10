@@ -6,13 +6,13 @@
  * @subpackage unc-charlotte-theme
  */
 
-// vtt_print( 'PAGE:search.php' );
-global $vtt_config, $vtt_template_vars;
+// uncc_print( 'PAGE:search.php' );
+global $uncc_config, $uncc_template_vars;
 
-$vtt_template_vars = array();
-$vtt_template_vars['content-type'] = 'search';
-$vtt_template_vars['page-title'] = get_search_query();
-$vtt_template_vars['listing-name'] = 'Full-Text Search';
+$uncc_template_vars = array();
+$uncc_template_vars['content-type'] = 'search';
+$uncc_template_vars['page-title'] = get_search_query();
+$uncc_template_vars['listing-name'] = 'Full-Text Search';
 
-vtt_get_template_part( 'standard', 'page' );
+uncc_get_template_part( 'standard', 'page' );
 

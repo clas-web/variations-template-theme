@@ -1,18 +1,18 @@
-<?php //vtt_print( 'LEFT-SIDEBAR-PAGE' ); ?>
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars; ?>
+<?php //uncc_print( 'LEFT-SIDEBAR-PAGE' ); ?>
+<?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars; ?>
 
 <?php
 $widgets = wp_get_sidebars_widgets();
-if( array_key_exists('vtt-left-sidebar', $widgets) && count($widgets['vtt-left-sidebar']) ):
+if( array_key_exists('uncc-left-sidebar', $widgets) && count($widgets['uncc-left-sidebar']) ):
 ?>
 
 	<div id="left-sidebar-wrapper" class="sidebar-wrapper clearfix">
 		<div id="left-sidebar" class="sidebar clearfix">
 	
-			<?php if( $vtt_mobile_support->use_mobile_site ): ?>
+			<?php if( $uncc_mobile_support->use_mobile_site ): ?>
 				<h2>Left Sidebar</h2>
 			<?php endif; ?>
-			<?php dynamic_sidebar( 'vtt-left-sidebar' ); ?>
+			<?php dynamic_sidebar( 'uncc-left-sidebar' ); ?>
 	
 		</div><!-- #left-sidebar -->
 	</div><!-- #left-sidebar-wrapper -->
@@ -25,7 +25,7 @@ if( array_key_exists('vtt-left-sidebar', $widgets) && count($widgets['vtt-left-s
 
 		?>
 		<div style="display:none;">
-			<?php dynamic_sidebar( 'vtt-left-sidebar' ); ?>
+			<?php dynamic_sidebar( 'uncc-left-sidebar' ); ?>
 		</div>
 		<?php
 	

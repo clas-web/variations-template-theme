@@ -1,7 +1,7 @@
 
 
-<?php //vtt_print('part:author'); ?>
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $wp_query; ?>
+<?php //uncc_print('part:author'); ?>
+<?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars, $wp_query; ?>
 
 
 <div class="author-info clearfix">
@@ -34,7 +34,7 @@
 //------------------------------------------------------------------------------------
 if( have_posts() ):
 
-	vtt_get_template_part( 'listing', 'content', 'none' );
+	uncc_get_template_part( 'listing', 'content', 'none' );
 	
 else:
 

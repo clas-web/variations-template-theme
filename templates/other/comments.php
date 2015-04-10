@@ -1,5 +1,5 @@
 
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $post, $wp_query; ?>
+<?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars, $post, $wp_query; ?>
 
 <?php if( post_password_required() ) return; ?>
 

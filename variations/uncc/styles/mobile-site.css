@@ -1,0 +1,115 @@
+
+
+/****************************************************************************************
+ * Header
+ ****************************************************************************************/
+
+	#header-wrapper,
+	#header,
+	#header .masthead {
+		height:70px !important;
+		background-position:center bottom;
+		width:100% !important;
+	}
+
+	#header .masthead img.uncc-logo {
+		width:85px;
+	}
+
+	#header .masthead a.uncc-logo {
+		position:absolute;
+		top:14px;
+		left:10px;
+	}
+	
+	#header #title-box-placeholder {
+		position:absolute;
+		display:block;
+		top:0;
+		left:100px;
+		right:0px;
+		bottom:0;
+		height:70px !important;
+	}
+	
+	#header #title-box-wrapper {
+		display:table;
+		font-size:0.8em;
+	}
+	
+	#header #title-box {
+		font-family:"Times New Roman", Times, serif !important;
+		text-align:left;
+	}
+	
+	#header #title-box .name,
+	#header #title-box .description {
+		background-color:inherit;
+		color:#fff;
+		padding:0px;
+		text-align:left;
+		width:auto;
+	}
+
+	#header #title-box .name {
+		font-size:1.5em;
+		letter-spacing:0.05em;
+	}
+
+	#header #title-box .description {
+		display:none;
+	}
+	
+	#header #title-box a {
+		color:#fff;
+		padding:0px;
+	}
+
+	#header #title-box a:hover {
+		text-decoration:underline;
+	}
+
+/****************************************************************************************
+ * Banner
+ ****************************************************************************************/
+
+	#banner-wrapper {
+		width:100%;
+	}
+	
+	#banner {
+		width:100% !important;
+		background-repeat:no-repeat;
+		background-position:center center;
+		position:relative;
+	}
+
+/****************************************************************************************
+ * Header Menu
+ ****************************************************************************************/
+
+	#header-menu-button {
+		bottom:-12px;
+	}
+
+/****************************************************************************************
+ * Footer Search
+ ****************************************************************************************/
+
+	#footer form.searchform input[type=text] {
+		height:15px;
+		line-height:15px;
+		margin:0;
+		vertical-align:middle;
+		border:none;
+		outline:none;
+		padding:2px 5px;
+	}
+	
+	#footer form.searchform input[type=image] {
+	    display:inline-block;
+	    vertical-align:middle;
+	    height:19px;
+	    width:19px;
+	}
+

@@ -1,7 +1,7 @@
 
 
-<?php //vtt_print('part:404'); ?>
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $wp_query; ?>
+<?php //uncc_print('part:404'); ?>
+<?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars, $wp_query; ?>
 
 
 <h1>Entry not found.</h1>

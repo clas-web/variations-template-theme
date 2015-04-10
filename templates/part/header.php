@@ -1,14 +1,14 @@
 
 
-<?php //vtt_print('PART: header'); ?>
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars; ?>
+<?php //uncc_print('PART: header'); ?>
+<?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars; ?>
 <?php
-list( $header_url, $header_width, $header_height ) = array_values( vtt_get_header_image() );
+list( $header_url, $header_width, $header_height ) = array_values( uncc_get_header_image() );
 
-$image_link = $vtt_config->get_value( 'header', 'image-link' );
-$position = $vtt_config->get_value( 'header', 'title-position' );
-$title = $vtt_config->get_value( 'header', 'title' );
-$description = $vtt_config->get_value( 'header', 'description' );
+$image_link = $uncc_config->get_value( 'header', 'image-link' );
+$position = $uncc_config->get_value( 'header', 'title-position' );
+$title = $uncc_config->get_value( 'header', 'title' );
+$description = $uncc_config->get_value( 'header', 'description' );
 
 if( $title['use-blog-info'] )       $title['text'] = get_bloginfo('name');
 if( $title['use-site-link'] )       $title['link'] = get_site_url();
@@ -27,10 +27,10 @@ if( $description['use-site-link'] ) $description['link'] = get_site_url();
 		<div id="title-box" class="<?php echo $position; ?>">
 		
 		<?php if( !empty($title['text']) ): ?>
-			<?php echo vtt_get_anchor( $title['link'], null, null, '<div class="name">'.$title['text'].'</div>' ); ?>
+			<?php echo uncc_get_anchor( $title['link'], null, null, '<div class="name">'.$title['text'].'</div>' ); ?>
 		<?php endif; ?>
 		<?php if( !empty($description['text']) ): ?>
-			<?php echo vtt_get_anchor( $description['link'], null, null, '<div class="description">'.$description['text'].'</div>' ); ?>
+			<?php echo uncc_get_anchor( $description['link'], null, null, '<div class="description">'.$description['text'].'</div>' ); ?>
 		<?php endif; ?>
 		
 		</div><!-- #title-box -->

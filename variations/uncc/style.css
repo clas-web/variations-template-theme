@@ -1,0 +1,318 @@
+/*
+Variation Name:UNC Charlotte
+*/
+
+/****************************************************************************************
+ * General
+ ****************************************************************************************/
+
+	a {
+		color:#006633;
+		text-decoration:none;
+		outline:none;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		margin:1em 0 1em 0; 
+		padding:0;
+		font-family:Times, "Times New Roman", serif;
+	}
+
+	#content .entry-title {
+		font-family:times,"times new roman",serif;
+	}
+
+/****************************************************************************************
+ * Header
+ ****************************************************************************************/
+
+	#header {
+		height:100px;
+	}
+	
+	#header #title-box .name {
+		font-weight:normal;
+		margin:0;
+	}
+
+	#header #title-box .description {
+		font-weight:normal;
+		margin:0;
+	}
+
+/****************************************************************************************
+ * Widget - Pages, Menus, Categories
+ ****************************************************************************************/
+	
+	.widget {
+		color:#333333;
+		font-size:1em;
+		line-height:1.3em;
+		padding:0;
+		margin:1em 0em;
+	}
+
+	h2.widget-title {
+		background-color:#f6f6f6;
+		color:#006633;
+		border-bottom:solid 1px #bbb;
+		margin:0;
+		padding-left:1em;
+		padding-bottom:0.2em;
+		font-weight:normal;
+		font-size:1em;
+		font-family:Times, "Times New Roman", serif;
+		text-transform:uppercase;
+		margin-bottom:0.5em;
+	}
+	
+	.widget_pages ul a:hover,
+	.widget_nav_menu ul a:hover {
+		text-decoration:none;
+		color:#0A7543;
+		background-color:#f6f6f6;
+		background-color:#eee;
+	}
+	
+	.widget_pages ul li.current_page_item > a,
+	.widget_nav_menu ul li.current-menu-item > a {
+		font-weight:bold;
+		color:#0A7543;
+		background-color:#f6f6f6;
+	}
+
+
+	/* Categories Widget */
+	
+	.widget_categories ul li.current-cat > a,
+	.widget_categories ul li > a:hover {
+		color:#0A7543;
+	}
+	
+/****************************************************************************************
+ * Footer
+ ****************************************************************************************/
+
+	#footer {
+		background-color:#e8e8e4;
+		padding:0 !important;
+		margin:0;
+	}
+
+	#footer .bar {
+		background-color:#006633;
+		min-height:32px;
+		line-height:32px;
+		color:#ccc;
+	}
+	
+	#footer .bar a {
+		color:white;
+	}
+	
+	#footer .bar.bottom {
+		text-align:center;
+	}
+	
+	#footer .links a:hover {
+		text-decoration:underline;
+	}
+
+	#footer .links ul {
+		list-style-type:none;
+		margin:0;
+		padding:0;
+		display:inline;
+	}
+	
+	#footer .links li {
+		display:inline-block;
+		line-height:32px;
+		vertical-align:middle;
+		margin-left:10px;
+		color:white;
+		font-size:0.9em;
+	}
+	
+	#footer .line {
+		background-color:#006633;
+		height:1px;
+	}
+	
+	#footer .line.top {
+		margin-top:2px;
+	}
+	
+	#footer .line.bottom {
+		margin-bottom:2px;
+	}	
+			
+	#footer .address span {
+		display:block;
+		margin:0px;
+		padding:0px;
+		color:#666666;
+		line-height:1.5;
+		font-size:0.8em;
+	}
+	
+	#footer .links #accessibility-icon {
+		vertical-align:middle;
+		margin-right:5px;
+		width:20px;
+		height:20px;
+	}
+	
+	#footer .address span.name {
+		font-size:1em;
+	}
+
+	#footer .address span a {
+		color:#006633;
+		text-decoration:underline;
+	}
+	
+	#footer .address .name a {
+		color:#006633;
+		text-decoration:none;
+		font-size:1em;
+		font-weight:bold;
+	}
+	
+	#footer .follow > div {
+		color:#666;
+	}
+	
+	#footer .follow img {
+		margin-top:3px;
+	}
+	
+	#footer .links .uncc-logo-small {
+		vertical-align:middle;
+		width:23px;
+		height:17px;
+	}
+
+	#footer .links a {
+		text-decoration:none;
+		color:white;
+	}
+	
+	#footer .links a:hover {
+		text-decoration:underline;
+	}
+	
+	#footer .body {
+		margin-top:10px;
+		position:relative;
+	}
+	
+	#footer .address {
+		display:block; 
+	}
+
+	#footer .follow {
+		font-size:1em;
+		font-weight:bold;
+	}
+
+	#footer .follow > div {
+		color:#666;
+	}
+	
+	#footer .follow img {
+		margin-top:3px;
+		
+	}
+	
+	
+/****************************************************************************************
+ * Admin Bar
+ ****************************************************************************************/
+
+	#wpadminbar {
+		background:#006633 !important;
+	}
+
+	#wpadminbar .ab-top-menu>li>.ab-item:focus, 
+	#wpadminbar.nojq .quicklinks .ab-top-menu>li>.ab-item:focus, 
+	#wpadminbar .ab-top-menu>li:hover>.ab-item, 
+	#wpadminbar .ab-top-menu>li.hover>.ab-item {
+		background:#005522 !important;
+		color:#fff !important;
+	}
+
+	#wpadminbar .ab-top-menu>li>ul.ab-sub-wrapper>li>.ab-item:focus, 
+	#wpadminbar.nojq .quicklinks .ab-top-menu>li>ul.ab-sub-wrapper>li>.ab-item:focus, 
+	#wpadminbar .ab-top-menu>ul.ab-sub-wrapper>li>li:hover>.ab-item, 
+	#wpadminbar .ab-top-menu>ul.ab-sub-wrapper>li>li.hover>.ab-item {
+		background:#0000002 !important;
+		color:#ccc !important;
+	}
+
+	#wpadminbar .quicklinks .menupop ul li a:hover, 
+	#wpadminbar .quicklinks .menupop ul li a:focus, 
+	#wpadminbar .quicklinks .menupop ul li a:hover strong, 
+	#wpadminbar .quicklinks .menupop ul li a:focus strong, 
+	#wpadminbar .quicklinks .menupop.hover ul li a:hover, 
+	#wpadminbar .quicklinks .menupop.hover ul li a:focus, 
+	#wpadminbar.nojs .quicklinks .menupop:hover ul li a:hover, 
+	#wpadminbar.nojs .quicklinks .menupop:hover ul li a:focus, 
+	#wpadminbar li:hover .ab-icon:before, 
+	#wpadminbar li:hover .ab-item:before, 
+	#wpadminbar li a:focus .ab-icon:before, 
+	#wpadminbar li .ab-item:focus:before, 
+	#wpadminbar li.hover .ab-icon:before, 
+	#wpadminbar li.hover .ab-item:before, 
+	#wpadminbar li:hover #adminbarsearch:before {
+		color:#cbb563 !important;
+	}
+	
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-super-admin > li > .ab-item:before,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-list > li > .ab-item:before {
+		color:#fff !important;
+	}
+
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-super-admin > li:hover > .ab-item,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-super-admin > li.hover > .ab-item,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-list > li:hover > .ab-item,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-list > li.hover > .ab-item,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-super-admin > li:hover > .ab-item:before,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-super-admin > li.hover > .ab-item:before,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-list > li:hover > .ab-item:before,
+	#wp-admin-bar-my-sites #wp-admin-bar-my-sites-list > li.hover > .ab-item:before {
+		color:#cbb563 !important;
+	}
+	
+	#wpadminbar>#wp-toolbar li:hover span.ab-label, 
+	#wpadminbar>#wp-toolbar li.hover span.ab-label, 
+	#wpadminbar>#wp-toolbar a:focus span.ab-label {
+		color:#fff !important;
+	}
+
+	#wpadminbar .menupop .ab-sub-wrapper, 
+	#wpadminbar .shortlink-input {
+		background:#00703C !important;
+	}
+
+	#wpadminbar .quicklinks .menupop ul.ab-sub-secondary, 
+	#wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu {
+		background:#00703C !important;
+	}
+
+	#wpadminbar .quicklinks li .blavatar:before {
+		content:'' !important;
+		display:none !important;
+	}
+
+	#wpadminbar .ab-top-menu>li#wp-admin-bar-notes>.ab-item:focus, 
+	#wpadminbar.nojq .quicklinks .ab-top-menu>li#wp-admin-bar-notes>.ab-item:focus, 
+	#wpadminbar .ab-top-menu>li#wp-admin-bar-notes:hover>.ab-item, 
+	#wpadminbar .ab-top-menu>li#wp-admin-bar-notes.hover>.ab-item {
+		background:transparent !important;
+	}
+
+	#wpadminbar #wp-admin-bar-comments .count-0 {
+		opacity:1 !important;
+	}
+	
