@@ -1,16 +1,16 @@
 <?php
 /**
- * UNCC_ThemeOptionsAdminPageHeaderTabAdminPage
+ * VTT_ThemeOptionsAdminPageHeaderTabAdminPage
  * 
  * This class controls the admin page "Theme Options > Header".
  * 
- * @package    uncc
+ * @package    variations-template-theme
  * @subpackage admin-pages/pages
  * @author     Crystal Barton <cbarto11@uncc.edu>
  */
 
-if( !class_exists('UNCC_ThemeOptionsAdminPageHeaderTabAdminPage') ):
-class UNCC_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
+if( !class_exists('VTT_ThemeOptionsAdminPageHeaderTabAdminPage') ):
+class VTT_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 {
 	
 	private $model = null;	
@@ -23,7 +23,7 @@ class UNCC_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 	
 	
 	/**
-	 * Creates an UNCC_ThemeOptionsAdminPageHeaderTabAdminPage object.
+	 * Creates an VTT_ThemeOptionsAdminPageHeaderTabAdminPage object.
 	 */
 	public function __construct( 
 		$parent,
@@ -40,7 +40,7 @@ class UNCC_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 	 */
 	public function register_settings()
 	{
-		$this->register_setting( UNC_CHARLOTTE_THEME_OPTIONS );
+		$this->register_setting( VARIATIONS_TEMPLATE_THEME_OPTIONS );
 	}
 	
 	public function add_head_script()
@@ -303,19 +303,19 @@ class UNCC_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 	public function add_settings_sections()
 	{
 		$this->add_section(
-			'uncc-theme-header',
+			'vtt-theme-header',
 			'Header',
 			'print_section_header'
 		);
 
 		$this->add_section(
-			'uncc-theme-header-image',
+			'vtt-theme-header-image',
 			'Image',
 			'print_section_header_image'
 		);
 
 		$this->add_section(
-			'uncc-theme-header-title-box',
+			'vtt-theme-header-title-box',
 			'Title Box',
 			'print_section_header_title_box'
 		);
@@ -328,42 +328,42 @@ class UNCC_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 	public function add_settings_fields()
 	{
 		$this->add_field(
-			'uncc-theme-header-image',
+			'vtt-theme-header-image',
 			'title-image-link',
 			'Use as Home Link',
 			'print_field_image_title_image_link'
 		);
 
 		$this->add_field(
-			'uncc-theme-header-title-box',
+			'vtt-theme-header-title-box',
 			'position',
 			'Position',
 			'print_field_position'
 		);
 
 		$this->add_field(
-			'uncc-theme-header-title-box',
+			'vtt-theme-header-title-box',
 			'title-text',
 			'Title Text',
 			'print_field_title_text'
 		);
 
 		$this->add_field(
-			'uncc-theme-header-title-box',
+			'vtt-theme-header-title-box',
 			'title-link',
 			'Title Link',
 			'print_field_title_link'
 		);
 
 		$this->add_field(
-			'uncc-theme-header-title-box',
+			'vtt-theme-header-title-box',
 			'description-text',
 			'Description Text',
 			'print_field_description_text'
 		);
 
 		$this->add_field(
-			'uncc-theme-header-title-box',
+			'vtt-theme-header-title-box',
 			'description-link',
 			'Description Link',
 			'print_field_description_link'
@@ -406,16 +406,16 @@ class UNCC_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 	
 	public function print_field_image_title_image_link( $args )
 	{
-		global $uncc_config;
-		$image_link = $uncc_config->get_value( 'header', 'image-link' );
+		global $vtt_config;
+		$image_link = $vtt_config->get_value( 'header', 'image-link' );
 		?>
 		
 	    <div class="image-link">
 	    	<input type="hidden"
-	    	       name="<?php uncc_name_e( 'header', 'image-link' ); ?>"
+	    	       name="<?php vtt_name_e( 'header', 'image-link' ); ?>"
 	    	       value="b:false" />
 			<input type="checkbox"
-			       name="<?php uncc_name_e( 'header', 'image-link' ); ?>"
+			       name="<?php vtt_name_e( 'header', 'image-link' ); ?>"
 			       value="b:true"
 			       <?php checked( true, $image_link ); ?> />
 		</div>
@@ -426,13 +426,13 @@ class UNCC_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 	
 	public function print_field_position( $args )
 	{
-		global $uncc_config;
-		$title_position = $uncc_config->get_value( 'header', 'title-position' );
+		global $vtt_config;
+		$title_position = $vtt_config->get_value( 'header', 'title-position' );
 		?>
 		
 	    <div class="position">
 			<input type="text"
-			       name="<?php uncc_name_e( 'header', 'title-position' ); ?>"
+			       name="<?php vtt_name_e( 'header', 'title-position' ); ?>"
 			       value="<?php echo $title_position; ?>" />
 		</div>
 				
@@ -442,26 +442,26 @@ class UNCC_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 	
 	public function print_field_title_text( $args )
 	{
-		global $uncc_config;
-		$title = $uncc_config->get_text_data( 'header','title' );
+		global $vtt_config;
+		$title = $vtt_config->get_text_data( 'header','title' );
 		?>
 
 		<input type="hidden" 
-			   name="<?php uncc_name_e( 'header', 'title', 'use-blog-info' ); ?>" 
+			   name="<?php vtt_name_e( 'header', 'title', 'use-blog-info' ); ?>" 
 			   value="b:false" />
 		<input type="checkbox" 
-			   id="<?php uncc_name_e( 'header', 'title', 'use-blog-info' ); ?>" 
-			   name="<?php uncc_name_e( 'header', 'title', 'use-blog-info' ); ?>" 
+			   id="<?php vtt_name_e( 'header', 'title', 'use-blog-info' ); ?>" 
+			   name="<?php vtt_name_e( 'header', 'title', 'use-blog-info' ); ?>" 
 			   class="use-blog-info" 
 			   value="b:true" 
 			   <?php checked( true, $title['use-blog-info'] ); ?>
 			   controls="header-title-text" />
-		<label for="<?php uncc_name_e( 'header', 'title', 'use-blog-info' ); ?>">use site title</label>
+		<label for="<?php vtt_name_e( 'header', 'title', 'use-blog-info' ); ?>">use site title</label>
 
 		<div class="header-title-text">
 			<input type="text" 
 				   id="title-text" 
-				   name="<?php uncc_name_e( 'header', 'title', 'text' ); ?>" 
+				   name="<?php vtt_name_e( 'header', 'title', 'text' ); ?>" 
 				   value="<?php echo $title['text']; ?>" />		
 		</div>
 		
@@ -471,25 +471,25 @@ class UNCC_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 	
 	public function print_field_title_link( $args )
 	{
-		global $uncc_config;
-		$title = $uncc_config->get_text_data( 'header','title' );
+		global $vtt_config;
+		$title = $vtt_config->get_text_data( 'header','title' );
 		?>
 
 		<input type="hidden" 
-			   name="<?php uncc_name_e( 'header', 'title', 'use-site-link' ); ?>" 
+			   name="<?php vtt_name_e( 'header', 'title', 'use-site-link' ); ?>" 
 			   value="b:false" />
 		<input type="checkbox" 
-			   id="<?php uncc_name_e( 'header', 'title', 'use-site-link' ); ?>" 
-			   name="<?php uncc_name_e( 'header', 'title', 'use-site-link' ); ?>" 
+			   id="<?php vtt_name_e( 'header', 'title', 'use-site-link' ); ?>" 
+			   name="<?php vtt_name_e( 'header', 'title', 'use-site-link' ); ?>" 
 			   class="use-site-url" 
 			   value="b:true" 
 			   <?php checked( true, $title['use-site-link'] ); ?>
 			   controls="header-title-link" />
-		<label for="<?php uncc_name_e( 'header', 'title', 'use-site-link' ); ?>">use site URL</label>
+		<label for="<?php vtt_name_e( 'header', 'title', 'use-site-link' ); ?>">use site URL</label>
 
 		<div class="header-title-link">
 			<input type="text"
-				   name="<?php uncc_name_e( 'header', 'title', 'link' ); ?>" 
+				   name="<?php vtt_name_e( 'header', 'title', 'link' ); ?>" 
 				   value="<?php echo $title['link']; ?>" />
 		</div>
 		
@@ -499,26 +499,26 @@ class UNCC_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 	
 	public function print_field_description_text( $args )
 	{
-		global $uncc_config;
-		$description = $uncc_config->get_text_data( 'header','description' );
+		global $vtt_config;
+		$description = $vtt_config->get_text_data( 'header','description' );
 		?>
 
 		<input type="hidden" 
-			   name="<?php uncc_name_e( 'header', 'description', 'use-blog-info' ); ?>" 
+			   name="<?php vtt_name_e( 'header', 'description', 'use-blog-info' ); ?>" 
 			   value="b:false" />
 		<input type="checkbox" 
-			   id="<?php uncc_name_e( 'header', 'description', 'use-blog-info' ); ?>" 
-			   name="<?php uncc_name_e( 'header', 'description', 'use-blog-info' ); ?>" 
+			   id="<?php vtt_name_e( 'header', 'description', 'use-blog-info' ); ?>" 
+			   name="<?php vtt_name_e( 'header', 'description', 'use-blog-info' ); ?>" 
 			   class="use-blog-info" 
 			   value="b:true" 
 			   <?php checked( true, $description['use-blog-info'] ); ?>
 			   controls="header-description-text" />
-		<label for="<?php uncc_name_e( 'header', 'description', 'use-blog-info' ); ?>">use site description</label>
+		<label for="<?php vtt_name_e( 'header', 'description', 'use-blog-info' ); ?>">use site description</label>
 
 		<div class="header-description-text">
 			<input type="text" 
 				   id="description-text" 
-				   name="<?php uncc_name_e( 'header', 'description', 'text' ); ?>" 
+				   name="<?php vtt_name_e( 'header', 'description', 'text' ); ?>" 
 				   value="<?php echo $description['text']; ?>" />		
 		</div>
 
@@ -528,26 +528,26 @@ class UNCC_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 	
 	public function print_field_description_link( $args )
 	{
-		global $uncc_config;
-		$title = $uncc_config->get_text_data( 'header','title' );
-		$description = $uncc_config->get_text_data( 'header','description' );
+		global $vtt_config;
+		$title = $vtt_config->get_text_data( 'header','title' );
+		$description = $vtt_config->get_text_data( 'header','description' );
 		?>
 
 		<input type="hidden" 
-			   name="<?php uncc_name_e( 'header', 'description', 'use-site-link' ); ?>" 
+			   name="<?php vtt_name_e( 'header', 'description', 'use-site-link' ); ?>" 
 			   value="b:false" />
 		<input type="checkbox" 
-			   id="<?php uncc_name_e( 'header', 'description', 'use-site-link' ); ?>" 
-			   name="<?php uncc_name_e( 'header', 'description', 'use-site-link' ); ?>" 
+			   id="<?php vtt_name_e( 'header', 'description', 'use-site-link' ); ?>" 
+			   name="<?php vtt_name_e( 'header', 'description', 'use-site-link' ); ?>" 
 			   class="use-site-url" 
 			   value="b:true" 
 			   <?php checked( true, $description['use-site-link'] ); ?>
 			   controls="header-description-link" />
-		<label for="<?php uncc_name_e( 'header', 'description', 'use-site-link' ); ?>">use site URL</label>
+		<label for="<?php vtt_name_e( 'header', 'description', 'use-site-link' ); ?>">use site URL</label>
 
 		<div class="header-description-link">
 			<input type="text"
-				   name="<?php uncc_name_e( 'header', 'description', 'link' ); ?>" 
+				   name="<?php vtt_name_e( 'header', 'description', 'link' ); ?>" 
 				   value="<?php echo $description['link']; ?>" />
 		</div>
 				
@@ -563,6 +563,6 @@ class UNCC_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 		$this->print_settings();
 	}
 	
-} // class UNCC_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
-endif; // if( !class_exists('UNCC_ThemeOptionsAdminPageHeaderTabAdminPage') )
+} // class VTT_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
+endif; // if( !class_exists('VTT_ThemeOptionsAdminPageHeaderTabAdminPage') )
 

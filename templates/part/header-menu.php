@@ -1,6 +1,6 @@
 
-<?php //uncc_print('PART: header-menu'); ?>
-<?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars; ?>
+<?php //vtt_print('PART: header-menu'); ?>
+<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars; ?>
 <?php
 $header_menu = wp_nav_menu( 
 	array(
@@ -16,7 +16,7 @@ $header_menu = wp_nav_menu(
 <div id="header-menu-wrapper" class="clearfix">
 	<div id="header-menu" class="clearfix">
 
-	<?php if( $uncc_mobile_support->use_mobile_site ): ?>
+	<?php if( $vtt_mobile_support->use_mobile_site ): ?>
 		<h2 class="search">Search</h2>
 		<form id="site-searchform" role="search" method="get" class="searchform" action="<?php echo home_url( '/' ); ?>">
 			<script>var main_search_used = false;</script>
@@ -28,7 +28,7 @@ $header_menu = wp_nav_menu(
 	<?php endif; ?>
 
 	<?php if( strpos( $header_menu, '</li>' ) !== false ): ?>
-		<?php if( $uncc_mobile_support->use_mobile_site ): ?><h2 class="menu">Menu</h2><?php endif; ?>
+		<?php if( $vtt_mobile_support->use_mobile_site ): ?><h2 class="menu">Menu</h2><?php endif; ?>
 		<?php echo $header_menu; ?>
 	<?php endif; ?>
 
@@ -39,7 +39,7 @@ $header_menu = wp_nav_menu(
 <div id="header-menu-icon-wrapper">
 	<div id="header-menu-icon">
 	
-	<?php if( $uncc_mobile_support->use_mobile_site ): ?>
+	<?php if( $vtt_mobile_support->use_mobile_site ): ?>
 		<div id="header-menu-button"></div>
 		<div id="header-menu-button-search-menu">
 			SEARCH<?php if( strpos( $header_menu, '</li>' ) !== false ): ?> / MENU<?php endif; ?>

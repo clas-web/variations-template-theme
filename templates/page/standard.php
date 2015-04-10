@@ -1,6 +1,6 @@
 
-<?php //uncc_print('PART: standard'); ?>
-<?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars; ?>
+<?php //vtt_print('PART: standard'); ?>
+<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars; ?>
 
 
 <!DOCTYPE html>
@@ -13,13 +13,13 @@
 <head>
 
 	<meta charset="<?php bloginfo('charset'); ?>" />
-	<title><?php echo bloginfo('name').' | '.$uncc_template_vars['page-title']; ?></title>
+	<title><?php echo bloginfo('name').' | '.$vtt_template_vars['page-title']; ?></title>
 	
 	<link rel="profile" href="http://gmpg.org/xfn/11" />
 	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
-	<link rel="shortcut icon" href="<?php echo uncc_get_theme_file_url('images/favicon.ico', 'both', false); ?>" />
+	<link rel="shortcut icon" href="<?php echo vtt_get_theme_file_url('images/favicon.ico', 'both', false); ?>" />
 	
-	<?php if( $uncc_mobile_support->is_mobile ): ?>
+	<?php if( $vtt_mobile_support->is_mobile ): ?>
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
 	<?php endif; ?>
 	
@@ -27,15 +27,15 @@
 
 	<script type="text/javascript">
 		jQuery('html').removeClass('no-js');
-		var is_mobile = <?php echo ($uncc_mobile_support->is_mobile) ? 'true' : 'false'; ?>;
-		var use_mobile_site = <?php echo ($uncc_mobile_support->use_mobile_site) ? 'true' : 'false'; ?>;
+		var is_mobile = <?php echo ($vtt_mobile_support->is_mobile) ? 'true' : 'false'; ?>;
+		var use_mobile_site = <?php echo ($vtt_mobile_support->use_mobile_site) ? 'true' : 'false'; ?>;
 	</script>
 
 </head>
 
 <?php
 	$class = array();
-	if( $uncc_mobile_support->use_mobile_site ) $class[] = 'mobile-site'; else $class[] = 'full-site';
+	if( $vtt_mobile_support->use_mobile_site ) $class[] = 'mobile-site'; else $class[] = 'full-site';
 ?>
 <body <?php body_class($class); ?> >
 
@@ -45,10 +45,10 @@
 <div id="site-inside-wrapper" class="clearfix">
 
 	<?php
-	uncc_get_template_part( 'header', 'part' );
-	uncc_get_template_part( 'header-menu', 'part' );
-	uncc_get_template_part( 'main', 'part' );
-	uncc_get_template_part( 'footer', 'part' );
+	vtt_get_template_part( 'header', 'part' );
+	vtt_get_template_part( 'header-menu', 'part' );
+	vtt_get_template_part( 'main', 'part' );
+	vtt_get_template_part( 'footer', 'part' );
 	?>
 
 </div> <!-- #site-inside-wrapper -->

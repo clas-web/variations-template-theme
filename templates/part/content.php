@@ -1,6 +1,6 @@
 
 
-<?php global $uncc_config, $uncc_mobile_support, $uncc_template_vars; ?>
+<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars; ?>
 
 <?php
 $widgets = wp_get_sidebars_widgets();
@@ -9,13 +9,13 @@ $sidebar_count = 0;
 $use_left_sidebar = false;
 $use_right_sidebar = false;
 
-if( array_key_exists('uncc-left-sidebar', $widgets) && count($widgets['uncc-left-sidebar']) ):
+if( array_key_exists('vtt-left-sidebar', $widgets) && count($widgets['vtt-left-sidebar']) ):
 	$use_left_sidebar = true;
 	$sidebar_count++;
 	$class .= ' left-sidebar';
 endif;
 
-if( array_key_exists('uncc-right-sidebar', $widgets) && count($widgets['uncc-right-sidebar']) ):
+if( array_key_exists('vtt-right-sidebar', $widgets) && count($widgets['vtt-right-sidebar']) ):
 	$use_right_sidebar = true;
 	$sidebar_count++;
 	$class .= ' right-sidebar';
@@ -57,7 +57,7 @@ switch( $sidebar_count )
 
 	<?php
 	// content-type can be: single, listing, search, author, 404
-	uncc_get_template_part( $uncc_template_vars['content-type'], 'content' );
+	vtt_get_template_part( $vtt_template_vars['content-type'], 'content' );
 	?>
 
 	

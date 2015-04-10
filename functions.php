@@ -1,33 +1,35 @@
 <?php
-//========================================================================================
-// 
-//
-// @package WordPress
-// @subpackage unc-charlotte-theme
-//----------------------------------------------------------------------------------------
-// Main setup at bottom of file.
-//========================================================================================
 
+/**
+ * functions.php
+ * 
+ * The main functions for the Variations Template Theme.
+ * Main setup at bottom of file.
+ * 
+ * @package    variations-template-theme
+ * @author     Crystal Barton <cbarto11@uncc.edu>
+ */
 
 //========================================================================================
 //======================================================================== Constants =====
 
-if( !defined('UNC_CHARLOTTE_THEME') ):
+if( !defined('VTT') ):
 
-define( 'UNC_CHARLOTTE_THEME', 'UNC Charlotte Theme' );
+define( 'VTT', 'Variations Template Theme' );
 
-define( 'UNC_CHARLOTTE_THEME_DEBUG', true );
+define( 'VTT_DEBUG', true );
 
-define( 'UNC_CHARLOTTE_THEME_PATH', dirname(__FILE__) );
-define( 'UNC_CHARLOTTE_THEME_URL', plugins_url('', __FILE__) );
+define( 'VTT_PATH', dirname(__FILE__) );
+define( 'VTT_URL', get_template_directory_uri() );
 
-define( 'UNC_CHARLOTTE_THEME_VERSION', '2.0.0' );
-define( 'UNC_CHARLOTTE_THEME_DB_VERSION', '1.0' );
+define( 'VTT_VERSION', '1.0.0' );
+define( 'VTT_DB_VERSION', '1.0' );
 
-define( 'UNC_CHARLOTTE_THEME_VERSION_OPTION', 'uncc-hub-version' );
-define( 'UNC_CHARLOTTE_THEME_DB_VERSION_OPTION', 'uncc-db-version' );
+define( 'VTT_VERSION_OPTION', 'vtt-version' );
+define( 'VTT_VARIATION_OPTION', 'vtt-variation' );
+define( 'VTT_DB_VERSION_OPTION', 'vtt-db-version' );
 
-define( 'UNC_CHARLOTTE_THEME_OPTIONS', 'uncc-options' );
+define( 'VTT_OPTIONS', 'vtt-options' );
 
 endif;
 
@@ -36,44 +38,27 @@ endif;
 //======================================================================= Main setup =====
 
 // 
-// Setup the config information.
-//----------------------------------------------------------------------------------------
-require_once( get_template_directory().'/classes/config.php' );
-$uncc_config = new uncc_config;
-$uncc_config->load_config();
-
-// 
 // Setup mobile support.
 //----------------------------------------------------------------------------------------
 require_once( get_template_directory().'/classes/mobile-support.php' );
-$uncc_mobile_support = new Mobile_Support;
+$vtt_mobile_support = new Mobile_Support;
 
 // 
-// Set the log's file path.
+// Setup the config information.
 //----------------------------------------------------------------------------------------
-$uncc_logfile = dirname(__FILE__).'/uncc.log';
+require_once( get_template_directory().'/classes/config.php' );
+$vtt_config = new vtt_config;
+$vtt_config->load_config();
 
 // 
 // Set blog name.
 //----------------------------------------------------------------------------------------
-define( 'UNCC_BLOG_NAME', trim( preg_replace("/[^A-Za-z0-9 ]/", '-', get_blog_details()->path), '-' ) );
-
-// 
-// Add the image sizes for thumbnails.
-//----------------------------------------------------------------------------------------
-add_image_size( 'thumbnail_portrait', 120 );
-add_image_size( 'thumbnail_landscape', 324 );
+define( 'VTT_BLOG_NAME', trim( preg_replace("/[^A-Za-z0-9 ]/", '-', get_blog_details()->path), '-' ) );
 
 // 
 // Include variation's functions.php
 //----------------------------------------------------------------------------------------
-if( is_child_theme() ):
-if( file_exists(get_stylesheet_directory().'/variations/'.$uncc_config->get_current_variation().'/functions.php') )
-require_once( get_stylesheet_directory().'/variations/'.$uncc_config->get_current_variation().'/functions.php' );
-endif;
-
-if( file_exists(get_template_directory().'/variations/'.$uncc_config->get_current_variation().'/functions.php') )
-require_once( get_template_directory().'/variations/'.$uncc_config->get_current_variation().'/functions.php' );
+$vtt_config->load_variations_files( 'functions.php' );
 
 //
 // Include the admin backend. 
@@ -81,58 +66,74 @@ require_once( get_template_directory().'/variations/'.$uncc_config->get_current_
 if( is_admin() ):
 
 require_once( dirname(__FILE__).'/libraries/apl/apl.php' );
-add_action( 'wp_loaded', 'uncc_load_apl_admin' );
+add_action( 'wp_loaded', 'vtt_load_apl_admin' );
 
 endif; // admin backend
+
 
 
 //========================================================================================
 //====================================================== Default filters and actions =====
 
 // Admin Bar
-add_filter( 'show_admin_bar', 'uncc_show_admin_bar', 10 );
-add_action( 'admin_bar_menu', 'uncc_setup_admin_bar' );
+add_filter( 'show_admin_bar', 'vtt_show_admin_bar', 10 );
+add_action( 'admin_bar_menu', 'vtt_setup_admin_bar' );
 
 // Theme setup
-add_action( 'theme_setup', 'uncc_theme_setup', 1 );
-add_action( 'init', 'uncc_setup_widget_areas' );
-add_action( 'init', 'uncc_register_menus' );
-add_action( 'after_setup_theme', 'uncc_add_featured_image_support' );
-add_action( 'wp_enqueue_scripts', 'uncc_enqueue_scripts', 0 );
+add_action( 'theme_setup', 'vtt_theme_setup', 1 );
+add_action( 'init', 'vtt_setup_widget_areas' );
+add_action( 'init', 'vtt_register_menus' );
+add_action( 'after_setup_theme', 'vtt_add_featured_image_support' );
+add_action( 'wp_enqueue_scripts', 'vtt_enqueue_scripts', 0 );
 
 // Embeded content
-add_filter( 'embed_oembed_html', 'uncc_embed_html', 10, 3 );
-add_filter( 'video_embed_html', 'uncc_embed_html' );
+add_filter( 'embed_oembed_html', 'vtt_embed_html', 10, 3 );
+add_filter( 'video_embed_html', 'vtt_embed_html' );
 
 // Theme Customizer
-add_action( 'customize_register', 'uncc_customize_register' );
-add_action( 'customize_save_after', 'uncc_customize_save' );
-add_action( 'update_option_uncc-variation', 'uncc_customize_update_variation', 99, 2 );
-add_action( 'update_option_uncc-options', 'uncc_customize_update_options', 99, 2 );
+add_action( 'customize_register', 'vtt_customize_register' );
+add_action( 'customize_save_after', 'vtt_customize_save' );
+add_action( 'update_option_'.VTT_VARIATION_OPTION, 'vtt_customize_update_variation', 99, 2 );
+add_action( 'update_option_'.VTT_VARIATION_OPTION, 'vtt_customize_update_options', 99, 2 );
 
 // Comments
-add_filter( 'comments_template', 'uncc_find_comments_template_part', 999 );
+add_filter( 'comments_template', 'vtt_find_comments_template_part', 999 );
 
 // Categories Widget
-add_action( 'init', 'uncc_setup_categories_walker' );
-add_filter( 'widget_categories_args', 'uncc_alter_categories_widget_args' );
+add_action( 'init', 'vtt_setup_categories_walker' );
+add_filter( 'widget_categories_args', 'vtt_alter_categories_widget_args' );
 
 // Add / Remove MIME types
-add_filter( 'upload_mimes', 'uncc_add_custom_mime_types' );
+add_filter( 'upload_mimes', 'vtt_add_custom_mime_types' );
 
 // Enable Links subpanel
 add_filter( 'pre_option_link_manager_enabled', '__return_true' );
+
+add_action( 'after_setup_theme', 'vtt_add_background_support' );
+
+
 
 
 //========================================================================================
 //======================================================================== Functions =====
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_load_apl_admin') ):
-function uncc_load_apl_admin()
+/**
+ *
+ */
+if( !function_exists( 'vtt_add_background_support' ) ):
+function vtt_add_background_support()
+{
+	add_theme_support( 'custom-background' );
+}
+endif;
+
+
+/**
+ *
+ */
+if( !function_exists('vtt_load_apl_admin') ):
+function vtt_load_apl_admin()
 {
 	// child admin main.
 	if( is_child_theme() && file_exists(get_stylesheet_directory().'/admin-pages/require.php') ):
@@ -143,88 +144,89 @@ function uncc_load_apl_admin()
 	require_once( get_template_directory().'/admin-pages/require.php' );
 		
 	// Site admin page.
-	$uncc_pages = new APL_Handler( false );
+	$vtt_pages = new APL_Handler( false );
 	
-	$uncc_pages->add_page( new UNCC_ThemeOptionsAdminPage(), 'themes.php' );
-	$uncc_pages = apply_filters( 'uncc-theme-admin-populate', $uncc_pages );
+	$vtt_pages->add_page( new VTT_ThemeOptionsAdminPage(), 'themes.php' );
+	$vtt_pages = apply_filters( 'vtt-theme-admin-populate', $vtt_pages );
 	
-	$uncc_pages->setup();
+	$vtt_pages->setup();
 }
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_return_nothing') ):
-function uncc_return_nothing()
+// TODO: what is this for????
+/**
+ * 
+ */
+if( !function_exists('vtt_return_nothing') ):
+function vtt_return_nothing()
 {
 	return '';
 }
 endif; 
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_alter_categories_widget_args') ):
-function uncc_alter_categories_widget_args( $args )
+/**
+ * 
+ */
+if( !function_exists('vtt_alter_categories_widget_args') ):
+function vtt_alter_categories_widget_args( $args )
 {
-	$args['walker'] = new UNCC_Categories_Walker;
+	$args['walker'] = new VTT_Categories_Walker;
 	return $args;
 }
 endif; 
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_setup_categories_walker') ):
-function uncc_setup_categories_walker()
+/**
+ * 
+ */
+if( !function_exists('vtt_setup_categories_walker') ):
+function vtt_setup_categories_walker()
 {
-	$filepath = uncc_get_theme_file_path( 'classes/categories-walker.php' );
+	$filepath = vtt_get_theme_file_path( 'classes/categories-walker.php' );
 	if( $filepath ) require_once( $filepath );
 }
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_theme_setup') ):
-function uncc_theme_setup()
+/**
+ * 
+ */
+if( !function_exists('vtt_theme_setup') ):
+function vtt_theme_setup()
 {
 	add_theme_support( 'post-thumbnails' );
 }
 endif; 
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_embed_html') ):
-function uncc_embed_html( $html )
+/**
+ * 
+ */
+if( !function_exists('vtt_embed_html') ):
+function vtt_embed_html( $html )
 {
 	return '<div class="video-container">' . $html . '</div>';
 }
 endif; 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_show_admin_bar') ):
-function uncc_show_admin_bar( $show_admin_bar )
+/**
+ * 
+ */
+if( !function_exists('vtt_show_admin_bar') ):
+function vtt_show_admin_bar( $show_admin_bar )
 {
 	return true;
 }
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_register_menus') ):
-function uncc_register_menus()
+/**
+ * 
+ */
+if( !function_exists('vtt_register_menus') ):
+function vtt_register_menus()
 {
 	register_nav_menus(
 		array(
@@ -235,11 +237,11 @@ function uncc_register_menus()
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_setup_admin_bar') ):
-function uncc_setup_admin_bar( $wp_admin_bar )
+/**
+ * 
+ */
+if( !function_exists('vtt_setup_admin_bar') ):
+function vtt_setup_admin_bar( $wp_admin_bar )
 {
 	if( !is_user_logged_in() ):
 		$wp_admin_bar->add_menu(
@@ -253,42 +255,42 @@ function uncc_setup_admin_bar( $wp_admin_bar )
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// Sets up the widget areas.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_setup_widget_areas') ):
-function uncc_setup_widget_areas()
+/**
+ * Sets up the widget areas.
+ */
+if( !function_exists('vtt_setup_widget_areas') ):
+function vtt_setup_widget_areas()
 {
-	global $uncc_config;
+	global $vtt_config;
 	
 	$widgets = array(
 		array(
-			'id'   => 'uncc-left-sidebar',
+			'id'   => 'vtt-left-sidebar',
 			'name' => 'Left Sidebar',
 		),
 		array(
-			'id'   => 'uncc-right-sidebar',
+			'id'   => 'vtt-right-sidebar',
 			'name' => 'Right Sidebar',
 		),
 		array(
-			'id'   => 'uncc-footer-1',
+			'id'   => 'vtt-footer-1',
 			'name' => 'Footer Column 1',
 		),
 		array(
-			'id'   => 'uncc-footer-2',
+			'id'   => 'vtt-footer-2',
 			'name' => 'Footer Column 2',
 		),
 		array(
-			'id'   => 'uncc-footer-3',
+			'id'   => 'vtt-footer-3',
 			'name' => 'Footer Column 3',
 		),
 		array(
-			'id'   => 'uncc-footer-4',
+			'id'   => 'vtt-footer-4',
 			'name' => 'Footer Column 4',
 		),
 	);
 	
-	$widgets = apply_filters( 'uncc-widget-areas', $widgets );
+	$widgets = apply_filters( 'vtt-widget-areas', $widgets );
 	
 	$widget_area = array();
 	$widget_area['before_widget'] = '<div id="%1$s" class="widget %2$s">';
@@ -296,7 +298,7 @@ function uncc_setup_widget_areas()
 	$widget_area['before_title'] = '<h2 class="widget-title">';
 	$widget_area['after_title'] = '</h2>';
 
-	//uncc_print($widgets);
+	//vtt_print($widgets);
 
 	foreach( $widgets as $widget )
 	{
@@ -309,48 +311,44 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// Enqueue any needed css or javascript files.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_enqueue_scripts') ):
-function uncc_enqueue_scripts()
+/**
+ * Enqueue any needed css or javascript files.
+ */
+if( !function_exists('vtt_enqueue_scripts') ):
+function vtt_enqueue_scripts()
 {
-	global $uncc_mobile_support, $uncc_config;
-	$name = $uncc_config->get_current_variation();
-	$folder = 'variations/'.$name;
+	global $vtt_mobile_support;
 	
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui', '//code.jquery.com/ui/1.11.0/jquery-ui.js' );
-	uncc_enqueue_files( 'style', 'main-style', 'style.css', array(), '1.0.0' );
-	uncc_enqueue_files( 'style', 'main-style-'.$name, $folder.'/style.css', array(), '1.0.0' );
+	vtt_enqueue_files( 'style', 'main-style', 'style.css', array(), '1.0.0' );
 	
-	if( $uncc_mobile_support->use_mobile_site )
+	if( $vtt_mobile_support->use_mobile_site )
 	{
-		uncc_enqueue_files( 'style', 'mobile-site', 'styles/mobile-site.css');
-		uncc_enqueue_files( 'style', 'mobile-site-'.$name, $folder.'/styles/mobile-site.css');
+		vtt_enqueue_files( 'style', 'mobile-site', 'styles/mobile-site.css');
 	}
 	else
 	{
-		uncc_enqueue_files( 'style', 'full-site', 'styles/full-site.css');
-		uncc_enqueue_files( 'style', 'full-site-'.$name, $folder.'/styles/full-site.css');
+		vtt_enqueue_files( 'style', 'full-site', 'styles/full-site.css');
 	}
 	
-	uncc_enqueue_file( 'script', 'uncc_toggle_sidebar', 'scripts/jquery.toggle-sidebars.js' );
+	vtt_enqueue_file( 'script', 'vtt_toggle_sidebar', 'scripts/jquery.toggle-sidebars.js' );
 }
 endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// Enqueues the theme version of the the file specified.
-// 
-// @param	$type		string		The type of file to enqueue (script or style).
-// @param	$name		string		The name to give te file.
-// @param	$filepath	string		The relative path to filename.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_enqueue_files') ):
-function uncc_enqueue_files( $type, $name, $filepath, $dependents = array(), $version = false  )
+/**
+ * Enqueues the theme version of the the file specified. 
+ * @param	$type		string		The type of file to enqueue (script or style).
+ * @param	$name		string		The name to give te file.
+ * @param	$filepath	string		The relative path to filename.
+ */
+if( !function_exists('vtt_enqueue_files') ):
+function vtt_enqueue_files( $type, $name, $filepath, $dependents = array(), $version = false  )
 {
+	global $vtt_config;
+	
 	if( $type !== 'script' && $type !== 'style' ) return;
 
 	$paths = array();
@@ -369,24 +367,37 @@ function uncc_enqueue_files( $type, $name, $filepath, $dependents = array(), $ve
 			call_user_func( 'wp_enqueue_'.$type, $name.'-'.$key );
 		}
 	}
+	
+	$name .= $vtt_config->get_variation_name();
+	$variation_directories = $vtt_config->get_variation_directories( false );
+	
+	foreach( $variation_directories as $key => $directory )
+	{
+		if( file_exists($directory.'/'.$filepath) )
+		{
+			$url = vtt_path_to_url( $directory.'/'.$filepath );
+			if( !$url ) continue;
+			$num = $key + 1;
+			call_user_func( 'wp_register_'.$type, $name.'-'.$num, $url, $dependents, $version );
+			call_user_func( 'wp_enqueue_'.$type, $name.'-'.$num );
+		}
+	}
 }
 endif;
 
 
-
-//----------------------------------------------------------------------------------------
-// Enqueues the theme version of the the file specified.
-// 
-// @param	$type		string		The type of file to enqueue (script or style).
-// @param	$name		string		The name to give te file.
-// @param	$filepath	string		The relative path to filename.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_enqueue_file') ):
-function uncc_enqueue_file( $type, $name, $filepath, $dependents = array(), $version = false )
+/**
+ * Enqueues the theme version of the the file specified.
+ * @param	$type		string		The type of file to enqueue (script or style).
+ * @param	$name		string		The name to give te file.
+ * @param	$filepath	string		The relative path to filename.
+ */
+if( !function_exists('vtt_enqueue_file') ):
+function vtt_enqueue_file( $type, $name, $filepath, $dependents = array(), $version = false )
 {
 	if( $type !== 'script' && $type !== 'style' ) return;
 	
-	$theme_filepath = uncc_get_theme_file_url($filepath);
+	$theme_filepath = vtt_get_theme_file_url($filepath);
 	
 	if( $theme_filepath !== null )
 	{
@@ -397,46 +408,41 @@ function uncc_enqueue_file( $type, $name, $filepath, $dependents = array(), $ver
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_admin_preview_callback') ):
-function uncc_admin_preview_callback()
+/**
+ * 
+ */
+if( !function_exists('vtt_admin_preview_callback') ):
+function vtt_admin_preview_callback()
 {
-	uncc_get_template_part( 'header', 'part' );
+	vtt_get_template_part( 'header', 'part' );
 }
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_admin_head_callback') ):
-function uncc_admin_head_callback()
+/**
+ * 
+ */
+if( !function_exists('vtt_admin_head_callback') ):
+function vtt_admin_head_callback()
 {
-	global $uncc_config;
-	$name = $uncc_config->get_current_variation();
-	$folder = 'variations/'.$name;
-	
-	uncc_enqueue_files( 'style', 'header-style', 'styles/admin-header.css' );
-	uncc_enqueue_files( 'style', 'header-style-'.$name, $folder.'/styles/admin-header.css' );	
+	vtt_enqueue_files( 'style', 'header-style', 'styles/admin-header.css' );
 }
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// Adds support for featured images.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_add_featured_image_support') ):
-function uncc_add_featured_image_support()
+/**
+ * Adds support for featured images.
+ */
+if( !function_exists('vtt_add_featured_image_support') ):
+function vtt_add_featured_image_support()
 {
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'custom-header',
 		array( 
 			'width' => 950, 
 			'random-default' => true,
-			'admin-head-callback' => 'uncc_admin_head_callback',
-			'admin-preview-callback' => 'uncc_admin_preview_callback'
+			'admin-head-callback' => 'vtt_admin_head_callback',
+			'admin-preview-callback' => 'vtt_admin_preview_callback'
 		)
 	);
 	
@@ -475,29 +481,29 @@ function uncc_add_featured_image_support()
 }
 endif;
 
-//----------------------------------------------------------------------------------------
-// Adds editor styles that use similar css to what is specified in style.css
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_add_editor_styles') ):
-function uncc_add_editor_styles() 
+/**
+ * Adds editor styles that use similar css to what is specified in style.css
+ */
+if( !function_exists('vtt_add_editor_styles') ):
+function vtt_add_editor_styles() 
 {
     add_editor_style( 'editor-style.css' );
 }
 endif;
 
-add_action( 'after_setup_theme', 'uncc_add_editor_styles' );
+add_action( 'after_setup_theme', 'vtt_add_editor_styles' );
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_header_image') ):
-function uncc_get_header_image()
+/**
+ * 
+ */
+if( !function_exists('vtt_get_header_image') ):
+function vtt_get_header_image()
 {
 	$header_url = get_header_image();
 	if( !$header_url ) $header_url = get_random_header_image();
 
 	$header_path = '';
-	if( $header_url ) $header_path = uncc_url_to_path($header_url);
+	if( $header_url ) $header_path = vtt_url_to_path($header_url);
 		
 	if( !$header_path )
 	{
@@ -519,11 +525,11 @@ function uncc_get_header_image()
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_url_to_path') ):
-function uncc_url_to_path( $url )
+/**
+ * 
+ */
+if( !function_exists('vtt_url_to_path') ):
+function vtt_url_to_path( $url )
 {
 	$url_parts = parse_url($url);
 	$url_path = $url_parts['host'].$url_parts['path'];
@@ -586,70 +592,38 @@ function uncc_url_to_path( $url )
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_path_to_url') ):
-function uncc_path_to_url( $path )
+/**
+ * 
+ */
+if( !function_exists('vtt_path_to_url') ):
+function vtt_path_to_url( $path )
 {
 	if( !file_exists($path) ) return '';
-
-	if( strpos($path, get_stylesheet_directory()) !== false )
+	
+	if( strpos($path, ABSPATH) !== false )
 	{
-		return str_replace( get_stylesheet_directory(), get_stylesheet_directory_uri(), $path );
+		return str_replace( ABSPATH, home_url().'/', $path );
 	}
-
-	if( strpos($path, get_template_directory()) !== false )
-	{
-		return str_replace( get_template_directory(), get_template_directory_uri(), $path );
-	}
-
+	
 	$upload = wp_upload_dir();
 	if( strpos($path, $upload['basedir']) !== false )
 	{
 		return str_replace( $upload['basedir'], $upload['baseurl'], $path );
 	}
+
+	return plugins_url( $path );
 	
 	return '';
 }
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// Clears the log file.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_clear_log') ):
-function uncc_clear_log()
-{
-	global $uncc_logfile;
-	file_put_contents( $uncc_logfile, '' );
-}
-endif;
-
-
-
-//----------------------------------------------------------------------------------------
-// Writes a line into the log file.
-// 
-// @param	$line		string		A line of text to write into a file.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_write_to_log') ):
-function uncc_write_to_log( $line )
-{
-	global $uncc_logfile;
-	file_put_contents( $uncc_logfile, print_r($line, true)."\n", FILE_APPEND );
-}
-endif;
-
-
-
-//----------------------------------------------------------------------------------------
-// Writes an object to the page with <pre> tags.
-// 
-// @param	$var		mixed		An object to var_dump.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_print') ):
-function uncc_print( $var, $label = '' )
+/**
+ * Writes an object to the page with <pre> tags.
+ * @param	$var		mixed		An object to var_dump.
+ */
+if( !function_exists('vtt_print') ):
+function vtt_print( $var, $label = '' )
 {
 	echo '<pre style="display:block; clear:both;">';
 	if( $label !== '' ) echo $label.": \n";
@@ -660,26 +634,26 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// Retreives the absolute path to a file within the theme.
-// 
-// @param	$filepath	string		The relative path within the theme to the file.
-// @return				string|null	The absolute path to the file in the theme.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_theme_file_path') ):
-function uncc_get_theme_file_path( $filepath, $search_type = 'both', $return_null = true )
+/**
+ * Retreives the absolute path to a file within the theme.
+ * @param	$filepath	string		The relative path within the theme to the file.
+ * @return				string|null	The absolute path to the file in the theme.
+ */
+if( !function_exists('vtt_get_theme_file_path') ):
+function vtt_get_theme_file_path( $filepath, $search_type = 'both', $return_null = true )
 {
-	global $uncc_config;
+	global $vtt_config;
 	
 	if( (strlen($filepath) > 0) && ($filepath[0] === '/') ) $filepath = substr( $filepath, 1 );
 	
 	if( $search_type === 'both' || $search_type === 'variation' ):
 	
-	if( file_exists(get_stylesheet_directory().'/variations/'.$uncc_config->get_current_variation().'/'.$filepath) )
-		return get_stylesheet_directory().'/variations/'.$uncc_config->get_current_variation().'/'.$filepath;
-	
-	if( file_exists(get_template_directory().'/variations/'.$uncc_config->get_current_variation().'/'.$filepath) )
-		return get_template_directory().'/variations/'.$uncc_config->get_current_variation().'/'.$filepath;
+	$variation_directories = $vtt_config->get_variation_directories();
+	foreach( $variation_directories as $directory )
+	{
+		if( file_exists($directory.'/'.$filepath) )
+			return $directory.'/'.$filepath;
+	}
 	
 	endif;
 	
@@ -699,28 +673,27 @@ function uncc_get_theme_file_path( $filepath, $search_type = 'both', $return_nul
 endif;
 
 
-
-//----------------------------------------------------------------------------------------
-// Retreives the absolute url to a file within the theme.
-// 
-// @param	$filepath	string		The relative path within the theme to the file.
-// @return				string|null	The absolute path to the file in the theme.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_theme_file_url') ):
-function uncc_get_theme_file_url( $filepath, $search_type = 'both', $return_null = true )
+/**
+ * Retreives the absolute url to a file within the theme. 
+ * @param	$filepath	string		The relative path within the theme to the file.
+ * @return				string|null	The absolute path to the file in the theme.
+ */
+if( !function_exists('vtt_get_theme_file_url') ):
+function vtt_get_theme_file_url( $filepath, $search_type = 'both', $return_null = true )
 {
-	global $uncc_config;
+	global $vtt_config;
 	
 	if( (strlen($filepath) > 0) && ($filepath[0] === '/') ) $filepath = substr( $filepath, 1 );
 	
 	if( $search_type === 'both' || $search_type === 'variation' ):
-	
-	if( file_exists(get_stylesheet_directory().'/'.$uncc_config->get_current_variation().'/'.$filepath) )
-		return get_stylesheet_directory_uri().'/'.$uncc_config->get_current_variation().'/'.$filepath;
-	
-	if( file_exists(get_template_directory().'/'.$uncc_config->get_current_variation().'/'.$filepath) )
-		return get_template_directory_uri().'/'.$uncc_config->get_current_variation().'/'.$filepath;
 
+	$variation_directories = $vtt_config->get_variation_directories();
+	foreach( $variation_directories as $directory )
+	{
+		if( file_exists($directory.'/'.$filepath) )
+			return vtt_path_to_url( $directory.'/'.$filepath );
+	}
+	
 	endif;
 	
 	if( $search_type === 'both' || $search_type === 'theme' ):
@@ -740,13 +713,11 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// 
-// 
-// @param	$filepath	string		The relative path within the theme to the file.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_include_files') ):
-function uncc_include_files( $filepath )
+/**
+ * @param	$filepath	string		The relative path within the theme to the file.
+ */
+if( !function_exists('vtt_include_files') ):
+function vtt_include_files( $filepath )
 {
 	if( is_child_theme() && file_exists(get_stylesheet_directory().'/'.$filepath) )
 		include_once( get_stylesheet_directory().'/'.$filepath );
@@ -758,24 +729,22 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// Find, then includes the template part.
-// TODO: alter this!!
-// 
-// @param	$name		string		The name of the template part.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_template_part') ):
-function uncc_get_template_part( $name, $folder = '', $key = '' )
+/**
+ * Find, then includes the template part.
+ * @param	$name		string		The name of the template part.
+ */
+if( !function_exists('vtt_get_template_part') ):
+function vtt_get_template_part( $name, $folder = '', $key = '' )
 {
-	global $uncc_config;
+	global $vtt_config;
 	if( $folder ) $folder = 'templates/'.$folder.'/'; else $folder = 'templates/';
 	
 	$filepath = null;
 	if( $key )
-		$filepath = uncc_get_theme_file_path( $folder.$name.'-'.$key.'.php' );
+		$filepath = vtt_get_theme_file_path( $folder.$name.'-'.$key.'.php' );
 	
 	if( $filepath === null )
-		$filepath = uncc_get_theme_file_path( $folder.$name.'.php' );
+		$filepath = vtt_get_theme_file_path( $folder.$name.'.php' );
 	
 	if( $filepath !== null )
 	{
@@ -789,14 +758,13 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// Retreives a tag object based on the slug.
-//
-// @param	$slug		string		The slug/name of the tag.
-// @return				mixed		Term Row (array) or false if not found.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_tag_by_slug') ):
-function uncc_get_tag_by_slug( $slug )
+/**
+ * Retreives a tag object based on the slug.
+ * @param	$slug		string		The slug/name of the tag.
+ * @return				mixed		Term Row (array) or false if not found.
+ */
+if( !function_exists('vtt_get_tag_by_slug') ):
+function vtt_get_tag_by_slug( $slug )
 {
 	return get_term_by( 'slug', $slug, 'post_tag' );
 }
@@ -804,18 +772,17 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// Creates the HTML for the an anchor.  If contents are provided, then the anchor will
-// wrap the contents, else only the beginning anchor tag will be returned.
-// 
-// @param	$url		string		The url of the anchor.
-// @param	$title		string		The title for the anchor.
-// @param	$class		string|null	The class for the anchor, if any.
-// @param	$contents	string|null	The contents wrapped by the anchor.
-// @return				string		The created anchor tag.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_anchor') ):
-function uncc_get_anchor( $url, $title, $class = null, $contents = null )
+ /**
+ * Creates the HTML for the an anchor.  If contents are provided, then the anchor will
+ * wrap the contents, else only the beginning anchor tag will be returned.
+ * @param	$url		string		The url of the anchor.
+ * @param	$title		string		The title for the anchor.
+ * @param	$class		string|null	The class for the anchor, if any.
+ * @param	$contents	string|null	The contents wrapped by the anchor.
+ * @return				string		The created anchor tag.
+ */
+if( !function_exists('vtt_get_anchor') ):
+function vtt_get_anchor( $url, $title, $class = null, $contents = null )
 {
 	if( empty($url) ) return $contents;
 	
@@ -832,16 +799,15 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// Gets the current datetime for the current timezone.
-//
-// @return				DateTime	The current datetime.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_current_datetime') ):
-function uncc_get_current_datetime()
+/**
+ * Gets the current datetime for the current timezone.
+ * @return  DateTime  The current datetime.
+ */
+if( !function_exists('vtt_get_current_datetime') ):
+function vtt_get_current_datetime()
 {
-	global $uncc_config;
-	$timezone = $uncc_config->get_timezone();
+	global $vtt_config;
+	$timezone = $vtt_config->get_timezone();
 	date_default_timezone_set($timezone);
 	return ( new Datetime() );
 }
@@ -849,29 +815,29 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// TODO...
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_use_widget') ):
-function uncc_use_widget( $part, $placement )
+/**
+ * 
+ */
+if( !function_exists('vtt_use_widget') ):
+function vtt_use_widget( $part, $placement )
 {
-	global $uncc_config;
+	global $vtt_config;
 	
 	if( !function_exists('dynamic_sidebar') ) return;
 	
-	if( $uncc_config->use_widget($part, $placement) ) dynamic_sidebar( $part.'-'.$placement );
+	if( $vtt_config->use_widget($part, $placement) ) dynamic_sidebar( $part.'-'.$placement );
 }
 endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_image') ):
-function uncc_image( $image_info, $echo = true )
+/**
+ * 
+ */
+if( !function_exists('vtt_image') ):
+function vtt_image( $image_info, $echo = true )
 {
-	global $uncc_mobile_support;
+	global $vtt_mobile_support;
 
 	if( empty($image_info) ) return;
 	
@@ -881,7 +847,7 @@ function uncc_image( $image_info, $echo = true )
 	switch( $image_info['selection-type'] )
 	{
 		case 'relative':
-			$image_info['path'] = uncc_get_theme_file_url( $image_info['path'] );
+			$image_info['path'] = vtt_get_theme_file_url( $image_info['path'] );
 			break;
 
 		case 'media':
@@ -899,7 +865,7 @@ function uncc_image( $image_info, $echo = true )
 	}
 	
 	if( !empty($image_info['link']) )
-		$html = uncc_get_anchor( $image_info['link'], $image_info['title'], $image_info['class'], $html );
+		$html = vtt_get_anchor( $image_info['link'], $image_info['title'], $image_info['class'], $html );
 
 	if( $echo ) echo $html;
 	else return $html;
@@ -908,40 +874,39 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// Retreives an image's url.
-// 
-// @param	$path		string		The absolute or relative path to the image.
-// @return				string|null	The absolute url to the image.
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_image_url') ):
-function uncc_get_image_url( $path )
+/**
+ * Retreives an image's url.
+ * @param	$path		string		The absolute or relative path to the image.
+ * @return				string|null	The absolute url to the image.
+ */
+if( !function_exists('vtt_get_image_url') ):
+function vtt_get_image_url( $path )
 {
-	global $uncc_mobile_support;
+	global $vtt_mobile_support;
 	
 	if( is_array($path) ) $path = $path['url'];
 	
 	$url = '';
-	if( $uncc_mobile_support->use_mobile_site )
+	if( $vtt_mobile_support->use_mobile_site )
 	{
 		$pathinfo = pathinfo( $path );
-		$url = uncc_get_theme_file_url( $pathinfo['dirname'].'/'.$pathinfo['filename'].'-mobile.'.$pathinfo['extension'] );
+		$url = vtt_get_theme_file_url( $pathinfo['dirname'].'/'.$pathinfo['filename'].'-mobile.'.$pathinfo['extension'] );
 	}
 	
 	if( $url ) return $url;
-	return uncc_get_theme_file_url($path);
+	return vtt_get_theme_file_url($path);
 }
 endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_image_info') ):
-function uncc_get_image_info( $image_info )
+/**
+ * 
+ */
+if( !function_exists('vtt_get_image_info') ):
+function vtt_get_image_info( $image_info )
 {
-	global $uncc_mobile_support;
+	global $vtt_mobile_support;
 	
 	if( !$image_info ) return $image_info;
 	
@@ -951,25 +916,23 @@ function uncc_get_image_info( $image_info )
 	$pathinfo = pathinfo( $image_info['path'] );
 	if( !$pathinfo ) return $image_info;	
 	
-	uncc_print( $pathinfo, 'pathinfo' );
-	
 	$full_path = ''; $path = ''; $url = '';
-	if( $uncc_mobile_support->use_mobile_site )
+	if( $vtt_mobile_support->use_mobile_site )
 	{
 		$path = $pathinfo['dirname'].'/'.$pathinfo['filename'].'-mobile.'.$pathinfo['extension'];
-		$full_path = uncc_get_theme_file_path( $path );
+		$full_path = vtt_get_theme_file_path( $path );
 		
 		if( $path !== null ) 
-			$url = uncc_get_theme_file_url( $path );
+			$url = vtt_get_theme_file_url( $path );
 	}
 
 	if( !$url )
 	{
 		$path = $pathinfo['dirname'].'/'.$pathinfo['filename'].'.'.$pathinfo['extension'];
-		$full_path = uncc_get_theme_file_path( $path );
+		$full_path = vtt_get_theme_file_path( $path );
 
 		if( $path !== null ) 
-			$url = uncc_get_theme_file_url( $path );
+			$url = vtt_get_theme_file_url( $path );
 	}
 	
 	if( !$url ) return $image_info;
@@ -987,11 +950,11 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_str_starts_with') ):
-function uncc_str_starts_with($haystack, $needle)
+/**
+ * 
+ */
+if( !function_exists('vtt_str_starts_with') ):
+function vtt_str_starts_with($haystack, $needle)
 {
     return $needle === "" || strpos($haystack, $needle) === 0;
 }
@@ -999,11 +962,11 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_str_ends_with') ):
-function uncc_str_ends_with($haystack, $needle)
+/**
+ * 
+ */
+if( !function_exists('vtt_str_ends_with') ):
+function vtt_str_ends_with($haystack, $needle)
 {
     return $needle === "" || substr($haystack, -strlen($needle)) === $needle;
 }
@@ -1011,13 +974,13 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_section') ):
-function uncc_get_section( $wpquery = null )
+/**
+ * 
+ */
+if( !function_exists('vtt_get_section') ):
+function vtt_get_section( $wpquery = null )
 {
-	global $wp_query, $uncc_config;
+	global $wp_query, $vtt_config;
 
 	if( $wpquery === null ) $wpquery = $wp_query;
 	if( $wpquery->get('section') ) return $wpquery->get('section');
@@ -1028,18 +991,18 @@ function uncc_get_section( $wpquery = null )
 	{
 		if( $wpquery->is_tax() || $wpquery->is_tag() || $wpquery->is_category() )
 		{
-			$section = $uncc_config->get_section( null, array( $qo->taxonomy => $qo->slug ), false );
+			$section = $vtt_config->get_section( null, array( $qo->taxonomy => $qo->slug ), false );
 			$wpquery->set( 'section', $section );
 			return $section;
 		}
 		elseif( $wpquery->is_post_type_archive() )
 		{
-			$section = $uncc_config->get_section( $qo->name, null, false );
+			$section = $vtt_config->get_section( $qo->name, null, false );
 			$wpquery->set( 'section', $section );
 			return $section;
 		}
 
-		return $uncc_config->get_default_section();
+		return $vtt_config->get_default_section();
 	}
 	
 	if( $wpquery->is_single() )
@@ -1069,27 +1032,27 @@ function uncc_get_section( $wpquery = null )
 		if( $post_id )
 		{
 			$post_type = get_post_type( $post_id );
-			$taxonomies = uncc_get_taxonomies( $post_id );
-			$section = $uncc_config->get_section( $post_type, $taxonomies, false, array('news') );
+			$taxonomies = vtt_get_taxonomies( $post_id );
+			$section = $vtt_config->get_section( $post_type, $taxonomies, false, array('news') );
 		}
 		else
 		{
-			$section = $uncc_config->get_default_section();
+			$section = $vtt_config->get_default_section();
 		}
 		
 		$wpquery->set( 'section', $section );
 		return $section;
 	}
 	
-	return $uncc_config->get_default_section();
+	return $vtt_config->get_default_section();
 }
 endif;
 
-//----------------------------------------------------------------------------------------
-// Need to add support for displaying multiple authors...
-//----------------------------------------------------------------------------------------
-if( !function_exists( 'uncc_get_byline' ) ) :
-function uncc_get_byline( $post )
+/**
+ * Need to add support for displaying multiple authors...
+ */
+if( !function_exists( 'vtt_get_byline' ) ) :
+function vtt_get_byline( $post )
 {
 	$date = date( 'F d, Y', strtotime($post->post_date) );
 	
@@ -1102,8 +1065,8 @@ function uncc_get_byline( $post )
 endif;
 
 
-if( !function_exists( 'uncc_get_breadcrumbs' ) ):
-function uncc_get_breadcrumbs( $post )
+if( !function_exists( 'vtt_get_breadcrumbs' ) ):
+function vtt_get_breadcrumbs( $post )
 {
 	$breadcrumbs = array();
 	$breadcrumbs[] = get_the_title( $post->ID );
@@ -1128,11 +1091,11 @@ function uncc_get_breadcrumbs( $post )
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists( 'uncc_get_taxonomy_breadcrumbs' ) ):
-function uncc_get_taxonomy_breadcrumbs( $term_id, $taxonomy = 'category' )
+/**
+ * 
+ */
+if( !function_exists( 'vtt_get_taxonomy_breadcrumbs' ) ):
+function vtt_get_taxonomy_breadcrumbs( $term_id, $taxonomy = 'category' )
 {
 	$term = get_term( $term_id, $taxonomy );
 	if( $term === null || is_wp_error($term) ) return '';
@@ -1153,11 +1116,11 @@ function uncc_get_taxonomy_breadcrumbs( $term_id, $taxonomy = 'category' )
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists( 'uncc_get_taxonomy_list' ) ):
-function uncc_get_taxonomy_list( $taxonomy_name, $post )
+/**
+ * 
+ */
+if( !function_exists( 'vtt_get_taxonomy_list' ) ):
+function vtt_get_taxonomy_list( $taxonomy_name, $post )
 {
 	$taxonomy = get_taxonomy( $taxonomy_name );
 	if( !$taxonomy ) return '';
@@ -1194,7 +1157,7 @@ function uncc_get_taxonomy_list( $taxonomy_name, $post )
 		$list = array();
 		foreach( $terms as $t )
 		{
-			$list[] = uncc_get_anchor( get_term_link($t->term_id, $taxonomy_name), $t->name, $t->slug, $t->name );
+			$list[] = vtt_get_anchor( get_term_link($t->term_id, $taxonomy_name), $t->name, $t->slug, $t->name );
 		}
 		$html .= implode( '', $list );
 	}
@@ -1211,11 +1174,11 @@ function uncc_get_taxonomy_list( $taxonomy_name, $post )
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_categories') ):
-function uncc_get_categories( $categories = null )
+/**
+ * 
+ */
+if( !function_exists('vtt_get_categories') ):
+function vtt_get_categories( $categories = null )
 {
 	if( $categories == null )
 		$categories = get_the_category();
@@ -1232,11 +1195,11 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_tags') ):
-function uncc_get_tags( $tags = null )
+/**
+ * 
+ */
+if( !function_exists('vtt_get_tags') ):
+function vtt_get_tags( $tags = null )
 {
 	if( $tags == null )
 		$tags = get_the_tags();
@@ -1253,11 +1216,11 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_taxonomies') ):
-function uncc_get_taxonomies( $post_id = -1 )
+/**
+ * 
+ */
+if( !function_exists('vtt_get_taxonomies') ):
+function vtt_get_taxonomies( $post_id = -1 )
 {
 	global $post;
 	
@@ -1280,11 +1243,11 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_get_page_url') ):
-function uncc_get_page_url()
+/**
+ * 
+ */
+if( !function_exists('vtt_get_page_url') ):
+function vtt_get_page_url()
 {
 	$page_url = 'http';
 	if( isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on') ) $page_url .= 's';
@@ -1301,24 +1264,24 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_customize_register') ):
-function uncc_customize_register( $wp_customize )
+/**
+ * 
+ */
+if( !function_exists('vtt_customize_register') ):
+function vtt_customize_register( $wp_customize )
 {
-	global $uncc_config;
+	global $vtt_config;
 	
 	$wp_customize->add_setting(
-		'uncc-variation',
+		'vtt-variation',
 		array(
-			'default'     => $uncc_config->get_current_variation(),
+			'default'     => $vtt_config->get_variation_name(),
 			'transport'   => 'refresh',
 		)
 	);
 	
 	$wp_customize->add_section(
-		'uncc-variation-section',
+		'vtt-variation-section',
 		array(
 			'title'      => 'Variation',
 			'priority'   => 0,
@@ -1328,57 +1291,51 @@ function uncc_customize_register( $wp_customize )
 	$wp_customize->add_control( 
 		new WP_Customize_Control( 
 			$wp_customize, 
-			'uncc-variation-control', 
+			'vtt-variation-control', 
 			array(
 				'label'      => 'Name',
-				'section'    => 'uncc-variation-section',
-				'settings'   => 'uncc-variation',
+				'section'    => 'vtt-variation-section',
+				'settings'   => 'vtt-variation',
 				'type'       => 'select',
-				'choices'    => $uncc_config->get_variations(),
+				'choices'    => $vtt_config->get_all_variation_names(),
 			)
 		)
 	);
-	
-	
-	
-	
-// 	uncc_print( $uncc_config->get_current_variation(), 'current variation' );
-// 	uncc_print( get_theme_mod( 'uncc-variation', false ), 'theme-mod variation' );
 }
 endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_customize_save') ):
-function uncc_customize_save( $wp_customize )
+/**
+ * 
+ */
+if( !function_exists('vtt_customize_save') ):
+function vtt_customize_save( $wp_customize )
 {
-	global $uncc_config;
-	$uncc_config->set_variation( get_theme_mod('uncc-variation'), true );
+	global $vtt_config;
+	$vtt_config->set_variation( get_theme_mod(VTT_VARIATION_OPTION), true );
 }
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_customize_update_variation') ):
-function uncc_customize_update_variation( $old_value, $new_value )
+/**
+ * 
+ */
+if( !function_exists('vtt_customize_update_variation') ):
+function vtt_customize_update_variation( $old_value, $new_value )
 {
 	global $wp_customize;
 	if( isset($wp_customize) ) return;
-	set_theme_mod( 'uncc-variation', $new_value );
+	set_theme_mod( VTT_VARIATION_OPTION, $new_value );
 }
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_customize_update_options') ):
-function uncc_customize_update_options( $old_value, $new_value )
+/**
+ * 
+ */
+if( !function_exists('vtt_customize_update_options') ):
+function vtt_customize_update_options( $old_value, $new_value )
 {
 	global $wp_customize;
 	if( isset($wp_customize) ) return;
@@ -1387,13 +1344,13 @@ function uncc_customize_update_options( $old_value, $new_value )
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_find_comments_template_part') ):
-function uncc_find_comments_template_part( $path )
+/**
+ * 
+ */
+if( !function_exists('vtt_find_comments_template_part') ):
+function vtt_find_comments_template_part( $path )
 {
-	$filepath = uncc_get_theme_file_path( 'templates/other/comments.php' );
+	$filepath = vtt_get_theme_file_path( 'templates/other/comments.php' );
 	if( $filepath ) $path = $filepath;
 
 	return $path;
@@ -1402,11 +1359,11 @@ endif;
 
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-if( !function_exists('uncc_add_custom_mime_types') ):
-function uncc_add_custom_mime_types( $mimes )
+/**
+ * 
+ */
+if( !function_exists('vtt_add_custom_mime_types') ):
+function vtt_add_custom_mime_types( $mimes )
 {
 	// Mime types to remove include:
 	// .mp4, .mov, .wmv, .avi
@@ -1425,10 +1382,9 @@ function uncc_add_custom_mime_types( $mimes )
 endif;
 
 
-//----------------------------------------------------------------------------------------
-// 
-//----------------------------------------------------------------------------------------
-function uncc_read_more_link() {
+/**
+ * 
+ */function vtt_read_more_link() {
 	return '<a class="more-link" href="' . get_permalink() . '">Read more...</a>';
 }
-add_filter( 'the_content_more_link', 'uncc_read_more_link' );
+add_filter( 'the_content_more_link', 'vtt_read_more_link' );

@@ -1,20 +1,20 @@
 <?php
 /**
- * UNCC_ThemeOptionsAdminPage
+ * VTT_ThemeOptionsAdminPage
  * 
  * This class controls the admin page "Theme Options".
  * 
- * @package    uncc
+ * @package    variations-template-theme
  * @subpackage admin-pages/pages
  * @author     Crystal Barton <cbarto11@uncc.edu>
  */
 
-if( !class_exists('UNCC_ThemeOptionsAdminPage') ):
-class UNCC_ThemeOptionsAdminPage extends APL_AdminPage
+if( !class_exists('VTT_ThemeOptionsAdminPage') ):
+class VTT_ThemeOptionsAdminPage extends APL_AdminPage
 {
 	
 	/**
-	 * Creates an UNCC_ThemeOptionsAdminPage object.
+	 * Creates an VTT_ThemeOptionsAdminPage object.
 	 */
 	public function __construct(
 		$name = 'theme-options',
@@ -24,10 +24,10 @@ class UNCC_ThemeOptionsAdminPage extends APL_AdminPage
 	{
 		parent::__construct( $name, $menu_title, $page_title, $capability );
 		
-		$this->add_tab( new UNCC_ThemeOptionsVariationsTabAdminPage($this) );
-		$this->add_tab( new UNCC_ThemeOptionsAdminPageHeaderTabAdminPage($this) );
+		$this->add_tab( new VTT_ThemeOptionsVariationsTabAdminPage($this) );
+		$this->add_tab( new VTT_ThemeOptionsAdminPageHeaderTabAdminPage($this) );
 	}
 	
-} // class UNCC_ThemeOptionsAdminPage extends APL_AdminPage
-endif; // if( !class_exists('UNCC_ThemeOptionsAdminPage') )
+} // class VTT_ThemeOptionsAdminPage extends APL_AdminPage
+endif; // if( !class_exists('VTT_ThemeOptionsAdminPage') )
 

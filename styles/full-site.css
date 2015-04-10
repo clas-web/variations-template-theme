@@ -187,7 +187,7 @@
 
 		<div class="widget-area num-cols-4 clearfix">
 			
-			<div class="widget-column uncc-footer-1">
+			<div class="widget-column vtt-footer-1">
 				<div id="archives-3" class="widget widget_archive">
 					<h2 class="widget-title">Archives – Footer 1</h2>
 					<ul><li></li></ul>
@@ -211,7 +211,7 @@
 				</div>
 			</div>
 			
-			<div class="widget-column uncc-footer-2">
+			<div class="widget-column vtt-footer-2">
 				<div id="meta-3" class="widget widget_meta">
 					<h2 class="widget-title">Meta – Footer 2</h2>
 					<ul><li><a></a></li></ul>
@@ -222,7 +222,7 @@
 				</div>
 			</div>
 			
-			<div class="widget-column uncc-footer-3">
+			<div class="widget-column vtt-footer-3">
 				<div id="recent-comments-3" class="widget widget_recent_comments">
 					<h2 class="widget-title">Recent Comments – Footer 3</h2>
 					<ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Anonymous</span> on <a href="http://localhost/wordpress-ms/test-unc-charlotte-theme/2014/09/24/hello-world/#comment-1">Hello world!</a></li></ul>
@@ -243,7 +243,7 @@
 				</div>
 			</div>
 			
-			<div class="widget-column uncc-footer-4">
+			<div class="widget-column vtt-footer-4">
 				<div id="tag_cloud-2" class="widget widget_tag_cloud">
 					<h2 class="widget-title">Tag Cloud – Footer 4</h2>
 					<div class="tagcloud"></div>
