@@ -111,6 +111,9 @@ function vtt_theme_setup()
 	// load config.
 	$vtt_config->load_config();
 
+	// include variation's functions.php
+	$vtt_config->load_variations_files( 'functions.php' );	
+
 	// add theme support.
 	vtt_add_featured_image_support();
 	add_theme_support( 'post-thumbnails' );
@@ -118,9 +121,6 @@ function vtt_theme_setup()
 	
 	// add editor styles.
 	add_editor_style( 'editor-style.css' );
-
-	// include variation's functions.php
-	$vtt_config->load_variations_files( 'functions.php' );	
 }
 endif; 
 
@@ -284,8 +284,6 @@ function vtt_setup_widget_areas()
 	$widget_area['before_title'] = '<h2 class="widget-title">';
 	$widget_area['after_title'] = '</h2>';
 
-	//vtt_print($widgets);
-
 	foreach( $widgets as $widget )
 	{
 		$widget_area['name'] = $widget['name'];
@@ -402,6 +400,8 @@ endif;
 if( !function_exists('vtt_add_featured_image_support') ):
 function vtt_add_featured_image_support()
 {
+	global $vtt_config;
+	
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'custom-header',
 		array( 
@@ -412,41 +412,30 @@ function vtt_add_featured_image_support()
 		)
 	);
 	
-	
-	//
-	// TODO: change to support variations images folder.
-	//
-	
-	
-	if( (is_child_theme()) && (file_exists(get_stylesheet_directory().'/images/headers/full')) )
-	{
-		$headers_fullpath = get_stylesheet_directory().'/images/headers/full';
-		$headers_thumbpath = get_stylesheet_directory().'/images/headers/thumbnail';
-		$sprintf = '%2$s';
-	}
-	elseif( (file_exists(get_template_directory().'/images/headers/full')) )
-	{
-		$headers_fullpath = get_template_directory().'/images/headers/full';
-		$headers_thumbpath = get_template_directory().'/images/headers/thumbnail';
-		$sprintf = '%s';
-	}
-	else
-	{
-		return;
-	}
+	$all_directories = $vtt_config->get_all_directories( false );
+	$all_directories = apply_filters( 'vtt-headers-directories', $all_directories );
 	
 	$images = array();
-	$files = scandir( $headers_fullpath );
-	foreach( $files as $file )
+	foreach( $all_directories as $directory )
 	{
-		if( $file[0] == '.' ) continue;
-		if( is_dir($headers_fullpath.'/'.$file) ) continue;
-		if( !file_exists($headers_thumbpath.'/'.$file) ) continue;
+		if( !is_dir($directory.'/images/headers') ) continue;
+		if( !is_dir($directory.'/images/headers/full') ) continue;
+		if( !is_dir($directory.'/images/headers/thumbnail') ) continue;
 		
-		list( $dirname, $filename, $extension, $basename ) = array_values( pathinfo($headers_fullpath.'/'.$file) );
-		$images[$basename]['url'] = $sprintf.'/images/headers/full/'.$filename;
-		$images[$basename]['thumbnail_url'] = $sprintf.'/images/headers/thumbnail/'.$filename;
-		$images[$basename]['description'] = $filename;
+		$url = vtt_path_to_url( $directory );
+		$files = scandir( $directory.'/images/headers/full' );
+		foreach( $files as $file )
+		{
+			if( $file[0] == '.' ) continue;
+			if( is_dir($directory.'/images/headers/full/'.$file) ) continue;
+			if( !file_exists($directory.'/images/headers/thumbnail/'.$file) ) continue;
+			if( is_dir($directory.'/images/headers/thumbnail/'.$file) ) continue;
+			
+			$basename = basename( $file );
+			$images[$basename]['url'] = $url.'/images/headers/full/'.$file;
+			$images[$basename]['thumbnail_url'] = $url.'/images/headers/thumbnail/'.$file;
+			$images[$basename]['description'] = $url;
+		}
 	}
 	
 	register_default_headers( $images );	
@@ -494,6 +483,12 @@ function vtt_url_to_path( $url )
 {
 	$url_parts = parse_url($url);
 	$url_path = $url_parts['host'].$url_parts['path'];
+
+	if( strpos($url, home_url()) !== false )
+	{
+		return str_replace( home_url().'/', ABSPATH, $url );
+	}
+	
 
 	$template_parts = parse_url(get_template_directory_uri());
 	$template_path = $template_parts['host'].$template_parts['path'];
@@ -587,7 +582,7 @@ if( !function_exists('vtt_print') ):
 function vtt_print( $var, $label = '' )
 {
 	echo '<pre style="display:block; clear:both;">';
-	if( $label !== '' ) echo $label.": \n";
+	if( $label !== '' ) echo '<b>'.$label.":</b> \r\n";
 	var_dump($var);
 	echo '</pre>';
 }
@@ -1114,7 +1109,6 @@ function vtt_get_taxonomy_list( $taxonomy_name, $post )
 	
 	$html .= '</div>';
 	
-// 	echo '<pre>'; var_dump($html); echo '</pre>';
 	return $html;
 }
 endif;
@@ -1346,20 +1340,22 @@ function vtt_backtrace( $fullpath = false )
 {
 	if(!function_exists('debug_backtrace')) 
 	{
-		vtt_print( 'function debug_backtrace does not exists' ); 
+		echo '<pre style="display:block; clear:both;">'.
+			"<b>Debug backtrace:</b> \r\n".
+			"function debug_backtrace does not exists\r\n".
+		'</pre>'; 
 		return; 
 	}
 	
-	$title = 'Debug backtrace';
-	$text = "\r\n";
+	$text = '';
 	
 	foreach(debug_backtrace() as $t) 
 	{ 
-		$text .= "\t" . '@ '; 
+		$text .= '@ '; 
 		if( isset($t['file']) )
 		{
 			if( $fullpath )
-				$text .= $t['file'] . ":\r\n\t\t" . $t['line']; 
+				$text .= $t['file'] . ":\r\n\t" . $t['line']; 
 			else
 				$text .= basename($t['file']) . ':' . $t['line']; 
 		}
@@ -1381,8 +1377,11 @@ function vtt_backtrace( $fullpath = false )
 
 		$text .= "\r\n"; 
 	}
-	
-	vtt_print( $text, $title );
+
+	echo '<pre style="display:block; clear:both;">'.
+		"<b>Debug backtrace:</b> \r\n".
+		$text."\r\n".
+	'</pre>'; 
 }
 endif;
 

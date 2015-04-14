@@ -560,7 +560,7 @@ class VTT_Config
 		
 		foreach( $folders as $folder )
 		{
-			if( !file_exists($folder) ) continue;
+			if( !is_dir($folder) ) continue;
 			
 			$files = scandir( $folder );
 			foreach( $files as $name )
@@ -778,7 +778,7 @@ class VTT_Config
 		{
 			foreach( $directories as $k => $dir )
 			{
-				if( !file_exists($dir) )
+				if( !is_dir($dir) )
 					unset( $this->current_variation['directory'][$key][$k] );
 			}
 		}
