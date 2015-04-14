@@ -27,7 +27,7 @@ $apl_libraries[$apl_version] = array(
 );
 
 // once all plugins are loaded, then load the APL libarary.
-add_action( 'plugins_loaded', 'apl_load', 1 );
+add_action( 'after_setup_theme', 'apl_load', 1 );
 
 
 /**
