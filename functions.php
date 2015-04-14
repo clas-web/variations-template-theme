@@ -4,7 +4,6 @@
  * functions.php
  * 
  * The main functions for the Variations Template Theme.
- * Main setup at bottom of file.
  * 
  * @package    variations-template-theme
  * @author     Crystal Barton <cbarto11@uncc.edu>
@@ -45,10 +44,11 @@ $vtt_mobile_support = new Mobile_Support;
 
 // Setup the config information.
 require_once( get_template_directory().'/classes/config.php' );
-$vtt_config = new vtt_config;
+$vtt_config = new VTT_Config;
 
 // Set blog name.
 define( 'VTT_BLOG_NAME', trim( preg_replace("/[^A-Za-z0-9 ]/", '-', get_blog_details()->path), '-' ) );
+
 
 //========================================================================================
 //====================================================== Default filters and actions =====
@@ -92,8 +92,8 @@ add_filter( 'upload_mimes', 'vtt_add_custom_mime_types' );
 // Enable Links subpanel
 add_filter( 'pre_option_link_manager_enabled', '__return_true' );
 
-
-
+// Post Content
+add_filter( 'the_content_more_link', 'vtt_read_more_link' );
 
 
 //========================================================================================
@@ -106,6 +106,8 @@ add_filter( 'pre_option_link_manager_enabled', '__return_true' );
 if( !function_exists('vtt_theme_setup') ):
 function vtt_theme_setup()
 {
+	global $vtt_mobile_support, $vtt_config;
+	
 	// load config.
 	$vtt_config->load_config();
 
@@ -335,35 +337,15 @@ function vtt_enqueue_files( $type, $name, $filepath, $dependents = array(), $ver
 	
 	if( $type !== 'script' && $type !== 'style' ) return;
 
-	$paths = array();
+	$directories = $vtt_config->get_all_directories( false );
 	
-	if( file_exists(get_template_directory().'/'.$filepath) )
-		$paths['p'] = get_template_directory_uri().'/'.$filepath;
-
-	if( (is_child_theme()) && (file_exists(get_stylesheet_directory().'/'.$filepath)) )
-		$paths['c'] = get_stylesheet_directory_uri().'/'.$filepath;
-	
-	foreach( $paths as $key => $theme_filepath )
-	{	
-		if( $theme_filepath !== null )
-		{
-			call_user_func( 'wp_register_'.$type, $name.'-'.$key, $theme_filepath, $dependents, $version );
-			call_user_func( 'wp_enqueue_'.$type, $name.'-'.$key );
-		}
-	}
-	
-	$name .= $vtt_config->get_variation_name();
-	$variation_directories = $vtt_config->get_variation_directories( false );
-	
-	foreach( $variation_directories as $key => $directory )
+	foreach( $directories as $key => $directory )
 	{
 		if( file_exists($directory.'/'.$filepath) )
 		{
 			$url = vtt_path_to_url( $directory.'/'.$filepath );
-			if( !$url ) continue;
-			$num = $key + 1;
-			call_user_func( 'wp_register_'.$type, $name.'-'.$num, $url, $dependents, $version );
-			call_user_func( 'wp_enqueue_'.$type, $name.'-'.$num );
+			call_user_func( 'wp_register_'.$type, $name.'-'.$key, $url, $dependents, $version );
+			call_user_func( 'wp_enqueue_'.$type, $name.'-'.$key );
 		}
 	}
 }
@@ -381,11 +363,11 @@ function vtt_enqueue_file( $type, $name, $filepath, $dependents = array(), $vers
 {
 	if( $type !== 'script' && $type !== 'style' ) return;
 	
-	$theme_filepath = vtt_get_theme_file_url($filepath);
+	$url = vtt_get_theme_file_url($filepath);
 	
-	if( $theme_filepath !== null )
+	if( $url !== null )
 	{
-		call_user_func( 'wp_register_'.$type, $name, $theme_filepath, $dependents, $version );
+		call_user_func( 'wp_register_'.$type, $name, $url, $dependents, $version );
 		call_user_func( 'wp_enqueue_'.$type, $name );
 	}
 }
@@ -429,6 +411,12 @@ function vtt_add_featured_image_support()
 			'admin-preview-callback' => 'vtt_admin_preview_callback'
 		)
 	);
+	
+	
+	//
+	// TODO: change to support variations images folder.
+	//
+	
 	
 	if( (is_child_theme()) && (file_exists(get_stylesheet_directory().'/images/headers/full')) )
 	{
@@ -490,9 +478,9 @@ function vtt_get_header_image()
 	}
 	
 	return array(
-		'url' => $header_url,
-		'width' => $header_width,
-		'height' => $header_height,
+		'url' 		=> $header_url,
+		'width' 	=> $header_width,
+		'height' 	=> $header_height,
 	);
 }
 endif;
@@ -621,8 +609,8 @@ function vtt_get_theme_file_path( $filepath, $search_type = 'both', $return_null
 	
 	if( $search_type === 'both' || $search_type === 'variation' ):
 	
-	$variation_directories = $vtt_config->get_variation_directories();
-	foreach( $variation_directories as $directory )
+	$directories = $vtt_config->get_variation_all_directories( true );
+	foreach( $directories as $directory )
 	{
 		if( file_exists($directory.'/'.$filepath) )
 			return $directory.'/'.$filepath;
@@ -632,11 +620,12 @@ function vtt_get_theme_file_path( $filepath, $search_type = 'both', $return_null
 	
 	if( $search_type === 'both' || $search_type === 'theme' ):
 	
-	if( file_exists(get_stylesheet_directory().'/'.$filepath) )
-		return get_stylesheet_directory().'/'.$filepath;
-	
-	if( file_exists(get_template_directory().'/'.$filepath) )
-		return get_template_directory().'/'.$filepath;
+	$directories = $vtt_config->get_theme_directories( true );
+	foreach( $directories as $directory )
+	{
+		if( file_exists($directory.'/'.$filepath) )
+			return $directory.'/'.$filepath;
+	}
 
 	endif;
 		
@@ -658,27 +647,11 @@ function vtt_get_theme_file_url( $filepath, $search_type = 'both', $return_null 
 	
 	if( (strlen($filepath) > 0) && ($filepath[0] === '/') ) $filepath = substr( $filepath, 1 );
 	
-	if( $search_type === 'both' || $search_type === 'variation' ):
-
-	$variation_directories = $vtt_config->get_variation_directories();
-	foreach( $variation_directories as $directory )
-	{
-		if( file_exists($directory.'/'.$filepath) )
-			return vtt_path_to_url( $directory.'/'.$filepath );
-	}
+	$filepath = vtt_get_theme_file_path( $filepath, $search_type, true );
 	
-	endif;
+	if( $filepath ) 
+		return vtt_path_to_url( $filepath );
 	
-	if( $search_type === 'both' || $search_type === 'theme' ):
-	
-	if( file_exists(get_stylesheet_directory().'/'.$filepath) )
-		return get_stylesheet_directory_uri().'/'.$filepath;
-	
-	if( file_exists(get_template_directory().'/'.$filepath) )
-		return get_template_directory_uri().'/'.$filepath;
-
-	endif;
-		
 	if( $return_null ) return null;
 	return '';
 }
@@ -692,11 +665,12 @@ endif;
 if( !function_exists('vtt_include_files') ):
 function vtt_include_files( $filepath )
 {
-	if( is_child_theme() && file_exists(get_stylesheet_directory().'/'.$filepath) )
-		include_once( get_stylesheet_directory().'/'.$filepath );
-	
-	if( file_exists(get_template_directory().'/'.$filepath) )
-		include_once( get_template_directory().'/'.$filepath );
+	$directories = $vtt_config->get_theme_directories( true );
+	foreach( $directories as $directory )
+	{
+		if( file_exists($directory.'/'.$filepath) )
+			include_once( get_stylesheet_directory().'/'.$filepath );
+	}
 }
 endif;
 
@@ -859,14 +833,12 @@ function vtt_get_image_url( $path )
 	
 	if( is_array($path) ) $path = $path['url'];
 	
-	$url = '';
 	if( $vtt_mobile_support->use_mobile_site )
 	{
 		$pathinfo = pathinfo( $path );
-		$url = vtt_get_theme_file_url( $pathinfo['dirname'].'/'.$pathinfo['filename'].'-mobile.'.$pathinfo['extension'] );
+		$path = vtt_get_theme_file_url( $pathinfo['dirname'].'/'.$pathinfo['filename'].'-mobile.'.$pathinfo['extension'] );
 	}
 	
-	if( $url ) return $url;
 	return vtt_get_theme_file_url($path);
 }
 endif;
@@ -1020,6 +992,7 @@ function vtt_get_section( $wpquery = null )
 	return $vtt_config->get_default_section();
 }
 endif;
+
 
 /**
  * Need to add support for displaying multiple authors...
@@ -1338,7 +1311,7 @@ endif;
 if( !function_exists('vtt_add_custom_mime_types') ):
 function vtt_add_custom_mime_types( $mimes )
 {
-	// Mime types to remove include:
+	// Mime types to remove:
 	// .mp4, .mov, .wmv, .avi
 	unset( $mimes['mp4'] );
 	unset( $mimes['mov'] );
@@ -1357,7 +1330,59 @@ endif;
 
 /**
  * 
- */function vtt_read_more_link() {
+ */
+if( !function_exists('vtt_read_more_link') ):
+function vtt_read_more_link() {
 	return '<a class="more-link" href="' . get_permalink() . '">Read more...</a>';
 }
-add_filter( 'the_content_more_link', 'vtt_read_more_link' );
+endif;
+
+
+/**
+ * Prints a backtrace for debugging.
+ */
+if( !function_exists('vtt_backtrace') ):
+function vtt_backtrace( $fullpath = false )
+{
+	if(!function_exists('debug_backtrace')) 
+	{
+		vtt_print( 'function debug_backtrace does not exists' ); 
+		return; 
+	}
+	
+	$title = 'Debug backtrace';
+	$text = "\r\n";
+	
+	foreach(debug_backtrace() as $t) 
+	{ 
+		$text .= "\t" . '@ '; 
+		if( isset($t['file']) )
+		{
+			if( $fullpath )
+				$text .= $t['file'] . ":\r\n\t\t" . $t['line']; 
+			else
+				$text .= basename($t['file']) . ':' . $t['line']; 
+		}
+		else 
+		{ 
+			// if file was not set, I assumed the functioncall 
+			// was from PHP compiled source (ie XML-callbacks). 
+			$text .= '<PHP inner-code>'; 
+		} 
+
+		$text .= ' -- '; 
+
+		if(isset($t['class'])) $text .= $t['class'] . $t['type']; 
+
+		$text .= $t['function']; 
+
+		if(isset($t['args']) && sizeof($t['args']) > 0) $text .= '(...)'; 
+		else $text .= '()'; 
+
+		$text .= "\r\n"; 
+	}
+	
+	vtt_print( $text, $title );
+}
+endif;
+

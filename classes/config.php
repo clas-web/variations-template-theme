@@ -94,7 +94,7 @@ class VTT_Config
 		$this->all_variations = $this->get_variations();
 		$variation = $this->get_current_variation();
 		$this->current_variation = $this->all_variations[$variation];
-		$variation_directories = $this->get_variation_directories();
+		$variation_directories = $this->get_variation_all_directories();
 		
 		// 
 		// load variation config.ini data.
@@ -134,7 +134,6 @@ class VTT_Config
 			$db_options = $this->get_upgraded_db_options();
 
 			// theme customizer options
-			
 			$db_options = apply_filters( 'vtt-theme-customizer-options', $db_options );
 		}
 		if( empty($db_options) || !is_array($db_options) ) $db_options = array();
@@ -161,7 +160,7 @@ class VTT_Config
 			if( isset($this->options[$key]) ) { $this->data[$key] = $this->options[$key]; continue; }
 			$this->data[$key] = array();
 		}
-
+		
 		$this->data = apply_filters( 'vtt-data', $this->data );
 
 		//
@@ -432,9 +431,12 @@ class VTT_Config
 	public function get_variations( $filter_variations = true )
 	{
 		$folders = array();
-		$folders = array( get_template_directory().'/variations' );
-		if( is_child_theme() ) array_push( $folders, get_stylesheet_directory().'/variations' );
+		$theme_variation_folders = array();
+		$theme_variation_folders = array( get_template_directory().'/variations' );
+		if( is_child_theme() ) 
+			$theme_variation_folders[] = get_stylesheet_directory().'/variations';
 		$folders = apply_filters( 'vtt-variations-folders', $folders );
+		$folders = array_merge( $theme_variation_folders, $folders );
 		
 		$variation_directories = $this->get_all_variation_directories( $folders );
 		
@@ -446,7 +448,7 @@ class VTT_Config
 				$variations[$name] = array(
 					'name'		=> $name,
 					'title'		=> $name,
-					'directory'	=> array()
+					'parent'	=> null,
 				);
 			}
 			
@@ -455,17 +457,18 @@ class VTT_Config
 				$variation_name = '';
 				if( file_exists($directory.'/style.css') )
 				{
-					$data = get_file_data( $directory.'/style.css', array('variation'=>'Variation Name') );
-					if( array_key_exists('variation', $data) ) $variation_name = $data['variation'];
+					$data = get_file_data( 
+						$directory.'/style.css', 
+						array(
+							'variation'		=> 'Variation Name',
+							'parent'		=> 'Parent Variation'
+						)
+					);
+					if( !empty($data['variation']) ) $variations[$name]['title'] = $data['variation'];
+					if( !empty($data['parent']) ) $variations[$name]['parent'] = $data['parent'];
 				}
-			
-				if( !empty($variation_name) )
-					$variations[$name]['title'] = $variation_name;
-				
-				$variations[$name]['directory'][] = $directory;
 			}
 		}
-		$variations = apply_filters( 'vtt-variations-list', $variations );
 		
 		if( $filter_variations && array_key_exists('variations', $this->config) )
 		{
@@ -590,7 +593,7 @@ class VTT_Config
 	 */
 	public function load_variations_files( $filename )
 	{
-		$variation_directories = $this->get_variation_directories();
+		$variation_directories = $this->get_variation_all_directories( true );
 		
 		foreach( $variation_directories as $directory )
 		{
@@ -605,7 +608,7 @@ class VTT_Config
 	 */
 	public function get_variation_filepath( $filepath )
 	{
-		$variation_directories = $this->get_variation_directories();
+		$variation_directories = $this->get_variation_all_directories( true );
 		
 		foreach( $variation_directories as $directory )
 		{
@@ -638,11 +641,147 @@ class VTT_Config
 	/**
 	 * 
 	 */
-	public function get_variation_directories( $reverse = true )
+	public function get_variation_other_directories( $reverse = true )
 	{
-		if( $reverse ) 
-			return array_reverse( $this->current_variation['directory'] );
-		return $this->current_variation['directory'];
+		return $this->get_variation_directories( 'variation_other', $reverse );
+	}
+	
+	
+	/**
+	 * 
+	 */
+	public function get_variation_theme_directories( $reverse = true )
+	{
+		return $this->get_variation_directories( 'variation_theme', $reverse );
+	}
+	
+	
+	/**
+	 * 
+	 */
+	public function get_variation_all_directories( $reverse = true )
+	{
+		return $this->get_variation_directories( 'variation_all', $reverse );
+	}
+
+	
+	/**
+	 * 
+	 */
+	public function get_theme_directories( $reverse = true )
+	{
+		return $this->get_variation_directories( 'theme', $reverse );
+	}
+	
+	
+	/**
+	 * 
+	 */
+	public function get_all_directories( $reverse = true )
+	{
+		return $this->get_variation_directories( 'all', $reverse );
+	}
+	
+	
+	/**
+	 * 
+	 */
+	private function get_variation_directories( $name, $reverse = true )
+	{
+		$this->set_variation_directories();
+		
+		if( array_key_exists($name, $this->current_variation['directory']) )
+		{
+			if( $reverse )
+				return array_reverse( $this->current_variation['directory'][$name] );
+			return $this->current_variation['directory'][$name];
+		}
+		
+		return array();
+	}
+	
+	
+	/**
+	 * 
+	 */
+	private function set_variation_directories()
+	{
+		if( isset($this->current_variation['directory']) ) return;
+		
+		$vname = array();
+		if( !empty($this->current_variation['parent']) )
+			$vname[] = $this->current_variation['parent'];
+		$vname[] = $this->current_variation['name'];
+		
+		$directory = array();
+		
+		$other_variations_folders = array();
+		$other_variations_folders = apply_filters( 
+			'vtt-variations-folders', 
+			$other_variations_folders
+		);
+		
+		// get Variation Other directories.
+		$directory['variation_other'] = array();
+		foreach( $other_variations_folders as $d )
+		{
+			foreach( $vname as $name )
+				$directory['variation_other'][] = $d.'/'.$name;
+		}
+		
+		// get Variation Theme directories.
+		$directory['variation_theme'] = array();
+		foreach( $vname as $name )
+			$directory['variation_theme'][] = get_template_directory().'/variations/'.$name;
+		
+		if( is_child_theme() )
+		{
+			foreach( $vname as $name )
+				$directory['variation_theme'][] = get_stylesheet_directory().'/variations/'.$name;
+		}
+		
+		// get Variation All directories.
+		$directory['variation_all'] = array();
+		$directory['variation_all'] = array_merge(
+			$directory['variation_theme'],
+			$directory['variation_other']
+		);		
+		
+		// get Theme directories.
+		$directory['theme'] = array();
+		$directory['theme']['p'] = get_template_directory();
+		if( is_child_theme() )
+		{
+			$directory['theme']['c'] = get_stylesheet_directory();
+		}
+		
+		// get All directories.
+		$directory['all'] = array();
+		$directory['all'][] = get_template_directory();
+		foreach( $vname as $name )
+			$directory['all'][] = get_template_directory().'/variations/'.$name;
+		if( is_child_theme() )
+		{
+			$directory['all'][] = get_stylesheet_directory();
+			foreach( $vname as $name )
+				$directory['all'][] = get_stylesheet_directory().'/variations/'.$name;
+		}
+		$directory['all'] = array_merge(
+			$directory['all'],
+			$directory['variation_other']
+		);
+		
+		$this->current_variation['directory'] = $directory;
+		
+		// make sure all directories exists.
+		foreach( $this->current_variation['directory'] as $key => $directories )
+		{
+			foreach( $directories as $k => $dir )
+			{
+				if( !file_exists($dir) )
+					unset( $this->current_variation['directory'][$key][$k] );
+			}
+		}
 	}
 	
 	
