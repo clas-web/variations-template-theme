@@ -40,7 +40,7 @@ class VTT_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 	 */
 	public function register_settings()
 	{
-		$this->register_setting( VARIATIONS_TEMPLATE_THEME_OPTIONS );
+		$this->register_setting( VTT_OPTIONS );
 	}
 	
 	public function add_head_script()

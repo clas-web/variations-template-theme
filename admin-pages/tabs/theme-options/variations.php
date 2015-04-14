@@ -40,7 +40,7 @@ class VTT_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
 	 */
 	public function register_settings()
 	{
-		$this->register_setting( VARIATIONS_TEMPLATE_THEME_OPTIONS );
+		$this->register_setting( VTT_OPTIONS );
 	}
 	
 
@@ -129,7 +129,7 @@ class VTT_ThemeOptionsVariationsTabAdminPage extends APL_TabAdminPage
 	 */
 	public function process_settings( $settings, $option )
 	{
-		if( $option !== VARIATIONS_TEMPLATE_THEME_OPTIONS ) return $settings;
+		if( $option !== VTT_OPTIONS ) return $settings;
 
 		global $vtt_config;
 		if( isset($settings['variations']) ):

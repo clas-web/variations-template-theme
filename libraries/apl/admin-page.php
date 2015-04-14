@@ -610,13 +610,14 @@ abstract class APL_AdminPage
 		if( is_network_admin() )
 		{
 			$old_settings = get_site_option( $option, array() );
-			$settings = array_merge( $old_settings, $settings );
 		}
 		else
 		{
 			$old_settings = get_option( $option, array() );
-			$settings = array_merge( $old_settings, $settings );
 		}
+		
+		if( empty($old_settings) ) $old_settings = array();
+		$settings = array_merge( $old_settings, $settings );
 		
 		return $settings;
 	}

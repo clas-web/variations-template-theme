@@ -16,7 +16,7 @@ function vtt_name_e()
     		$fargs[] = $item;
     	}
     );
-	$fargs = array_merge( array(VARIATIONS_TEMPLATE_THEME_OPTIONS), $fargs );
+	$fargs = array_merge( array(VTT_OPTIONS), $fargs );
 	
 	apl_name_e( $fargs );
 }
