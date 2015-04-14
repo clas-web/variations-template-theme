@@ -414,7 +414,7 @@ Tags:
 	#content .sidebar-controls {
 		min-height:16px;
 		height:16px;
-		margin-bottom:5px;
+		margin-bottom:0em;
 		background-color:#fff;
 		padding:0px;
 	}
@@ -610,7 +610,7 @@ Tags:
 		margin:1em 0em;
 	}
 	
-   h2.widget-title {
+   	h2.widget-title {
 		font-family:"Helvetica Neue", Arial, Helvetica, "Nimbus Sans L", sans-serif;
 		color:#222222;
 		border-bottom:1px solid #CCCCCC;
