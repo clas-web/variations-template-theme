@@ -37,53 +37,36 @@ endif;
 //========================================================================================
 //======================================================================= Main setup =====
 
-// 
+global $vtt_mobile_support, $vtt_config;
+
 // Setup mobile support.
-//----------------------------------------------------------------------------------------
 require_once( get_template_directory().'/classes/mobile-support.php' );
 $vtt_mobile_support = new Mobile_Support;
 
-// 
 // Setup the config information.
-//----------------------------------------------------------------------------------------
 require_once( get_template_directory().'/classes/config.php' );
 $vtt_config = new vtt_config;
-$vtt_config->load_config();
 
-// 
 // Set blog name.
-//----------------------------------------------------------------------------------------
 define( 'VTT_BLOG_NAME', trim( preg_replace("/[^A-Za-z0-9 ]/", '-', get_blog_details()->path), '-' ) );
-
-// 
-// Include variation's functions.php
-//----------------------------------------------------------------------------------------
-$vtt_config->load_variations_files( 'functions.php' );
-
-//
-// Include the admin backend. 
-//----------------------------------------------------------------------------------------
-if( is_admin() ):
-
-require_once( dirname(__FILE__).'/libraries/apl/apl.php' );
-add_action( 'wp_loaded', 'vtt_load_apl_admin' );
-
-endif; // admin backend
-
-
 
 //========================================================================================
 //====================================================== Default filters and actions =====
+
+// Include the admin backend. 
+if( is_admin() ):
+	require_once( dirname(__FILE__).'/libraries/apl/apl.php' );
+	add_action( 'wp_loaded', 'vtt_load_apl_admin' );
+endif;
 
 // Admin Bar
 add_filter( 'show_admin_bar', 'vtt_show_admin_bar', 10 );
 add_action( 'admin_bar_menu', 'vtt_setup_admin_bar' );
 
 // Theme setup
-add_action( 'theme_setup', 'vtt_theme_setup', 1 );
+add_action( 'after_setup_theme', 'vtt_theme_setup', 1 );
 add_action( 'init', 'vtt_setup_widget_areas' );
 add_action( 'init', 'vtt_register_menus' );
-add_action( 'after_setup_theme', 'vtt_add_featured_image_support' );
 add_action( 'wp_enqueue_scripts', 'vtt_enqueue_scripts', 0 );
 
 // Embeded content
@@ -109,7 +92,6 @@ add_filter( 'upload_mimes', 'vtt_add_custom_mime_types' );
 // Enable Links subpanel
 add_filter( 'pre_option_link_manager_enabled', '__return_true' );
 
-add_action( 'after_setup_theme', 'vtt_add_background_support' );
 
 
 
@@ -119,14 +101,26 @@ add_action( 'after_setup_theme', 'vtt_add_background_support' );
 
 
 /**
- *
+ * 
  */
-if( !function_exists( 'vtt_add_background_support' ) ):
-function vtt_add_background_support()
+if( !function_exists('vtt_theme_setup') ):
+function vtt_theme_setup()
 {
+	// load config.
+	$vtt_config->load_config();
+
+	// add theme support.
+	vtt_add_featured_image_support();
+	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'custom-background' );
+	
+	// add editor styles.
+	add_editor_style( 'editor-style.css' );
+
+	// include variation's functions.php
+	$vtt_config->load_variations_files( 'functions.php' );	
 }
-endif;
+endif; 
 
 
 /**
@@ -193,23 +187,13 @@ endif;
 /**
  * 
  */
-if( !function_exists('vtt_theme_setup') ):
-function vtt_theme_setup()
-{
-	add_theme_support( 'post-thumbnails' );
-}
-endif; 
-
-
-/**
- * 
- */
 if( !function_exists('vtt_embed_html') ):
 function vtt_embed_html( $html )
 {
 	return '<div class="video-container">' . $html . '</div>';
 }
 endif; 
+
 
 /**
  * 
@@ -481,17 +465,6 @@ function vtt_add_featured_image_support()
 }
 endif;
 
-/**
- * Adds editor styles that use similar css to what is specified in style.css
- */
-if( !function_exists('vtt_add_editor_styles') ):
-function vtt_add_editor_styles() 
-{
-    add_editor_style( 'editor-style.css' );
-}
-endif;
-
-add_action( 'after_setup_theme', 'vtt_add_editor_styles' );
 
 /**
  * 
