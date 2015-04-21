@@ -402,13 +402,13 @@ function vtt_add_featured_image_support()
 {
 	global $vtt_config;
 	
-	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'custom-header',
 		array( 
-			'width' => 950, 
-			'random-default' => true,
-			'admin-head-callback' => 'vtt_admin_head_callback',
-			'admin-preview-callback' => 'vtt_admin_preview_callback'
+			'width' 					=> 950, 
+			'random-default' 			=> true,
+			'admin-head-callback' 		=> 'vtt_admin_head_callback',
+			'admin-preview-callback' 	=> 'vtt_admin_preview_callback',
+			'header-text'				=> false,
 		)
 	);
 	
