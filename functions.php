@@ -405,6 +405,9 @@ function vtt_add_featured_image_support()
 	add_theme_support( 'custom-header',
 		array( 
 			'width' 					=> 950, 
+			'height'					=> 200,
+			'flex-width'				=> false,
+			'flex-height'				=> true,
 			'random-default' 			=> true,
 			'admin-head-callback' 		=> 'vtt_admin_head_callback',
 			'admin-preview-callback' 	=> 'vtt_admin_preview_callback',
