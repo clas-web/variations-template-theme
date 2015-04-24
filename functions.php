@@ -483,6 +483,14 @@ function vtt_url_to_path( $url )
 {
 	$url_parts = parse_url($url);
 	$url_path = $url_parts['host'].$url_parts['path'];
+	
+	$uploads_info = wp_upload_dir();
+	$uploads_info['baseurl'] = str_replace( 'http://', 'https://', $uploads_info['baseurl'] );
+	
+	if( strpos($url, $uploads_info['baseurl']) !== false )
+	{
+		return str_replace( $uploads_info['baseurl'], $uploads_info['basedir'], $url );
+	}
 
 	if( strpos($url, home_url()) !== false )
 	{
@@ -555,6 +563,14 @@ if( !function_exists('vtt_path_to_url') ):
 function vtt_path_to_url( $path )
 {
 	if( !file_exists($path) ) return '';
+
+	$uploads_info = wp_upload_dir();
+	$uploads_info['baseurl'] = str_replace( 'http://', 'https://', $uploads_info['baseurl'] );
+	
+	if( strpos($path, $uploads_info['basedir']) !== false )
+	{
+		return str_replace( $uploads_info['basedir'], $uploads_info['baseurl'].'/', $path );
+	}
 	
 	if( strpos($path, ABSPATH) !== false )
 	{
