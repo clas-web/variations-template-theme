@@ -238,6 +238,7 @@ Tags:
 		width:100%;
 		border:none;
 		outline:none;
+		background-color:transparent;
 	}
 	
 	.widget_search .searchform input[type=submit] {
@@ -415,7 +416,7 @@ Tags:
 		min-height:16px;
 		height:16px;
 		margin-bottom:0em;
-		background-color:#fff;
+		background-color:transparent;
 		padding:0px;
 	}
 	
@@ -617,7 +618,7 @@ Tags:
 		font-size:1.1em;
 		font-variant:small-caps;
 		font-weight:normal;
-		padding:0.4em;
+		padding:0.4em 0em;
 		margin-bottom:0.5em;
 	}
 
@@ -627,7 +628,7 @@ Tags:
 	}
 	
 	.widget li {
-		padding:0.3em;
+		padding:0.3em 0em;
 	}
 
 	.widget_pages h2,
@@ -756,6 +757,7 @@ Tags:
 	}
 
 	.widget_categories ul li {
+		padding:0;
 	}
 	
 	.widget_categories ul li.has-children > a {

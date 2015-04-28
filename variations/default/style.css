@@ -20,8 +20,10 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		background-color:#fff;
 	}
 
-	#content > h1 {
-		border-bottom-color:#ccc;
+	#content > h1,
+	#content h2.entry-title {
+		color:#000;
+		border-bottom-color:#000;
 	}
 	
 	a {
@@ -33,7 +35,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
  ****************************************************************************************/
 	
 	#header #title-box .name {
-		background-color:#333;
+		background-color:#000;
 		background-color:rgba(0,0,0,0.6);
 		color:#fff;
 	}
@@ -50,11 +52,11 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 
 	.widget_search .searchform > div {
 		border-color:#666;
+		background-color:#fff;
 	}
 	
 	.widget_search .searchform input[type=submit] {
-		color:transparent;
-		background-color:#666;
+		background-color:transparent;
 		border-color:#666;
 	}
 	
@@ -86,10 +88,6 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
  * Content
  ****************************************************************************************/
 
-	#content .sidebar-controls {
-		background-color:#fff;
-	}
-	
 	#content .sidebar-controls .button {
 		border-color:#ccc;
 	}

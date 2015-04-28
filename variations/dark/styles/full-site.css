@@ -5,7 +5,8 @@
  ****************************************************************************************/
 
 	#site-inside-wrapper {
-		box-shadow:0em 0em 0.5em rgba(0,0,0,0.2);
+		border-color:#000;
+		box-shadow:0em 0em 1em rgba(255,255,255,0.5);
 	}
 	
 /****************************************************************************************
@@ -34,7 +35,7 @@
  ****************************************************************************************/
 
 	#footer .widget-column {
-		border-right-color:#ccc;
+		border-right-color:#333;
 	}
 	
 /****************************************************************************************
@@ -42,38 +43,38 @@
  ****************************************************************************************/
 
 	#header-menu {
-		background-color:#fff;
+		background-color:transparent;
 	}
 
 	#header-menu a {
-		color:#333;
+		color:#ccc;
 	}
 	
 	#header-menu ul ul {
-		background-color:#f6f6f6;
-		border-color:#ccc;
-		border-top-color:#fff;
+		background-color:#666;
+		border-color:#333;
+		border-top-color:#000;
 	}
 	
 	#header-menu ul > li:hover > a {
-		border-color:#ccc;
-		border-top-color:#fff;
+		border-color:#333;
+		border-top-color:#000;
 	}
 
 	#header-menu a:hover {
-		color:#003366;
+		color:#ccc;
 	}
 
 	#header-menu li.current_page_item > a {
-		color:#003366;
+		color:#c93;
 	}
 
 	#header-menu ul > li.current_page_item > a,
 	#header-menu ul > li.current_page_parent > a,
 	#header-menu ul > li.current_page_ancestor > a {
-		background-color:#f0f0f0;
-		border-color:#ccc;
-		border-top-color:#fff;
+		background-color:#555;
+		border-color:#333;
+		border-top-color:#000;
 	}
 	
 	#header-menu ul ul > li.current_page_item > a,
@@ -85,26 +86,26 @@
 	#header-menu li.current_page_item ul.children > li:hover > a,
 	#header-menu li.current_page_parent ul.children > li:hover > a,
 	#header-menu li.current_page_ancestor ul.children > li:hover > a {
-		background-color:#e9e9e9;
+		background-color:#555;
 	}
 
 	#header-menu li:hover > a {
-		background-color:#e9e9e9;
+		background-color:#555;
 	}
 	
 	#header-menu ul ul li:hover > a {
-		background-color:#e9e9e9;
+		background-color:#555;
 	}
 	
 	#header-menu li.current_page_item:hover > a,
 	#header-menu li.current_page_parent:hover > a,
 	#header-menu li.current_page_ancestor:hover > a {
-		background-color:#e9e9e9;
+		background-color:#555;
 	}
 
 	#header-menu li.current_page_parent:hover ul.children > li:hover > a,
 	#header-menu li.current_page_ancestor:hover ul.children > li:hover > a {
-		background-color:#e9e9e9;
+		background-color:#555;
 	}
 	
 	

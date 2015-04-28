@@ -181,91 +181,7 @@
  * Footer
  ****************************************************************************************/
 
-/*
-<div id="footer-wrapper" class="clearfix">
-	<div id="footer" class="clearfix">
-
-		<div class="widget-area num-cols-4 clearfix">
-			
-			<div class="widget-column vtt-footer-1">
-				<div id="archives-3" class="widget widget_archive">
-					<h2 class="widget-title">Archives – Footer 1</h2>
-					<ul><li></li></ul>
-				</div>
-				<div id="calendar-2" class="widget widget_calendar">
-					<h2 class="widget-title">Caldendar – Footer 1</h2>
-					<div id="calendar_wrap">
-						<table id="wp-calendar">
-							<caption>April 2015</caption>
-							<thead><tr><th scope="col" title="Monday">M</th></tr></thead>
-							<tfoot><tr><td colspan="3" id="prev"></td></tr></tfoot>
-							<tbody><tr><td colspan="2" class="pad"></td></tr></tbody>
-						</table>
-					</div>
-				</div>
-				<div id="categories-3" class="widget widget_categories">
-					<h2 class="widget-title">Categories – Footer 1</h2>
-					<ul>
-						<li class="cat-item cat-item-1 flat-list"><a></a></li>
-					</ul>
-				</div>
-			</div>
-			
-			<div class="widget-column vtt-footer-2">
-				<div id="meta-3" class="widget widget_meta">
-					<h2 class="widget-title">Meta – Footer 2</h2>
-					<ul><li><a></a></li></ul>
-				</div>
-				<div id="pages-2" class="widget widget_pages">
-					<h2 class="widget-title">Pages – Footer 2</h2>
-					<ul><li class="page_item page-item-2"><a>Sample Page</a></li></ul>
-				</div>
-			</div>
-			
-			<div class="widget-column vtt-footer-3">
-				<div id="recent-comments-3" class="widget widget_recent_comments">
-					<h2 class="widget-title">Recent Comments – Footer 3</h2>
-					<ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Anonymous</span> on <a href="http://localhost/wordpress-ms/test-unc-charlotte-theme/2014/09/24/hello-world/#comment-1">Hello world!</a></li></ul>
-				</div>
-				<div id="recent-posts-3" class="widget widget_recent_entries">
-					<h2 class="widget-title">Recent Posts – Footer 3</h2>
-					<ul><li><a>Hello world!</a></li></ul>
-				</div>
-				<div id="search-3" class="widget widget_search">
-					<h2 class="widget-title">Search – Footer 3</h2>
-					<form role="search" method="get" id="searchform" class="searchform" action="http://localhost/wordpress-ms/test-unc-charlotte-theme/">
-					<div>
-						<label class="screen-reader-text" for="s">Search for:</label>
-						<input type="text" value="" name="s" id="s">
-						<input type="submit" id="searchsubmit" value="Search">
-					</div>
-					</form>
-				</div>
-			</div>
-			
-			<div class="widget-column vtt-footer-4">
-				<div id="tag_cloud-2" class="widget widget_tag_cloud">
-					<h2 class="widget-title">Tag Cloud – Footer 4</h2>
-					<div class="tagcloud"></div>
-				</div>
-				<div id="text-2" class="widget widget_text">
-					<h2 class="widget-title">Text – Footer 4</h2>
-					<div class="textwidget">This is the text.</div>
-				</div>
-			</div>
-		
-		</div>
-		
-	</div><!-- #footer -->
-</div>
-
-*/
-
-
-
-	
 	#footer .widget-area {
-//		text-align:center;
 		margin:0 auto;
 		display:table;
 	}
@@ -296,11 +212,11 @@
 		width:206px;
 	}
 	
-	#footer .widget-area .widget-column:first-child {
+	#footer .widget-area .widget-column.first-widget {
 		padding-left:0em;
 	}
-
-	#footer .widget-area .widget-column:last-child {
+	
+	#footer .widget-area .widget-column.last-widget {
 		padding-right:0em;
 		border-right-width:0em;
 	}
@@ -316,7 +232,6 @@
 		width:100%;
 		font-family:Arial, sanserif;
 		font-size:13px;
-		background-color:#fff;
 		width:950px;
 		margin:0px auto;
 		padding:0px;

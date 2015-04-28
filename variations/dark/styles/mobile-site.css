@@ -5,8 +5,8 @@
 
 	#overlay,
 	#overlay.hide {
-		background-color:#ccc;
-		background-color:rgba(50,50,50,0.3);
+		background-color:#333;
+		background-color:rgba(200,200,200,0.6);
 	}
 	
 /****************************************************************************************
@@ -19,13 +19,13 @@
  ****************************************************************************************/
 
 	#header-menu-wrapper {
-		background-color:#fff;
-		box-shadow:0px 0px 5px rgba(0,0,0,0.4);
+		background-color:#000;
+		box-shadow:0px 0px 5px rgba(255,255,255,0.6);
 	}
 	
 	#header-menu > h2 {
-		background-color:#f6f6f6;
-		border-bottom-color:#ccc;
+		background-color:#111;
+		border-bottom-color:#333;
 	}
 	
 /****************************************************************************************
@@ -33,13 +33,13 @@
  ****************************************************************************************/
 
 	#header-menu .textbox_wrapper {
-		border-color:#666;
+		border-color:#999;
 	}
 	
 	#header-menu .textbox_wrapper input[type=submit] {
-	    background-color:#666;
+	    background-color:#999;
 	    color:transparent;
-	    border-color:#666;
+	    border-color:#999;
 	}
 
 /****************************************************************************************
@@ -47,28 +47,28 @@
  ****************************************************************************************/
 	
 	#header-menu ul a {
-		color:#555;
-		border-top-color:#ccc;
+		color:#aaa;
+		border-top-color:#333;
 	}
 	
 	#header-menu ul a:hover {
-		color:#0a7543;
-		background-color:#eee;
+		color:#630;
+		background-color:#222;
 	}
 
 	#header-menu ul li.current_page_item > a {
-		color:#0a7543;
-		background-color:#f6f6f6;
+		color:#630;
+		background-color:#111;
 	}
 
 	#header-menu ul li.current_page_item > a:hover {
-		color:#0a7543;
-		background-color:#eee;
+		color:#630;
+		background-color:#222;
 	}
 			
 	#header-menu ul li.current_page_item,
 	#header-menu ul li.current_page_ancestor {
-		background-color:#f6f6f6;
+		background-color:#111;
 	}
 	
 /****************************************************************************************
@@ -82,8 +82,8 @@
 
 	#left-sidebar-wrapper,
 	#right-sidebar-wrapper {
-		box-shadow:0px 0px 5px rgba(0,0,0,0.4);
-		background-color:#fff;
+		box-shadow:0px 0px 5px rgba(255,255,255,0.6);
+		background-color:#000;
 	}
 
 /****************************************************************************************
@@ -91,11 +91,11 @@
  ****************************************************************************************/
 	
 	#content .sidebar-controls .button.show {
-		border-color:#666;
+		border-color:#999;
 	}
 
 	#content .sidebar-controls .button.hide {
-		border-color:#ccc;
+		border-color:#333;
 	}
 
 /****************************************************************************************
@@ -103,22 +103,22 @@
  ****************************************************************************************/
 
 	#footer .links {
-		border-bottom-color:#ccc;
+		border-bottom-color:#333;
 	}
 	
 	#footer .links a {
-		color:#666;
+		color:#999;
 	}
 
 	#footer .follow {
-		border-bottom-color:#ccc;
+		border-bottom-color:#333;
 	}
 	
 	#footer .follow > div {
-		color:#666;
+		color:#999;
 	}
 	
 	#footer .search {
-		border-bottom-color:solid 1px #ccc;
+		border-bottom-color:solid 1px #333;
 	}
 
