@@ -862,7 +862,8 @@ function vtt_get_image_url( $path )
 	if( $vtt_mobile_support->use_mobile_site )
 	{
 		$pathinfo = pathinfo( $path );
-		$path = vtt_get_theme_file_url( $pathinfo['dirname'].'/'.$pathinfo['filename'].'-mobile.'.$pathinfo['extension'] );
+		$mobile_path = vtt_get_theme_file_url( $pathinfo['dirname'].'/'.$pathinfo['filename'].'-mobile.'.$pathinfo['extension'] );
+		if( $mobile_path ) return $mobile_path;
 	}
 	
 	return vtt_get_theme_file_url($path);
