@@ -3,7 +3,7 @@
 /**
  * Create HTML list of categories.
  *
- * @package unc-charlotte-theme
+ * @package variations-template-theme
  * @since 
  * @uses Walker
  */
