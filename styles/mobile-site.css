@@ -58,10 +58,14 @@
  * Header
  ****************************************************************************************/
 
-	#header #title-box {
+	#header-wrapper #title-box {
 		text-align:center;
 		vertical-align:middle;
 		width:100% !important;
+	}
+	
+	#header-wrapper #title-box.vabove {
+		margin-top:1em;
 	}
 	
 	#header .masthead {

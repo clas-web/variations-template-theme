@@ -208,28 +208,60 @@ class VTT_Config
 			
 			if( (strlen($value) > 2) && ($value[1] === ':') )
 			{
-				switch( $value[0] )
-				{
-					case 'b':
-						$value = ( substr($value, 2) === 'true' ? true : false );
-						break;
-						
-					case 'i':
-						$value = intval( substr($value, 2) );
-						break;
-					
-					case 'd':
-						$value = doubleval( substr($value, 2) );
-						break;
-					
-					case 'a':
-						// TODO: implement arrays in ini file.
-						$value = substr($value, 2);
-						break;
-				}
+				$value = $this->string_to_value( $value );
 			}
 		}
-	}    
+	}   
+	
+	
+	public function string_to_value( $string )
+	{
+		$value = null;
+		
+		switch( $string[0] )
+		{
+			case 'b':
+				$value = ( substr($string, 2) === 'true' ? true : false );
+				break;
+				
+			case 'i':
+				$value = intval( substr($string, 2) );
+				break;
+			
+			case 'd':
+				$value = doubleval( substr($string, 2) );
+				break;
+		}
+		
+		return $value;
+	}
+	
+	public function value_to_string( $value )
+	{
+		$string = '';
+		
+		if( is_bool($value) )
+		{
+			if( $value === true )
+				$string = 'b:true';
+			else
+				$string = 'b:false';
+		}
+		elseif( is_int($value) )
+		{
+			$string = 'i:'.$value;
+		}
+		elseif( is_double($value) )
+		{
+			$string ='d:'.$value;
+		}
+		else
+		{
+			$string .= print_r($value, true);
+		}
+		
+		return $string;
+	}
 	
 //========================================================================================
 //=========================================================================== Options ====
@@ -260,6 +292,32 @@ class VTT_Config
 		}
 
 		return $config;
+	}
+	
+	
+	public function set_value()
+	{
+		$args = func_get_args();
+		if( count($args) == 1 && is_array($args[0]) ) $args = $args[0];
+		$value = array_pop( $args );
+		
+		$db_options = get_option( 'vtt-options', array() );
+		if( !is_array($db_options) ) $db_options = array();
+		$options =& $db_options;
+		
+		foreach( $args as $arg )
+		{
+			if( !is_array($options) )
+				$options = array();
+			if( !array_key_exists($arg, $options) )
+				$options[$arg] = array();
+
+			$options =& $options[$arg];
+		}
+		
+		$options = $value;
+		
+		update_option( 'vtt-options', $db_options );
 	}
 	
 	
@@ -391,6 +449,19 @@ class VTT_Config
 		if( count($this->all_variations) > 0 )
 			return $this->set_variation( $this->all_variations[$vnames[0]]['name'] );
 		return $this->set_variation( 'default' );
+	}
+	
+	
+	public function get_theme_value( $options_key, $theme_mod_key, $default = false )
+	{
+		global $wp_customize;
+		if( isset($wp_customize) )
+			$return = $this->get_theme_mod( $theme_mod_key, null );
+		else
+			$return = $this->get_value( $options_key );
+			
+		if( $return === null ) return $default;
+		return $return;
 	}
 	
 	

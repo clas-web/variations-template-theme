@@ -1,0 +1,52 @@
+
+
+
+body.wp-customizer .position-controller {
+	clear:both;
+	display:block;
+	text-align:center;
+	padding:5px;
+	border:solid 1px #ccc;
+	margin-top:10px;
+	
+}
+
+body.wp-customizer .header-container {
+	border:solid 1px #666;
+	background-color:#fff;
+}
+
+body.wp-customizer .position-controller div.pos {
+	display:inline-block;
+	width:20%;
+	height:15px;
+	border:solid 1px #999;
+	background-color:#eee;
+	margin:5px;
+	cursor:pointer;
+}
+
+body.wp-customizer .position-controller div.pos.selected {
+	border:solid 1px #000;
+}
+
+body.wp-customizer .position-controller div.pos:hover {
+	background-color:#ffc;
+}
+
+body.wp-customizer .position-controller div.pos.selected:hover {
+	background-color:#cc9;
+}
+
+body.wp-customizer .position-controller .hleft {
+	float:left;
+}
+
+body.wp-customizer .position-controller .hright {
+	float:right;
+}
+
+body.wp-customizer .position-controller div.selected {
+	background-color:#000;
+}
+

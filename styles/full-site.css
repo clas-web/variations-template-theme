@@ -33,34 +33,34 @@
  * Header
  ****************************************************************************************/
 
-	#header #title-box.hleft {
+	#title-box.hleft {
 		text-align:left;
 	}
 	
-	#header #title-box.hcenter {
+	#title-box.hcenter {
 		text-align:center;
 	}
 
-	#header #title-box.hright {
+	#title-box.hright {
 		text-align:right;
 	}
 
-	#header #title-box.vtop {
+	#title-box.vtop {
 		vertical-align:top;
 	}
 
-	#header #title-box.vcenter {
+	#title-box.vcenter {
 		vertical-align:middle;
 	}
 
-	#header #title-box.vbottom {
+	#title-box.vbottom {
 		vertical-align:bottom;
 		padding-bottom:1em;
 	}
 	
-	#header #title-box .name,
-	#header #title-box .description {
-		padding:0.2em 0.5em;
+	#title-box .name,
+	#title-box .description {
+		padding:3px 10px;
 	}
 
 /****************************************************************************************
@@ -164,10 +164,19 @@
 		border:solid 0px transparent;
 		padding-right:0px;
 	}
-
-	#content .entry-content div.featured-image,
-	#content .excerpt div.featured-image {
+	
+	#content .featured-image.left {
+		float:left;
+		margin-right:1em;
+		margin-bottom:1em;
+	}
+	#content .featured-image.right {
 		float:right;
+		margin-left:1em;
+		margin-bottom:1em;
+	}
+	#content .featured-image.center {
+		text-align:center;
 	}
 
 

@@ -2,6 +2,9 @@
 
 <?php //vtt_print('single.php'); ?>
 <?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $post, $wp_query; ?>
+<?php
+$featured_image_position = $vtt_config->get_theme_value( array('featured-image-position'), 'vtt-featured-image-position' );
+?>
 
 
 <div class="breadcrumbs"><?php echo vtt_get_breadcrumbs( $post ); ?></div>
@@ -22,9 +25,9 @@
 	
 	<div class="entry-content">
 	
-		<?php if( has_post_thumbnail($post->ID) ): ?>
+		<?php if( $featured_image_position !== 'header' && has_post_thumbnail($post->ID) ): ?>
 			<?php $image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large' ); ?>
-			<div class="featured-image">
+			<div class="featured-image <?php echo $featured_image_position; ?>">
 				<img src="<?php echo $image[0]; ?>" title="Featured Image" />
 			</div>
 		<?php endif; ?>

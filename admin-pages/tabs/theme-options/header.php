@@ -47,17 +47,20 @@ class VTT_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 	{
 		?>
 		<style>
-		
+
 		.position-controller {
-			display:block;
 			clear:both;
+			display:block;
 			text-align:center;
-			border:solid 1px #000;
-			background-color:#fff;
 			padding:0px 5px;
 		}
+
+		.header-container {
+			border:solid 1px #000;
+			background-color:#fff;
+		}
 		
-		.position-controller > div {
+		.position-controller div.pos {
 			display:inline-block;
 			width:20%;
 			height:30px;
@@ -67,11 +70,11 @@ class VTT_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 			cursor:pointer;
 		}
 		
-		.position-controller > div.selected {
+		.position-controller div.selected {
 			border:solid 1px #000;
 		}
 		
-		.position-controller > div:hover {
+		.position-controller div.pos:hover {
 			background-color:#ffc;
 		}
 		
@@ -83,7 +86,7 @@ class VTT_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 			float:right;
 		}
 		
-		.position-controller > div.selected {
+		.position-controller div.selected {
 			background-color:#000;
 		}
 		
@@ -207,10 +210,22 @@ class VTT_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 					
 					jQuery(self).find('input').attr('readonly', true).addClass('no-border');
 					var position = jQuery(self).find('input').val();
-					var container = jQuery('<div class="position-controller"></div>');
+					var position_controller = jQuery('<div class="position-controller"></div>');
+					var above_container = jQuery('<div class="above-container"></div>');
+					var container = jQuery('<div class="header-container"></div>');
 					
 					var v = [ 'vtop', 'vcenter', 'vbottom' ];
 					var h = [ 'hleft', 'hcenter', 'hright' ];
+					
+					for( var c = 0; c < 3; c++ )
+					{
+						var pos = h[c]+' vabove';
+						var cls = pos;
+						if( position == pos ) cls += ' selected';
+						jQuery(above_container).append('<div position="'+pos+'" class="pos '+cls+'"></div>');
+					}
+					jQuery(above_container).append('<br/>');
+					jQuery(position_controller).append(above_container);
 					
 					for( var r = 0; r < 3; r++ )
 					{
@@ -219,19 +234,20 @@ class VTT_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 							var pos = h[c]+' '+v[r];
 							var cls = pos;
 							if( position == pos ) cls += ' selected';
-							jQuery(container).append('<div position="'+pos+'" class="'+cls+'"></div>');
+							jQuery(container).append('<div position="'+pos+'" class="pos '+cls+'"></div>');
 						}
 						jQuery(container).append('<br/>');
 					}
+					jQuery(position_controller).append(container);
 					
-					jQuery(container).find('div').click( function()
+					jQuery(position_controller).find('div.pos').click( function()
 					{
-						jQuery(container).find('div').removeClass('selected');
+						jQuery(position_controller).find('div').removeClass('selected');
 						jQuery(this).addClass('selected');
 						jQuery(self).find('input').val( jQuery(this).attr('position') );
 					});
 
-					jQuery(self).append(container);
+					jQuery(self).append(position_controller);
 				});
 				
 				
@@ -336,6 +352,13 @@ class VTT_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 
 		$this->add_field(
 			'vtt-theme-header-title-box',
+			'hide-title',
+			'Hide Title',
+			'print_field_hide_title'
+		);
+
+		$this->add_field(
+			'vtt-theme-header-title-box',
 			'position',
 			'Position',
 			'print_field_position'
@@ -419,6 +442,28 @@ class VTT_ThemeOptionsAdminPageHeaderTabAdminPage extends APL_TabAdminPage
 			       value="b:true"
 			       <?php checked( true, $image_link ); ?> />
 		</div>
+				
+		<?php
+	}
+	
+	
+	public function print_field_hide_title( $args )
+	{
+		global $vtt_config;
+		$title_position = $vtt_config->get_value( 'header', 'title-position' );
+		$title_hide = $vtt_config->get_value( 'header', 'title-hide' );
+		?>
+		
+		<input type="hidden" 
+			   name="<?php vtt_name_e( 'header', 'title-hide' ); ?>" 
+			   value="b:false" />
+		<input type="checkbox" 
+			   id="<?php vtt_name_e( 'header', 'title-hide' ); ?>" 
+			   name="<?php vtt_name_e( 'header', 'title-hide' ); ?>" 
+			   class="title-hide" 
+			   value="b:true" 
+			   <?php checked( true, $title_hide ); ?> />
+		<label for="<?php vtt_name_e( 'header', 'title-hide' ); ?>">Hide header title and description</label>
 				
 		<?php
 	}

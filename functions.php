@@ -30,6 +30,10 @@ define( 'VTT_DB_VERSION_OPTION', 'vtt-db-version' );
 
 define( 'VTT_OPTIONS', 'vtt-options' );
 
+define( 'VTT_HEADER_TITLE_POSITION', 'header-title-position' );
+define( 'VTT_HEADER_TITLE_HIDE', 'header-title-hide' );
+define( 'VTT_FEATURED_IMAGE_POSITION', 'featured-image-position' );
+
 endif;
 
 
@@ -59,6 +63,11 @@ if( is_admin() ):
 	add_action( 'wp_loaded', 'vtt_load_apl_admin' );
 endif;
 
+if( is_customize_preview() ):
+	require_once( dirname(__FILE__).'/classes/customizer/header-position.php' );
+endif;
+
+
 // Admin Bar
 add_filter( 'show_admin_bar', 'vtt_show_admin_bar', 10 );
 add_action( 'admin_bar_menu', 'vtt_setup_admin_bar' );
@@ -77,7 +86,7 @@ add_filter( 'video_embed_html', 'vtt_embed_html' );
 add_action( 'customize_register', 'vtt_customize_register' );
 add_action( 'customize_save_after', 'vtt_customize_save' );
 add_action( 'update_option_'.VTT_VARIATION_OPTION, 'vtt_customize_update_variation', 99, 2 );
-add_action( 'update_option_'.VTT_VARIATION_OPTION, 'vtt_customize_update_options', 99, 2 );
+add_action( 'update_option_'.VTT_OPTIONS, 'vtt_customize_update_options', 99, 2 );
 
 // Comments
 add_filter( 'comments_template', 'vtt_find_comments_template_part', 999 );
@@ -1231,35 +1240,140 @@ function vtt_customize_register( $wp_customize )
 {
 	global $vtt_config;
 	
-	$wp_customize->add_setting(
-		'vtt-variation',
-		array(
-			'default'     => $vtt_config->get_variation_name(),
-			'transport'   => 'refresh',
-		)
-	);
+	//
+	// Variation Section.
+	//
 	
 	$wp_customize->add_section(
-		'vtt-variation-section',
+		VTT_VARIATION_OPTION.'-section',
 		array(
 			'title'      => 'Variation',
 			'priority'   => 0,
 		)
 	);
 	
+	$wp_customize->add_setting(
+		VTT_VARIATION_OPTION,
+		array(
+			'default'     => $vtt_config->get_variation_name(),
+			'transport'   => 'refresh',
+		)
+	);
+	
 	$wp_customize->add_control( 
 		new WP_Customize_Control( 
 			$wp_customize, 
-			'vtt-variation-control', 
+			VTT_VARIATION_OPTION.'-control', 
 			array(
 				'label'      => 'Name',
-				'section'    => 'vtt-variation-section',
-				'settings'   => 'vtt-variation',
+				'section'    => VTT_VARIATION_OPTION.'-section',
+				'settings'   => VTT_VARIATION_OPTION,
 				'type'       => 'select',
 				'choices'    => $vtt_config->get_all_variation_names(),
 			)
 		)
 	);
+	
+	
+	//
+	// Header Title section
+	//
+	
+	$wp_customize->add_section(
+		'vtt-header-title-section',
+		array(
+			'title'      => 'Header Title',
+			'priority'   => 0,
+		)
+	);
+
+	// Header Title hide
+	
+	$wp_customize->add_setting(
+		'vtt-'.VTT_HEADER_TITLE_HIDE,
+		array(
+			'default'     => $vtt_config->value_to_string( 
+				$vtt_config->get_value('header', 'title-hide')
+			),
+			'transport'   => 'refresh',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Control( 
+			$wp_customize, 
+			'vtt-'.VTT_HEADER_TITLE_HIDE.'-control', 
+			array(
+				'label'      => 'Hide header title',
+				'section'    => 'vtt-header-title-section',
+				'settings'   => 'vtt-'.VTT_HEADER_TITLE_HIDE,
+				'type'       => 'checkbox',
+			)
+		)
+	);
+	
+	// Header Title position
+
+	$wp_customize->add_setting(
+		'vtt-'.VTT_HEADER_TITLE_POSITION,
+		array(
+			'default'     => $vtt_config->get_value( 'header', 'title-position' ),
+			'transport'   => 'refresh',
+		)
+	);
+
+	$wp_customize->add_control( 
+		new VTT_Customize_Header_Position( 
+			$wp_customize, 
+			'vtt-'.VTT_HEADER_TITLE_POSITION.'-control', 
+			array(
+				'label'      => 'Position',
+				'section'    => 'vtt-header-title-section',
+				'settings'   => 'vtt-'.VTT_HEADER_TITLE_POSITION,
+			)
+		)
+	);
+	
+	//
+	// Featured Image section
+	//
+	
+	$wp_customize->add_section(
+		'vtt-featured-image-section',
+		array(
+			'title'      => 'Featured Image',
+			'priority'   => 0,
+		)
+	);
+
+	$wp_customize->add_setting(
+		'vtt-'.VTT_FEATURED_IMAGE_POSITION,
+		array(
+			'default'     => $vtt_config->get_value( VTT_FEATURED_IMAGE_POSITION ),
+			'transport'   => 'refresh',
+		)
+	);
+	
+	$wp_customize->add_control( 
+		new WP_Customize_Control( 
+			$wp_customize, 
+			'vtt-'.VTT_FEATURED_IMAGE_POSITION.'-control', 
+			array(
+				'label'      => 'Position',
+				'section'    => 'vtt-featured-image-section',
+				'settings'   => 'vtt-'.VTT_FEATURED_IMAGE_POSITION,
+				'type'       => 'select',
+				'choices'    => array(
+					'header'	=> 'Header Image',
+					'left'		=> 'Left Image',
+					'right'		=> 'Right Image',
+					'center'	=> 'Across Top Centered',
+				),
+			)
+		)
+	);
+	
+	
 }
 endif;
 
@@ -1273,6 +1387,9 @@ function vtt_customize_save( $wp_customize )
 {
 	global $vtt_config;
 	$vtt_config->set_variation( get_theme_mod(VTT_VARIATION_OPTION), true );
+	$vtt_config->set_value( 'header', 'title-position', get_theme_mod('vtt-'.VTT_HEADER_TITLE_POSITION) );
+	$vtt_config->set_value( 'header', 'title-hide', get_theme_mod('vtt-'.VTT_HEADER_TITLE_HIDE) );
+	$vtt_config->set_value( VTT_FEATURED_IMAGE_POSITION, get_theme_mod('vtt-'.VTT_FEATURED_IMAGE_POSITION) );
 }
 endif;
 
@@ -1299,6 +1416,20 @@ function vtt_customize_update_options( $old_value, $new_value )
 	global $wp_customize;
 	if( isset($wp_customize) ) return;
 	
+	if( !empty($new_value['header']['title-position']) )
+		set_theme_mod( 'vtt-'.VTT_HEADER_TITLE_POSITION, $new_value['header']['title-position'] );
+	else
+		remove_theme_mod( 'vtt-'.VTT_HEADER_TITLE_POSITION );
+	
+	if( !empty($new_value['header']['title-hide']) )
+		set_theme_mod( 'vtt-'.VTT_HEADER_TITLE_HIDE, $new_value['header']['title-hide'] );
+	else
+		remove_theme_mod( 'vtt-'.VTT_HEADER_TITLE_HIDE );
+
+	if( !empty($new_value[VTT_FEATURED_IMAGE_POSITION]) )
+		set_theme_mod( 'vtt-'.VTT_FEATURED_IMAGE_POSITION, $new_value[VTT_FEATURED_IMAGE_POSITION] );
+	else
+		remove_theme_mod( 'vtt-'.VTT_FEATURED_IMAGE_POSITION );
 }
 endif;
 
