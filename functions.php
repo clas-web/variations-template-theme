@@ -104,6 +104,9 @@ add_filter( 'pre_option_link_manager_enabled', '__return_true' );
 // Post Content
 add_filter( 'the_content_more_link', 'vtt_read_more_link' );
 
+// Add Home to Pages menu.
+add_filter( 'wp_page_menu_args', 'vtt_add_home_pages_menu_item' );
+
 
 //========================================================================================
 //======================================================================== Functions =====
@@ -1534,4 +1537,19 @@ function vtt_backtrace( $fullpath = false )
 	'</pre>'; 
 }
 endif;
+
+
+/**
+ * 
+ * 
+ */
+if( !function_exists('vtt_add_home_pages_menu_item') ):
+function vtt_add_home_pages_menu_item( $args )
+{
+	$args['show_home'] = true;
+	return $args;
+}
+endif;
+
+
 
