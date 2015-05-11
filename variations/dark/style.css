@@ -28,7 +28,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 	}
 	
 	a {
-		color:#c93;
+		color:#ffc;
 	}
 	
 	#main input[type=text],
@@ -202,13 +202,13 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 	
 	.widget_pages ul a:hover,
 	.widget_nav_menu ul a:hover {
-		color:#c93;
+		color:#ffc;
 		background-color:#2a2a2a;
 	}
 	
 	.widget_pages ul li.current_page_item > a,
 	.widget_nav_menu ul li.current-menu-item > a {
-		color:#c93;
+		color:#ffc;
 		background-color:#333;
 	}
 	
@@ -240,12 +240,12 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 	
 	.widget_categories ul li.current-cat > a {
 		background-color:#333;
-		color:#c93;
+		color:#ffc;
 	}
 	
 	.widget_categories ul li > a:hover {
 		background-color:#333;
-		color:#c93;
+		color:#ffc;
 	}
 	
 /****************************************************************************************
