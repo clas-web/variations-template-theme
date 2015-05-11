@@ -197,7 +197,7 @@
 	
 	#footer .widget-column {
 		padding:0em 20px;
-		border-right:solid 1px #ccc;
+		border-right:solid 1px transparent;
 		display:table-cell;
 	}
 	
