@@ -56,7 +56,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 	}
 	
 	.widget_search .searchform input[type=submit] {
-		background-color:transparent;
+		background-color:#666;
 		border-color:#666;
 	}
 	
