@@ -31,14 +31,12 @@ define( 'VTT_DB_VERSION_OPTION', 'vtt-db-version' );
 define( 'VTT_OPTIONS', 'vtt-options' );
 
 define( 'VTT_HEADER_TITLE_POSITION', 'header-title-position' );
-define( 'VTT_HEADER_TITLE_HIDE', 'header-title-hide' );
-define( 'VTT_FEATURED_IMAGE_POSITION', 'featured-image-position' );
 
 endif;
 
 
 //========================================================================================
-//======================================================================= Main setup =====
+//================================================================= Main setup - Top =====
 
 global $vtt_mobile_support, $vtt_config;
 
@@ -73,7 +71,7 @@ add_filter( 'show_admin_bar', 'vtt_show_admin_bar', 10 );
 add_action( 'admin_bar_menu', 'vtt_setup_admin_bar' );
 
 // Theme setup
-add_action( 'after_setup_theme', 'vtt_theme_setup', 1 );
+add_action( 'after_setup_theme', 'vtt_theme_setup', 5 );
 add_action( 'init', 'vtt_setup_widget_areas' );
 add_action( 'init', 'vtt_register_menus' );
 add_action( 'wp_enqueue_scripts', 'vtt_enqueue_scripts', 0 );
@@ -83,8 +81,8 @@ add_filter( 'embed_oembed_html', 'vtt_embed_html', 10, 3 );
 add_filter( 'video_embed_html', 'vtt_embed_html' );
 
 // Theme Customizer
-add_action( 'customize_register', 'vtt_customize_register' );
-add_action( 'customize_save_after', 'vtt_customize_save' );
+add_action( 'customize_register', 'vtt_customize_register', 11 );
+add_action( 'customize_save_after', 'vtt_customize_save', 11 );
 add_action( 'update_option_'.VTT_VARIATION_OPTION, 'vtt_customize_update_variation', 99, 2 );
 add_action( 'update_option_'.VTT_OPTIONS, 'vtt_customize_update_options', 99, 2 );
 
@@ -120,12 +118,6 @@ function vtt_theme_setup()
 {
 	global $vtt_mobile_support, $vtt_config;
 	
-	// load config.
-	$vtt_config->load_config();
-
-	// include variation's functions.php
-	$vtt_config->load_variations_files( 'functions.php' );	
-
 	// add theme support.
 	vtt_add_featured_image_support();
 	add_theme_support( 'post-thumbnails' );
@@ -135,6 +127,60 @@ function vtt_theme_setup()
 	add_editor_style( 'editor-style.css' );
 }
 endif; 
+
+
+/**
+ * Adds support for featured images.
+ */
+if( !function_exists('vtt_add_featured_image_support') ):
+function vtt_add_featured_image_support()
+{
+	global $vtt_config;
+	
+	add_theme_support( 'custom-header',
+		array( 
+			'width' 					=> 950, 
+			'height'					=> 200,
+			'flex-width'				=> false,
+			'flex-height'				=> true,
+			'random-default' 			=> true,
+			'admin-head-callback' 		=> 'vtt_admin_head_callback',
+			'admin-preview-callback' 	=> 'vtt_admin_preview_callback',
+			'header-text'				=> true,
+			'default-text-color'		=> '',
+			'default-text-bgcolor'		=> '',
+		)
+	);
+	
+	$all_directories = $vtt_config->get_all_directories( false );
+	$all_directories = apply_filters( 'vtt-headers-directories', $all_directories );
+	
+	$images = array();
+	foreach( $all_directories as $directory )
+	{
+		if( !is_dir($directory.'/images/headers') ) continue;
+		if( !is_dir($directory.'/images/headers/full') ) continue;
+		if( !is_dir($directory.'/images/headers/thumbnail') ) continue;
+		
+		$url = vtt_path_to_url( $directory );
+		$files = scandir( $directory.'/images/headers/full' );
+		foreach( $files as $file )
+		{
+			if( $file[0] == '.' ) continue;
+			if( is_dir($directory.'/images/headers/full/'.$file) ) continue;
+			if( !file_exists($directory.'/images/headers/thumbnail/'.$file) ) continue;
+			if( is_dir($directory.'/images/headers/thumbnail/'.$file) ) continue;
+			
+			$basename = basename( $file );
+			$images[$basename]['url'] = $url.'/images/headers/full/'.$file;
+			$images[$basename]['thumbnail_url'] = $url.'/images/headers/thumbnail/'.$file;
+			$images[$basename]['description'] = $url;
+		}
+	}
+	
+	register_default_headers( $images );	
+}
+endif;
 
 
 /**
@@ -162,7 +208,6 @@ function vtt_load_apl_admin()
 endif;
 
 
-// TODO: what is this for????
 /**
  * 
  */
@@ -407,68 +452,17 @@ endif;
 
 
 /**
- * Adds support for featured images.
- */
-if( !function_exists('vtt_add_featured_image_support') ):
-function vtt_add_featured_image_support()
-{
-	global $vtt_config;
-	
-	add_theme_support( 'custom-header',
-		array( 
-			'width' 					=> 950, 
-			'height'					=> 200,
-			'flex-width'				=> false,
-			'flex-height'				=> true,
-			'random-default' 			=> true,
-			'admin-head-callback' 		=> 'vtt_admin_head_callback',
-			'admin-preview-callback' 	=> 'vtt_admin_preview_callback',
-			'header-text'				=> false,
-		)
-	);
-	
-	$all_directories = $vtt_config->get_all_directories( false );
-	$all_directories = apply_filters( 'vtt-headers-directories', $all_directories );
-	
-	$images = array();
-	foreach( $all_directories as $directory )
-	{
-		if( !is_dir($directory.'/images/headers') ) continue;
-		if( !is_dir($directory.'/images/headers/full') ) continue;
-		if( !is_dir($directory.'/images/headers/thumbnail') ) continue;
-		
-		$url = vtt_path_to_url( $directory );
-		$files = scandir( $directory.'/images/headers/full' );
-		foreach( $files as $file )
-		{
-			if( $file[0] == '.' ) continue;
-			if( is_dir($directory.'/images/headers/full/'.$file) ) continue;
-			if( !file_exists($directory.'/images/headers/thumbnail/'.$file) ) continue;
-			if( is_dir($directory.'/images/headers/thumbnail/'.$file) ) continue;
-			
-			$basename = basename( $file );
-			$images[$basename]['url'] = $url.'/images/headers/full/'.$file;
-			$images[$basename]['thumbnail_url'] = $url.'/images/headers/thumbnail/'.$file;
-			$images[$basename]['description'] = $url;
-		}
-	}
-	
-	register_default_headers( $images );	
-}
-endif;
-
-
-/**
  * 
  */
 if( !function_exists('vtt_get_header_image') ):
 function vtt_get_header_image()
 {
-	$header_url = get_header_image();
-	if( !$header_url ) $header_url = get_random_header_image();
-
 	$header_path = '';
-	if( $header_url ) $header_path = vtt_url_to_path($header_url);
+	
+	if( $header_url = get_header_image() )
+	{
+		$header_path = vtt_url_to_path( $header_url );
+	}
 		
 	if( !$header_path )
 	{
@@ -1244,39 +1238,69 @@ function vtt_customize_register( $wp_customize )
 {
 	global $vtt_config;
 	
+	
 	//
-	// Variation Section.
+	// Variation section
 	//
 	
 	$wp_customize->add_section(
-		VTT_VARIATION_OPTION.'-section',
+		'vtt-variation-section',
 		array(
-			'title'      => 'Variation',
-			'priority'   => 0,
+			'title'      	=> 'Variation',
+			'priority'   	=> 0,
 		)
 	);
 	
+	//
+	// variation select
+	//
+	
 	$wp_customize->add_setting(
-		VTT_VARIATION_OPTION,
+		'vtt-variation',
 		array(
-			'default'     => $vtt_config->get_variation_name(),
-			'transport'   => 'refresh',
+			'default'     	=> $vtt_config->get_variation_name(),
+			'transport'   	=> 'refresh',
 		)
 	);
 	
 	$wp_customize->add_control( 
 		new WP_Customize_Control( 
 			$wp_customize, 
-			VTT_VARIATION_OPTION.'-control', 
+			'vtt-variation-control', 
 			array(
 				'label'      => 'Name',
-				'section'    => VTT_VARIATION_OPTION.'-section',
-				'settings'   => VTT_VARIATION_OPTION,
+				'section'    => 'vtt-variation-section',
+				'settings'   => 'vtt-variation',
 				'type'       => 'select',
 				'choices'    => $vtt_config->get_all_variation_names(),
 			)
 		)
 	);
+	
+	//
+	// variation reset button
+	//
+	
+// 	$wp_customize->add_setting(
+// 		'vtt-reset-variation-options',
+// 		array(
+// 			'transport'		=> 'refresh',
+// 		)
+// 	);
+// 	
+// 	$wp_customize->add_control( 
+// 		new WP_Customize_Control( 
+// 			$wp_customize, 
+// 			VTT_VARIATION_OPTION.'-control', 
+// 			array(
+// 				'label'      => 'Reset Options to Default',
+// 				'section'    => VTT_VARIATION_OPTION.'-section',
+// 				'settings'   => 'vtt-reset-variation-options',
+// 				'type'       => 'button',
+// 			)
+// 		)
+// 	);
+	
 	
 	
 	//
@@ -1291,13 +1315,13 @@ function vtt_customize_register( $wp_customize )
 		)
 	);
 
-	// Header Title hide
+	// header title hide
 	
 	$wp_customize->add_setting(
-		'vtt-'.VTT_HEADER_TITLE_HIDE,
+		'header-title-hide',
 		array(
 			'default'     => $vtt_config->value_to_string( 
-				$vtt_config->get_value('header', 'title-hide')
+				$vtt_config->get_theme_value( 'header-title-hide' )
 			),
 			'transport'   => 'refresh',
 		)
@@ -1306,22 +1330,22 @@ function vtt_customize_register( $wp_customize )
 	$wp_customize->add_control(
 		new WP_Customize_Control( 
 			$wp_customize, 
-			'vtt-'.VTT_HEADER_TITLE_HIDE.'-control', 
+			'vtt-header-title-hide-control', 
 			array(
 				'label'      => 'Hide header title',
 				'section'    => 'vtt-header-title-section',
-				'settings'   => 'vtt-'.VTT_HEADER_TITLE_HIDE,
+				'settings'   => 'header-title-hide',
 				'type'       => 'checkbox',
 			)
 		)
 	);
 	
-	// Header Title position
+	// header title position
 
 	$wp_customize->add_setting(
-		'vtt-'.VTT_HEADER_TITLE_POSITION,
+		'header-title-position',
 		array(
-			'default'     => $vtt_config->get_value( 'header', 'title-position' ),
+			'default'     => $vtt_config->get_theme_value( 'header-title-position' ),
 			'transport'   => 'refresh',
 		)
 	);
@@ -1329,14 +1353,16 @@ function vtt_customize_register( $wp_customize )
 	$wp_customize->add_control( 
 		new VTT_Customize_Header_Position( 
 			$wp_customize, 
-			'vtt-'.VTT_HEADER_TITLE_POSITION.'-control', 
+			'vtt-header-title-position-control', 
 			array(
 				'label'      => 'Position',
 				'section'    => 'vtt-header-title-section',
-				'settings'   => 'vtt-'.VTT_HEADER_TITLE_POSITION,
+				'settings'   => 'header-title-position',
 			)
 		)
 	);
+	
+	
 	
 	//
 	// Featured Image section
@@ -1349,11 +1375,15 @@ function vtt_customize_register( $wp_customize )
 			'priority'   => 0,
 		)
 	);
-
+	
+	//
+	// featured image position select
+	//
+	
 	$wp_customize->add_setting(
-		'vtt-'.VTT_FEATURED_IMAGE_POSITION,
+		'featured-image-position',
 		array(
-			'default'     => $vtt_config->get_value( VTT_FEATURED_IMAGE_POSITION ),
+			'default'     => $vtt_config->get_theme_value( 'featured-image-position' ),
 			'transport'   => 'refresh',
 		)
 	);
@@ -1361,11 +1391,11 @@ function vtt_customize_register( $wp_customize )
 	$wp_customize->add_control( 
 		new WP_Customize_Control( 
 			$wp_customize, 
-			'vtt-'.VTT_FEATURED_IMAGE_POSITION.'-control', 
+			'vtt-featured-image-position-control', 
 			array(
 				'label'      => 'Position',
 				'section'    => 'vtt-featured-image-section',
-				'settings'   => 'vtt-'.VTT_FEATURED_IMAGE_POSITION,
+				'settings'   => 'featured-image-position',
 				'type'       => 'select',
 				'choices'    => array(
 					'header'	=> 'Header Image',
@@ -1378,9 +1408,166 @@ function vtt_customize_register( $wp_customize )
 	);
 	
 	
+	//
+	// Site Title & Tagline
+	//
+	
+	$wp_customize->remove_setting( 'blogname' );
+	$wp_customize->remove_control( 'blogname' );
+	$wp_customize->remove_setting( 'blogdescription' );
+	$wp_customize->remove_control( 'blogdescription' );
+	
+	$name = $vtt_config->get_theme_value( 'blogname' );
+	$url = $vtt_config->get_theme_value( 'blogname_url' );
+	if( $name == '/' ) $name = get_bloginfo('name');
+	if( $url == '/' ) $url = get_home_url();
+	
+	$wp_customize->add_setting(
+		'blogname',
+		array(
+			'default'		=> $name,
+		)
+	);
+
+	$wp_customize->add_control( 
+		'blogname-control',
+		array(
+			'label'			=> 'Site Title',
+			'section'		=> 'title_tagline',
+			'settings'		=> 'blogname',
+		)
+	);
+	
+	$wp_customize->add_setting(
+		'blogname_url',
+		array(
+			'default'		=> $url,
+		)
+	);
+
+	$wp_customize->add_control( 
+		'blogname_url-control',
+		array(
+			'label'			=> 'Site Title URL',
+			'section'		=> 'title_tagline',
+			'settings'		=> 'blogname_url',
+		)
+	);
+
+	$name = $vtt_config->get_theme_value( 'blogdescription' );
+	$url = $vtt_config->get_theme_value( 'blogdescription_url' );
+	if( $name == '/' ) $name = get_bloginfo('description');
+	if( $url == '/' ) $url = get_home_url();
+	
+	$wp_customize->add_setting(
+		'blogdescription',
+		array(
+			'default'		=> $name,
+		)
+	);
+
+	$wp_customize->add_control( 
+		'blogdescription-control',
+		array(
+			'label'			=> 'Site Description',
+			'section'		=> 'title_tagline',
+			'settings'		=> 'blogdescription',
+		)
+	);
+	
+	$wp_customize->add_setting(
+		'blogdescription_url',
+		array(
+			'default'		=> $url,
+		)
+	);
+
+	$wp_customize->add_control( 
+		'blogdescription_url-control',
+		array(
+			'label'			=> 'Site Description URL',
+			'section'		=> 'title_tagline',
+			'settings'		=> 'blogdescription_url',
+		)
+	);
+
+
+	//
+	// Colors
+	//
+
+	//
+	// header title box text color
+	//
+	
+	$wp_customize->add_setting(
+		'header_textcolor',
+		array(
+			'theme_supports'		=> array( 'custom-header', 'header-text' ),
+			'default'				=> get_theme_support( 'custom-header', 'default-text-color' ),
+			'sanitize_callback'		=> array( $wp_customize, '_sanitize_header_textcolor' ),
+			'sanitize_js_callback'	=> 'maybe_hash_hex_color',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control( 
+			$wp_customize, 
+			'header_textcolor', 
+			array(
+				'label'				=> 'Header Text Color',
+				'section'			=> 'colors',
+			)
+		)
+	);
+
+	//
+	// header title box text background color
+	//
+	
+	$wp_customize->add_setting(
+		'header_textbgcolor', 
+		array(
+			'theme_supports'		=> array( 'custom-header', 'header-text' ),
+			'default'				=> get_theme_support( 'custom-header', 'default-text-bgcolor' ),
+			'sanitize_callback'		=> 'vtt_sanitize_header_textbgcolor',
+			'sanitize_js_callback'	=> 'maybe_hash_hex_color',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control( 
+			$wp_customize, 
+			'header_textbgcolor', 
+			array(
+				'label'   => 'Header Text Background Color',
+				'section' => 'colors',
+			)
+		)
+	);
+	
+	
+	$wp_customize->remove_control( 'display_header_text' );
 }
 endif;
 
+
+/**
+ * 
+ */
+if( !function_exists('vtt_sanitize_header_textbgcolor') ):
+function vtt_sanitize_header_textbgcolor( $color )
+{
+		if ( 'blank' === $color )
+			return 'blank';
+
+		$color = sanitize_hex_color_no_hash( $color );
+		if ( empty( $color ) )
+			$color = get_theme_support( 'custom-header', 'default-text-bgcolor' );
+
+		return $color;
+}
+endif;
 
 
 /**
@@ -1391,9 +1578,11 @@ function vtt_customize_save( $wp_customize )
 {
 	global $vtt_config;
 	$vtt_config->set_variation( get_theme_mod(VTT_VARIATION_OPTION), true );
-	$vtt_config->set_value( 'header', 'title-position', get_theme_mod('vtt-'.VTT_HEADER_TITLE_POSITION) );
-	$vtt_config->set_value( 'header', 'title-hide', get_theme_mod('vtt-'.VTT_HEADER_TITLE_HIDE) );
-	$vtt_config->set_value( VTT_FEATURED_IMAGE_POSITION, get_theme_mod('vtt-'.VTT_FEATURED_IMAGE_POSITION) );
+	$theme_mods = get_theme_mods();
+	foreach( $theme_mods as $key => $value )
+	{
+		$vtt_config->set_value( 'theme-mods', $key, $value );
+	}
 }
 endif;
 
@@ -1419,21 +1608,14 @@ function vtt_customize_update_options( $old_value, $new_value )
 {
 	global $wp_customize;
 	if( isset($wp_customize) ) return;
+	if( !array_key_exists('theme-mods', $new_value) ) return;
 	
-	if( !empty($new_value['header']['title-position']) )
-		set_theme_mod( 'vtt-'.VTT_HEADER_TITLE_POSITION, $new_value['header']['title-position'] );
-	else
-		remove_theme_mod( 'vtt-'.VTT_HEADER_TITLE_POSITION );
-	
-	if( !empty($new_value['header']['title-hide']) )
-		set_theme_mod( 'vtt-'.VTT_HEADER_TITLE_HIDE, $new_value['header']['title-hide'] );
-	else
-		remove_theme_mod( 'vtt-'.VTT_HEADER_TITLE_HIDE );
-
-	if( !empty($new_value[VTT_FEATURED_IMAGE_POSITION]) )
-		set_theme_mod( 'vtt-'.VTT_FEATURED_IMAGE_POSITION, $new_value[VTT_FEATURED_IMAGE_POSITION] );
-	else
-		remove_theme_mod( 'vtt-'.VTT_FEATURED_IMAGE_POSITION );
+	$theme_mods = $new_value['theme-mods'];
+	foreach( $theme_mods as $key => $value )
+	{
+		set_theme_mod( $key, $value );
+		$vtt_config->set_value( 'theme-mods', $key, $value );
+	}
 }
 endif;
 
@@ -1552,5 +1734,16 @@ function vtt_add_home_pages_menu_item( $args )
 }
 endif;
 
+
+
+//========================================================================================
+//============================================================== Main setup - Bottom =====
+
+
+// load config.
+$vtt_config->load_config();
+
+// include variation's functions.php
+$vtt_config->load_variations_files( 'functions.php' );	
 
 

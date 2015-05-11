@@ -19,7 +19,7 @@ class VTT_Config
 	
 	
 	// current database version
-	const DB_VERSION = '1.0';
+	const DB_VERSION = '1.1';
 	
 	// relative paths to the config and otions files.
 	const CONFIG_DEFAULT_INI_FILENAME = 'config/config-default.ini';
@@ -54,7 +54,7 @@ class VTT_Config
 //========================================================================================
 //================================================================ Load Configuration ====
 
-	
+		
 	/**
 	 * Loads the config and options data, as well as current variation information.
 	 */
@@ -206,7 +206,7 @@ class VTT_Config
 				continue;
 			}
 			
-			if( (strlen($value) > 2) && ($value[1] === ':') )
+			if( (is_string($value)) && (strlen($value) > 2) && ($value[1] === ':') )
 			{
 				$value = $this->string_to_value( $value );
 			}
@@ -329,7 +329,7 @@ class VTT_Config
 	 */
 	public function get_theme_mod( $key, $default = false )
 	{
-		if( isset($_POST['customized']) )
+		if( !empty($_POST['customized']) )
 		{
 			$values = json_decode(wp_unslash($_POST['customized']), true);
 			if( array_key_exists($key, $values) ) return $values[$key];
@@ -452,14 +452,13 @@ class VTT_Config
 	}
 	
 	
-	public function get_theme_value( $options_key, $theme_mod_key, $default = false )
+	public function get_theme_value( $options_key, $default = false )
 	{
-		global $wp_customize;
-		if( isset($wp_customize) )
-			$return = $this->get_theme_mod( $theme_mod_key, null );
-		else
-			$return = $this->get_value( $options_key );
-			
+		$return = $this->get_theme_mod(
+			$options_key,
+			$this->get_value( array('theme-mods', $options_key) )
+		);
+		
 		if( $return === null ) return $default;
 		return $return;
 	}
@@ -907,8 +906,8 @@ class VTT_Config
 		switch( $db_version )
 		{
 			case '1.0':
-				// $this->convert_db_from_10_to_11();
-				// new version function here...
+				$this->convert_db_from_10_to_11();
+
 			default:
 				break;
 		}
@@ -922,6 +921,103 @@ class VTT_Config
 	 */
 	private function convert_db_from_10_to_11()
 	{
+		// get options from database.
+		$db_options = get_option( 'vtt-options', array() );
+		if( !is_array($db_options) ) return;
+		
+		// add theme-mods.
+		if( !array_key_exists('theme-mods', $db_options) )
+			$db_options['theme-mods'] = array();
+		
+		if( isset($db_options['header']) )
+		{
+			// remove image-link.
+			if( isset($db_options['header']['image-link']) )
+			{
+				unset( $db_options['header']['image-link'] );
+			}
+			
+			// move title-position to theme-mods.
+			if( isset($db_options['header']['title-position']) )
+			{
+				$db_options['theme-mods']['header-title-position'] = $db_options['header']['title-position'];
+				unset( $db_options['header']['title-position'] );
+			}
+
+			// move title-hide to theme-mods.
+			if( isset($db_options['header']['title-hide']) )
+			{
+				$db_options['theme-mods']['header-title-hide'] = $db_options['header']['title-hide'];
+				unset( $db_options['header']['title-hide'] );
+			}
+
+			// move blog-title data to theme-mods.
+			if( isset($db_options['header']['title']) )
+			{
+				if( isset($db_options['header']['title']['use-blog-info']) && $db_options['header']['title']['use-blog-info'] )
+				{
+					$db_options['theme-mods']['blogname'] = '/';
+				}
+				elseif( isset($db_options['header']['title']['text']) )
+				{
+					$db_options['theme-mods']['blogname'] = $db_options['header']['title']['text'];
+				}
+
+				if( isset($db_options['header']['title']['use-site-link']) && $db_options['header']['title']['use-site-link'] )
+				{
+					$db_options['theme-mods']['blogname_url'] = '/';
+				}
+				elseif( isset($db_options['header']['title']['link']) )
+				{
+					$db_options['theme-mods']['blogname_url'] = $db_options['header']['title']['link'];
+				}
+				
+				unset( $db_options['header']['title'] );
+			}
+
+			// move blog-description data to theme-mods.
+			if( isset($db_options['header']['description']) )
+			{
+				if( isset($db_options['header']['description']['use-blog-info']) && $db_options['header']['description']['use-blog-info'] )
+				{
+					$db_options['theme-mods']['blogdescription'] = '/';
+				}
+				elseif( isset($db_options['header']['description']['text']) )
+				{
+					$db_options['theme-mods']['blogdescription'] = $db_options['header']['description']['text'];
+				}
+
+				if( isset($db_options['header']['description']['use-site-link']) && $db_options['header']['description']['use-site-link'] )
+				{
+					$db_options['theme-mods']['blogdescription_url'] = '/';
+				}
+				elseif( isset($db_options['header']['description']['link']) )
+				{
+					$db_options['theme-mods']['blogdescription_url'] = $db_options['header']['description']['link'];
+				}
+				
+				unset( $db_options['header']['description'] );
+			}
+		}
+		
+		// update options.
+		update_option( 'vtt-options', $db_options );
+		
+		// move header-title-position in theme-mods.
+		$header_title_position = get_theme_mod( 'vtt-header-title-position', null );
+		if( $header_title_position !== null )
+		{
+			set_theme_mod( 'header-title-position' );
+			remove_theme_mod( 'vtt-header-title-position' );
+		}
+
+		// move header-title-hide in theme-mods.
+		$header_title_hide = get_theme_mod( 'vtt-header-title-hide', null );
+		if( $header_title_hide !== null )
+		{
+			set_theme_mod( 'header-title-hide' );
+			remove_theme_mod( 'vtt-header-title-hide' );
+		}
 	}
 }
 

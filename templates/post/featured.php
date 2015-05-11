@@ -2,7 +2,7 @@
 
 <?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $post; ?>
 <?php
-$featured_image_position = $vtt_config->get_theme_value( array('featured-image-position'), 'vtt-featured-image-position' );
+$featured_image_position = $vtt_config->get_theme_value( 'featured-image-position' );
 ?>
 
 
