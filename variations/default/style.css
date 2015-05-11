@@ -34,13 +34,13 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
  * Header
  ****************************************************************************************/
 	
-	#header #title-box .name {
+	#title-box .name {
 		background-color:#000;
 		background-color:rgba(0,0,0,0.6);
 		color:#fff;
 	}
 	
-	#header #title-box .description {
+	#title-box .description {
 		background-color:#000;
 		background-color:rgba(0,0,0,0.6);
 		color:#fff;

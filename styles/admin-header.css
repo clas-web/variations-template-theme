@@ -28,7 +28,7 @@
 		min-width:950px;
 	}
 	
-	#header #title-box-placeholder {
+	#title-box-placeholder {
 		display:block;
 		position:absolute;
 		top:0;
@@ -37,14 +37,14 @@
 		bottom:0;
 	}
 	
-	#header #title-box-wrapper {
+	#title-box-wrapper {
 		display:table;
 		width:100%;
 		height:100%;
 		min-height:100px;
 	}
 	
-	#header #title-box {
+	#title-box {
 		display:table-cell;
 		font-family:Helvetica, Arial, sanserif;
 		width:100%;
@@ -52,19 +52,19 @@
 		padding:1em;
 	}
 	
-	#header #title-box > a {
+	#title-box > a {
 		display:block;
 	}
 	
-	html.old-ie #header #title-box-wrapper {
+	html.old-ie #title-box-wrapper {
 		display:block;
 	}
 
-	html.old-ie #header #title-box {
+	html.old-ie #title-box {
 		display:block;
 	}
 	
-	#header #title-box .name {
+	#title-box .name {
 		font-size:2.2em;
 		background-color:#333;
 		background-color:rgba(0,0,0,0.6);
@@ -73,7 +73,7 @@
 		padding:2px 5px;
 	}
 	
-	#header #title-box .description {
+	#title-box .description {
 		font-size:1.2em;
 		background-color:#000;
 		background-color:rgba(0,0,0,0.6);
@@ -120,33 +120,33 @@
  * Header
  ****************************************************************************************/
 
-	#header #title-box.hleft {
+	#title-box.hleft {
 		text-align:left;
 	}
 	
-	#header #title-box.hcenter {
+	#title-box.hcenter {
 		text-align:center;
 	}
 
-	#header #title-box.hright {
+	#title-box.hright {
 		text-align:right;
 	}
 
-	#header #title-box.vtop {
+	#title-box.vtop {
 		vertical-align:top;
 	}
 
-	#header #title-box.vcenter {
+	#title-box.vcenter {
 		vertical-align:middle;
 	}
 
-	#header #title-box.vbottom {
+	#title-box.vbottom {
 		vertical-align:bottom;
 		padding-bottom:1em;
 	}
 	
-	#header #title-box .name,
-	#header #title-box .description {
+	#title-box .name,
+	#title-box .description {
 		padding:2px 5px;
 	}
 

@@ -78,14 +78,6 @@ Tags:
 		font-size:1.0em;
 	}
 	
-	#content p {
-		margin-bottom:2em;
-	}
-	
-	#content > h1 {
-		border-bottom:solid 1px #ccc;
-	}
-	
 	a {
 		color:#003366;
 		text-decoration:none;
@@ -138,7 +130,7 @@ Tags:
 		min-width:950px;
 	}
 	
-	#header #title-box-placeholder {
+	#title-box-placeholder {
 		display:block;
 		position:absolute;
 		top:0;
@@ -147,14 +139,14 @@ Tags:
 		bottom:0;
 	}
 	
-	#header #title-box-wrapper {
+	#title-box-wrapper {
 		display:table;
 		width:100%;
 		height:100%;
 		min-height:100px;
 	}
 	
-	#header #title-box {
+	#title-box {
 		display:table-cell;
 		font-family:Helvetica, Arial, sanserif;
 		width:100%;
@@ -383,6 +375,23 @@ Tags:
  * Content
  ****************************************************************************************/
 
+	#content > h1 {
+		border-bottom:solid 1px #ccc;
+	}
+	
+	#content .entry-content h3 {
+		font-weight:bold;
+	}
+
+	#content .entry-content h4 {
+		font-weight:bold;
+		font-style:italic;
+	}
+
+	#content .entry-content h5 {
+		font-style:italic;
+	}
+	
 	#content p, 
 	#content ul, 
 	#content ol, 
