@@ -490,23 +490,25 @@ endif;
 if( !function_exists('vtt_url_to_path') ):
 function vtt_url_to_path( $url )
 {
-	$url_parts = parse_url($url);
-	$url_path = $url_parts['host'].$url_parts['path'];
+	$url = vtt_convert_url( $url );
 	
 	$uploads_info = wp_upload_dir();
-	$uploads_info['baseurl'] = str_replace( 'http://', 'https://', $uploads_info['baseurl'] );
+	$uploads_info['baseurl'] = vtt_convert_url($uploads_info['baseurl']);
 	
 	if( strpos($url, $uploads_info['baseurl']) !== false )
 	{
 		return str_replace( $uploads_info['baseurl'], $uploads_info['basedir'], $url );
 	}
-
-	if( strpos($url, home_url()) !== false )
+	
+	$home_url = vtt_convert_url(home_url());
+	if( strpos($url, $home_url) !== false )
 	{
-		return str_replace( home_url().'/', ABSPATH, $url );
+		return str_replace( $home_url.'/', ABSPATH, $url );
 	}
 	
-
+	$url_parts = parse_url($url);
+	$url_path = $url_parts['host'].$url_parts['path'];
+	
 	$template_parts = parse_url(get_template_directory_uri());
 	$template_path = $template_parts['host'].$template_parts['path'];
 	
@@ -574,27 +576,32 @@ function vtt_path_to_url( $path )
 	if( !file_exists($path) ) return '';
 
 	$uploads_info = wp_upload_dir();
-	$uploads_info['baseurl'] = str_replace( 'http://', 'https://', $uploads_info['baseurl'] );
 	
 	if( strpos($path, $uploads_info['basedir']) !== false )
 	{
-		return str_replace( $uploads_info['basedir'], $uploads_info['baseurl'].'/', $path );
+		return str_replace( $uploads_info['basedir'], vtt_convert_url($uploads_info['baseurl']).'/', $path );
 	}
 	
 	if( strpos($path, ABSPATH) !== false )
 	{
-		return str_replace( ABSPATH, home_url().'/', $path );
+		return str_replace( ABSPATH, vtt_convert_url(home_url()).'/', $path );
 	}
 	
 	$upload = wp_upload_dir();
 	if( strpos($path, $upload['basedir']) !== false )
 	{
-		return str_replace( $upload['basedir'], $upload['baseurl'], $path );
+		return str_replace( $upload['basedir'], vtt_convert_url($upload['baseurl']), $path );
 	}
 
-	return plugins_url( $path );
-	
-	return '';
+	return vtt_convert_url(plugins_url( $path ));
+}
+endif;
+
+
+if( !function_exists('vtt_convert_url') ):
+function vtt_convert_url( $url )
+{
+	return preg_replace( "/https?:\/\//i", '//', $url );
 }
 endif;
 
