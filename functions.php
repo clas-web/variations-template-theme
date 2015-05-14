@@ -1292,9 +1292,7 @@ function vtt_customize_register( $wp_customize )
 	$wp_customize->add_setting(
 		'header-title-hide',
 		array(
-			'default'     => $vtt_config->value_to_string( 
-				$vtt_config->get_theme_value( 'header-title-hide' )
-			),
+			'default'     => $vtt_config->get_theme_value( 'header-title-hide' ),
 			'transport'   => 'refresh',
 		)
 	);
