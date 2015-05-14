@@ -55,12 +55,6 @@ define( 'VTT_BLOG_NAME', trim( preg_replace("/[^A-Za-z0-9 ]/", '-', get_blog_det
 //========================================================================================
 //====================================================== Default filters and actions =====
 
-// Include the admin backend. 
-if( is_admin() ):
-	require_once( dirname(__FILE__).'/libraries/apl/apl.php' );
-	add_action( 'wp_loaded', 'vtt_load_apl_admin' );
-endif;
-
 if( is_customize_preview() ):
 	require_once( dirname(__FILE__).'/classes/customizer/header-position.php' );
 endif;
@@ -179,31 +173,6 @@ function vtt_add_featured_image_support()
 	}
 	
 	register_default_headers( $images );	
-}
-endif;
-
-
-/**
- *
- */
-if( !function_exists('vtt_load_apl_admin') ):
-function vtt_load_apl_admin()
-{
-	// child admin main.
-	if( is_child_theme() && file_exists(get_stylesheet_directory().'/admin-pages/require.php') ):
-	require_once( get_stylesheet_directory().'/admin-pages/require.php' );
-	endif;
-	
-	// parent admin main.
-	require_once( get_template_directory().'/admin-pages/require.php' );
-		
-	// Site admin page.
-	$vtt_pages = new APL_Handler( false );
-	
-	$vtt_pages->add_page( new VTT_ThemeOptionsAdminPage(), 'themes.php' );
-	$vtt_pages = apply_filters( 'vtt-theme-admin-populate', $vtt_pages );
-	
-	$vtt_pages->setup();
 }
 endif;
 
