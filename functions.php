@@ -56,6 +56,7 @@ define( 'VTT_BLOG_NAME', trim( preg_replace("/[^A-Za-z0-9 ]/", '-', get_blog_det
 //====================================================== Default filters and actions =====
 
 if( is_customize_preview() ):
+	require_once( dirname(__FILE__).'/classes/customizer/variation.php' );
 	require_once( dirname(__FILE__).'/classes/customizer/header-position.php' );
 endif;
 
@@ -1214,6 +1215,8 @@ function vtt_customize_register( $wp_customize )
 {
 	global $vtt_config;
 	
+// 	$wp_customize->register_control_type( 'VTT_Customize_Variation' );
+// 	$wp_customize->register_control_type( 'VTT_Customize_Header_Position' );
 	
 	//
 	// Variation section
@@ -1227,28 +1230,21 @@ function vtt_customize_register( $wp_customize )
 		)
 	);
 	
-	//
-	// variation select
-	//
-	
 	$wp_customize->add_setting(
 		'vtt-variation',
 		array(
 			'default'     	=> $vtt_config->get_variation_name(),
-			'transport'   	=> 'refresh',
+			'transport'   	=> 'postMessage',
 		)
 	);
 	
 	$wp_customize->add_control( 
-		new WP_Customize_Control( 
+		new VTT_Customize_Variation( 
 			$wp_customize, 
 			'vtt-variation-control', 
 			array(
 				'label'      => 'Name',
 				'section'    => 'vtt-variation-section',
-				'settings'   => 'vtt-variation',
-				'type'       => 'select',
-				'choices'    => $vtt_config->get_all_variation_names(),
 			)
 		)
 	);
@@ -1582,7 +1578,7 @@ endif;
 if( !function_exists('vtt_customize_update_options') ):
 function vtt_customize_update_options( $old_value, $new_value )
 {
-	global $wp_customize;
+	global $vtt_config, $wp_customize;
 	if( isset($wp_customize) ) return;
 	if( !array_key_exists('theme-mods', $new_value) ) return;
 	
