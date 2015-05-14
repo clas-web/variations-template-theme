@@ -129,9 +129,12 @@ Tags:
 		min-height:100px;
 		min-width:950px;
 	}
-	
+
 	#title-box-placeholder {
 		display:block;
+	}
+	
+	#header #title-box-placeholder {
 		position:absolute;
 		top:0;
 		left:0;
