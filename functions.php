@@ -56,8 +56,8 @@ define( 'VTT_BLOG_NAME', trim( preg_replace("/[^A-Za-z0-9 ]/", '-', get_blog_det
 //====================================================== Default filters and actions =====
 
 if( is_customize_preview() ):
-	require_once( dirname(__FILE__).'/classes/customizer/variation.php' );
-	require_once( dirname(__FILE__).'/classes/customizer/header-position.php' );
+	require_once( dirname(__FILE__).'/classes/customizer/variation/control.php' );
+	require_once( dirname(__FILE__).'/classes/customizer/header-position/control.php' );
 	require_once( dirname(__FILE__).'/classes/customizer/color-picker-alpha/control.php' );
 endif;
 

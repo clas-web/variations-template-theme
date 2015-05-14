@@ -2,9 +2,7 @@
 
 jQuery(document).ready( function()
 {
-	// 
-	// Header title box position
-	// 
+
 	jQuery('#customize-control-vtt-header-title-position-control').each( function()
 	{
 		var self = this;

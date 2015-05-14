@@ -48,8 +48,8 @@ class VTT_Customize_Header_Position extends WP_Customize_Control
 	 */
 	public function enqueue()
 	{
-		vtt_enqueue_files( 'script', 'customizer', 'classes/customizer/script.js', array( 'customize-controls' ) );
-		vtt_enqueue_files( 'style', 'customizer', 'classes/customizer/style.css' );
+		vtt_enqueue_files( 'script', 'customizer', 'classes/customizer/header-position/script.js', array( 'customize-controls' ) );
+		vtt_enqueue_files( 'style', 'customizer', 'classes/customizer/header-position/style.css' );
 	}
 
 	/**

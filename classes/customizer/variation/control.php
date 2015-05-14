@@ -38,8 +38,8 @@ class VTT_Customize_Variation extends WP_Customize_Control
 	 */
 	public function enqueue()
 	{
-		vtt_enqueue_files( 'script', 'customizer', 'classes/customizer/script.js', array( 'customize-controls' ) );
-		vtt_enqueue_files( 'style', 'customizer', 'classes/customizer/style.css' );
+		vtt_enqueue_files( 'script', 'customizer', 'classes/customizer/variation/script.js', array( 'customize-controls' ) );
+//		vtt_enqueue_files( 'style', 'customizer', 'classes/customizer/variation/style.css' );
 	}
 
 	/**
