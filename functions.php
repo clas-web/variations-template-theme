@@ -61,6 +61,11 @@ if( is_customize_preview() ):
 	require_once( dirname(__FILE__).'/classes/customizer/color-picker-alpha/control.php' );
 endif;
 
+if( defined( 'DOING_AJAX' ) && DOING_AJAX )
+{
+	require_once( dirname(__FILE__).'/classes/customizer/variation/functions.php' );
+}
+
 
 // Admin Bar
 add_filter( 'show_admin_bar', 'vtt_show_admin_bar', 10 );
@@ -1235,7 +1240,6 @@ function vtt_customize_register( $wp_customize )
 		'vtt-variation',
 		array(
 			'default'     	=> $vtt_config->get_variation_name(),
-			'transport'   	=> 'postMessage',
 		)
 	);
 	
@@ -1294,7 +1298,6 @@ function vtt_customize_register( $wp_customize )
 		'header-title-hide',
 		array(
 			'default'     => $vtt_config->get_theme_value( 'header-title-hide' ),
-			'transport'   => 'refresh',
 		)
 	);
 

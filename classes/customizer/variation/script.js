@@ -6,8 +6,7 @@ jQuery(document).ready( function()
 	//
 	jQuery('#customize-control-vtt-variation-control select').change( function()
 	{
-		// send new variation via ajax.
-		location.reload();
+		vtt_send_request( 'change-variation', jQuery(this).val() );
 	});
 	
 	//
@@ -15,9 +14,42 @@ jQuery(document).ready( function()
 	//
 	jQuery('#customize-control-vtt-variation-control button').click( function()
 	{
-		// send reset request via ajax.
-		location.reload();
+		vtt_send_request( 'reset', '' );
 	});
+	
+	
+	function vtt_send_request( action, value )
+	{
+		// setup up AJAX data.
+		var data = {};
+		data['action'] = 'vtt-variation-customizer-control';
+		data['nonce'] = jQuery('#customize-control-vtt-variation-control input[name="vtt-variation-nonce"]').val();
+		data['vtt-action'] = action;
+		data['value'] = value;
+		
+		// perform the AJAX request.
+		jQuery.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			data: data,
+			dataType: 'json'
+		})
+		.done(function( data )
+		{
+			if( data.status )
+			{
+				location.reload();
+				return;
+			}
+			
+			alert( "Error processing request: "+data.message );
+		})
+		.fail(function( jqXHR, textStatus )
+		{
+			alert( "Error processing request: "+jqXHR.responseText+': '+textStatus );
+		});
+	}
+
 	
 });
 

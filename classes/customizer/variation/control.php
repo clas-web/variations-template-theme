@@ -3,6 +3,8 @@
 if( !class_exists('WP_Customize_Control') )
 	require_once( ABSPATH . '/wp-includes/class-wp-customize-control.php' );
 
+require_once( dirname(__FILE__).'/functions.php' );
+
 if( !class_exists('VTT_Customize_Variation') ):
 class VTT_Customize_Variation extends WP_Customize_Control
 {
@@ -23,6 +25,7 @@ class VTT_Customize_Variation extends WP_Customize_Control
 		
 		global $vtt_config;
 		
+		$this->description = 'Changing this option will cause the page to refresh.';
 		$this->type = 'select';
 		
 		$this->choices = $vtt_config->get_all_variation_names();
@@ -38,8 +41,8 @@ class VTT_Customize_Variation extends WP_Customize_Control
 	 */
 	public function enqueue()
 	{
-		vtt_enqueue_files( 'script', 'customizer', 'classes/customizer/variation/script.js', array( 'customize-controls' ) );
-//		vtt_enqueue_files( 'style', 'customizer', 'classes/customizer/variation/style.css' );
+		vtt_enqueue_files( 'script', 'customizer-variation', 'classes/customizer/variation/script.js', array( 'customize-controls' ) );
+//		vtt_enqueue_files( 'style', 'customizer-variation', 'classes/customizer/variation/style.css' );
 	}
 
 	/**
@@ -65,14 +68,12 @@ class VTT_Customize_Variation extends WP_Customize_Control
 	{
 		?>
 		<label>
-			<?php if ( ! empty( $this->label ) ) : ?>
-				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-			<?php endif;
-			if ( ! empty( $this->description ) ) : ?>
+			<input type="hidden" name="vtt-variation-nonce" value="<?php echo wp_create_nonce('vtt-variation') ?>" />
+			<?php if ( ! empty( $this->description ) ) : ?>
 				<span class="description customize-control-description"><?php echo $this->description; ?></span>
 			<?php endif; ?>
 
-			<select <?php $this->link(); ?>>
+			<select>
 				<?php
 				foreach ( $this->choices as $value => $label )
 					echo '<option value="' . esc_attr( $value ) . '"' . selected( $this->value(), $value, false ) . '>' . $label . '</option>';
