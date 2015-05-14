@@ -45,7 +45,13 @@ function vtt_title_box( $title_box_height, $position, $title, $title_link, $desc
 		'header_textbgcolor', 
 		get_theme_support( 'custom-header', 'default-text-bgcolor' )
 	);
-	if( $text_bgcolor ) $style .= "background-color:#$text_bgcolor;";
+	if( $text_bgcolor )
+	{
+		if( strpos($text_bgcolor, 'rgb') !== false || strpos($text_bgcolor, '#') !== false )
+			$style .= "background-color:$text_bgcolor;";
+		else
+			$style .= "background-color:#$text_bgcolor;";
+	}
 
 	if( is_int($title_box_height) ) $title_box_height .= 'px';
 	?>

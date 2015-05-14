@@ -58,6 +58,7 @@ define( 'VTT_BLOG_NAME', trim( preg_replace("/[^A-Za-z0-9 ]/", '-', get_blog_det
 if( is_customize_preview() ):
 	require_once( dirname(__FILE__).'/classes/customizer/variation.php' );
 	require_once( dirname(__FILE__).'/classes/customizer/header-position.php' );
+	require_once( dirname(__FILE__).'/classes/customizer/color-picker-alpha/control.php' );
 endif;
 
 
@@ -1491,6 +1492,8 @@ function vtt_customize_register( $wp_customize )
 		)
 	);
 
+
+
 	//
 	// header title box text background color
 	//
@@ -1505,16 +1508,29 @@ function vtt_customize_register( $wp_customize )
 		)
 	);
 
+// 	$wp_customize->add_control(
+// 		new WP_Customize_Color_Control( 
+// 			$wp_customize, 
+// 			'header_textbgcolor', 
+// 			array(
+// 				'label'   => 'Header Text Background Color',
+// 				'section' => 'colors',
+// 			)
+// 		)
+// 	);
+
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control( 
-			$wp_customize, 
-			'header_textbgcolor', 
+		new Pluto_Customize_Alpha_Color_Control(
+			$wp_customize,
+			'header_textbgcolor',
 			array(
-				'label'   => 'Header Text Background Color',
-				'section' => 'colors',
+				'label'		=> 'Header Text Background Color',
+				'palette'	=> true,
+				'section'	=> 'colors'
 			)
 		)
 	);
+
 	
 	
 	$wp_customize->remove_control( 'display_header_text' );
@@ -1528,14 +1544,17 @@ endif;
 if( !function_exists('vtt_sanitize_header_textbgcolor') ):
 function vtt_sanitize_header_textbgcolor( $color )
 {
-		if ( 'blank' === $color )
-			return 'blank';
-
-		$color = sanitize_hex_color_no_hash( $color );
-		if ( empty( $color ) )
-			$color = get_theme_support( 'custom-header', 'default-text-bgcolor' );
-
+	if ( 'blank' === $color )
+		return 'blank';
+	
+	if( strpos($color, 'rgb') !== false )
 		return $color;
+	
+	$color = sanitize_hex_color_no_hash( $color );
+	if ( empty( $color ) )
+		$color = get_theme_support( 'custom-header', 'default-text-bgcolor' );
+	
+	return $color;
 }
 endif;
 
