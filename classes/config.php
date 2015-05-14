@@ -907,7 +907,10 @@ class VTT_Config
 		{
 			case '1.0':
 				$this->convert_db_from_10_to_11();
-
+// 			case '1.1':
+// 				$this->convert_db_from_11_to_12();
+// 			case '1.2':
+// 				$this->convert_db_from_12_to_13();
 			default:
 				break;
 		}
