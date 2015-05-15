@@ -1221,9 +1221,6 @@ function vtt_customize_register( $wp_customize )
 {
 	global $vtt_config;
 	
-// 	$wp_customize->register_control_type( 'VTT_Customize_Variation' );
-// 	$wp_customize->register_control_type( 'VTT_Customize_Header_Position' );
-	
 	//
 	// Variation section
 	//
@@ -1253,31 +1250,6 @@ function vtt_customize_register( $wp_customize )
 			)
 		)
 	);
-	
-	//
-	// variation reset button
-	//
-	
-// 	$wp_customize->add_setting(
-// 		'vtt-reset-variation-options',
-// 		array(
-// 			'transport'		=> 'refresh',
-// 		)
-// 	);
-// 	
-// 	$wp_customize->add_control( 
-// 		new WP_Customize_Control( 
-// 			$wp_customize, 
-// 			VTT_VARIATION_OPTION.'-control', 
-// 			array(
-// 				'label'      => 'Reset Options to Default',
-// 				'section'    => VTT_VARIATION_OPTION.'-section',
-// 				'settings'   => 'vtt-reset-variation-options',
-// 				'type'       => 'button',
-// 			)
-// 		)
-// 	);
-	
 	
 	
 	//
