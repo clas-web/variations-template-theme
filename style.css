@@ -355,6 +355,7 @@ Tags:
 	.sidebar p,
 	#footer p {
 		margin:0.25em 0em;
+		margin-bottom:0.75em;
 	}
 	
 	#content blockquote,
@@ -830,6 +831,11 @@ Tags:
 	.widget_categories ul li.flat-list > a {
 		padding:0.2em 2em;
 	}
+	
+	.widget_text div.textwidget {
+		font-size:0.9em;
+	}
+
 
 /****************************************************************************************
  * Categories and Tags
