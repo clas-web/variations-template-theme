@@ -85,7 +85,17 @@ add_filter( 'video_embed_html', 'vtt_embed_html' );
 add_action( 'customize_register', 'vtt_customize_register', 11 );
 add_action( 'customize_save_after', 'vtt_customize_save', 11 );
 add_action( 'update_option_'.VTT_VARIATION_OPTION, 'vtt_customize_update_variation', 99, 2 );
+//add_filter( 'pre_update_option_'.VTT_OPTIONS, 'vtt_customize_pre_update_options', 10, 2 );
 add_action( 'update_option_'.VTT_OPTIONS, 'vtt_customize_update_options', 99, 2 );
+
+add_filter( 'theme_mod_blogname', 'vtt_customize_theme_mod_blogname', 99 );
+add_filter( 'theme_mod_blogname_url', 'vtt_customize_theme_mod_blogname_url', 99 );
+add_filter( 'theme_mod_blogdescription', 'vtt_customize_theme_mod_blogdescription', 99 );
+add_filter( 'theme_mod_blogdescription_url', 'vtt_customize_theme_mod_blogdescription_url', 99 );
+add_filter( 'pre_set_theme_mod_blogname', 'vtt_customize_set_theme_mod_blogname', 99, 2 );
+add_filter( 'pre_set_theme_mod_blogname_url', 'vtt_customize_set_theme_mod_blogname_url', 99, 2 );
+add_filter( 'pre_set_theme_mod_blogdescription', 'vtt_customize_set_theme_mod_blogdescription', 99, 2 );
+add_filter( 'pre_set_theme_mod_blogdescription_url', 'vtt_customize_set_theme_mod_blogdescription_url', 99, 2 );
 
 // Comments
 add_filter( 'comments_template', 'vtt_find_comments_template_part', 999 );
@@ -1376,11 +1386,14 @@ function vtt_customize_register( $wp_customize )
 	);
 
 	$wp_customize->add_control( 
-		'blogname-control',
-		array(
-			'label'			=> 'Site Title',
-			'section'		=> 'title_tagline',
-			'settings'		=> 'blogname',
+		new WP_Customize_Control( 
+			$wp_customize, 
+			'blogname-control',
+			array(
+				'label'			=> 'Site Title',
+				'section'		=> 'title_tagline',
+				'settings'		=> 'blogname',
+			)
 		)
 	);
 	
@@ -1392,11 +1405,14 @@ function vtt_customize_register( $wp_customize )
 	);
 
 	$wp_customize->add_control( 
-		'blogname_url-control',
-		array(
-			'label'			=> 'Site Title URL',
-			'section'		=> 'title_tagline',
-			'settings'		=> 'blogname_url',
+		new WP_Customize_Control( 
+			$wp_customize, 
+			'blogname_url-control',
+			array(
+				'label'			=> 'Site Title URL',
+				'section'		=> 'title_tagline',
+				'settings'		=> 'blogname_url',
+			)
 		)
 	);
 
@@ -1413,11 +1429,14 @@ function vtt_customize_register( $wp_customize )
 	);
 
 	$wp_customize->add_control( 
-		'blogdescription-control',
-		array(
-			'label'			=> 'Site Description',
-			'section'		=> 'title_tagline',
-			'settings'		=> 'blogdescription',
+		new WP_Customize_Control( 
+			$wp_customize, 
+			'blogdescription-control',
+			array(
+				'label'			=> 'Site Description',
+				'section'		=> 'title_tagline',
+				'settings'		=> 'blogdescription',
+			)
 		)
 	);
 	
@@ -1429,11 +1448,14 @@ function vtt_customize_register( $wp_customize )
 	);
 
 	$wp_customize->add_control( 
-		'blogdescription_url-control',
-		array(
-			'label'			=> 'Site Description URL',
-			'section'		=> 'title_tagline',
-			'settings'		=> 'blogdescription_url',
+		new WP_Customize_Control( 
+			$wp_customize, 
+			'blogdescription_url-control',
+			array(
+				'label'			=> 'Site Description URL',
+				'section'		=> 'title_tagline',
+				'settings'		=> 'blogdescription_url',
+			)
 		)
 	);
 
@@ -1567,13 +1589,153 @@ endif;
 /**
  * 
  */
+if( !function_exists('vtt_customize_theme_mod_blogname') ):
+function vtt_customize_theme_mod_blogname( $value )
+{
+	if( $value == '/' ) return get_bloginfo('name');
+	return $value;
+}
+endif;
+
+
+/**
+ * 
+ */
+if( !function_exists('vtt_customize_theme_mod_blogname_url') ):
+function vtt_customize_theme_mod_blogname_url( $value )
+{
+	if( $value == '/' ) return get_site_url();
+	return $value;
+}
+endif;
+
+
+/**
+ * 
+ */
+if( !function_exists('vtt_customize_theme_mod_blogdescription') ):
+function vtt_customize_theme_mod_blogdescription( $value )
+{
+	if( $value == '/' ) return get_bloginfo('description');
+	return $value;
+}
+endif;
+
+
+/**
+ * 
+ */
+if( !function_exists('vtt_customize_theme_mod_blogdescription_url') ):
+function vtt_customize_theme_mod_blogdescription_url( $value )
+{
+	if( $value == '/' ) return get_site_url();
+	return $value;
+}
+endif;
+
+
+/**
+ * 
+ */
+if( !function_exists('vtt_customize_set_theme_mod_blogname') ):
+function vtt_customize_set_theme_mod_blogname( $new_value, $old_value )
+{
+	if( $new_value == get_bloginfo('name') ) $new_value = '/';
+	return $new_value;
+}
+endif;
+
+
+/**
+ * 
+ */
+if( !function_exists('vtt_customize_set_theme_mod_blogname_url') ):
+function vtt_customize_set_theme_mod_blogname_url( $new_value, $old_value )
+{
+	if( $new_value == get_site_url() ) $new_value = '/';
+	return $new_value;
+}
+endif;
+
+
+/**
+ * 
+ */
+if( !function_exists('vtt_customize_set_theme_mod_blogdescription') ):
+function vtt_customize_set_theme_mod_blogdescription( $new_value, $old_value )
+{
+	if( $new_value == get_bloginfo('description') ) $new_value = '/';
+	return $new_value;
+}
+endif;
+
+
+/**
+ * 
+ */
+if( !function_exists('vtt_customize_set_theme_mod_blogdescription_url') ):
+function vtt_customize_set_theme_mod_blogdescription_url( $new_value, $old_value )
+{
+	if( $new_value == get_site_url() ) $new_value = '/';
+	return $new_value;
+}
+endif;
+
+
+/**
+ * 
+ */
+if( !function_exists('vtt_customize_pre_update_options') ):
+function vtt_customize_pre_update_options( $new_value, $old_value )
+{
+	global $wp_customize;
+	if( isset($wp_customize) ) return;
+
+	update_option( 'vtt-options-1', '1' );
+
+	if( !array_key_exists('theme-mods', $new_value) ) return;
+
+	if( (array_key_exists('blogname', $new_value['theme-mods'])) &&
+	    ($new_value['theme-mods']['blogname'] == get_bloginfo('name')) )
+	{
+		$new_value['theme-mods']['blogname'] = '/';
+	}
+
+	if( (array_key_exists('blogname_url', $new_value['theme-mods'])) &&
+	    ($new_value['theme-mods']['blogname_url'] == get_site_url()) )
+	{
+		$new_value['theme-mods']['blogname_url'] = '/';
+	}
+
+	if( (array_key_exists('blogdescription', $new_value['theme-mods'])) &&
+	    ($new_value['theme-mods']['blogdescription'] == get_bloginfo('description')) )
+	{
+		$new_value['theme-mods']['blogdescription'] = '/';
+	}
+
+	if( (array_key_exists('blogdescription_url', $new_value['theme-mods'])) &&
+	    ($new_value['theme-mods']['blogdescription_url'] == get_site_url()) )
+	{
+		$new_value['theme-mods']['blogdescription_url'] = '/';
+	}
+	
+	update_option( 'vtt-options-2', $new_value );
+	
+	return $new_value;
+}
+endif;
+
+
+/**
+ * 
+ */
 if( !function_exists('vtt_customize_update_options') ):
 function vtt_customize_update_options( $old_value, $new_value )
 {
 	global $vtt_config, $wp_customize;
 	if( isset($wp_customize) ) return;
 	if( !array_key_exists('theme-mods', $new_value) ) return;
-	
+
 	$theme_mods = $new_value['theme-mods'];
 	foreach( $theme_mods as $key => $value )
 	{
