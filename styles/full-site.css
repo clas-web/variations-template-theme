@@ -57,6 +57,18 @@
 		vertical-align:bottom;
 		padding-bottom:1em;
 	}
+
+	#title-box.vabove {
+		padding-top:0;
+	}
+		
+	#title-box.vabove.hleft {
+		padding-left:0;
+	}
+	
+	#title-box.vabove.hright {
+		padding-right:0;
+	}
 	
 	#title-box .name,
 	#title-box .description {
