@@ -701,10 +701,14 @@ function vtt_get_template_part( $name, $folder = '', $key = '' )
 	
 	$filepath = null;
 	if( $key )
+	{
 		$filepath = vtt_get_theme_file_path( $folder.$name.'-'.$key.'.php' );
+	}
 	
 	if( $filepath === null )
+	{
 		$filepath = vtt_get_theme_file_path( $folder.$name.'.php' );
+	}
 	
 	if( $filepath !== null )
 	{
@@ -713,6 +717,78 @@ function vtt_get_template_part( $name, $folder = '', $key = '' )
 	}
 	
 	return false;
+}
+endif;
+
+
+
+if( !function_exists('vtt_get_queried_object_type') ):
+function vtt_get_queried_object_type()
+{
+	global $wp_query;
+	$object_type = '';
+	
+	$qo = $wp_query->get_queried_object();
+	
+	if( $wp_query->is_archive() )
+	{
+		if( $wp_query->is_tax() || $wp_query->is_tag() || $wp_query->is_category() )
+		{
+			$object_type = $qo->taxonomy;
+		}
+		elseif( $wp_query->is_post_type_archive() )
+		{
+			$object_type = $qo->name;
+		}
+		else
+		{
+			$object_type = 'post';
+		}
+	}
+	elseif( $wp_query->is_single() )
+	{
+		if( $qo === null )
+		{
+			$post_id = $wp_query->get( 'p' );
+
+			if( !$post_id )
+			{
+				$post_type = $wp_query->get( 'post_type', false );
+				if( !$post_type ) $post_type = 'post';
+				$object_type = $post_type;
+			}
+		}
+		else
+		{
+			$post_id = $qo->ID;
+		}
+		
+		if( $post_id )
+		{
+			$object_type = get_post_type( $post_id );
+		}
+		else
+		{
+			$object_type ='post';
+		}
+	}
+	
+	$object_type = apply_filters( 'vtt-queried-object-type', $object_type );
+	return $object_type;
+}
+endif;
+
+
+if( !function_exists('vtt_get_post_type') ):
+function vtt_get_post_type( $p = null )
+{
+	global $post;
+	$post_type = 'post';
+	
+	if( !$p ) $p = $post;
+	if( is_a($p, 'WP_Post') ) $post_type = $p->post_type;
+	
+	return $post_type;
 }
 endif;
 

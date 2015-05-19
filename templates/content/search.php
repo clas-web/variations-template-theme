@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------------
 if( have_posts() ):
 
-	vtt_get_template_part( 'listing', 'content', 'none' );
+	vtt_get_template_part( 'listing', 'content', vtt_get_post_type() );
 	
 else:
 

@@ -34,14 +34,14 @@ else:
 	while( have_posts() ):
 
 		the_post();
-		vtt_get_template_part( 'listing', 'post' );
+		vtt_get_template_part( 'listing', 'post', vtt_get_post_type() );
 	
 	endwhile; // while( have_posts() )
  
 	//--------------------------------------------------------------------------------
 	// Page Navigation.
 	//--------------------------------------------------------------------------------
-	vtt_get_template_part( 'pagination', 'other', $key );
+	vtt_get_template_part( 'pagination', 'other', vtt_get_queried_object_type() );
 
 endif; // if( !have_posts() )
 ?>

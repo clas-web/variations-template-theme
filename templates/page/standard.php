@@ -45,10 +45,10 @@
 <div id="site-inside-wrapper" class="clearfix">
 
 	<?php
-	vtt_get_template_part( 'header', 'part' );
-	vtt_get_template_part( 'header-menu', 'part' );
-	vtt_get_template_part( 'main', 'part' );
-	vtt_get_template_part( 'footer', 'part' );
+	vtt_get_template_part( 'header', 'part', vtt_get_queried_object_type() );
+	vtt_get_template_part( 'header-menu', 'part', vtt_get_queried_object_type() );
+	vtt_get_template_part( 'main', 'part', vtt_get_queried_object_type() );
+	vtt_get_template_part( 'footer', 'part', vtt_get_queried_object_type() );
 	?>
 
 </div> <!-- #site-inside-wrapper -->

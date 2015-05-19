@@ -57,7 +57,7 @@ switch( $sidebar_count )
 
 	<?php
 	// content-type can be: single, listing, search, author, 404
-	vtt_get_template_part( $vtt_template_vars['content-type'], 'content' );
+	vtt_get_template_part( $vtt_template_vars['content-type'], 'content', vtt_get_queried_object_type() );
 	?>
 
 	

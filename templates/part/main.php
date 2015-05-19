@@ -8,9 +8,9 @@
 	
 	
 	<?php
-	vtt_get_template_part( 'sidebar', 'part', 'left' );
-	vtt_get_template_part( 'content', 'part' );
-	vtt_get_template_part( 'sidebar', 'part', 'right' );
+	vtt_get_template_part( 'sidebar-left', 'part', vtt_get_queried_object_type() );
+	vtt_get_template_part( 'content', 'part', vtt_get_queried_object_type() );
+	vtt_get_template_part( 'sidebar-right', 'part', vtt_get_queried_object_type() );
 	?>
 	
 	
