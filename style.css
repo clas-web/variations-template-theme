@@ -655,6 +655,11 @@ Tags:
 	.widget li {
 		padding:0.3em 0em;
 	}
+	
+	.widget_rss ul > li,
+	.widget_rss-feed-viewer ul > li {
+		font-size:0.9em;
+	}
 
 	.widget_pages h2,
 	.widget_nav_menu h2 {
