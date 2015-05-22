@@ -729,6 +729,8 @@ function vtt_get_queried_object_type()
 	$object_type = '';
 	
 	$qo = $wp_query->get_queried_object();
+// 	vtt_print($wp_query,'wp_query');
+// 	vtt_print($qo,'qo');
 	
 	if( $wp_query->is_archive() )
 	{
@@ -745,7 +747,7 @@ function vtt_get_queried_object_type()
 			$object_type = 'post';
 		}
 	}
-	elseif( $wp_query->is_single() )
+	elseif( $wp_query->is_single() || $wp_query->is_singular() )
 	{
 		if( $qo === null )
 		{
