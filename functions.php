@@ -723,7 +723,7 @@ endif;
 
 
 if( !function_exists('vtt_get_queried_object_type') ):
-function vtt_get_queried_object_type()
+function vtt_get_queried_object_type( $apply_filter = true )
 {
 	global $wp_query;
 	$object_type = '';
@@ -775,7 +775,9 @@ function vtt_get_queried_object_type()
 		}
 	}
 	
-	$object_type = apply_filters( 'vtt-queried-object-type', $object_type );
+	if( $apply_filter )
+		$object_type = apply_filters( 'vtt-queried-object-type', $object_type );
+	
 	return $object_type;
 }
 endif;
