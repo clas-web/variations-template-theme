@@ -749,7 +749,8 @@ class VTT_Config
 	 */
 	public function get_all_directories( $reverse = true )
 	{
-		return $this->get_variation_directories( 'all', $reverse );
+		$directories = $this->get_variation_directories( 'all', $reverse );
+		return apply_filters( 'vtt-search-directories', $directories );
 	}
 	
 	

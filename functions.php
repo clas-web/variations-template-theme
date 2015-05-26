@@ -164,7 +164,6 @@ function vtt_add_featured_image_support()
 	);
 	
 	$all_directories = $vtt_config->get_all_directories( false );
-	$all_directories = apply_filters( 'vtt-headers-directories', $all_directories );
 	
 	$images = array();
 	foreach( $all_directories as $directory )
