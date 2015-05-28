@@ -460,8 +460,8 @@ class VTT_Config
 		
 		$vnames = array_keys($this->all_variations);
 		if( count($this->all_variations) > 0 )
-			return $this->set_variation( $this->all_variations[$vnames[0]]['name'] );
-		return $this->set_variation( 'default' );
+			return $this->all_variations[$vnames[0]]['name'];
+		return 'default';
 	}
 	
 	
