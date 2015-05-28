@@ -31,14 +31,14 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		color:#ffc;
 	}
 	
-	#main input[type=text],
-	#main textarea {
+	input[type=text],
+	textarea {
 		background-color:#555;
 		color:#eee;
 		outline:none;
 	}
 
-	#main textarea {
+	textarea {
 		border:solid 1px #ccc;
 	}
 
@@ -65,6 +65,10 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 	.widget_search .searchform > div {
 		border-color:#ccc;
 		background-color:#555;
+	}
+
+	.widget_search .searchform input[type=text].unused {
+		color:#999;
 	}
 
 	.widget_search .searchform input[type=submit] {

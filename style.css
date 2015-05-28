@@ -109,6 +109,14 @@ Tags:
 		margin-right:auto;
 	}
 
+	input:focus {
+		outline: none;
+	}
+	
+	input[type=submit]:hover {
+		cursor:pointer;
+	}
+	
 /****************************************************************************************
  * Header
  ****************************************************************************************/
@@ -245,6 +253,10 @@ Tags:
 		border:none;
 		outline:none;
 		background-color:transparent;
+	}
+	
+	.widget_search .searchform input[type=text].unused {
+		color:#666;
 	}
 	
 	.widget_search .searchform input[type=submit] {
