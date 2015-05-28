@@ -91,6 +91,19 @@ class VTT_Config
 		//
 		// get / set variation
 		//
+		$this->search_directories = array();
+		do_action( 'vtt-search-folders' );
+
+		if( !array_key_exists(5, $this->search_directories) )
+			$this->search_directories[5] = array();
+		array_unshift( $this->search_directories[5], get_template_directory() );
+		
+		if( is_child_theme() && !array_key_exists(10, $this->search_directories) ) 
+			$this->search_directories[10] = array();
+		array_unshift( $this->search_directories[10], get_stylesheet_directory() );
+		
+		ksort( $this->search_directories );
+
 		$this->all_variations = $this->get_variations();
 		$variation = $this->get_current_variation();
 		$this->current_variation = $this->all_variations[$variation];
@@ -500,15 +513,7 @@ class VTT_Config
 	 */
 	public function get_variations( $filter_variations = true )
 	{
-		$folders = array();
-		$theme_variation_folders = array();
-		$theme_variation_folders = array( get_template_directory().'/variations' );
-		if( is_child_theme() ) 
-			$theme_variation_folders[] = get_stylesheet_directory().'/variations';
-		$folders = apply_filters( 'vtt-variations-folders', $folders );
-		$folders = array_merge( $theme_variation_folders, $folders );
-		
-		$variation_directories = $this->get_all_variation_directories( $folders );
+		$variation_directories = $this->get_all_variation_directories();
 		
 		$variations = array();
 		foreach( $variation_directories as $name => $directories )
@@ -621,26 +626,44 @@ class VTT_Config
 	/**
 	 * 
 	 */
-	private function get_all_variation_directories( $folders )
+	private function get_all_variation_directories()
 	{
 		$directories = array();
 		
-		$directories['default'] = array( get_template_directory() );
-		if( is_child_theme() ) $directories['default'][] = get_stylesheet_directory();
-		
-		foreach( $folders as $folder )
+		foreach( $this->search_directories as $priority => $dirs )
 		{
-			if( !is_dir($folder) ) continue;
-			
-			$files = scandir( $folder );
-			foreach( $files as $name )
+			switch( $priority )
 			{
-				if( (!in_array($name, array('.','..'))) && 
-				    (is_dir($folder.DIRECTORY_SEPARATOR.$name)) )
+				case 5:
+					if( !array_key_exists('default', $directories) )
+						$directories['default'] = array();
+					$directories['default'][] = get_template_directory();
+					break;
+				case 10:
+					if( is_child_theme() )
+					{
+						if( !array_key_exists('default', $directories) )
+							$directories['default'] = array();
+						$directories['default'][] = get_stylesheet_directory();
+					}
+					break;
+			}
+			
+			foreach( $dirs as $dir )
+			{
+				$folder = $dir.DIRECTORY_SEPARATOR.'variations';
+				if( !is_dir($folder) ) continue;
+
+				$files = scandir( $folder );
+				foreach( $files as $name )
 				{
-					if( !array_key_exists($name, $directories) )
-						$directories[$name] = array();
-					$directories[$name][] = $folder.DIRECTORY_SEPARATOR.$name;
+					if( (!in_array($name, array('.','..'))) && 
+						(is_dir($folder.DIRECTORY_SEPARATOR.$name)) )
+					{
+						if( !array_key_exists($name, $directories) )
+							$directories[$name] = array();
+						$directories[$name][] = $folder.DIRECTORY_SEPARATOR.$name;
+					}
 				}
 			}
 		}
@@ -711,15 +734,6 @@ class VTT_Config
 	/**
 	 * 
 	 */
-	public function get_variation_other_directories( $reverse = true )
-	{
-		return $this->get_variation_directories( 'variation_other', $reverse );
-	}
-	
-	
-	/**
-	 * 
-	 */
 	public function get_variation_theme_directories( $reverse = true )
 	{
 		return $this->get_variation_directories( 'variation_theme', $reverse );
@@ -749,8 +763,7 @@ class VTT_Config
 	 */
 	public function get_all_directories( $reverse = true )
 	{
-		$directories = $this->get_variation_directories( 'all', $reverse );
-		return apply_filters( 'vtt-search-directories', $directories );
+		return $this->get_variation_directories( 'all', $reverse );
 	}
 	
 	
@@ -775,6 +788,17 @@ class VTT_Config
 	/**
 	 * 
 	 */
+	public function add_search_folder( $path, $priority = 10 )
+	{
+		if( !array_key_exists($priority, $this->search_directories) )
+			$this->search_directories[$priority] = array();
+		$this->search_directories[$priority][] = $path;
+	}
+	
+	
+	/**
+	 * 
+	 */
 	private function set_variation_directories()
 	{
 		if( isset($this->current_variation['directory']) ) return;
@@ -785,20 +809,6 @@ class VTT_Config
 		$vname[] = $this->current_variation['name'];
 		
 		$directory = array();
-		
-		$other_variations_folders = array();
-		$other_variations_folders = apply_filters( 
-			'vtt-variations-folders', 
-			$other_variations_folders
-		);
-		
-		// get Variation Other directories.
-		$directory['variation_other'] = array();
-		foreach( $other_variations_folders as $d )
-		{
-			foreach( $vname as $name )
-				$directory['variation_other'][] = $d.'/'.$name;
-		}
 		
 		// get Variation Theme directories.
 		$directory['variation_theme'] = array();
@@ -813,10 +823,16 @@ class VTT_Config
 		
 		// get Variation All directories.
 		$directory['variation_all'] = array();
-		$directory['variation_all'] = array_merge(
-			$directory['variation_theme'],
-			$directory['variation_other']
-		);		
+		foreach( $this->search_directories as $dirs )
+		{
+			foreach( $dirs as $dir )
+			{
+				foreach( $vname as $name )
+				{
+					$directory['variation_all'][] = $dir.'/variations/'.$name;
+				}
+			}
+		}
 		
 		// get Theme directories.
 		$directory['theme'] = array();
@@ -828,19 +844,17 @@ class VTT_Config
 		
 		// get All directories.
 		$directory['all'] = array();
-		$directory['all'][] = get_template_directory();
-		foreach( $vname as $name )
-			$directory['all'][] = get_template_directory().'/variations/'.$name;
-		if( is_child_theme() )
+		foreach( $this->search_directories as $dirs )
 		{
-			$directory['all'][] = get_stylesheet_directory();
-			foreach( $vname as $name )
-				$directory['all'][] = get_stylesheet_directory().'/variations/'.$name;
+			foreach( $dirs as $dir )
+			{
+				foreach( $vname as $name )
+				{
+					$directory['all'][] = $dir;
+					$directory['all'][] = $dir.'/variations/'.$name;
+				}
+			}
 		}
-		$directory['all'] = array_merge(
-			$directory['all'],
-			$directory['variation_other']
-		);
 		
 		$this->current_variation['directory'] = $directory;
 		
