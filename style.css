@@ -394,6 +394,12 @@ Tags:
  * Content
  ****************************************************************************************/
 
+	#content .listing-name {
+		display: block;
+		clear: both;
+		margin-top: 10px;
+	}
+	
 	#content > h1 {
 		border-bottom:solid 1px #ccc;
 	}
