@@ -526,7 +526,7 @@ Tags:
 	#content .entry-meta {
 		font-size:.8em;
 		color:#333333;
-		padding:0.1em 0 0 0;
+		padding:0.1em 0 0.5em 0;
 	}
 	
 	#content .avatar {
@@ -538,7 +538,7 @@ Tags:
 	}
 	
 	#content .taxonomy-list {
-		margin:1em 0em;
+		margin:0em 0em;
 	}
 	
 	#comments {
