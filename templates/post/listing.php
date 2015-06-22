@@ -20,10 +20,6 @@ $featured_image_position = $vtt_config->get_theme_value( 'featured-image-positio
 		<?php echo vtt_get_taxonomy_list('category', $post); ?>
 	<?php endif; ?>
 	
-	<?php if( $post->post_type === 'post' ): ?>
-		<?php echo vtt_get_taxonomy_list('post_tag', $post); ?>
-	<?php endif; ?>
-
 	<div class="entry-content">
 
 		<?php if( $featured_image_position !== 'header' && has_post_thumbnail($post->ID) ): ?>
@@ -39,6 +35,10 @@ $featured_image_position = $vtt_config->get_theme_value( 'featured-image-positio
 		<?php endif; ?>
 		
 	</div><!-- .entry-content -->
+	
+	<?php if( $post->post_type === 'post' ): ?>
+		<?php echo vtt_get_taxonomy_list('post_tag', $post); ?>
+	<?php endif; ?>
 
 </div><!-- .description -->
 
