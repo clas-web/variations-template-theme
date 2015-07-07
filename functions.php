@@ -448,7 +448,7 @@ function vtt_get_header_image()
 	{
 		$header_path = vtt_url_to_path( $header_url );
 	}
-		
+
 	if( !$header_path )
 	{
 		$header_url = '';
@@ -558,18 +558,19 @@ endif;
 if( !function_exists('vtt_path_to_url') ):
 function vtt_path_to_url( $path )
 {
+	$path = vtt_clean_path( $path );
 	if( !file_exists($path) ) return '';
 
 	$uploads_info = wp_upload_dir();
-	
+	$uploads_info['basedir'] = vtt_clean_path( $uploads_info['basedir'] );
 	if( strpos($path, $uploads_info['basedir']) !== false )
 	{
 		return str_replace( $uploads_info['basedir'], vtt_convert_url($uploads_info['baseurl']).'/', $path );
 	}
 	
-	if( strpos($path, ABSPATH) !== false )
+	if( strpos($path, vtt_clean_path(ABSPATH)) !== false )
 	{
-		return str_replace( ABSPATH, vtt_convert_url(home_url()).'/', $path );
+		return str_replace( vtt_clean_path(ABSPATH), vtt_convert_url(home_url()).'/', $path );
 	}
 	
 	$upload = wp_upload_dir();
@@ -583,6 +584,22 @@ function vtt_path_to_url( $path )
 endif;
 
 
+/**
+ * Converts any Windows directory seperators (\) with Unix directory seperators (/).
+ * @param   string  $path  The file path.
+ * @return  string  The modified file path.
+ */
+function vtt_clean_path( $path )
+{
+	return str_replace( '\\', '/', $path );
+}
+
+
+/**
+ * Converts a url to a scheme-less url without http or https.
+ * @param   string  $url  The url.
+ * @return  string  The modified url.
+ */
 if( !function_exists('vtt_convert_url') ):
 function vtt_convert_url( $url )
 {

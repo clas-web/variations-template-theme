@@ -668,6 +668,11 @@ class VTT_Config
 			}
 		}
 		
+		foreach( $directories as &$directory )
+		{
+			$directory = vtt_clean_path( $directory );
+		}
+
 		return $directories;
 	}
 	
@@ -859,12 +864,16 @@ class VTT_Config
 		$this->current_variation['directory'] = $directory;
 		
 		// make sure all directories exists.
-		foreach( $this->current_variation['directory'] as $key => $directories )
+		foreach( $this->current_variation['directory'] as $key => &$directories )
 		{
-			foreach( $directories as $k => $dir )
+			foreach( $directories as $k => &$dir )
 			{
 				if( !is_dir($dir) )
+				{
 					unset( $this->current_variation['directory'][$key][$k] );
+					continue;
+				}
+				$dir = vtt_clean_path( $dir );
 			}
 		}
 	}
