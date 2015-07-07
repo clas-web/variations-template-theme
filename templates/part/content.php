@@ -36,24 +36,8 @@ switch( $sidebar_count )
 ?>
 
 
-<div id="content-wrapper" class="<?php echo $class; ?> wrapper clearfix">
-	<div id="content" class="<?php echo $class; ?> clearfix">
-
-	<?php if( $sidebar_count > 0 ): ?>
-	
-	<div class="sidebar-controls">
-		
-		<?php if( $use_left_sidebar ): ?>
-			<div id="left-sidebar-button" class="left-sidebar button" controls="left-sidebar"></div>
-		<?php endif; ?>
-
-		<?php if( $use_right_sidebar ): ?>
-			<div id="right-sidebar-button" class="right-sidebar button" controls="right-sidebar"></div>
-		<?php endif; ?>
-		
-	</div>
-	
-	<?php endif; ?>
+<div id="content-wrapper" class="<?php echo $class; ?> wrapper">
+	<div id="content" class="<?php echo $class; ?>">
 
 	<?php
 	// content-type can be: single, listing, search, author, 404

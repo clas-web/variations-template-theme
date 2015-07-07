@@ -11,10 +11,8 @@ $header_menu = wp_nav_menu(
 );
 ?>
 
-<div id="header-menu-placeholder" class="clearfix">
-
 <div id="header-menu-wrapper" class="clearfix">
-	<div id="header-menu" class="clearfix">
+	<div id="header-menu">
 
 	<?php if( $vtt_mobile_support->use_mobile_site ): ?>
 		<h2 class="search">Search</h2>
@@ -35,19 +33,4 @@ $header_menu = wp_nav_menu(
 	</div><!-- #header-menu -->
 </div><!-- #header-menu-wrapper -->
 
-
-<div id="header-menu-icon-wrapper">
-	<div id="header-menu-icon">
-	
-	<?php if( $vtt_mobile_support->use_mobile_site ): ?>
-		<div id="header-menu-button"></div>
-		<div id="header-menu-button-search-menu">
-			SEARCH<?php if( strpos( $header_menu, '</li>' ) !== false ): ?> / MENU<?php endif; ?>
-		</div>
-	<?php endif; ?>
-
-	</div><!-- #header-menu-icon -->
-</div><!-- #header-menu-icon-wrapper -->
-
-</div><!-- #header-menu-placeholder -->
 

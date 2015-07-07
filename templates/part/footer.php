@@ -1,10 +1,9 @@
-
 <?php //vtt_print('PART: footer'); ?>
 <?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars; ?>
 
 
 <div id="footer-wrapper" class="clearfix">
-	<div id="footer" class="clearfix">
+	<div id="footer">
 
 <?php
 $widgets = wp_get_sidebars_widgets();
@@ -29,40 +28,65 @@ for( $i = 0; $i < 4; $i++ )
 $widget_area_class = trim($widget_area_class);
 ?>
 
-<div class="widget-area num-cols-<?php echo $footer_widgets_count ?> <?php echo $widget_area_class; ?> clearfix">
+<div class="widget-area num-cols-<?php echo $footer_widgets_count ?> <?php echo $widget_area_class; ?>">
+	<div class="widget-row">
+
 	<?php
+	if( $footer_widgets_count == 4 ):
+		?>
+		<div class="widget-row-grid">
+		<?php
+	endif;
+	
 	$i = 0;
 	foreach( $footer_widgets as $widget_area => $show_area ):
+		
 		if( $show_area ):
 			$widget_class = $widget_area;
 			if( $fw == $i ) $widget_class .= ' first-widget';
 			if( $lw == $i ) $widget_class .= ' last-widget';
 			$widget_class = trim($widget_class);
-			?><div class="widget-column <?php echo $widget_class; ?>"><?php
-			dynamic_sidebar( $widget_area );
-			?></div><?php
+			?>
+			
+			<div class="widget-column <?php echo $widget_class; ?>">
+			<div class="widgets-wrapper">
+			<?php dynamic_sidebar( $widget_area ); ?>
+			</div>
+			</div>
+
+			<?php
 		else:
-			?><div style="display:none;"><?php
-			dynamic_sidebar( $widget_area );
-			?></div><?php
+			?>
+			
+			<div style="display:none;">
+			<?php dynamic_sidebar( $widget_area ); ?>
+			</div>
+
+			<?php
 		endif;
+		
+		if( $footer_widgets_count == 4 && $i == 1 ):
+			?>
+
+			</div><div class="widget-row-grid">
+
+			<?php
+		endif;
+		
 		$i++;
-	endforeach; ?>
+	
+	endforeach;
+
+	if( $footer_widgets_count == 4 ):
+		?>
+		</div>
+		<?php
+	endif;
+	?>
+
+	</div>
 </div>
 
-<?php if( $vtt_mobile_support->is_mobile || $vtt_mobile_support->use_mobile_site ): ?>
-
-	<div class="mobile-links">
-
-	<?php if( $vtt_mobile_support->use_mobile_site ): ?>
-		<a href="<?php echo vtt_get_page_url(); ?>?full">Full Site</a> | Mobile Site
-	<?php else: ?>
-		Full Site | <a href="<?php echo vtt_get_page_url(); ?>?mobile">Mobile Site</a>
-	<?php endif; ?>
-	
-	</div> <!-- .mobile-links -->
-
-<?php endif; ?>
 		
 	</div><!-- #footer -->
 </div><!-- #footer-wrapper -->

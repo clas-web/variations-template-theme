@@ -11,9 +11,9 @@ $featured_image_position = $vtt_config->get_theme_value( 'featured-image-positio
 
 <h1><?php echo apply_filters( 'the_title', $post->post_title ); ?></h1>
 
-<div class="post clearfix">
+<div class="post">
 
-	<div class="details clearfix">
+	<div class="details">
 
 	<?php if( $post->post_type === 'post' ): ?>
 		<div class="entry-meta"><?php echo vtt_get_byline($post); ?></div><!-- .entry-meta -->

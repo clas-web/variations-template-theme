@@ -4,7 +4,7 @@
 <?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $wp_query; ?>
 
 
-<div class="author-info clearfix">
+<div class="author-info">
 
 	<?php echo get_avatar( get_the_author_meta('ID') ); ?>
 

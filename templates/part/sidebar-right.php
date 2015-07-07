@@ -6,12 +6,9 @@ $widgets = wp_get_sidebars_widgets();
 if( array_key_exists('vtt-right-sidebar', $widgets) && count($widgets['vtt-right-sidebar']) ):
 ?>
 
-	<div id="right-sidebar-wrapper" class="sidebar-wrapper clearfix">
-		<div id="right-sidebar" class="sidebar clearfix">
+	<div id="right-sidebar-wrapper" class="sidebar-wrapper">
+		<div id="right-sidebar" class="sidebar">
 	
-			<?php if( $vtt_mobile_support->use_mobile_site ): ?>
-				<h2>Right Sidebar</h2>
-			<?php endif; ?>
 			<?php dynamic_sidebar( 'vtt-right-sidebar' ); ?>
 	
 		</div><!-- #right-sidebar -->

@@ -6,81 +6,258 @@ Author:Crystal Barton
 Author URI:
 License:GNU General Public License v2 or later
 License URI:http://www.gnu.org/licenses/gpl-2.0.html
+Parent Variation:default
 */
 
 /****************************************************************************************
- * General
+ *  
+ * General Styles
+ * 
+ * Styles for default colors and sizes of common html tags.
+ * 
  ****************************************************************************************/
 
 	html, body {
 		background-color:#333;
 		color:#ccc;
 	}
-	
-	#site-inside-wrapper {
-		background-color:#444;
-	}
 
-	#content > h1,
-	#content h2.entry-title {
-		color:#eee;
-		border-bottom-color:#eee;
-	}
-	
 	a {
 		color:#ffc;
 	}
-	
-	input[type=text],
-	textarea {
-		background-color:#555;
-		color:#eee;
-		outline:none;
-	}
 
-	textarea {
-		border:solid 1px #ccc;
-	}
 
 /****************************************************************************************
- * Header
+ *  
+ * Layout and Basic Design Styles
+ * 
+ * Styles for the responsive design of the pages.
+ * 
  ****************************************************************************************/
-	
-	#title-box .name {
-		background-color:#000;
+
+	#site,
+	#responsive-menu {
+		background-color:#444;
+	}
+
+	#responsive-menu .close-menu-button {
+		color:#fff;
+		background-color:#333;
+		background-color:rgba(0,0,0,0.6);
+		border-color:#000;
+	}
+
+	#responsive-title {
+		background-color:#333;
 		background-color:rgba(0,0,0,0.6);
 		color:#fff;
+		text-shadow: #bbb 1px 1px 2px;
+		box-shadow:0em 0em 0.5em rgba(255,255,255,0.2);
+	}
+
+	#responsive-title .name {
+		color:#fff;
+	}
+
+	#responsive-title .name a {
+		color:#fff;
+	}
+
+
+/****************************************************************************************
+ * Tablet-sized device or larger.
+ ****************************************************************************************/
+
+@media (min-width: 48.000em) {
+
+	#title-box .name {
+		background-color:#333;
+		background-color:rgba(0,0,0,0.6);
+		color:#fff;
+		text-shadow: #444444 1px 1px 2px;
 	}
 	
 	#title-box .description {
-		background-color:#000;
+		background-color:#333;
 		background-color:rgba(0,0,0,0.6);
 		color:#fff;
 	}
+
+	#title-box .name a,
+	#title-box .description a {
+		color:#fff;
+	}
+}
+
+@media (max-width: 64.062em) {
+
+	#header-menu .header-navigation > ul  {
+		border-bottom:solid 1px #ccc;
+	}
+	 
+	#header-menu .header-navigation ul a {
+		color:#ccc;
+	}
 	
+	#header-menu .header-navigation ul a:hover {
+		color:#ffc;
+		background-color:#666;
+	}
+	
+	#header-menu .header-navigation ul li.current_page_item > a {
+		color:#ffc;
+		background-color:#555;
+	}
+	
+	#header-menu .header-navigation ul li.current_page_item,
+	#header-menu .header-navigation ul li.current_page_ancestor {
+		background-color:#505050;
+	}
+
+	#header-menu .header-navigation ul li.current_page_item > a:hover {
+		background-color:#666;
+	}
+
+	#header-menu .header-navigation ul a:before {
+		color:#999;
+	}
+}
+
+
 /****************************************************************************************
- * Widget - Search
+ * Desktop PC-sized device or larger.
  ****************************************************************************************/
 
-	.widget_search .searchform > div {
-		border-color:#ccc;
+@media (min-width: 64.063em) {
+
+	#site {
+		border:solid 1px #000;
+		box-shadow:0em 0em 1em rgba(255,255,255,0.5);
+	}
+
+	#header-menu a {
+		color:#ccc;
+	}
+
+	#header-menu ul ul {
+		background-color:#555;
+		border-color:#333;
+		border-top-color:#222;
+	}
+	
+	#header-menu ul > li:hover > a {
+		border-color:#333;
+		border-top-color:#222;
+	}
+	
+	#header-menu a:hover {
+		color:#ffc;
+	}
+
+	#header-menu li.current_page_item > a {
+		color:#ffc;
+	}
+
+	#header-menu ul > li.current_page_item > a,
+	#header-menu ul > li.current_page_parent > a,
+	#header-menu ul > li.current_page_ancestor > a {
+		background-color:#505050;
+		border-color:#333;
+		border-top-color:#222;
+	}
+	
+	#header-menu li.current_page_item ul.children > li:hover > a,
+	#header-menu li.current_page_parent ul.children > li:hover > a,
+	#header-menu li.current_page_ancestor ul.children > li:hover > a {
+		background-color:transparent;
+	}
+
+	#header-menu li:hover > a {
+		background-color:#666;
+	}
+	
+	#header-menu ul ul li:hover > a {
+		background-color:#666;
+	}
+	
+	#header-menu li.current_page_item:hover > a,
+	#header-menu li.current_page_parent:hover > a,
+	#header-menu li.current_page_ancestor:hover > a {
+		background-color:#666;
+	}
+
+	#header-menu li.current_page_item:hover ul.children > li:hover > a,
+	#header-menu li.current_page_parent:hover ul.children > li:hover > a,
+	#header-menu li.current_page_ancestor:hover ul.children > li:hover > a {
+		background-color:#666;
+	}
+}
+
+
+
+/****************************************************************************************
+ *  
+ * "Make It Pretty" Styles
+ * 
+ * Styles for the content and widget items that make it look more pretty.
+ * 
+ ****************************************************************************************/
+
+	.widget_pages ul a,
+	.widget_nav_menu ul a {
+		color:#ccc;
+		border-top:solid 1px #ccc;
+	}
+	
+	.widget_pages ul a:hover,
+	.widget_nav_menu ul a:hover {
+		color:#ffc;
+		background-color:#666;
+	}
+	
+	.widget_pages ul li.current_page_item > a,
+	.widget_nav_menu ul li.current-menu-item > a {
+		color:#ffc;
+		background-color:#505050;
+	}
+	
+	.widget_pages ul li.current_page_item,
+	.widget_pages ul li.current_page_ancestor,
+	.widget_nav_menu ul li.current-menu-item,
+	.widget_nav_menu ul li.current-menu-ancestor {
 		background-color:#555;
 	}
 
-	.widget_search .searchform input[type=text].unused {
+	.widget_pages ul li.current_page_item > a:hover {
+		background-color:#666;
+	}
+
+	.widget_pages ul a:before,
+	.widget_nav_menu ul a:before {
 		color:#999;
 	}
 
-	.widget_search .searchform input[type=submit] {
-		color:transparent;
-		background-color:#ccc;
+	.widget_search .searchform > div {
 		border-color:#ccc;
-		background-image:url('../../images/google-search-button-dark.png');
 	}
 	
+	.widget_search .searchform input[type=text].unused {
+		color:#999;
+	}
+	
+	.widget_search .searchform button {
+		background-color:#ccc;
+		color:transparent;
+		border:solid 1px #ccc;
+	}
+	
+	.widget_search .searchform button:before {
+		color:#555;
+	}
+
 	.widget_calendar thead th,
 	.widget_calendar tbody td {
-		border-color:#666;
+		border-color:666;
 		color:#fff;
 	}
 
@@ -92,25 +269,17 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		background-color:#393939;
 	}
 
-/****************************************************************************************
- * Main
- ****************************************************************************************/
-
 	#content blockquote,
 	.sidebar blockquote,
 	#footer blockquote {
 		border-top-color:#ccc;
-		border-bottom:#ccc;
+		border-bottom-color:#ccc;
 	}
-		
-/****************************************************************************************
- * Content
- ****************************************************************************************/
-
-	#content .sidebar-controls .button {
-		border-color:#ccc;
+	
+	#content > h1 {
+		border-bottom-color:#ccc;
 	}
-
+	
 	#content .entry-content,
 	#content .excerpt,
 	#content .description {
@@ -123,7 +292,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 	}
 
 	#content .entry-title a {
-		color:#eee;
+		color:#ccc;
 	}
 
 	#content .entry-title:hover {
@@ -142,10 +311,6 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		border-top-color:#333;
 	}
 	
-/****************************************************************************************
- * tables
- ****************************************************************************************/
-
 	#content table {
 		border-color:#333;
 	}
@@ -174,16 +339,6 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		border-bottom-color:#333;
 	}
 
-/****************************************************************************************
- * Sidebar
- ****************************************************************************************/
-
-	/* none */
-
-/****************************************************************************************
- * Widget - Pages, Menus, Categories
- ****************************************************************************************/
-
 	.widget {
 		color:#ccc;
 	}
@@ -193,68 +348,33 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		border-bottom-color:#eee;
 	}
 	
-	.widget_pages > ul,
-	.widget_nav_menu .menu  {
-		border-bottom-color:#ccc;
-	}
-	 
-	.widget_pages ul a,
-	.widget_nav_menu ul a {
-		color:#ccc;
-		border-top-color:#ccc;
-	}
-	
-	.widget_pages ul a:hover,
-	.widget_nav_menu ul a:hover {
-		color:#ffc;
-		background-color:#2a2a2a;
-	}
-	
-	.widget_pages ul li.current_page_item > a,
-	.widget_nav_menu ul li.current-menu-item > a {
-		color:#ffc;
-		background-color:#333;
-	}
-	
-	.widget_pages ul li.current_page_item,
-	.widget_pages ul li.current_page_ancestor,
-	.widget_nav_menu ul li.current-menu-item,
-	.widget_nav_menu ul li.current-menu-ancestor {
-		background-color:#333;
-	}
-
-	.widget_pages ul li.current_page_item > a:hover {
-		background-color:#2a2a2a;
-	}
-
-
-	/* Categories Widget */
-	
 	.widget_categories a {
-		color:#aaa;
+		color:#ccc;
 	}
 	
 	.widget_categories > ul > li.current-cat,
 	.widget_categories > ul > li.current-cat-parent,
 	.widget_categories > ul > li.current-cat-ancestor {
-		background-color:#333;
-		border-top-color:#333;
-		border-bottom-color:#333;
+		background-color:#505050;
+		border-top-color:#505050;
+		border-bottom-color:#505050;
 	}
 	
 	.widget_categories ul li.current-cat > a {
-		background-color:#333;
+		background-color:#555;
 		color:#ffc;
 	}
 	
 	.widget_categories ul li > a:hover {
-		background-color:#333;
+		background-color:#666;
 		color:#ffc;
 	}
 	
-/****************************************************************************************
- * Categories and Tags
- ****************************************************************************************/
+	.widget_categories select {
+		background-color:#ccc;
+		color:#333;
+		border:solid 1px #333;
+	}
 
 	.taxonomy-list a {
 		border-color:#333;
@@ -265,31 +385,18 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 	}
 
 	.category-list a {
-		background-color:#222;
+		background-color:#555;
 	}
 
 	.post_tag-list a {
-		background-color:#111;
+		background-color:#555;
 	}
 
-/****************************************************************************************
- * Pagination
- ****************************************************************************************/
 	.nav-next,
 	.nav-prev {
 		border-top-color:#333;
 	}
 
-/****************************************************************************************
- * Footer
- ****************************************************************************************/
-
-	/* none */
-	
-/****************************************************************************************
- * Contact Form
- ****************************************************************************************/
-	
 	.contact-form label span {
 		color:#888;
 	}
@@ -302,4 +409,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		border-color:#999;
 	}
 	
+	#content .wp-caption-text {
+		color:#666;
+	}
 

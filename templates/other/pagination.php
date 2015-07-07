@@ -5,7 +5,7 @@
 if( $wp_query->max_num_pages > 1 ):
 
 	?>
-	<div id="page-navigation" class="clearfix" role="navigation">
+	<div id="page-navigation" role="navigation">
 		<div class="nav-next">
 			<?php next_posts_link( '&laquo; Older Posts' ); ?>
 		</div>
