@@ -488,7 +488,7 @@ class VTT_Config
 	{
 		if( $name === '' )
 		{
-			$vnames = array_keys($this->all_variations);
+			$vnames = array_keys( $this->all_variations );
 			if( count($this->all_variations) > 0 )
 				$name = $this->all_variations[$vnames[0]]['name'];
 			else
@@ -502,6 +502,14 @@ class VTT_Config
 		}
 		
 		return $name;
+	}
+
+
+	public function get_variation_info( $variation_name )
+	{
+		if( array_key_exists($variation_name, $this->all_variations) )
+			return $this->all_variations[$variation_name];
+		return null;
 	}
 	
 	
@@ -544,7 +552,7 @@ class VTT_Config
 				}
 			}
 		}
-		
+
 		if( $filter_variations && array_key_exists('variations', $this->config) )
 		{
 			$allowed_variations = $this->config['variations'];
@@ -761,6 +769,17 @@ class VTT_Config
 	{
 		return $this->get_variation_directories( 'theme', $reverse );
 	}
+
+
+	/**
+	 * 
+	 */
+	public function get_search_directories( $reverse = true )
+	{
+		if( $reverse )
+			return array_reverse( $this->search_directories );
+		return $this->search_directories;
+	}
 	
 	
 	/**
@@ -809,9 +828,23 @@ class VTT_Config
 		if( isset($this->current_variation['directory']) ) return;
 		
 		$vname = array();
-		if( !empty($this->current_variation['parent']) )
-			$vname[] = $this->current_variation['parent'];
 		$vname[] = $this->current_variation['name'];
+		
+		$parent = $this->current_variation['parent'];
+		while( !empty($parent) )
+		{
+			$parent_variation = $this->get_variation_info( $parent );
+			if( !$parent_variation )
+			{
+				$parent = null;
+				break;
+			}
+
+			$vname[] = $parent;
+			$parent = $parent_variation['parent'];
+		}
+
+		$vname = array_reverse($vname);
 		
 		$directory = array();
 		

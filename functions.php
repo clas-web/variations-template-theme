@@ -574,6 +574,7 @@ function vtt_path_to_url( $path )
 	}
 	
 	$upload = wp_upload_dir();
+	$upload['basdir'] = vtt_clean_path( $upload['basedir'] );
 	if( strpos($path, $upload['basedir']) !== false )
 	{
 		return str_replace( $upload['basedir'], vtt_convert_url($upload['baseurl']), $path );
@@ -630,33 +631,38 @@ endif;
  * @return				string|null	The absolute path to the file in the theme.
  */
 if( !function_exists('vtt_get_theme_file_path') ):
-function vtt_get_theme_file_path( $filepath, $search_type = 'both', $return_null = true )
+function vtt_get_theme_file_path( $filepath, $search_type = 'all', $return_null = true )
 {
 	global $vtt_config;
 	
 	if( (strlen($filepath) > 0) && ($filepath[0] === '/') ) $filepath = substr( $filepath, 1 );
 	
-	if( $search_type === 'both' || $search_type === 'variation' ):
-	
-	$directories = $vtt_config->get_variation_all_directories( true );
-	foreach( $directories as $directory )
+	$directories = array();
+	switch( $search_type )
 	{
-		if( file_exists($directory.'/'.$filepath) )
-			return $directory.'/'.$filepath;
-	}
-	
-	endif;
-	
-	if( $search_type === 'both' || $search_type === 'theme' ):
-	
-	$directories = $vtt_config->get_theme_directories( true );
-	foreach( $directories as $directory )
-	{
-		if( file_exists($directory.'/'.$filepath) )
-			return $directory.'/'.$filepath;
+		case 'variation':
+			$directories = $vtt_config->get_variation_all_directories( true );
+			break;
+		case 'theme':
+			$directories = $vtt_config->get_theme_directories( true );
+			break;
+		case 'search':
+			$directories = $vtt_config->get_search_directories( true );
+			break;
+		case 'all':
+		case 'both':
+			$directories = $vtt_config->get_all_directories( true );
+			break;
+		default:
+			$directories = array();
+			break;
 	}
 
-	endif;
+	foreach( $directories as $directory )
+	{
+		if( file_exists($directory.'/'.$filepath) )
+			return $directory.'/'.$filepath;
+	}
 		
 	if( $return_null ) return null;
 	return '';
