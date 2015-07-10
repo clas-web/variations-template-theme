@@ -1,5 +1,3 @@
-
-
 <?php //vtt_print('PART: header'); ?>
 <?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $post; ?>
 <?php
@@ -96,7 +94,8 @@ if( $header_url && strpos($position, 'vabove') === false )
 
 <div id="responsive-title" clas="clearfix" style="<?php echo $text_style; ?>">
 <div class="relative-wrapper">
-<div class="title">
+
+<div class="title"><div><div>
 <?php
 if( !empty($title) ):
 	$html = '<div class="name" style="'.$text_color.'">'.$title.'</div>';
@@ -107,9 +106,10 @@ if( !empty($title) ):
 	endif;
 endif;
 ?>
-</div>
-</div>
-</div>
+</div></div></div><?php // .title ?>
+
+</div><?php // .relative-wrapper ?>
+</div><?php // #responsive-title ?>
 
 <div id="header-wrapper" class="<?php echo $responsive_overlap; ?> clearfix">
 

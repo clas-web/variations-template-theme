@@ -176,10 +176,12 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 	html #wpadminbar {
 		height:46px;
 		position:fixed;
+		z-index:3;
+		max-width:100%;
 	}
 
 	#site-wrapper {
-		z-index:3;
+		z-index:5;
 		position:absolute;
 		top:0;
 		left:0;
@@ -187,8 +189,8 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		min-height:100%;
 	}
 
-	#wpadminbar #wp-admin-bar-log-in {
-		float:right;
+	#wp-toolbar > ul > li {
+		display:inline-block;
 	}
 
 	#site,
@@ -205,22 +207,53 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 	
 	#responsive-menu {
 		padding:1em;
-		padding-top:64px;
+		padding-top:76px;
+		padding-top:1em;
+	}
+
+	#wp-admin-bar-login-link {
+		margin-right:1em !important;
+	}
+	
+	#wp-admin-bar-close-menu-button .ab-item {
+		height:46px !important;
+		width:46px !important;
+		line-height:46px !important;
+		font-size:26px !important;
+		text-align:center;
+		vertical-align:middle;
+	}
+
+	#wp-admin-bar-close-menu-button .ab-item:before {
+		height:46px !important;
+		width:46px !important;
+		line-height:46px !important;
+		font-size:26px !important;
+		text-align:center;
+		vertical-align:middle;
+		-webkit-font-smoothing:antialiased;
+		-moz-osx-font-smoothing:grayscale;
+		font-family:'vtt' !important;
+		content: "\f00d";
 	}
 
 	#responsive-menu .close-menu-button {
 		position:fixed;
-		top:20px;
-		right:20px;
+		top:16px;
+		right:13px;
 		color:#333;
-		border:solid 3px #999;
+		border:solid 3px #fff;
 		background-color:#eee;
-		background-color:rgba(128,128,128,0.5);
 		z-index:2;
+		display:none;
+	}
+
+	#responsive-menu .close-menu-button:hover {
+		background-color:#ccc;
 	}
 
 	body.admin-bar #responsive-menu .close-menu-button {
-		top:66px;
+		top:62px;
 	}
 
 	#responsive-menu .close-menu-button:before {
@@ -228,7 +261,6 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 	}
 
 	#responsive-title {
-		background-color:#fff;
 		position:fixed;
 		top:0;
 		width:100%;
@@ -240,31 +272,52 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		background-color:rgba(0,0,0,0.6);
 		color:#fff;
 		text-shadow: #444444 1px 1px 2px;
-		line-height:50px;
 	}
 
+/*	
 	body.admin-bar #responsive-title {
 		top:46px;
 	}
-
+*/
 	#responsive-title .relative-wrapper {
 		position:relative;
 		height:100%;
 	}
 
-	#responsive-title .name {
+	#responsive-title .title {
+		display:table;
 		position:absolute;
 		top:0;
 		bottom:0;
 		left:0;
-		display:inline-block;
-		color:#fff;
+		right:0;
 		margin-left:10px;
-		font-size:1.5em;
+		margin-right:54px;
+		height:100%;
+	}
+
+	#responsive-title .title > div {
+		display:table-row;
+		height:100%;
+	}
+
+	#responsive-title .title > div > div {
+		display:table-cell;
+		vertical-align:middle;
+	}
+
+	#responsive-title .name {
+		color:#fff;
+		font-size:1.2em;
+		height:100%;
 	}
 
 	#responsive-title .name a {
 		color:#fff;
+	}
+
+	#responsive-title .name a:hover {
+		text-decoration:none;
 	}
 
 	#responsive-title .menu-button {
@@ -286,6 +339,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		margin-top:0px;
 	}
 
+/*
 	body.admin-bar #header-wrapper {
 		margin-top:96px;
 	}
@@ -293,6 +347,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 	body.admin-bar #header-wrapper.responsive-overlap {
 		margin-top:46px;
 	}
+*/
 
 	#header .masthead {
 		background-repeat:no-repeat;
@@ -335,6 +390,11 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 
 	html #wpadminbar {
 		height:32px;
+		z-index:999;
+	}
+
+	#wp-admin-bar-close-menu-button {
+		display:none !important;
 	}
 
 	#responsive-menu,
@@ -543,7 +603,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 	#header-menu .header-navigation > ul  {
 		border-bottom:solid 1px #ccc;
 		margin:0em;
-		margin:1em 0em;
+		margin-bottom:1em;
 	}
 	 
 	#header-menu .header-navigation ul a {
@@ -1502,17 +1562,20 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		white-space:nowrap;
 	}
 
+	#page-navigation {
+		border-top:solid 1px #ccc;
+		margin-top:2em;
+	}
+
 	.nav-next,
 	.nav-prev {
-		margin-top:4em;
+		padding:0;
 		padding-top:1em;
-		border-top:solid 1px #ccc;
-		clear:none;
 		width:50%;
+		display:inline-block;
 	}
 
 	.nav-next {
-		float:left;
 		text-align:left;
 	}
 

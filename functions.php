@@ -69,7 +69,8 @@ if( defined( 'DOING_AJAX' ) && DOING_AJAX )
 
 // Admin Bar
 add_filter( 'show_admin_bar', 'vtt_show_admin_bar', 10 );
-add_action( 'admin_bar_menu', 'vtt_setup_admin_bar' );
+add_action( 'admin_bar_menu', 'vtt_add_responsive_close_button', 1 );
+add_action( 'admin_bar_menu', 'vtt_add_login', 10 );
 
 // Theme setup
 add_action( 'after_setup_theme', 'vtt_theme_setup', 5 );
@@ -268,14 +269,35 @@ endif;
 /**
  * 
  */
-if( !function_exists('vtt_setup_admin_bar') ):
-function vtt_setup_admin_bar( $wp_admin_bar )
+if( !function_exists('vtt_add_responsive_close_button') ):
+function vtt_add_responsive_close_button( $wp_admin_bar )
+{
+	$wp_admin_bar->add_menu(
+		array(
+			'id'	=> 'close-menu-button',
+			'href'	=> '#',
+			'meta'	=> array(
+				'class'	=> 'icon-button',
+			),
+			'parent' => 'top-secondary',
+		)
+	);
+}
+endif;
+
+if( !function_exists('vtt_add_login')):
+function vtt_add_login( $wp_admin_bar )
 {
 	if( !is_user_logged_in() ):
 		$wp_admin_bar->add_menu(
 			array(
-				'title' => __( 'Log In' ),
-				'href' => wp_login_url()
+				'id'	=> 'login-link',
+				'title'	=> __( 'Log In' ),
+				'href'	=> wp_login_url(),
+				'meta'	=> array(
+					'title' => 'Log In',
+				),
+				'parent' => 'top-secondary',
 			)
 		);
 	endif;

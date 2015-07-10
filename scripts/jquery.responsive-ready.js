@@ -22,9 +22,11 @@
 				});
 			return false;
 		});
-		
-		jQuery('#responsive-menu').prepend( '<div class="close-menu-button icon-button"></div>' );
-		jQuery('#responsive-menu .close-menu-button').click( function()
+
+		// adding close button to admin bar.
+		//jQuery('#responsive-menu').prepend( '<div class="close-menu-button icon-button"></div>' );
+		//jQuery('#responsive-menu .close-menu-button').click( function()
+		jQuery('#wp-admin-bar-close-menu-button').click( function()
 		{
 			jQuery('#site-wrapper').removeClass('hide');
 			jQuery('#site-wrapper')
