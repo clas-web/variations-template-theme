@@ -4,18 +4,7 @@
 
 <!DOCTYPE html>
 
-<!--[if lt IE 7 ]>
-	<html class="ie6 old-ie no-js" <?php language_attributes(); ?>>
-<![endif]-->
-<!--[if IE 7 ]>
-	<html class="ie7 old-ie no-js" <?php language_attributes(); ?>>
-<![endif]-->
-<!--[if IE 8 ]>
-	<html class="ie8 old-ie no-js" <?php language_attributes(); ?>>
-<![endif]-->
-<!--[if (gte IE 9)|!(IE)]>
-	<html class="new-browser no-js" <?php language_attributes(); ?>>
-<!--<![endif]-->
+<html class="no-js" <?php language_attributes(); ?>>
 
 <head>
 
@@ -26,14 +15,13 @@
 	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 	<link rel="shortcut icon" href="<?php echo vtt_get_theme_file_url('images/favicon.ico', 'all', false); ?>" />
 	
-	<?php if( $vtt_mobile_support->is_mobile ): ?>
-		<meta name="viewport" content="user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
-	<?php endif; ?>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
 	
 	<?php wp_head(); ?>
 
 	<script type="text/javascript">
-		jQuery('html').removeClass('no-js');
+		var htmlTag = document.getElementsByTagName('html');
+		htmlTag[0].className = htmlTag[0].className.replace( 'no-js', '' );
 		var is_mobile = <?php echo ($vtt_mobile_support->is_mobile) ? 'true' : 'false'; ?>;
 		var use_mobile_site = <?php echo ($vtt_mobile_support->use_mobile_site) ? 'true' : 'false'; ?>;
 	</script>
