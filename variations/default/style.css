@@ -192,6 +192,10 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 	#wp-toolbar > ul > li {
 		display:inline-block;
 	}
+	
+	#wp-admin-bar-login-link a.ab-item {
+		color:#ccc;
+	}
 
 	#site,
 	#responsive-menu {
