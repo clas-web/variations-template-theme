@@ -39,6 +39,7 @@ class VTT_Config
 	// current variation that is loaded
 	private $current_variation;
 	private $all_variations;
+	private $filtered_variations;
 	
 
 //========================================================================================
@@ -74,6 +75,7 @@ class VTT_Config
 		$this->options = array();
 		
 		$this->all_variations = array();
+		$this->filtered_variations = array();
 		$this->current_variation = null;
 		
 		$config_ini = array();
@@ -104,7 +106,8 @@ class VTT_Config
 		
 		ksort( $this->search_directories );
 
-		$this->all_variations = $this->get_variations();
+		$this->get_all_variations();
+		$this->get_filtered_variations();
 		$variation = $this->get_current_variation();
 		$this->current_variation = $this->all_variations[$variation];
 		$variation_directories = $this->get_variation_all_directories();
@@ -456,11 +459,11 @@ class VTT_Config
 		$variation = get_option( 'vtt-variation', false );
 		if( $variation === false ) return $this->set_variation();
 		
-		if( array_key_exists($variation, $this->all_variations) ) return $variation;
+		if( array_key_exists($variation, $this->filtered_variations) ) return $variation;
 		
-		$vnames = array_keys($this->all_variations);
-		if( count($this->all_variations) > 0 )
-			return $this->all_variations[$vnames[0]]['name'];
+		$vnames = array_keys($this->filtered_variations);
+		if( count($this->filtered_variations) > 0 )
+			return $this->filtered_variations[$vnames[0]]['name'];
 		return 'default';
 	}
 	
@@ -488,9 +491,9 @@ class VTT_Config
 	{
 		if( $name === '' )
 		{
-			$vnames = array_keys( $this->all_variations );
-			if( count($this->all_variations) > 0 )
-				$name = $this->all_variations[$vnames[0]]['name'];
+			$vnames = array_keys( $this->filtered_variations );
+			if( count($this->filtered_variations) > 0 )
+				$name = $this->filtered_variations[$vnames[0]]['name'];
 			else
 				$name = 'default';
 		}
@@ -515,12 +518,12 @@ class VTT_Config
 	
 	/**
 	 * Gets a list of all variations.
-	 * @param   bool   $filter_variations  True if variations should be limited to those
-	 *                                     allowed by the current config.
 	 * @return  array  An array of variations with name, title, and directory information.
 	 */
-	public function get_variations( $filter_variations = true )
+	public function get_all_variations()
 	{
+		if( !empty($this->all_variations) ) return $this->all_variations;
+
 		$variation_directories = $this->get_all_variation_directories();
 		
 		$variations = array();
@@ -553,16 +556,29 @@ class VTT_Config
 			}
 		}
 
-		if( $filter_variations && array_key_exists('variations', $this->config) )
+		$this->all_variations = $variations;
+		return $variations;
+	}
+
+	
+	/**
+	 * @return  array  An array of variations with name, title, and directory information.
+	 */
+	public function get_filtered_variations()
+	{
+		if( !empty($this->filtered_variations) ) return $this->filtered_variations;
+
+		if( empty($this->all_variations) ) $this->get_all_variations();
+
+		$variations = array();
+		$allowed_variations = $this->config['variations'];
+		foreach( $this->all_variations as $variation_key => $variation )
 		{
-			$allowed_variations = $this->config['variations'];
-			foreach( array_keys($variations) as $variation_key )
-			{
-				if( !in_array($variation_key, $allowed_variations) )
-					unset( $variations[$variation_key] );
-			}
+			if( in_array($variation_key, $allowed_variations) )
+				$variations[$variation_key] = $variation;
 		}
-		
+
+		$this->filtered_variations = $variations;
 		return $variations;
 	}
 	
@@ -829,7 +845,7 @@ class VTT_Config
 		
 		$vname = array();
 		$vname[] = $this->current_variation['name'];
-		
+
 		$parent = $this->current_variation['parent'];
 		while( !empty($parent) )
 		{
@@ -919,7 +935,7 @@ class VTT_Config
 	{
 		$names = array();
 		
-		foreach( $this->all_variations as $name => $variation )
+		foreach( $this->filtered_variations as $name => $variation )
 		{
 			$names[$name] = $variation['title'];
 		}
