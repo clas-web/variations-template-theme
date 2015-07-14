@@ -4,9 +4,10 @@
 <?php
 $header_menu = wp_nav_menu( 
 	array(
-		'menu_class' => 'header-navigation',
-		'theme_location' => 'header-navigation',
-		'echo' => false,
+		'container'       => 'div',
+		'container_class' => 'header-navigation',
+		'theme_location'  => 'header-navigation',
+		'echo'            => false,
 	)
 );
 ?>
