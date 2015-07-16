@@ -12,14 +12,12 @@ $header_menu = wp_nav_menu(
 );
 ?>
 
+<?php if( strpos( $header_menu, '</li>' ) !== false ): ?>
 <div id="header-menu-wrapper" class="clearfix">
 	<div id="header-menu">
-
-	<?php if( strpos( $header_menu, '</li>' ) !== false ): ?>
-		<?php echo $header_menu; ?>
-	<?php endif; ?>
-
+	<?php echo $header_menu; ?>
 	</div><!-- #header-menu -->
 </div><!-- #header-menu-wrapper -->
+<?php endif; ?>
 
 
