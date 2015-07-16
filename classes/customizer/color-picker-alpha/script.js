@@ -61,11 +61,20 @@ jQuery(document).ready( function($) {
 		$control.wpColorPicker( { // change some things with the color picker
 			clear: function(event, ui) {
 				// TODO reset Alpha Slider to 100
+				var key = $control.attr('data-customize-setting-link');
+				wp.customize(key, function(obj) {
+					obj.set('');
+				});
 			},
 			change: function(event, ui) {
 			
+				var blue  = ui.color._color & 255;
+				var green = (ui.color._color >> 8) & 255;
+				var red   = (ui.color._color >> 16) & 255;
+				
 				// send ajax request to wp.customizer to enable Save & Publish button
-				var _new_value = $control.val();
+				// var _new_value = $control.val();
+				var _new_value = 'rgba('+red+','+green+','+blue+','+ui.color._alpha+')';
 				var key = $control.attr('data-customize-setting-link');
 			
 				wp.customize(key, function(obj) {
@@ -98,7 +107,7 @@ jQuery(document).ready( function($) {
 			slide: function(event, ui) {
 			
 				$(this).find('.ui-slider-handle').text(ui.value); // show value on slider handle
-			
+
 				// send ajax request to wp.customizer to enable Save & Publish button
 				var _new_value = $control.val();
 				var key = $control.attr('data-customize-setting-link');
