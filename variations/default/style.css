@@ -976,6 +976,18 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
  * 
  ****************************************************************************************/
 
+	#content .page-title .listing-name {
+		color:#666;
+	}
+
+	#content .page-title h1 {
+		margin-top:0.2em;
+	}
+	
+	#content .page-title {
+		margin-top:1em;
+	}
+	
 	.widget_pages h2.widget-title,
 	.widget_nav_menu h2.widget-title {
 		margin-bottom:0;

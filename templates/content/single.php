@@ -7,9 +7,11 @@ $featured_image_position = $vtt_config->get_theme_value( 'featured-image-positio
 ?>
 
 
+<div class="page-title">
 <div class="breadcrumbs"><?php echo vtt_get_breadcrumbs( $post ); ?></div>
 
 <h1><?php echo apply_filters( 'the_title', $post->post_title ); ?></h1>
+</div>
 
 <div class="post">
 

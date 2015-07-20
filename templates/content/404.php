@@ -4,7 +4,9 @@
 <?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $wp_query; ?>
 
 
+<div class="page-title">
 <h1>Entry not found.</h1>
+</div>
 
 <div class="not-found">
 
