@@ -634,7 +634,9 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		padding:0.6em 1em;
 		display:block;
 		border-top:solid 1px #ccc;
-	}
+ 		text-indent:-1em;
+ 		padding-left:1.5em;
+  	}
 	
 	#header-menu .header-navigation ul a:hover,
 	#header-menu .menu ul a:hover {
@@ -1019,7 +1021,9 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		padding:0.6em 1em;
 		display:block;
 		border-top:solid 1px #ccc;
-	}
+ 		text-indent:-1em;
+ 		padding-left:1.5em;
+  	}
 	
 	.widget_pages ul a:hover,
 	.widget_nav_menu ul a:hover {
