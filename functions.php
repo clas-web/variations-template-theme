@@ -457,23 +457,8 @@ endif;
 if( !function_exists('vtt_get_header_image') ):
 function vtt_get_header_image()
 {
-	$header_path = '';
-	
-	if( $header_url = get_header_image() )
-	{
-		$header_path = vtt_url_to_path( $header_url );
-	}
-
-	if( !$header_path )
-	{
-		$header_url = '';
-		$header_width = 0;
-		$header_height = 0;
-	}
-	else
-	{
-		list( $header_width, $header_height ) = getimagesize( $header_path );
-	}
+	$header_url = get_header_image();
+	list( $header_width, $header_height ) = @getimagesize( $header_url );
 	
 	return array(
 		'url' 		=> $header_url,
