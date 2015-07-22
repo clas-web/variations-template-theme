@@ -23,12 +23,6 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		font-size:0.95em;
 	}
 
-@media (min-resolution:2dppx), (min-resolution:192dpi), (min-device-pixel-ration:2) {
-	html, body {
-		font-size:2em;
-	}
-}
-
 	h1, h2, h3, h4, h5, h6 {
 		margin:0; padding:0;
 		font-family:Helvetica, Arial, sanserif;
@@ -180,7 +174,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		max-width:100%;
 	}
 
-	#site-wrapper {
+	#site-outer-wrapper {
 		z-index:5;
 		position:absolute;
 		top:0;
@@ -197,7 +191,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		color:#ccc;
 	}
 
-	#site,
+	#site-inner-wrapper,
 	#responsive-menu {
 		background-color:#fff;
 	}
@@ -445,7 +439,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		margin-top:32px;
 	}
 
-	#site, #header, #main, #footer {
+	#site-inner-wrapper, #header, #main, #footer {
 		max-width:950px;
 		margin:0 auto;
 	}
@@ -741,7 +735,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 
 @media (min-width: 64.063em) {
 
-	#site {
+	#site-inner-wrapper {
 		border:solid 1px #ccc;
 		margin-top:20px;
 		margin-bottom:20px;

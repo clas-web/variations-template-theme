@@ -35,7 +35,7 @@ Parent Variation:default
  * 
  ****************************************************************************************/
 
-	#site,
+	#site-inner-wrapper,
 	#responsive-menu {
 		background-color:#444;
 	}
@@ -130,7 +130,7 @@ Parent Variation:default
 
 @media (min-width: 64.063em) {
 
-	#site {
+	#site-inner-wrapper {
 		border:solid 1px #000;
 		box-shadow:0em 0em 1em rgba(255,255,255,0.5);
 	}
