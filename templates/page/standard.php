@@ -36,8 +36,8 @@
 
 <div id="responsive-menu" class="hide"></div><!-- #responsive-menu -->
 
-<div id="site-outer-wrapper" class="clearfix">
-<div id="site-inner-wrapper" class="clearfix">
+<div id="site-outside-wrapper" class="clearfix">
+<div id="site-inside-wrapper" class="clearfix">
 
 	<?php
 	vtt_get_template_part( 'header', 'part', vtt_get_queried_object_type() );

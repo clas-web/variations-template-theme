@@ -174,7 +174,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		max-width:100%;
 	}
 
-	#site-outer-wrapper {
+	#site-outside-wrapper {
 		z-index:5;
 		position:absolute;
 		top:0;
@@ -191,7 +191,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		color:#ccc;
 	}
 
-	#site-inner-wrapper,
+	#site-inside-wrapper,
 	#responsive-menu {
 		background-color:#fff;
 	}
@@ -435,11 +435,11 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		margin-top:0px;
 	}
 	
-	body.admin-bar #site-wrapper {
+	body.admin-bar #site-outside-wrapper {
 		margin-top:32px;
 	}
 
-	#site-inner-wrapper, #header, #main, #footer {
+	#site-inside-wrapper, #header, #main, #footer {
 		max-width:950px;
 		margin:0 auto;
 	}
@@ -735,7 +735,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 
 @media (min-width: 64.063em) {
 
-	#site-inner-wrapper {
+	#site-inside-wrapper {
 		border:solid 1px #ccc;
 		margin-top:20px;
 		margin-bottom:20px;
