@@ -12,13 +12,13 @@
 			window_scroll_position = jQuery(window).scrollTop();
 			jQuery('#responsive-menu').removeClass('hide');
 			jQuery(window).scrollTop(0);
-			jQuery('#site-wrapper')
+			jQuery('#site-outside-wrapper')
 				.animate({
 					'left':'100%'
 				},
 				'fast',
 				function() {
-					jQuery('#site-wrapper').addClass('hide');
+					jQuery('#site-outside-wrapper').addClass('hide');
 				});
 			return false;
 		});
@@ -28,8 +28,8 @@
 		//jQuery('#responsive-menu .close-menu-button').click( function()
 		jQuery('#wp-admin-bar-close-menu-button').click( function()
 		{
-			jQuery('#site-wrapper').removeClass('hide');
-			jQuery('#site-wrapper')
+			jQuery('#site-outside-wrapper').removeClass('hide');
+			jQuery('#site-outside-wrapper')
 				.animate({
 					'left':'0'
 				},
