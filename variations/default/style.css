@@ -198,7 +198,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 
 	#full-menu.hide,
 	#full-title,
-	#site-wrapper.hide,
+	#site-outside-wrapper.hide,
 	#responsive-menu.hide {
 		display:none;
 	}
@@ -408,7 +408,7 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		display:block;
 	}
 
-	#site-wrapper.hide {
+	#site-outside-wrapper.hide {
 		display:block;
 		left:0 !important;
 	}
@@ -1264,8 +1264,9 @@ License URI:http://www.gnu.org/licenses/gpl-2.0.html
 		margin-top: 10px;
 	}
 	
-	#content > h1 {
+	#content .page-title h1 {
 		border-bottom:solid 1px #ccc;
+		margin-bottom:1em;
 	}
 	
 	#content .entry-content h3 {

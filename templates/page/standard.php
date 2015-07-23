@@ -45,8 +45,8 @@
 	vtt_get_template_part( 'footer', 'part', vtt_get_queried_object_type() );
 	?>
 
-</div> <!-- #site -->
-</div> <!-- #site-wrapper -->
+</div> <!-- #site-inside-wrapper -->
+</div> <!-- #site-outside-wrapper -->
 
 <?php wp_footer(); ?>
 
