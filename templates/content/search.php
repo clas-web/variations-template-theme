@@ -13,12 +13,15 @@ if( have_posts() ):
 	
 else:
 
+	?>
 	<div class="page-title">
+
 	<?php if( isset($vtt_template_vars['listing-name']) ): ?>
 		<div class="listing-name"><?php echo $vtt_template_vars['listing-name']; ?></div>
 	<?php endif; ?>
 	
 	<h1><?php echo $vtt_template_vars['page-title']; ?></h1>
+	
 	</div>
 	
 	<?php if( isset($vtt_template_vars['description']) ): ?>
