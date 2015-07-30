@@ -1,66 +1,76 @@
 /**
- * Original code found here:
- * http://pluto.kiwi.nz/2014/07/how-to-add-a-color-control-with-alphaopacity-to-the-wordpress-theme-customizer/
+ * jQuery script for the Theme Customizer color with alpha control.
  *
- * Cleaned up by Crystal Barton.
+ * @package    variations-template-theme
+ * @author     Pluto <steven@plutomedia.co.nz>
+ * @author     Crystal Barton <atrus1701@gmail.com>
+ * @link       http://pluto.kiwi.nz/2014/07/how-to-add-a-color-control-with-alphaopacity-to-the-wordpress-theme-customizer/
+ * @version    1.1
  */
-
-jQuery(document).ready( function($) {
- 	
- 	
- 	
-	Color.prototype.toString = function( remove_alpha ) {
-		if (remove_alpha == 'no-alpha')
+jQuery(document).ready( function($)
+{
+	/**
+	 * Override the default toString function of Color, which gets the CSS value of the color.
+	 * @param  bool  remove_alpha  True if alpha value should be removed, otherwise False.
+	 * @return  string  The modified CSS color.
+	 */
+	Color.prototype.toString = function(remove_alpha) {
+		
+		if( remove_alpha == 'no-alpha' )
 		{
 			return this.toCSS('rgba', '1').replace(/\s+/g, '');
 		}
 		
-		if (this._alpha < 1)
+		if( this._alpha < 1 )
 		{
 			return this.toCSS('rgba', this._alpha).replace(/\s+/g, '');
 		}
 		
 		var hex = parseInt(this._color, 10).toString(16);
+		
 		if (this.error) return '';
 		
-		if (hex.length < 6)
+		if( hex.length < 6 )
 		{
-			for (var i = 6 - hex.length - 1; i >= 0; i--)
+			for( var i = 6 - hex.length - 1; i >= 0; i-- )
 			{
 				hex = '0' + hex;
 			}
 		}
+		
 		return '#' + hex;
 	};
- 	
- 	
- 	
- 	
- 	
+	
+	
+	/**
+	 * Apply jQuery plugin to each pluto-color-control.
+	 */
 	$('.pluto-color-control').each( function() {
 		
 		var $control = $(this),
 			value = $control.val().replace(/\s+/g, '');
-	
+		
+
 		// Manage Palettes
 		var palette_input = $control.attr('data-palette');
-	
-		if (palette_input == 'false' || palette_input == false)
+		
+		var palette = null;
+		switch( palette_input )
 		{
-			var palette = false;
+			case 'false': case false: palette = false; break;
+			case 'true': case true: palette = true; break;
+			default: palette = $control.attr('data-palette').split(","); break;
 		}
-		else if (palette_input == 'true' || palette_input == true)
-		{
-			var palette = true;
-		}
-		else
-		{
-			var palette = $control.attr('data-palette').split(",");
-		}
-	
-		$control.wpColorPicker( { // change some things with the color picker
+		
+
+		// Modify the existing wpColorPicker.
+		$control.wpColorPicker({ 
+
 			clear: function(event, ui) {
 				// TODO reset Alpha Slider to 100
+
+				// Added by Crystal Barton.
+				// Fixes the theme customizer not detecting a change when Clear is clicked.
 				var key = $control.attr('data-customize-setting-link');
 				wp.customize(key, function(obj) {
 					obj.set('');
@@ -68,14 +78,16 @@ jQuery(document).ready( function($) {
 			},
 			change: function(event, ui) {
 			
+				// send ajax request to wp.customizer to enable Save & Publish button
+				// var _new_value = $control.val();
+				var key = $control.attr('data-customize-setting-link');
+
+				// Added by Crystal Barton.
+				// Fixes the color preview being a selection behind.
 				var blue  = ui.color._color & 255;
 				var green = (ui.color._color >> 8) & 255;
 				var red   = (ui.color._color >> 16) & 255;
-				
-				// send ajax request to wp.customizer to enable Save & Publish button
-				// var _new_value = $control.val();
 				var _new_value = 'rgba('+red+','+green+','+blue+','+ui.color._alpha+')';
-				var key = $control.attr('data-customize-setting-link');
 			
 				wp.customize(key, function(obj) {
 					obj.set(_new_value);
@@ -87,26 +99,37 @@ jQuery(document).ready( function($) {
 				// we only want to show the color at 100% alpha
 				$transparency.css('backgroundColor', ui.color.toString('no-alpha'));
 			},
-		
-			palettes: palette // remove the color palettes
+			
+			// Remove the color palettes
+			palettes: palette
 		});
-	
+		
+
+		// Create alpha-slider container.
 		$('<div class="pluto-alpha-container"><div class="slider-alpha"></div><div class="transparency"></div></div>').appendTo($control.parents('.wp-picker-container'));
 	
 		var $alpha_slider = $control.parents('.wp-picker-container:first').find('.slider-alpha');
-	
+		
+		// Determine the color alpha value.
 		// if in format RGBA - grab A channel value
-		if (value.match(/rgba\(\d+\,\d+\,\d+\,([^\)]+)\)/)) {
-			var alpha_val = parseFloat(value.match(/rgba\(\d+\,\d+\,\d+\,([^\)]+)\)/)[1]) * 100;
-			var alpha_val = parseInt(alpha_val);
-		} else {
-			var alpha_val = 100;
+		var alpha_val = null;
+		if( value.match(/rgba\(\d+\,\d+\,\d+\,([^\)]+)\)/) )
+		{
+			alpha_val = parseFloat(value.match(/rgba\(\d+\,\d+\,\d+\,([^\)]+)\)/)[1]) * 100;
+			alpha_val = parseInt(alpha_val);
 		}
-	
+		else
+		{
+			alpha_val = 100;
+		}
+		
+
+		// Alpha Slider
 		$alpha_slider.slider({
 			slide: function(event, ui) {
 			
-				$(this).find('.ui-slider-handle').text(ui.value); // show value on slider handle
+				// show value on slider handle
+				$(this).find('.ui-slider-handle').text(ui.value);
 
 				// send ajax request to wp.customizer to enable Save & Publish button
 				var _new_value = $control.val();
@@ -125,8 +148,8 @@ jQuery(document).ready( function($) {
 			step: 1,
 			min: 1,
 			max: 100
-		}); // slider
-	
+		});
+		
 		$alpha_slider.slider().on('slidechange', function(event, ui) {
 		
 			var new_alpha_val = parseFloat(ui.value),
@@ -142,8 +165,7 @@ jQuery(document).ready( function($) {
 			var get_val = $control.val();
 			$($control).wpColorPicker('color', get_val);
 		});
-
-	}); // each
+	}); // $('.pluto-color-control').each( function() {
  
 });
 

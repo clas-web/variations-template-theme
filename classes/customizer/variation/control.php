@@ -1,10 +1,16 @@
 <?php
-
 if( !class_exists('WP_Customize_Control') )
 	require_once( ABSPATH . '/wp-includes/class-wp-customize-control.php' );
-
 require_once( dirname(__FILE__).'/functions.php' );
 
+
+/**
+ * Theme Customizer variation selector.
+ *
+ * @package    variations-template-theme
+ * @author     Crystal Barton <atrus1701@gmail.com>
+ * @version    1.0
+ */
 if( !class_exists('VTT_Customize_Variation') ):
 class VTT_Customize_Variation extends WP_Customize_Control
 {
@@ -42,7 +48,6 @@ class VTT_Customize_Variation extends WP_Customize_Control
 	public function enqueue()
 	{
 		vtt_enqueue_files( 'script', 'customizer-variation', 'classes/customizer/variation/script.js', array( 'customize-controls' ) );
-//		vtt_enqueue_files( 'style', 'customizer-variation', 'classes/customizer/variation/style.css' );
 	}
 
 	/**
@@ -59,10 +64,6 @@ class VTT_Customize_Variation extends WP_Customize_Control
 
 	/**
 	 * Render the control's content.
-	 *
-	 * Allows the content to be overriden without having to rewrite the wrapper in $this->render().
-	 *
-	 * Control content can alternately be rendered in JS. See {@see WP_Customize_Control::print_template()}.
 	 */
 	protected function render_content()
 	{

@@ -1,10 +1,12 @@
 /**
- * Original code found here:
- * http://pluto.kiwi.nz/2014/07/how-to-add-a-color-control-with-alphaopacity-to-the-wordpress-theme-customizer/
+ * Styles for the Theme Customizer color with alpha control.
  *
- * Cleaned up by Crystal Barton.
+ * @package    variations-template-theme
+ * @author     Pluto <steven@plutomedia.co.nz>
+ * @author     Crystal Barton <atrus1701@gmail.com>
+ * @link       http://pluto.kiwi.nz/2014/07/how-to-add-a-color-control-with-alphaopacity-to-the-wordpress-theme-customizer/
+ * @version    1.1
  */
-
 
 .pluto-alpha-container .transparency {
     height:24px;

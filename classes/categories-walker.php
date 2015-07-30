@@ -1,12 +1,14 @@
 <?php
 
 /**
- * Create HTML list of categories.
+ * Modified version of the Walker_Category class.
+ * Adds class for flat category and class for category term that has children.
  *
  * @package variations-template-theme
  * @since 
  * @uses Walker
  */
+if( !class_exists('VTT_Categories_Walker') ):
 class VTT_Categories_Walker extends Walker 
 {
 	/**
@@ -38,7 +40,7 @@ class VTT_Categories_Walker extends Walker
 	 * @param string $output Passed by reference. Used to append additional content.
 	 * @param int    $depth  Depth of category. Used for tab indentation.
 	 * @param array  $args   An array of arguments. Will only append content if style argument value is 'list'.
-	 *                       @see wp_list_categories()
+	 * @see wp_list_categories()
 	 */
 	function start_lvl( &$output, $depth = 0, $args = array() )
 	{
@@ -59,7 +61,7 @@ class VTT_Categories_Walker extends Walker
 	 * @param string $output Passed by reference. Used to append additional content.
 	 * @param int    $depth  Depth of category. Used for tab indentation.
 	 * @param array  $args   An array of arguments. Will only append content if style argument value is 'list'.
-	 *                       @wsee wp_list_categories()
+	 * @see wp_list_categories()
 	 */
 	function end_lvl( &$output, $depth = 0, $args = array() )
 	{
@@ -119,8 +121,6 @@ class VTT_Categories_Walker extends Walker
 			$link .= '<span class="cat-count"> (' . number_format_i18n( $category->count ) . ')</span>';
 		
 		$link .= '</a>';
-
-		
 		
 		if ( !empty($feed_image) || !empty($feed) ) {
 			$link .= ' ';
@@ -151,8 +151,6 @@ class VTT_Categories_Walker extends Walker
 			if ( empty($feed_image) )
 				$link .= ')';
 		}
-
-
 
 		if ( 'list' == $args['style'] ) 
 		{
@@ -207,6 +205,7 @@ class VTT_Categories_Walker extends Walker
 		}
 	}
 
+
 	/**
 	 * Ends the element output, if needed.
 	 *
@@ -217,7 +216,8 @@ class VTT_Categories_Walker extends Walker
 	 * @param string $output Passed by reference. Used to append additional content.
 	 * @param object $page   Not used.
 	 * @param int    $depth  Depth of category. Not used.
-	 * @param array  $args   An array of arguments. Only uses 'list' for whether should append to output. @see wp_list_categories()
+	 * @param array  $args   An array of arguments. Only uses 'list' for whether should append to output.
+	 * @see wp_list_categories()
 	 */
 	function end_el( &$output, $page, $depth = 0, $args = array() )
 	{
@@ -226,13 +226,6 @@ class VTT_Categories_Walker extends Walker
 
 		$output .= "</li>\n";
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	/**
@@ -300,6 +293,6 @@ class VTT_Categories_Walker extends Walker
 		$cb_args = array_merge( array(&$output, $element, $depth), $args);
 		call_user_func_array(array($this, 'end_el'), $cb_args);
 	}
-
 }
+endif;
 

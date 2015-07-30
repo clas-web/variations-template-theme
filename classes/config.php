@@ -1,75 +1,103 @@
 <?php
 
 /**
- * VTT_Config
- * 
- * This class includes all the config information for the Variations Template Theme,
- * including the current variation data.
+ * Handles the config data and processing, including the current variation and variation directories.
  * 
  * @package    variations-template-theme
- * @subpackage classes
- * @author     Crystal Barton <cbarto11@uncc.edu>
+ * @author     Crystal Barton <atrus1701@gmail.com>
+ * @version    1.0
  */
-
+if( !class_exists('VTT_Config') ):
 class VTT_Config
 {
-
-//========================================================================================
-//======================================================================= Properties =====
+	/**
+	 * The current version of how information is stored in the database.
+	 * @var  string
+	 */
+	const DB_VERSION = VTT_DB_VERSION;
 	
-	
-	// current database version
-	const DB_VERSION = '1.1';
-	
-	// relative paths to the config and otions files.
+	/**
+	 * The relative path to the config-default.ini file.
+	 * @var  string
+	 */
 	const CONFIG_DEFAULT_INI_FILENAME = 'config/config-default.ini';
+
+	/**
+	 * The relative path to the config.ini file.
+	 * @var  string
+	 */
 	const CONFIG_INI_FILENAME = 'config/config.ini';
+
+	/**
+	 * The relative path to the options-default.ini file.
+	 * @var  string
+	 */
 	const OPTIONS_DEFAULT_INI_FILENAME = 'config/options-default.ini';
+
+	/**
+	 * The relative path to the options.ini file.
+	 * @var  string
+	 */
 	const OPTIONS_INI_FILENAME = 'config/options.ini';
 
-	// complete set of data with config and options
+	/**
+	 * Complete set of data with config and options.
+	 * @var  Array
+	 */
 	private $data;
 	
-	// config from config.ini
+	/**
+	 * Only config data for the config.ini.
+	 * @var  Array
+	 */
 	private $config;
 	
-	// options from options.ini and database options
+	/**
+	 * Only config data for the options.ini and database.
+	 * @var  Array
+	 */
 	private $options;
 	
-	// current variation that is loaded
+	/**
+	 * Current variation name.
+	 * @var  string
+	 */
 	private $current_variation;
+
+	/**
+	 * A list of all variations keyed by the variation name.
+	 * @var  Array
+	 */
 	private $all_variations;
+
+	/**
+	 * A list of all allowed variations for the current theme.
+	 * @var  Array
+	 */
 	private $filtered_variations;
 	
 
-//========================================================================================
-//====================================================================== Constructor =====
-
-
 	/**
+	 * Constructor.
 	 * Creates an VTT_Config object.
 	 */
 	public function __construct() { }
 	
 
-//========================================================================================
-//================================================================ Load Configuration ====
-
-		
 	/**
 	 * Loads the config and options data, as well as current variation information.
 	 */
 	public function load_config()
 	{
 		global $wp_customize;
+
+		// Update the database, if needed.
 		if( !isset($wp_customize) )
 		{
 			$this->check_db();
 		}
 		
-		//
-		// initialize
-		//
+		// Initialize class variables.
 		$this->data = array();
 		$this->config = array();
 		$this->options = array();
@@ -82,17 +110,13 @@ class VTT_Config
 		$options_ini = array();
 		$db_options = array();
 		
-		//
-		// load theme config.ini data
-		//
+		// Load theme config.ini data.
 		if( $this->load_from_ini( $this->config, get_stylesheet_directory().'/'.self::CONFIG_INI_FILENAME ) );
 		elseif( $this->load_from_ini( $this->config, get_template_directory().'/'.self::CONFIG_INI_FILENAME ) );
 		elseif( $this->load_from_ini( $this->config, get_template_directory().'/'.self::CONFIG_DEFAULT_INI_FILENAME ) );
 		else exit( 'Unable to locate theme '.self::CONFIG_INI_FILENAME.' file.' );
 		
-		//
-		// get / set variation
-		//
+		// Determine all directories that could have variations.
 		$this->search_directories = array();
 		do_action( 'vtt-search-folders' );
 
@@ -106,24 +130,23 @@ class VTT_Config
 		
 		ksort( $this->search_directories );
 
+		// Get all variation directories.
 		$this->get_all_variations();
 		$this->get_filtered_variations();
+
+		// Get the current variation with directory data.
 		$variation = $this->get_current_variation();
 		$this->current_variation = $this->all_variations[$variation];
-		$variation_directories = $this->get_variation_all_directories();
+		$variation_directories = $this->get_all_available_variations_directories();
 		
-		// 
-		// load variation config.ini data.
-		// 
+		// Load variation config.ini data.
 		foreach( $variation_directories as $directory )
 		{
 			if( $this->load_from_ini( $this->config, $directory.'/'.self::CONFIG_INI_FILENAME ) )
 				break;
 		}
 		
-		// 
-		// load theme and variation options.ini data.
-		// 
+		// Load theme and variation options.ini data.
 		foreach( $variation_directories as $directory )
 		{
 			if( $this->load_from_ini( $options_ini, $directory.'/'.self::OPTIONS_INI_FILENAME ) )
@@ -138,59 +161,37 @@ class VTT_Config
 			else exit( 'Unable to locate variation '.self::OPTIONS_INI_FILENAME.' file.' );
 		}
 		
-		// 
-		// load database options.
-		// 
+		// Load database options.
 		if( !isset($wp_customize) )
 		{
-			$db_options = get_option( 'vtt-options', array() );
+			$db_options = get_option( VTT_OPTIONS, array() );
 		}
 		else
 		{
 			$db_options = $this->get_upgraded_db_options();
-
-			// theme customizer options
 			$db_options = apply_filters( 'vtt-theme-customizer-options', $db_options );
 		}
 		if( empty($db_options) || !is_array($db_options) ) $db_options = array();
 		
-		$replace = array();
-		
-		// 
-		// merge options.ini and database options.
-		// 
+		// Merge options.ini and database options.
 		$this->options = array_replace_recursive( $options_ini, $db_options );
-		foreach( $replace as $key )
-		{
-			if( isset($db_options[$key]) ) { $this->options[$key] = $db_options[$key]; continue; }
-			if( isset($options_ini[$key]) ) { $this->options[$key] = $options_ini[$key]; continue; }
-			$this->options[$key] = array();
-		}
 		
-		// 
-		// merge config.ini with complete options.
-		// 
+		// Merge config.ini with complete options.
 		$this->data = array_replace_recursive( $this->options, $this->config );
-		foreach( $replace as $key )
-		{
-			if( isset($this->options[$key]) ) { $this->data[$key] = $this->options[$key]; continue; }
-			$this->data[$key] = array();
-		}
-		
+
+		// Filter data, if needed.		
 		$this->data = apply_filters( 'vtt-data', $this->data );
 
-		//
-		// convert values.
-		//
+		// Convert string values to intended value type.
 		$this->convert_values( $this->data );
 	}
 	
 	
 	/**
 	 * Loads an ini file's data into the $config parameter.
-	 * @param   array   $config           The variable to use to store the ini data.
-	 * @param   string  $config_filename  The filename of the config file.
-	 * @return  bool    True if the ini was loaded into $config successfully.
+	 * @param  Array  $config  Reference variable to use to store the ini data.
+	 * @param  string  $config_filename  The filename of the config file.
+	 * @return  bool  True if the ini was loaded into $config successfully, otherwise False.
 	 */
 	private function load_from_ini( &$config, $config_filename )
 	{
@@ -209,8 +210,8 @@ class VTT_Config
     
 
 	/**
-	 * Converts values in an array from strings into primitive data type.
-	 * @param   array  $array  The array to modify.
+	 * Converts values in an array from string into primitive data type.
+	 * @param  Array  $array  Reference to array to modify.
 	 */
     private function convert_values( &$array )
     {
@@ -230,6 +231,11 @@ class VTT_Config
 	}   
 	
 	
+	/**
+	 * Converts string into primitive data type.
+	 * @param  string  $string  String value.
+	 * @return  mixed  The converted string to primitive data type.
+	 */
 	public function string_to_value( $string )
 	{
 		$value = null;
@@ -252,6 +258,12 @@ class VTT_Config
 		return $value;
 	}
 	
+
+	/**
+	 * Converts data type into a string.
+	 * @param  mixed  The value.
+	 * @return  string  The converted data type to string.
+	 */
 	public function value_to_string( $value )
 	{
 		$string = '';
@@ -279,14 +291,11 @@ class VTT_Config
 		return $string;
 	}
 	
-//========================================================================================
-//=========================================================================== Options ====
-
 
 	/**
 	 * Get a value from the data using a list of keys as the parameters.
-	 * @param   mixed  ...  A number of key values used to find data.
-	 * @return  mixed  The value of the 
+	 * @param   string  {args}  A number of key values used to find data.
+	 * @return  mixed  The requested value, if exists, otherwise Null.
 	 */
 	public function get_value()
 	{
@@ -311,13 +320,19 @@ class VTT_Config
 	}
 	
 	
+	/**
+	 * Set a value in the database using a list of keys as parameters.
+	 * The last parameters is the value to save.
+	 * @param  string  {args}  A number of key values used to set data.
+	 * @param  mixed  {last arg}  The value to save.
+	 */
 	public function set_value()
 	{
 		$args = func_get_args();
 		if( count($args) == 1 && is_array($args[0]) ) $args = $args[0];
 		$value = array_pop( $args );
 		
-		$db_options = get_option( 'vtt-options', array() );
+		$db_options = get_option( VTT_OPTIONS, array() );
 		if( !is_array($db_options) ) $db_options = array();
 		$options =& $db_options;
 		
@@ -333,15 +348,15 @@ class VTT_Config
 		
 		$options = $value;
 		
-		update_option( 'vtt-options', $db_options );
+		update_option( VTT_OPTIONS, $db_options );
 	}
 	
 	
 	/**
 	 * Gets a theme mod options.
-	 * @param   string      $key      The key/name of the theme mod option.
-	 * @param   bool|mixed  $default  The default value of the option if the not found.
-	 * @return  mixed       The value of the theme mod option.
+	 * @param  string  $key  The key/name of the theme mod option.
+	 * @param  bool|mixed  $default  The default value of the option if the not found.
+	 * @return  mixed  The value of the theme mod option.
 	 */
 	public function get_theme_mod( $key, $default = false )
 	{
@@ -357,8 +372,8 @@ class VTT_Config
 	
 	/**
 	 * Gets the image data from the config data.
-	 * @param   mixed  ...  A number of key values used to find image data.
-	 * @return  array  An array of image information.
+	 * @param  mixed  {args}  A number of key values used to find image data.
+	 * @return  array  An array of image information, or Null on failure.
 	 */
 	public function get_image_data()
 	{
@@ -383,8 +398,8 @@ class VTT_Config
 	
 	/**
 	 * Gets the text data from the config data.
-	 * @param   mixed  ...  A number of key values used to find text data.
-	 * @return  array  An array of text information.
+	 * @param  mixed  {args}  A number of key values used to find text data.
+	 * @return  Array  An array of text information.
 	 */
 	public function get_text_data()
 	{
@@ -407,7 +422,7 @@ class VTT_Config
 
 	/**
 	 * Gets the config options.
-	 * @return  array  The config options.
+	 * @return  Array  The config options.
 	 */
 	public function get_options()
 	{
@@ -416,31 +431,14 @@ class VTT_Config
 
 
 	/**
-	 * Clear / reset database options.
+	 * Clear ("reset") database options.
 	 */
 	public function reset_options()
 	{
-		update_option( 'vtt-options', array() );
+		update_option( VTT_OPTIONS, array() );
 	}
 	
 	
-	/**
-	 * Get today's date for the timezone from the config data.
-	 * @return  DateTime  The current date/time.
-	 */
-	public function get_todays_datetime()
-	{
-		if( isset($this->data['timezone']) )
-			date_default_timezone_set( $this->data['timezone'] );
-		$todays_datetime = new DateTime;
-		return $todays_datetime;
-	}
-	
-	
-//========================================================================================
-//======================================================================== Variations ====
-
-
 	/**
 	 * Gets the current variation's name.
 	 * @return  string  The current variation's name.
@@ -468,6 +466,12 @@ class VTT_Config
 	}
 	
 	
+	/**
+	 * Get a theme mod option from the config options.
+	 * @param  string  $options_key  The option name.
+	 * @param  mixed  $default  The default value to return if option not found.
+	 * @return  mixed  The theme mod option value.
+	 */
 	public function get_theme_value( $options_key, $default = false )
 	{
 		$return = $this->get_theme_mod(
@@ -482,9 +486,9 @@ class VTT_Config
 	
 	/**
 	 * Sets the current variation in the database.
-	 * @param   string  $name                     The name of the current variation.
-	 * @param   bool    $saving_theme_customizer  True if theme customizer is changing
-	 *                                            the current variation, otherwise False.
+	 * @param  string  $name  The name of the current variation.
+	 * @param  bool  $saving_theme_customizer  True if theme customizer is changing the current 
+	 *                                         variation, otherwise False.
 	 * @return  string  The current variation's name.
 	 */
 	public function set_variation( $name = '', $saving_theme_customizer = false )
@@ -508,6 +512,11 @@ class VTT_Config
 	}
 
 
+	/**
+	 * Get the data for a variation.
+	 * @param  string  $variation_name  The name of the variation.
+	 * @return  Array  The variation data, or Null if it does not exist.
+	 */
 	public function get_variation_info( $variation_name )
 	{
 		if( array_key_exists($variation_name, $this->all_variations) )
@@ -518,13 +527,13 @@ class VTT_Config
 	
 	/**
 	 * Gets a list of all variations.
-	 * @return  array  An array of variations with name, title, and directory information.
+	 * @return  Array  An array of variations with name, title, and directory information.
 	 */
 	public function get_all_variations()
 	{
 		if( !empty($this->all_variations) ) return $this->all_variations;
 
-		$variation_directories = $this->get_all_variation_directories();
+		$variation_directories = $this->get_all_available_variations_directories();
 		
 		$variations = array();
 		foreach( $variation_directories as $name => $directories )
@@ -562,7 +571,8 @@ class VTT_Config
 
 	
 	/**
-	 * @return  array  An array of variations with name, title, and directory information.
+	 * Gets a list all variations allowed by the current theme.
+	 * @return  Array  An array of variations with name, title, and directory information.
 	 */
 	public function get_filtered_variations()
 	{
@@ -583,74 +593,11 @@ class VTT_Config
 	}
 	
 	
-//========================================================================================
-//================================================================= Custom Post Types ====
-	
-	
 	/**
-	 * Gets a list of custom posts types included in the theme.
-	 * @return  array  An array of custom post types included in the theme.
+	 * Get all available variations folders.
+	 * @return  Array  An array of variations folders with the variation name is the key.
 	 */
-	public function get_custom_post_types()
-	{
-		$folders = array( get_template_directory().'/custom-post-types' );
-		if( is_child_theme() )
-			array_push( $folders, get_stylesheet_directory().'/custom-post-types' );
-
-		return array_keys( $this->get_directories( $folders ) );
-	}
-	
-	
-//========================================================================================
-//=============================================================== Directories & Files ====
-	
-	
-	/**
-	 * 
-	 */
-	private function get_files( $folders, $filename = '' )
-	{
-		$files = array();
-		if( $filename !== '' ) $filename = DIRECTORY_SEPARATOR.$filename;
-		
-		if( file_exists(get_template_directory().$filename) )
-			$files['default'] = get_template_directory().$filename;
-		if( is_child_theme() && file_exists(get_stylesheet_directory().$filename) )
-			$files['default'] = get_stylesheet_directory().$filename;
-		
-		foreach( $folders as $folder )
-		{
-			if( !file_exists($folder) ) continue;
-			
-			$f = scandir( $folder );
-			foreach( $f as $name )
-			{
-				if( (!in_array($name, array('.','..'))) && 
-				    (is_dir($folder.DIRECTORY_SEPARATOR.$name)) )
-				{
-					if( file_exists($folder.DIRECTORY_SEPARATOR.$name.$filename) )
-						$files[$name] = $folder.DIRECTORY_SEPARATOR.$name.$filename;
-				}
-			}
-		}
-		
-		return $files;
-	}
-	
-	
-	/**
-	 * 
-	 */
-	private function get_directories( $folders )
-	{
-		return $this->get_files( $folders );
-	}
-	
-	
-	/**
-	 * 
-	 */
-	private function get_all_variation_directories()
+	private function get_all_available_variations_directories()
 	{
 		$directories = array();
 		
@@ -699,38 +646,32 @@ class VTT_Config
 
 		return $directories;
 	}
-	
-
-	/**
-	 * 
-	 */
-	private function get_stylesheet_paths( $folders )
-	{
-		return $this->get_files( 'style.css' );
-	}
 
 
 	/**
-	 * 
+	 * Load a file in all variations.
+	 * @param  string  $filepath  The relative file path to load.
 	 */
-	public function load_variations_files( $filename )
+	public function load_variations_files( $filepath )
 	{
-		$variation_directories = $this->get_variation_all_directories( true );
+		$variation_directories = $this->get_all_variations_directories( true );
 		
 		foreach( $variation_directories as $directory )
 		{
-			if( file_exists($directory.'/'.$filename) )
-				require_once( $directory.'/'.$filename );
+			if( file_exists($directory.'/'.$filepath) )
+				require_once( $directory.'/'.$filepath );
 		}
 	}
 	
 	
 	/**
-	 * 
+	 * Get the first filepath to the a file within a variation.
+	 * @param  string  $filepath  The relative file path to search for.
+	 * @return  The absolute file path, or Null if none are found.
 	 */
 	public function get_variation_filepath( $filepath )
 	{
-		$variation_directories = $this->get_variation_all_directories( true );
+		$variation_directories = $this->get_all_variations_directories( true );
 		
 		foreach( $variation_directories as $directory )
 		{
@@ -743,7 +684,8 @@ class VTT_Config
 	
 	
 	/**
-	 * 
+	 * Get the current variation name.
+	 * @return  string  The variation name.
 	 */
 	public function get_variation_name()
 	{
@@ -752,7 +694,8 @@ class VTT_Config
 
 	
 	/**
-	 * 
+	 * Get the current variations title.
+	 * @return  string  The variation title.
 	 */
 	public function get_variation_title()
 	{
@@ -761,25 +704,31 @@ class VTT_Config
 	
 	
 	/**
-	 * 
+	 * Get list of the variations directories within each theme (parent and child).
+	 * @param  bool  $reverse  Return list in directories in reverse order (child then parent).
+	 * @return  Array  The directories.
 	 */
 	public function get_variation_theme_directories( $reverse = true )
 	{
-		return $this->get_variation_directories( 'variation_theme', $reverse );
+		return $this->get_variation_directories( 'theme_variations', $reverse );
 	}
 	
 	
 	/**
-	 * 
+	 * Get list of all variation directories associated with the current variation.
+	 * @param  bool  $reverse  Return list in directories in reverse order.
+	 * @return  Array  The directories.
 	 */
-	public function get_variation_all_directories( $reverse = true )
+	public function get_all_variations_directories( $reverse = true )
 	{
-		return $this->get_variation_directories( 'variation_all', $reverse );
+		return $this->get_variation_directories( 'all_variations', $reverse );
 	}
 
 	
 	/**
-	 * 
+	 * Get list of theme directories.
+	 * @param  bool  $reverse  Return list in directories in reverse order (child then parent).
+	 * @return  Array  The directories.
 	 */
 	public function get_theme_directories( $reverse = true )
 	{
@@ -788,7 +737,9 @@ class VTT_Config
 
 
 	/**
-	 * 
+	 * Get list of search directories.
+	 * @param  bool  $reverse  Return list in directories in reverse order (child then parent).
+	 * @return  Array  The directories.
 	 */
 	public function get_search_directories( $reverse = true )
 	{
@@ -799,7 +750,9 @@ class VTT_Config
 	
 	
 	/**
-	 * 
+	 * Get list of search directories and all variation directories associated with the current variation.
+	 * @param  bool  $reverse  Return list in directories in reverse order.
+	 * @return  Array  The directories.
 	 */
 	public function get_all_directories( $reverse = true )
 	{
@@ -808,7 +761,10 @@ class VTT_Config
 	
 	
 	/**
-	 * 
+	 * Get a list of directories from the current variation object.
+	 * @param  string  $name  The key for the directories list.
+	 * @param  bool  $reverse  Return list in directories in reverse order.
+	 * @return  Array  The directories.
 	 */
 	private function get_variation_directories( $name, $reverse = true )
 	{
@@ -826,7 +782,10 @@ class VTT_Config
 	
 	
 	/**
-	 * 
+	 * Adds a path to the list of search folders.
+	 * The priority of the parent theme folder is 5 and child theme is 10.
+	 * @param  string  $path  The absolute path to the search folder.
+	 * @param  int  $priority  The priority of the search folder in the list of folders.
 	 */
 	public function add_search_folder( $path, $priority = 10 )
 	{
@@ -837,12 +796,16 @@ class VTT_Config
 	
 	
 	/**
-	 * 
+	 * Sets the directories for the current variation which are used in searching.
 	 */
 	private function set_variation_directories()
 	{
+		// If the current variation directories are set, then no need to continue.
 		if( isset($this->current_variation['directory']) ) return;
+		$directory = array();
 		
+
+		// Get the list of variations starting with the current and going up the chain of parent variations.
 		$vname = array();
 		$vname[] = $this->current_variation['name'];
 
@@ -862,33 +825,34 @@ class VTT_Config
 
 		$vname = array_reverse($vname);
 		
-		$directory = array();
-		
-		// get Variation Theme directories.
-		$directory['variation_theme'] = array();
+
+		// Get the variation path within the theme folders.
+		$directory['theme_variations'] = array();
 		foreach( $vname as $name )
-			$directory['variation_theme'][] = get_template_directory().'/variations/'.$name;
+			$directory['theme_variations'][] = get_template_directory().'/variations/'.$name;
 		
 		if( is_child_theme() )
 		{
 			foreach( $vname as $name )
-				$directory['variation_theme'][] = get_stylesheet_directory().'/variations/'.$name;
+				$directory['theme_variations'][] = get_stylesheet_directory().'/variations/'.$name;
 		}
 		
-		// get Variation All directories.
-		$directory['variation_all'] = array();
+
+		// Get all the variation directories within the search folders.
+		$directory['all_variations'] = array();
 		foreach( $this->search_directories as $dirs )
 		{
 			foreach( $dirs as $dir )
 			{
 				foreach( $vname as $name )
 				{
-					$directory['variation_all'][] = $dir.'/variations/'.$name;
+					$directory['all_variations'][] = $dir.'/variations/'.$name;
 				}
 			}
 		}
 		
-		// get Theme directories.
+		
+		// Get the theme directories.
 		$directory['theme'] = array();
 		$directory['theme']['p'] = get_template_directory();
 		if( is_child_theme() )
@@ -896,7 +860,9 @@ class VTT_Config
 			$directory['theme']['c'] = get_stylesheet_directory();
 		}
 		
-		// get All directories.
+		
+		// Get all variation directories.
+		// Get all the search path and variation path within all the search folders.
 		$directory['all'] = array();
 		foreach( $this->search_directories as $dirs )
 		{
@@ -909,27 +875,32 @@ class VTT_Config
 				}
 			}
 		}
-		
-		$this->current_variation['directory'] = $directory;
-		
+
+
 		// make sure all directories exists.
-		foreach( $this->current_variation['directory'] as $key => &$directories )
+		foreach( $directory as $key => &$dir )
 		{
-			foreach( $directories as $k => &$dir )
+			foreach( $dir as &$d )
 			{
-				if( !is_dir($dir) )
+				if( !is_dir($d) )
 				{
-					unset( $this->current_variation['directory'][$key][$k] );
+					unset( $d );
 					continue;
 				}
-				$dir = vtt_clean_path( $dir );
+				$d = vtt_clean_path( $d );
 			}
 		}
+		
+
+		// Set the current variations
+		$this->current_variation['directory'] = $directory;
 	}
 	
 	
 	/**
-	 * 
+	 * Get all the variations that are found and are allowed by the theme.
+	 * @return  Array  The array of variation names.
+	 *                 The key of the array is the name and value is the title.
 	 */
 	public function get_all_variation_names()
 	{
@@ -944,12 +915,9 @@ class VTT_Config
 	}
 	
 
-//========================================================================================
-//========================================================================== Database ====
-	
-	
 	/**
-	 * 
+	 * Get the database options after upgrading the database, if needed.
+	 * @return  Array  The database options.
 	 */
 	private function get_upgraded_db_options()
 	{
@@ -964,12 +932,13 @@ class VTT_Config
 				break;
 		}
 		
-		return get_option( 'vtt-options', array() );
+		return get_option( VTT_OPTIONS, array() );
 	}
 	
 	
 	/**
-	 * 
+	 * Check the database to check if an update is needed.
+	 * If needed, then convert database options to the new version and update the database version.
 	 */
 	private function check_db()
 	{
@@ -980,10 +949,6 @@ class VTT_Config
 		{
 			case '1.0':
 				$this->convert_db_from_10_to_11();
-// 			case '1.1':
-// 				$this->convert_db_from_11_to_12();
-// 			case '1.2':
-// 				$this->convert_db_from_12_to_13();
 			default:
 				break;
 		}
@@ -993,41 +958,41 @@ class VTT_Config
 	
 	
 	/**
-	 * 
+	 * Convert the database from version 1.0 to 1.1.
 	 */
 	private function convert_db_from_10_to_11()
 	{
-		// get options from database.
-		$db_options = get_option( 'vtt-options', array() );
+		// Get options from database.
+		$db_options = get_option( VTT_OPTIONS, array() );
 		if( !is_array($db_options) ) return;
 		
-		// add theme-mods.
+		// Add theme-mods.
 		if( !array_key_exists('theme-mods', $db_options) )
 			$db_options['theme-mods'] = array();
 		
 		if( isset($db_options['header']) )
 		{
-			// remove image-link.
+			// Remove image-link.
 			if( isset($db_options['header']['image-link']) )
 			{
 				unset( $db_options['header']['image-link'] );
 			}
 			
-			// move title-position to theme-mods.
+			// Move title-position to theme-mods.
 			if( isset($db_options['header']['title-position']) )
 			{
 				$db_options['theme-mods']['header-title-position'] = $db_options['header']['title-position'];
 				unset( $db_options['header']['title-position'] );
 			}
 
-			// move title-hide to theme-mods.
+			// Move title-hide to theme-mods.
 			if( isset($db_options['header']['title-hide']) )
 			{
 				$db_options['theme-mods']['header-title-hide'] = $db_options['header']['title-hide'];
 				unset( $db_options['header']['title-hide'] );
 			}
 
-			// move blog-title data to theme-mods.
+			// Move blog-title data to theme-mods.
 			if( isset($db_options['header']['title']) )
 			{
 				if( isset($db_options['header']['title']['use-blog-info']) && $db_options['header']['title']['use-blog-info'] )
@@ -1051,7 +1016,7 @@ class VTT_Config
 				unset( $db_options['header']['title'] );
 			}
 
-			// move blog-description data to theme-mods.
+			// Move blog-description data to theme-mods.
 			if( isset($db_options['header']['description']) )
 			{
 				if( isset($db_options['header']['description']['use-blog-info']) && $db_options['header']['description']['use-blog-info'] )
@@ -1076,10 +1041,10 @@ class VTT_Config
 			}
 		}
 		
-		// update options.
-		update_option( 'vtt-options', $db_options );
+		// Update options.
+		update_option( VTT_OPTIONS, $db_options );
 		
-		// move header-title-position in theme-mods.
+		// Move header-title-position in theme-mods.
 		$header_title_position = get_theme_mod( 'vtt-header-title-position', null );
 		if( $header_title_position !== null )
 		{
@@ -1087,7 +1052,7 @@ class VTT_Config
 			remove_theme_mod( 'vtt-header-title-position' );
 		}
 
-		// move header-title-hide in theme-mods.
+		// Move header-title-hide in theme-mods.
 		$header_title_hide = get_theme_mod( 'vtt-header-title-hide', null );
 		if( $header_title_hide !== null )
 		{
@@ -1096,4 +1061,5 @@ class VTT_Config
 		}
 	}
 }
+endif;
 

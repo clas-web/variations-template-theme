@@ -1,201 +1,149 @@
 <?php
 
 /**
- * functions.php
- * 
  * The main functions for the Variations Template Theme.
  * 
  * @package    variations-template-theme
- * @author     Crystal Barton <cbarto11@uncc.edu>
+ * @author     Crystal Barton <atrus1701@gmail.com>
+ * @version    1.0
  */
 
-//========================================================================================
-//======================================================================== Constants =====
 
 if( !defined('VTT') ):
 
+/**
+ * The full title of VTT.
+ * @var string
+ */
 define( 'VTT', 'Variations Template Theme' );
 
+/**
+ * True if debug is active, otherwise False.
+ * @var string
+ */
 define( 'VTT_DEBUG', true );
 
+/**
+ * The path to the VTT theme.
+ * @var string
+ */
 define( 'VTT_PATH', dirname(__FILE__) );
+
+/**
+ * The url to the VTT theme.
+ * @var string
+ */
 define( 'VTT_URL', get_template_directory_uri() );
 
+/**
+ * The version of the VTT theme.
+ * @var string
+ */
 define( 'VTT_VERSION', '1.0.0' );
-define( 'VTT_DB_VERSION', '1.0' );
 
+/**
+ * The database version of the VTT theme.
+ * @var string
+ */
+define( 'VTT_DB_VERSION', '1.1' );
+
+/**
+ * 
+ * @var string
+ */
 define( 'VTT_VERSION_OPTION', 'vtt-version' );
+
+/**
+ * 
+ * @var string
+ */
 define( 'VTT_VARIATION_OPTION', 'vtt-variation' );
+
+/**
+ * 
+ * @var string
+ */
 define( 'VTT_DB_VERSION_OPTION', 'vtt-db-version' );
 
+/**
+ * 
+ * @var string
+ */
 define( 'VTT_OPTIONS', 'vtt-options' );
 
+/**
+ * 
+ * @var string
+ */
 define( 'VTT_HEADER_TITLE_POSITION', 'header-title-position' );
 
 endif;
 
 
-//========================================================================================
-//================================================================= Main setup - Top =====
-
+// Set the global variables.
 global $vtt_mobile_support, $vtt_config;
 
 // Setup mobile support.
 require_once( get_template_directory().'/classes/mobile-support.php' );
-$vtt_mobile_support = new Mobile_Support;
+$vtt_mobile_support = new VTT_Mobile_Support;
 
-// Setup the config information.
+// Setup the config data.
 require_once( get_template_directory().'/classes/config.php' );
 $vtt_config = new VTT_Config;
 
-// Set blog name.
-define( 'VTT_BLOG_NAME', trim( preg_replace("/[^A-Za-z0-9 ]/", '-', get_blog_details()->path), '-' ) );
-
-
-//========================================================================================
-//====================================================== Default filters and actions =====
-
+// Setup theme customizer controls
 if( is_customize_preview() ):
-	require_once( dirname(__FILE__).'/classes/customizer/variation/control.php' );
-	require_once( dirname(__FILE__).'/classes/customizer/header-position/control.php' );
-	require_once( dirname(__FILE__).'/classes/customizer/color-picker-alpha/control.php' );
+	require_once( VTT_PATH.'/classes/customizer/variation/control.php' );
+	require_once( VTT_PATH.'/classes/customizer/color-picker-alpha/control.php' );
+endif;
+if( defined('DOING_AJAX') && DOING_AJAX ):
+	require_once( VTT_PATH.'/classes/customizer/variation/functions.php' );
 endif;
 
-if( defined( 'DOING_AJAX' ) && DOING_AJAX )
-{
-	require_once( dirname(__FILE__).'/classes/customizer/variation/functions.php' );
-}
-
-
 // Admin Bar
-add_filter( 'show_admin_bar', 'vtt_show_admin_bar', 10 );
 add_action( 'admin_bar_menu', 'vtt_add_responsive_close_button', 1 );
 add_action( 'admin_bar_menu', 'vtt_add_login', 10 );
 
 // Theme setup
-add_action( 'after_setup_theme', 'vtt_theme_setup', 5 );
-add_action( 'init', 'vtt_setup_widget_areas' );
-add_action( 'init', 'vtt_register_menus' );
 add_action( 'wp_enqueue_scripts', 'vtt_enqueue_scripts', 0 );
 
 // Embeded content
-add_filter( 'embed_oembed_html', 'vtt_embed_html', 10, 3 );
-add_filter( 'video_embed_html', 'vtt_embed_html' );
+add_filter( 'embed_oembed_html', 'vtt_video_embed_html', 10, 3 );
+add_filter( 'video_embed_html', 'vtt_video_embed_html' );
 
 // Theme Customizer
 add_action( 'customize_register', 'vtt_customize_register', 11 );
 add_action( 'customize_save_after', 'vtt_customize_save', 11 );
 add_action( 'update_option_'.VTT_VARIATION_OPTION, 'vtt_customize_update_variation', 99, 2 );
-//add_filter( 'pre_update_option_'.VTT_OPTIONS, 'vtt_customize_pre_update_options', 10, 2 );
 add_action( 'update_option_'.VTT_OPTIONS, 'vtt_customize_update_options', 99, 2 );
-
-add_filter( 'theme_mod_blogname', 'vtt_customize_theme_mod_blogname', 99 );
-add_filter( 'theme_mod_blogname_url', 'vtt_customize_theme_mod_blogname_url', 99 );
-add_filter( 'theme_mod_blogdescription', 'vtt_customize_theme_mod_blogdescription', 99 );
-add_filter( 'theme_mod_blogdescription_url', 'vtt_customize_theme_mod_blogdescription_url', 99 );
-add_filter( 'pre_set_theme_mod_blogname', 'vtt_customize_set_theme_mod_blogname', 99, 2 );
-add_filter( 'pre_set_theme_mod_blogname_url', 'vtt_customize_set_theme_mod_blogname_url', 99, 2 );
-add_filter( 'pre_set_theme_mod_blogdescription', 'vtt_customize_set_theme_mod_blogdescription', 99, 2 );
-add_filter( 'pre_set_theme_mod_blogdescription_url', 'vtt_customize_set_theme_mod_blogdescription_url', 99, 2 );
 
 // Comments
 add_filter( 'comments_template', 'vtt_find_comments_template_part', 999 );
 
 // Categories Widget
 add_action( 'init', 'vtt_setup_categories_walker' );
-add_filter( 'widget_categories_args', 'vtt_alter_categories_widget_args' );
-
-// Add / Remove MIME types
-add_filter( 'upload_mimes', 'vtt_add_custom_mime_types' );
 
 // Enable Links subpanel
 add_filter( 'pre_option_link_manager_enabled', '__return_true' );
 
-// Post Content
-add_filter( 'the_content_more_link', 'vtt_read_more_link' );
-
-// Add Home to Pages menu.
-add_filter( 'wp_page_menu_args', 'vtt_add_home_pages_menu_item' );
-
-
-//========================================================================================
-//======================================================================== Functions =====
-
 
 /**
- * 
+ * Get today's date for the WordPress site's chosen timezone.
+ * @return  DateTime  The current date/time.
  */
-if( !function_exists('vtt_theme_setup') ):
-function vtt_theme_setup()
+if( !function_exists('vtt_get_current_datetime') ):
+function vtt_get_current_datetime()
 {
-	global $vtt_mobile_support, $vtt_config;
-	
-	// add theme support.
-	vtt_add_featured_image_support();
-	add_theme_support( 'post-thumbnails' );
-	add_theme_support( 'custom-background' );
-	
-	// add editor styles.
-	add_editor_style( 'editor-style.css' );
-}
-endif; 
-
-
-/**
- * Adds support for featured images.
- */
-if( !function_exists('vtt_add_featured_image_support') ):
-function vtt_add_featured_image_support()
-{
-	global $vtt_config;
-	
-	add_theme_support( 'custom-header',
-		array( 
-			'width' 					=> 950, 
-			'height'					=> 200,
-			'flex-width'				=> false,
-			'flex-height'				=> true,
-			'random-default' 			=> true,
-			'admin-head-callback' 		=> 'vtt_admin_head_callback',
-			'admin-preview-callback' 	=> 'vtt_admin_preview_callback',
-			'header-text'				=> true,
-			'default-text-color'		=> '',
-			'default-text-bgcolor'		=> '',
-		)
-	);
-	
-	$all_directories = $vtt_config->get_all_directories( false );
-	
-	$images = array();
-	foreach( $all_directories as $directory )
-	{
-		if( !is_dir($directory.'/images/headers') ) continue;
-		if( !is_dir($directory.'/images/headers/full') ) continue;
-		if( !is_dir($directory.'/images/headers/thumbnail') ) continue;
-		
-		$url = vtt_path_to_url( $directory );
-		$files = scandir( $directory.'/images/headers/full' );
-		foreach( $files as $file )
-		{
-			if( $file[0] == '.' ) continue;
-			if( is_dir($directory.'/images/headers/full/'.$file) ) continue;
-			if( !file_exists($directory.'/images/headers/thumbnail/'.$file) ) continue;
-			if( is_dir($directory.'/images/headers/thumbnail/'.$file) ) continue;
-			
-			$basename = basename( $file );
-			$images[$basename]['url'] = $url.'/images/headers/full/'.$file;
-			$images[$basename]['thumbnail_url'] = $url.'/images/headers/thumbnail/'.$file;
-			$images[$basename]['description'] = $url;
-		}
-	}
-	
-	register_default_headers( $images );	
+	if( get_option('timezone_string') )
+		date_default_timezone_set( get_option('timezone_string') );
+	return new Datetime;
 }
 endif;
 
 
 /**
- * 
+ * Returns an empty string.
+ * @return  Empty string.
  */
 if( !function_exists('vtt_return_nothing') ):
 function vtt_return_nothing()
@@ -206,34 +154,29 @@ endif;
 
 
 /**
- * 
- */
-if( !function_exists('vtt_alter_categories_widget_args') ):
-function vtt_alter_categories_widget_args( $args )
-{
-	$args['walker'] = new VTT_Categories_Walker;
-	return $args;
-}
-endif; 
-
-
-/**
- * 
+ * Setup a custom category walker to display the Categories widget.
  */
 if( !function_exists('vtt_setup_categories_walker') ):
 function vtt_setup_categories_walker()
 {
 	$filepath = vtt_get_theme_file_path( 'classes/categories-walker.php' );
 	if( $filepath ) require_once( $filepath );
+
+	add_filter( 'widget_categories_args', function($args) {
+		$args['walker'] = new VTT_Categories_Walker;
+		return $args;
+	});
 }
 endif;
 
 
 /**
- * 
+ * Wrap video embed in container.
+ * @param  string  $html  The video embed html.
+ * @return  The full html with container.
  */
-if( !function_exists('vtt_embed_html') ):
-function vtt_embed_html( $html )
+if( !function_exists('vtt_video_embed_html') ):
+function vtt_video_embed_html( $html )
 {
 	return '<div class="video-container">' . $html . '</div>';
 }
@@ -241,33 +184,8 @@ endif;
 
 
 /**
- * 
- */
-if( !function_exists('vtt_show_admin_bar') ):
-function vtt_show_admin_bar( $show_admin_bar )
-{
-	return true;
-}
-endif;
-
-
-/**
- * 
- */
-if( !function_exists('vtt_register_menus') ):
-function vtt_register_menus()
-{
-	register_nav_menus(
-		array(
-			'header-navigation' => __( 'Header Menu' ),
-		)
-	);
-}
-endif;
-
-
-/**
- * 
+ * Add the close responsive menu button to the admin bar.
+ * @param  WP_Admin_Bar  $wp_admin_bar  
  */
 if( !function_exists('vtt_add_responsive_close_button') ):
 function vtt_add_responsive_close_button( $wp_admin_bar )
@@ -285,6 +203,11 @@ function vtt_add_responsive_close_button( $wp_admin_bar )
 }
 endif;
 
+
+/**
+ * Add the login link if user is not logged in.
+ * @param  WP_Admin_Bar  $wp_admin_bar  
+ */
 if( !function_exists('vtt_add_login')):
 function vtt_add_login( $wp_admin_bar )
 {
@@ -306,60 +229,6 @@ endif;
 
 
 /**
- * Sets up the widget areas.
- */
-if( !function_exists('vtt_setup_widget_areas') ):
-function vtt_setup_widget_areas()
-{
-	global $vtt_config;
-	
-	$widgets = array(
-		array(
-			'id'   => 'vtt-left-sidebar',
-			'name' => 'Left Sidebar',
-		),
-		array(
-			'id'   => 'vtt-right-sidebar',
-			'name' => 'Right Sidebar',
-		),
-		array(
-			'id'   => 'vtt-footer-1',
-			'name' => 'Footer Column 1',
-		),
-		array(
-			'id'   => 'vtt-footer-2',
-			'name' => 'Footer Column 2',
-		),
-		array(
-			'id'   => 'vtt-footer-3',
-			'name' => 'Footer Column 3',
-		),
-		array(
-			'id'   => 'vtt-footer-4',
-			'name' => 'Footer Column 4',
-		),
-	);
-	
-	$widgets = apply_filters( 'vtt-widget-areas', $widgets );
-	
-	$widget_area = array();
-	$widget_area['before_widget'] = '<div id="%1$s" class="widget %2$s">';
-	$widget_area['after_widget'] = '</div>';
-	$widget_area['before_title'] = '<h2 class="widget-title">';
-	$widget_area['after_title'] = '</h2>';
-
-	foreach( $widgets as $widget )
-	{
-		$widget_area['name'] = $widget['name'];
-		$widget_area['id'] = $widget['id'];
-		register_sidebar( $widget_area );
-	}
-}
-endif;
-
-
-
-/**
  * Enqueue any needed css or javascript files.
  */
 if( !function_exists('vtt_enqueue_scripts') ):
@@ -376,7 +245,6 @@ function vtt_enqueue_scripts()
 	vtt_enqueue_file( 'script', 'vtt_responsive_ready', 'scripts/jquery.responsive-ready.js' );
 }
 endif;
-
 
 
 /**
@@ -430,29 +298,8 @@ endif;
 
 
 /**
- * 
- */
-if( !function_exists('vtt_admin_preview_callback') ):
-function vtt_admin_preview_callback()
-{
-	vtt_get_template_part( 'header', 'part' );
-}
-endif;
-
-
-/**
- * 
- */
-if( !function_exists('vtt_admin_head_callback') ):
-function vtt_admin_head_callback()
-{
-	vtt_enqueue_files( 'style', 'header-style', 'styles/admin-header.css' );
-}
-endif;
-
-
-/**
- * 
+ * Get the header image url, width, and height.
+ * @return  Array  List of header image properties.
  */
 if( !function_exists('vtt_get_header_image') ):
 function vtt_get_header_image()
@@ -470,13 +317,17 @@ endif;
 
 
 /**
- * 
+ * Converts a URL to absolute path.
+ * @param  string  $url  The url to convert.
+ * @return  string  The absolute path, or empty string if it cannot be converted.
  */
 if( !function_exists('vtt_url_to_path') ):
 function vtt_url_to_path( $url )
 {
+	// Remove url protocol.
 	$url = vtt_convert_url( $url );
 	
+	// Check if url leads to upload directory.
 	$uploads_info = wp_upload_dir();
 	$uploads_info['baseurl'] = vtt_convert_url($uploads_info['baseurl']);
 	
@@ -484,13 +335,15 @@ function vtt_url_to_path( $url )
 	{
 		return str_replace( $uploads_info['baseurl'], $uploads_info['basedir'], $url );
 	}
-	
+
+	// Check if url leads to the home directory.
 	$home_url = vtt_convert_url(home_url());
 	if( strpos($url, $home_url) !== false )
 	{
 		return str_replace( $home_url.'/', ABSPATH, $url );
 	}
 	
+	// Check if url leads to the template or stylesheet directory.
 	$url_parts = parse_url($url);
 	$url_path = $url_parts['host'].$url_parts['path'];
 	
@@ -535,32 +388,24 @@ function vtt_url_to_path( $url )
 		}
 	}
 
-	$upload = wp_upload_dir();
-	$upload_parts = parse_url($upload['baseurl']);
-	$upload_path = $upload_parts['host'].$upload_parts['path'];
-	
-	if( strpos($url_path, $upload_path) !== false )
-	{
-		$path = str_replace( $upload_path, $upload['basedir'], $url_path );
-		if( file_exists($path) ) return $path;
-		
-		return '';
-	}
-	
+	// No matches found.
 	return '';
 }
 endif;
 
 
 /**
- * 
+ * Converts an absolute path to the URL.
+ * @param  string  $path  The absolute path.
+ * @return  string  The url to the path.
  */
 if( !function_exists('vtt_path_to_url') ):
 function vtt_path_to_url( $path )
 {
+	// Clean the file path to convert Windows style \ to Unix style /.
 	$path = vtt_clean_path( $path );
-	if( !file_exists($path) ) return '';
 
+	// Check if path leads to base upload directory.
 	$uploads_info = wp_upload_dir();
 	$uploads_info['basedir'] = vtt_clean_path( $uploads_info['basedir'] );
 	if( strpos($path, $uploads_info['basedir']) !== false )
@@ -568,18 +413,13 @@ function vtt_path_to_url( $path )
 		return str_replace( $uploads_info['basedir'], vtt_convert_url($uploads_info['baseurl']).'/', $path );
 	}
 	
+	// Check if path leads to the absolute path of the WordPress install.
 	if( strpos($path, vtt_clean_path(ABSPATH)) !== false )
 	{
 		return str_replace( vtt_clean_path(ABSPATH), vtt_convert_url(home_url()).'/', $path );
 	}
 	
-	$upload = wp_upload_dir();
-	$upload['basdir'] = vtt_clean_path( $upload['basedir'] );
-	if( strpos($path, $upload['basedir']) !== false )
-	{
-		return str_replace( $upload['basedir'], vtt_convert_url($upload['baseurl']), $path );
-	}
-
+	// Remove url protocol.
 	return vtt_convert_url(plugins_url( $path ));
 }
 endif;
@@ -611,37 +451,39 @@ endif;
 
 /**
  * Writes an object to the page with <pre> tags.
- * @param	$var		mixed		An object to var_dump.
+ * @param  mixed  $var  An object to var_dump.
+ * @param  string  $label  The label for the object, if any.
  */
 if( !function_exists('vtt_print') ):
 function vtt_print( $var, $label = '' )
 {
 	echo '<pre style="display:block; clear:both;">';
-	if( $label !== '' ) echo '<b>'.$label.":</b> \r\n";
+	if( $label !== '' ) echo "<b>$label:</b> \r\n";
 	var_dump($var);
 	echo '</pre>';
 }
 endif;
 
 
-
 /**
  * Retreives the absolute path to a file within the theme.
- * @param	$filepath	string		The relative path within the theme to the file.
- * @return				string|null	The absolute path to the file in the theme.
+ * @param  string  $filepath  The relative path within the theme to the file.
+ * @param  string  $search_type  The type of directories to search for file path.
+ * @param  bool  $return_null  True if null should be returned if not found.
+ * @return  string|null  The absolute path to the file in the theme.
  */
 if( !function_exists('vtt_get_theme_file_path') ):
 function vtt_get_theme_file_path( $filepath, $search_type = 'all', $return_null = true )
 {
 	global $vtt_config;
 	
-	if( (strlen($filepath) > 0) && ($filepath[0] === '/') ) $filepath = substr( $filepath, 1 );
+	$filepath = trim($filepath, '/');
 	
 	$directories = array();
 	switch( $search_type )
 	{
 		case 'variation':
-			$directories = $vtt_config->get_variation_all_directories( true );
+			$directories = $vtt_config->get_all_variations_directories( true );
 			break;
 		case 'theme':
 			$directories = $vtt_config->get_theme_directories( true );
@@ -672,8 +514,8 @@ endif;
 
 /**
  * Retreives the absolute url to a file within the theme. 
- * @param	$filepath	string		The relative path within the theme to the file.
- * @return				string|null	The absolute path to the file in the theme.
+ * @param  string  $filepath  The relative path within the theme to the file.
+ * @return  string|null  The absolute path to the file in the theme.
  */
 if( !function_exists('vtt_get_theme_file_url') ):
 function vtt_get_theme_file_url( $filepath, $search_type = 'both', $return_null = true )
@@ -695,25 +537,11 @@ endif;
 
 
 /**
- * @param	$filepath	string		The relative path within the theme to the file.
- */
-if( !function_exists('vtt_include_files') ):
-function vtt_include_files( $filepath )
-{
-	$directories = $vtt_config->get_theme_directories( true );
-	foreach( $directories as $directory )
-	{
-		if( file_exists($directory.'/'.$filepath) )
-			include_once( get_stylesheet_directory().'/'.$filepath );
-	}
-}
-endif;
-
-
-
-/**
  * Find, then includes the template part.
- * @param	$name		string		The name of the template part.
+ * @param  string  $name  The name of the template part.
+ * @param  string  $folder  The folder within templates to search for the part.
+ * @param  string  $key  The key value to search for.
+ * @return  bool  True if the template was found, otherwise False.
  */
 if( !function_exists('vtt_get_template_part') ):
 function vtt_get_template_part( $name, $folder = '', $key = '' )
@@ -743,7 +571,12 @@ function vtt_get_template_part( $name, $folder = '', $key = '' )
 endif;
 
 
-
+/**
+ * Get the type of object that was queried for the current page. 
+ * Types include taxonomy name and post type.
+ * @param  bool  $apply_filter  True to filter the results through the vtt-queried-object-type filter.
+ * @return  string  The queried object type.
+ */
 if( !function_exists('vtt_get_queried_object_type') ):
 function vtt_get_queried_object_type( $apply_filter = true )
 {
@@ -751,8 +584,6 @@ function vtt_get_queried_object_type( $apply_filter = true )
 	$object_type = '';
 	
 	$qo = $wp_query->get_queried_object();
-// 	vtt_print($wp_query,'wp_query');
-// 	vtt_print($qo,'qo');
 	
 	if( $wp_query->is_archive() )
 	{
@@ -805,6 +636,11 @@ function vtt_get_queried_object_type( $apply_filter = true )
 endif;
 
 
+/**
+ * Gets a post's post type.
+ * @param  WP_Post|null  $p  The WP_Post object or null if the global $post should be used.
+ * @return  string  The post type.
+ */
 if( !function_exists('vtt_get_post_type') ):
 function vtt_get_post_type( $p = null )
 {
@@ -819,29 +655,14 @@ function vtt_get_post_type( $p = null )
 endif;
 
 
-
-/**
- * Retreives a tag object based on the slug.
- * @param	$slug		string		The slug/name of the tag.
- * @return				mixed		Term Row (array) or false if not found.
- */
-if( !function_exists('vtt_get_tag_by_slug') ):
-function vtt_get_tag_by_slug( $slug )
-{
-	return get_term_by( 'slug', $slug, 'post_tag' );
-}
-endif;
-
-
-
  /**
  * Creates the HTML for the an anchor.  If contents are provided, then the anchor will
  * wrap the contents, else only the beginning anchor tag will be returned.
- * @param	$url		string		The url of the anchor.
- * @param	$title		string		The title for the anchor.
- * @param	$class		string|null	The class for the anchor, if any.
- * @param	$contents	string|null	The contents wrapped by the anchor.
- * @return				string		The created anchor tag.
+ * @param  string  $url  The url of the anchor.
+ * @param  string  $title  The title for the anchor.
+ * @param  string|null  $class  The class for the anchor, if any.
+ * @param  string|null  $contents  The contents wrapped by the anchor.
+ * @return  string  The created anchor tag.
  */
 if( !function_exists('vtt_get_anchor') ):
 function vtt_get_anchor( $url, $title, $class = null, $contents = null )
@@ -876,25 +697,11 @@ function vtt_get_current_datetime()
 endif;
 
 
-
 /**
- * 
- */
-if( !function_exists('vtt_use_widget') ):
-function vtt_use_widget( $part, $placement )
-{
-	global $vtt_config;
-	
-	if( !function_exists('dynamic_sidebar') ) return;
-	
-	if( $vtt_config->use_widget($part, $placement) ) dynamic_sidebar( $part.'-'.$placement );
-}
-endif;
-
-
-
-/**
- * 
+ * Determines the image's url, then creates an img tag and wrapping anchor tag, if needed.
+ * @param  Array  $image_info  The list of image info.
+ * @param  bool  $echo  True to output the image html, or False to return the html.
+ * @return  string  The generated html.
  */
 if( !function_exists('vtt_image') ):
 function vtt_image( $image_info, $echo = true )
@@ -935,11 +742,10 @@ function vtt_image( $image_info, $echo = true )
 endif;
 
 
-
 /**
  * Retreives an image's url.
- * @param	$path		string		The absolute or relative path to the image.
- * @return				string|null	The absolute url to the image.
+ * @param  string  $path  The absolute or relative path to the image.
+ * @return  string|null  The absolute url to the image.
  */
 if( !function_exists('vtt_get_image_url') ):
 function vtt_get_image_url( $path )
@@ -962,180 +768,72 @@ endif;
 
 
 /**
- * 
- */
-if( !function_exists('vtt_get_image_info') ):
-function vtt_get_image_info( $image_info )
-{
-	global $vtt_mobile_support;
-	
-	if( !$image_info ) return $image_info;
-	
-	$image_info['height'] = 'auto';
-	$image_info['width'] = 'auto';
-
-	$pathinfo = pathinfo( $image_info['path'] );
-	if( !$pathinfo ) return $image_info;	
-	
-	$full_path = ''; $path = ''; $url = '';
-	if( $vtt_mobile_support->use_mobile_site )
-	{
-		$path = $pathinfo['dirname'].'/'.$pathinfo['filename'].'-mobile.'.$pathinfo['extension'];
-		$full_path = vtt_get_theme_file_path( $path );
-		
-		if( $path !== null ) 
-			$url = vtt_get_theme_file_url( $path );
-	}
-
-	if( !$url )
-	{
-		$path = $pathinfo['dirname'].'/'.$pathinfo['filename'].'.'.$pathinfo['extension'];
-		$full_path = vtt_get_theme_file_path( $path );
-
-		if( $path !== null ) 
-			$url = vtt_get_theme_file_url( $path );
-	}
-	
-	if( !$url ) return $image_info;
-	
-	$image_info['path'] = $full_path;
-	$image_info['url'] = $url;
-
-	$image_size = getimagesize( $image_info['path'] );
-	$image_info['width'] = $image_size[0];
-	$image_info['height'] = $image_size[1];
-	
-	return $image_info;
-}
-endif;
-
-
-
-/**
- * 
+ * Checks if the haystack string starts with the needle string.
+ * @param  string  $haystack  The string to search.
+ * @param  string  $needle  The string to search for.
+ * @return  bool  True if the haystack starts with the needle.
  */
 if( !function_exists('vtt_str_starts_with') ):
-function vtt_str_starts_with($haystack, $needle)
+function vtt_str_starts_with( $haystack, $needle )
 {
-    return $needle === "" || strpos($haystack, $needle) === 0;
+    return $needle === '' || strpos($haystack, $needle) === 0;
 }
 endif;
 
 
 
 /**
- * 
+ * Checks if the haystack string ends with the needle string.
+ * @param  string  $haystack  The string to search.
+ * @param  string  $needle  The string to search for.
+ * @return  bool  True if the haystack ends with the needle.
  */
 if( !function_exists('vtt_str_ends_with') ):
-function vtt_str_ends_with($haystack, $needle)
+function vtt_str_ends_with( $haystack, $needle )
 {
-    return $needle === "" || substr($haystack, -strlen($needle)) === $needle;
-}
-endif;
-
-
-
-/**
- * 
- */
-if( !function_exists('vtt_get_section') ):
-function vtt_get_section( $wpquery = null )
-{
-	global $wp_query, $vtt_config;
-
-	if( $wpquery === null ) $wpquery = $wp_query;
-	if( $wpquery->get('section') ) return $wpquery->get('section');
-	
-	$qo = $wpquery->get_queried_object();
-	
-	if( $wpquery->is_archive() )
-	{
-		if( $wpquery->is_tax() || $wpquery->is_tag() || $wpquery->is_category() )
-		{
-			$section = $vtt_config->get_section( null, array( $qo->taxonomy => $qo->slug ), false );
-			$wpquery->set( 'section', $section );
-			return $section;
-		}
-		elseif( $wpquery->is_post_type_archive() )
-		{
-			$section = $vtt_config->get_section( $qo->name, null, false );
-			$wpquery->set( 'section', $section );
-			return $section;
-		}
-
-		return $vtt_config->get_default_section();
-	}
-	
-	if( $wpquery->is_single() )
-	{
-		if( $qo === null )
-		{
-			$post_id = $wp_query->get( 'p' );
-
-			if( !$post_id )
-			{
-				global $wpdb;
-				
-				$post_type = $wp_query->get( 'post_type', false );
-				if( !$post_type ) $post_type = 'post';
-				
-				$post_slug = $wp_query->get( 'name', false );
-				
-				if( $post_slug !== false )
-					$post_id = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_type = '$post_type' AND post_name = '$post_slug'" );
-			}
-		}
-		else
-		{
-			$post_id = $qo->ID;
-		}
-		
-		if( $post_id )
-		{
-			$post_type = get_post_type( $post_id );
-			$taxonomies = vtt_get_taxonomies( $post_id );
-			$section = $vtt_config->get_section( $post_type, $taxonomies, false, array('news') );
-		}
-		else
-		{
-			$section = $vtt_config->get_default_section();
-		}
-		
-		$wpquery->set( 'section', $section );
-		return $section;
-	}
-	
-	return $vtt_config->get_default_section();
+    return $needle === '' || substr($haystack, -strlen($needle)) === $needle;
 }
 endif;
 
 
 /**
- * Need to add support for displaying multiple authors...
+ * Get the by line html for a post.
+ * @param  WP_Post  $p  The WP_Post object or null if global $post object should be used.
+ * @return  string  The generated html.
  */
 if( !function_exists( 'vtt_get_byline' ) ) :
-function vtt_get_byline( $post )
+function vtt_get_byline( $p = null )
 {
-	$date = date( 'F d, Y', strtotime($post->post_date) );
+	global $post;
+	if( !$p ) $p = $post;
 	
-	$author = get_the_author_meta( 'display_name', $post->post_author );
-	$url = get_author_posts_url($post->post_author);
+	$date = date( 'F d, Y', strtotime($p->post_date) );
 	
-//	return $date.' by '.$author;
+	$author = get_the_author_meta( 'display_name', $p->post_author );
+	$url = get_author_posts_url($p->post_author);
+	
 	return $date.' by <a href="'.$url.'" title="Posts by '.$author.'">'.$author.'</a>';
 }
 endif;
 
 
+/**
+ * Get the breadcrumb html for a post.
+ * @param  WP_Post  $p  The WP_Post object or null if global $post object should be used.
+ * @return  string  The generated html.
+ */
 if( !function_exists( 'vtt_get_breadcrumbs' ) ):
-function vtt_get_breadcrumbs( $post )
+function vtt_get_breadcrumbs( $p )
 {
-	$breadcrumbs = array();
-	$breadcrumbs[] = get_the_title( $post->ID );
+	global $post;
+	if( !$p ) $p = $post;
 
-	if( $post->post_parent )
+	$breadcrumbs = array();
+	$breadcrumbs[] = get_the_title( $p->ID );
+
+	if( $p->post_parent )
 	{
-		$parent_id = $post->post_parent;
+		$parent_id = $p->post_parent;
 		while( $parent_id )
 		{
 			$page = get_page( $parent_id );
@@ -1154,7 +852,10 @@ endif;
 
 
 /**
- * 
+ * Get the breadcrumb html for a taxonomy term.
+ * @param  int  $term_id  The id of the term.
+ * @param  string  $taxonomy  The taxonomy of the term.
+ * @return  string  The generated html, or an empty string if no parent is found.
  */
 if( !function_exists( 'vtt_get_taxonomy_breadcrumbs' ) ):
 function vtt_get_taxonomy_breadcrumbs( $term_id, $taxonomy = 'category' )
@@ -1179,15 +880,21 @@ endif;
 
 
 /**
- * 
+ * Get the html for a taxonomy list.
+ * @param  string  $taxonomy_name  The name of the taxonomy.
+ * @param  WP_Post  $p  The WP_Post object or null if global $post object should be used.
+ * @return  string  The generated html.
  */
 if( !function_exists( 'vtt_get_taxonomy_list' ) ):
-function vtt_get_taxonomy_list( $taxonomy_name, $post )
+function vtt_get_taxonomy_list( $taxonomy_name, $p )
 {
+	global $post;
+	if( !$p ) $p = $post;
+
 	$taxonomy = get_taxonomy( $taxonomy_name );
 	if( !$taxonomy ) return '';
 
-	$terms = wp_get_post_terms( $post->ID, $taxonomy_name );
+	$terms = wp_get_post_terms( $p->ID, $taxonomy_name );
 	if( count($terms) == 0 ) return '';
 
 	$html = '';
@@ -1236,76 +943,8 @@ endif;
 
 
 /**
- * 
- */
-if( !function_exists('vtt_get_categories') ):
-function vtt_get_categories( $categories = null )
-{
-	if( $categories == null )
-		$categories = get_the_category();
-
-	$category = array();
-	if( $categories )
-	{
-		foreach( $categories as $c ) $category[] = $c->slug;
-	}
-	
-	return $category;
-}
-endif;
-
-
-
-/**
- * 
- */
-if( !function_exists('vtt_get_tags') ):
-function vtt_get_tags( $tags = null )
-{
-	if( $tags == null )
-		$tags = get_the_tags();
-	
-	$tag = array();	
-	if( $tags )
-	{
-		foreach( $tags as $t ) $tag[] = $t->slug;
-	}
-	
-	return $tag;
-}
-endif;
-
-
-
-/**
- * 
- */
-if( !function_exists('vtt_get_taxonomies') ):
-function vtt_get_taxonomies( $post_id = -1 )
-{
-	global $post;
-	
-	if( $post_id == -1 )
-		$post_id = $post->ID;
-		
-	$all_taxonomies = get_taxonomies( '', 'names' );
-	
-	$taxonomies = array();
-	foreach( $all_taxonomies as $taxname )
-	{
-		$terms = wp_get_post_terms( $post_id, $taxname, array('fields' => 'slugs') );
-		if( count($terms) > 0 )
-			$taxonomies[$taxname] = $terms;
-	}
-	
-	return $taxonomies;
-}
-endif;
-
-
-
-/**
- * 
+ * Get the current page's url without the query string.
+ * @return  The page url.
  */
 if( !function_exists('vtt_get_page_url') ):
 function vtt_get_page_url()
@@ -1324,31 +963,27 @@ function vtt_get_page_url()
 endif;
 
 
-
 /**
- * 
+ * Setup the variations selection in the Theme Customizer.
+ * @param  WP_Customize_Manager  $wp_customize  Theme Customizer API controller.
  */
 if( !function_exists('vtt_customize_register') ):
 function vtt_customize_register( $wp_customize )
 {
 	global $vtt_config;
 	
-	//
-	// Variation section
-	//
-	
 	$wp_customize->add_section(
 		'vtt-variation-section',
 		array(
-			'title'      	=> 'Variation',
-			'priority'   	=> 0,
+			'title'    => 'Variation',
+			'priority' => 0,
 		)
 	);
 	
 	$wp_customize->add_setting(
 		'vtt-variation',
 		array(
-			'default'     	=> $vtt_config->get_variation_name(),
+			'default' => $vtt_config->get_variation_name(),
 		)
 	);
 	
@@ -1357,309 +992,18 @@ function vtt_customize_register( $wp_customize )
 			$wp_customize, 
 			'vtt-variation-control', 
 			array(
-				'label'      => 'Name',
-				'section'    => 'vtt-variation-section',
+				'label'   => 'Name',
+				'section' => 'vtt-variation-section',
 			)
 		)
 	);
-	
-	
-	//
-	// Header Title section
-	//
-	
-	$wp_customize->add_section(
-		'vtt-header-title-section',
-		array(
-			'title'      => 'Header Title',
-			'priority'   => 0,
-		)
-	);
-
-	// header title hide
-	
-	$wp_customize->add_setting(
-		'header-title-hide',
-		array(
-			'default'     => $vtt_config->get_theme_value( 'header-title-hide' ),
-		)
-	);
-
-	$wp_customize->add_control(
-		new WP_Customize_Control( 
-			$wp_customize, 
-			'vtt-header-title-hide-control', 
-			array(
-				'label'      => 'Hide header title',
-				'section'    => 'vtt-header-title-section',
-				'settings'   => 'header-title-hide',
-				'type'       => 'checkbox',
-			)
-		)
-	);
-	
-	// header title position
-
-	$wp_customize->add_setting(
-		'header-title-position',
-		array(
-			'default'     => $vtt_config->get_theme_value( 'header-title-position' ),
-			'transport'   => 'refresh',
-		)
-	);
-
-	$wp_customize->add_control( 
-		new VTT_Customize_Header_Position( 
-			$wp_customize, 
-			'vtt-header-title-position-control', 
-			array(
-				'label'      => 'Position',
-				'section'    => 'vtt-header-title-section',
-				'settings'   => 'header-title-position',
-			)
-		)
-	);
-	
-	
-	
-	//
-	// Featured Image section
-	//
-	
-	$wp_customize->add_section(
-		'vtt-featured-image-section',
-		array(
-			'title'      => 'Featured Image',
-			'priority'   => 0,
-		)
-	);
-	
-	//
-	// featured image position select
-	//
-	
-	$wp_customize->add_setting(
-		'featured-image-position',
-		array(
-			'default'     => $vtt_config->get_theme_value( 'featured-image-position' ),
-			'transport'   => 'refresh',
-		)
-	);
-	
-	$wp_customize->add_control( 
-		new WP_Customize_Control( 
-			$wp_customize, 
-			'vtt-featured-image-position-control', 
-			array(
-				'label'      => 'Position',
-				'section'    => 'vtt-featured-image-section',
-				'settings'   => 'featured-image-position',
-				'type'       => 'select',
-				'choices'    => array(
-					'header'	=> 'Header Image',
-					'left'		=> 'Left Image',
-					'right'		=> 'Right Image',
-					'center'	=> 'Across Top Centered',
-				),
-			)
-		)
-	);
-	
-	
-	//
-	// Site Title & Tagline
-	//
-	
-	$wp_customize->remove_setting( 'blogname' );
-	$wp_customize->remove_control( 'blogname' );
-	$wp_customize->remove_setting( 'blogdescription' );
-	$wp_customize->remove_control( 'blogdescription' );
-	
-	$name = $vtt_config->get_theme_value( 'blogname' );
-	$url = $vtt_config->get_theme_value( 'blogname_url' );
-	if( $name == '/' ) $name = get_bloginfo('name');
-	if( $url == '/' ) $url = get_home_url();
-	
-	$wp_customize->add_setting(
-		'blogname',
-		array(
-			'default'		=> $name,
-		)
-	);
-
-	$wp_customize->add_control( 
-		new WP_Customize_Control( 
-			$wp_customize, 
-			'blogname-control',
-			array(
-				'label'			=> 'Site Title',
-				'section'		=> 'title_tagline',
-				'settings'		=> 'blogname',
-			)
-		)
-	);
-	
-	$wp_customize->add_setting(
-		'blogname_url',
-		array(
-			'default'		=> $url,
-		)
-	);
-
-	$wp_customize->add_control( 
-		new WP_Customize_Control( 
-			$wp_customize, 
-			'blogname_url-control',
-			array(
-				'label'			=> 'Site Title URL',
-				'section'		=> 'title_tagline',
-				'settings'		=> 'blogname_url',
-			)
-		)
-	);
-
-	$name = $vtt_config->get_theme_value( 'blogdescription' );
-	$url = $vtt_config->get_theme_value( 'blogdescription_url' );
-	if( $name == '/' ) $name = get_bloginfo('description');
-	if( $url == '/' ) $url = get_home_url();
-	
-	$wp_customize->add_setting(
-		'blogdescription',
-		array(
-			'default'		=> $name,
-		)
-	);
-
-	$wp_customize->add_control( 
-		new WP_Customize_Control( 
-			$wp_customize, 
-			'blogdescription-control',
-			array(
-				'label'			=> 'Site Description',
-				'section'		=> 'title_tagline',
-				'settings'		=> 'blogdescription',
-			)
-		)
-	);
-	
-	$wp_customize->add_setting(
-		'blogdescription_url',
-		array(
-			'default'		=> $url,
-		)
-	);
-
-	$wp_customize->add_control( 
-		new WP_Customize_Control( 
-			$wp_customize, 
-			'blogdescription_url-control',
-			array(
-				'label'			=> 'Site Description URL',
-				'section'		=> 'title_tagline',
-				'settings'		=> 'blogdescription_url',
-			)
-		)
-	);
-
-
-	//
-	// Colors
-	//
-
-	//
-	// header title box text color
-	//
-	
-	$wp_customize->add_setting(
-		'header_textcolor',
-		array(
-			'theme_supports'		=> array( 'custom-header', 'header-text' ),
-			'default'				=> get_theme_support( 'custom-header', 'default-text-color' ),
-			'sanitize_callback'		=> array( $wp_customize, '_sanitize_header_textcolor' ),
-			'sanitize_js_callback'	=> 'maybe_hash_hex_color',
-		)
-	);
-
-	$wp_customize->add_control(
-		new WP_Customize_Color_Control( 
-			$wp_customize, 
-			'header_textcolor', 
-			array(
-				'label'				=> 'Header Text Color',
-				'section'			=> 'colors',
-			)
-		)
-	);
-
-
-
-	//
-	// header title box text background color
-	//
-	
-	$wp_customize->add_setting(
-		'header_textbgcolor', 
-		array(
-			'theme_supports'		=> array( 'custom-header', 'header-text' ),
-			'default'				=> get_theme_support( 'custom-header', 'default-text-bgcolor' ),
-			'sanitize_callback'		=> 'vtt_sanitize_header_textbgcolor',
-			'sanitize_js_callback'	=> 'maybe_hash_hex_color',
-		)
-	);
-
-// 	$wp_customize->add_control(
-// 		new WP_Customize_Color_Control( 
-// 			$wp_customize, 
-// 			'header_textbgcolor', 
-// 			array(
-// 				'label'   => 'Header Text Background Color',
-// 				'section' => 'colors',
-// 			)
-// 		)
-// 	);
-
-	$wp_customize->add_control(
-		new Pluto_Customize_Alpha_Color_Control(
-			$wp_customize,
-			'header_textbgcolor',
-			array(
-				'label'		=> 'Header Text Background Color',
-				'palette'	=> true,
-				'section'	=> 'colors'
-			)
-		)
-	);
-
-	
-	
-	$wp_customize->remove_control( 'display_header_text' );
 }
 endif;
 
 
 /**
- * 
- */
-if( !function_exists('vtt_sanitize_header_textbgcolor') ):
-function vtt_sanitize_header_textbgcolor( $color )
-{
-	if ( 'blank' === $color )
-		return 'blank';
-	
-	if( strpos($color, 'rgb') !== false )
-		return $color;
-	
-	$color = sanitize_hex_color_no_hash( $color );
-	if ( empty( $color ) )
-		$color = get_theme_support( 'custom-header', 'default-text-bgcolor' );
-	
-	return $color;
-}
-endif;
-
-
-/**
- * 
+ * Save the Theme Customizer options.
+ * @param  WP_Customize_Manager  $wp_customize  Theme Customizer API controller.
  */
 if( !function_exists('vtt_customize_save') ):
 function vtt_customize_save( $wp_customize )
@@ -1676,7 +1020,9 @@ endif;
 
 
 /**
- * 
+ * Update the Variation through the theme customizer.
+ * @param  string  $old_value  The old variation name.
+ * @param  string  $new_value  The new variation name.
  */
 if( !function_exists('vtt_customize_update_variation') ):
 function vtt_customize_update_variation( $old_value, $new_value )
@@ -1689,147 +1035,9 @@ endif;
 
 
 /**
- * 
- */
-if( !function_exists('vtt_customize_theme_mod_blogname') ):
-function vtt_customize_theme_mod_blogname( $value )
-{
-	if( $value == '/' ) return get_bloginfo('name');
-	return $value;
-}
-endif;
-
-
-/**
- * 
- */
-if( !function_exists('vtt_customize_theme_mod_blogname_url') ):
-function vtt_customize_theme_mod_blogname_url( $value )
-{
-	if( $value == '/' ) return get_site_url();
-	return $value;
-}
-endif;
-
-
-/**
- * 
- */
-if( !function_exists('vtt_customize_theme_mod_blogdescription') ):
-function vtt_customize_theme_mod_blogdescription( $value )
-{
-	if( $value == '/' ) return get_bloginfo('description');
-	return $value;
-}
-endif;
-
-
-/**
- * 
- */
-if( !function_exists('vtt_customize_theme_mod_blogdescription_url') ):
-function vtt_customize_theme_mod_blogdescription_url( $value )
-{
-	if( $value == '/' ) return get_site_url();
-	return $value;
-}
-endif;
-
-
-/**
- * 
- */
-if( !function_exists('vtt_customize_set_theme_mod_blogname') ):
-function vtt_customize_set_theme_mod_blogname( $new_value, $old_value )
-{
-	if( $new_value == get_bloginfo('name') ) $new_value = '/';
-	return $new_value;
-}
-endif;
-
-
-/**
- * 
- */
-if( !function_exists('vtt_customize_set_theme_mod_blogname_url') ):
-function vtt_customize_set_theme_mod_blogname_url( $new_value, $old_value )
-{
-	if( $new_value == get_site_url() ) $new_value = '/';
-	return $new_value;
-}
-endif;
-
-
-/**
- * 
- */
-if( !function_exists('vtt_customize_set_theme_mod_blogdescription') ):
-function vtt_customize_set_theme_mod_blogdescription( $new_value, $old_value )
-{
-	if( $new_value == get_bloginfo('description') ) $new_value = '/';
-	return $new_value;
-}
-endif;
-
-
-/**
- * 
- */
-if( !function_exists('vtt_customize_set_theme_mod_blogdescription_url') ):
-function vtt_customize_set_theme_mod_blogdescription_url( $new_value, $old_value )
-{
-	if( $new_value == get_site_url() ) $new_value = '/';
-	return $new_value;
-}
-endif;
-
-
-/**
- * 
- */
-if( !function_exists('vtt_customize_pre_update_options') ):
-function vtt_customize_pre_update_options( $new_value, $old_value )
-{
-	global $wp_customize;
-	if( isset($wp_customize) ) return;
-
-	update_option( 'vtt-options-1', '1' );
-
-	if( !array_key_exists('theme-mods', $new_value) ) return;
-
-	if( (array_key_exists('blogname', $new_value['theme-mods'])) &&
-	    ($new_value['theme-mods']['blogname'] == get_bloginfo('name')) )
-	{
-		$new_value['theme-mods']['blogname'] = '/';
-	}
-
-	if( (array_key_exists('blogname_url', $new_value['theme-mods'])) &&
-	    ($new_value['theme-mods']['blogname_url'] == get_site_url()) )
-	{
-		$new_value['theme-mods']['blogname_url'] = '/';
-	}
-
-	if( (array_key_exists('blogdescription', $new_value['theme-mods'])) &&
-	    ($new_value['theme-mods']['blogdescription'] == get_bloginfo('description')) )
-	{
-		$new_value['theme-mods']['blogdescription'] = '/';
-	}
-
-	if( (array_key_exists('blogdescription_url', $new_value['theme-mods'])) &&
-	    ($new_value['theme-mods']['blogdescription_url'] == get_site_url()) )
-	{
-		$new_value['theme-mods']['blogdescription_url'] = '/';
-	}
-	
-	update_option( 'vtt-options-2', $new_value );
-	
-	return $new_value;
-}
-endif;
-
-
-/**
- * 
+ * Update the theme mod options through the theme customizer.
+ * @param  mixed  $old_value  The old value.
+ * @param  mixed  $new_value  The new value.
  */
 if( !function_exists('vtt_customize_update_options') ):
 function vtt_customize_update_options( $old_value, $new_value )
@@ -1849,7 +1057,8 @@ endif;
 
 
 /**
- * 
+ * Get the full path to the the comments template.
+ * @param  string  $path  The default path.
  */
 if( !function_exists('vtt_find_comments_template_part') ):
 function vtt_find_comments_template_part( $path )
@@ -1858,40 +1067,6 @@ function vtt_find_comments_template_part( $path )
 	if( $filepath ) $path = $filepath;
 
 	return $path;
-}
-endif;
-
-
-
-/**
- * 
- */
-if( !function_exists('vtt_add_custom_mime_types') ):
-function vtt_add_custom_mime_types( $mimes )
-{
-	// Mime types to remove:
-	// .mp4, .mov, .wmv, .avi
-	unset( $mimes['mp4'] );
-	unset( $mimes['mov'] );
-	unset( $mimes['wmv'] );
-	unset( $mimes['avi'] );
-
-	// Mime types to include:
-	// .exe, .zip
-	$mimes['exe'] = 'application/x-msdownload';
-	$mimes['zip'] = 'application/zip';
-	
-	return $mimes;
-}
-endif;
-
-
-/**
- * 
- */
-if( !function_exists('vtt_read_more_link') ):
-function vtt_read_more_link() {
-	return '<a class="more-link" href="' . get_permalink() . '">Read more...</a>';
 }
 endif;
 
@@ -1950,28 +1125,7 @@ function vtt_backtrace( $fullpath = false )
 endif;
 
 
-/**
- * 
- * 
- */
-if( !function_exists('vtt_add_home_pages_menu_item') ):
-function vtt_add_home_pages_menu_item( $args )
-{
-	$args['show_home'] = true;
-	return $args;
-}
-endif;
-
-
-
-//========================================================================================
-//============================================================== Main setup - Bottom =====
-
-
-// load config.
+// Load config and variation's functions.php files.
 $vtt_config->load_config();
-
-// include variation's functions.php
 $vtt_config->load_variations_files( 'functions.php' );	
-
 
