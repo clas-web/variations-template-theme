@@ -236,11 +236,9 @@ function vtt_enqueue_scripts()
 {
 	global $vtt_mobile_support;
 
-	vtt_enqueue_file( 'style', 'normalize', 'styles/normalize.css');
-	
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui', '//code.jquery.com/ui/1.11.0/jquery-ui.js' );
-	vtt_enqueue_files( 'style', 'main-style', 'style.css', array(), '1.0.0' );
+	vtt_enqueue_files( 'style', 'main', 'style.css', array(), '1.0.0' );
 	
 	vtt_enqueue_file( 'script', 'vtt_responsive_ready', 'scripts/jquery.responsive-ready.js' );
 }
