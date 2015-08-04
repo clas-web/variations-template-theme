@@ -106,6 +106,7 @@ add_action( 'admin_bar_menu', 'vtt_add_login', 10 );
 
 // Theme setup
 add_action( 'wp_enqueue_scripts', 'vtt_enqueue_scripts', 0 );
+add_action( 'admin_enqueue_scripts', 'vtt_admin_enqueue_scripts', 0 );
 
 // Embeded content
 add_filter( 'embed_oembed_html', 'vtt_video_embed_html', 10, 3 );
@@ -241,6 +242,17 @@ function vtt_enqueue_scripts()
 	vtt_enqueue_files( 'style', 'main', 'style.css', array(), '1.0.0' );
 	
 	vtt_enqueue_file( 'script', 'vtt_responsive_ready', 'scripts/jquery.responsive-ready.js' );
+}
+endif;
+
+
+/**
+ * Enqueue any needed css or javascript files for the admin backend.
+ */
+if( !function_exists('vtt_admin_enqueue_scripts') ):
+function vtt_admin_enqueue_scripts()
+{
+	vtt_enqueue_files( 'style', 'admin-main', 'admin.css', array(), '1.0.0' );
 }
 endif;
 
