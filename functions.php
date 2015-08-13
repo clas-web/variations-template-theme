@@ -356,6 +356,30 @@ endif;
 
 
 /**
+ * Add the editor style(s) for the admin backend.
+ */
+if( !function_exists('vtt_add_editor_styles') ):
+function vtt_add_editor_styles()
+{
+	global $vtt_config;
+
+	$directories = $vtt_config->get_all_directories( false );
+
+	$urls = array();
+	foreach( $directories as $key => $directory )
+	{
+		if( file_exists($directory.'/editor-style.css') )
+		{
+			$urls[] = vtt_path_to_url( $directory.'/editor-style.css' );
+		}
+	}
+
+	if( count($urls) > 0 ) add_editor_style( $urls );
+}
+endif;
+
+
+/**
  * Enqueue any needed css or javascript files.
  */
 if( !function_exists('vtt_enqueue_scripts') ):

@@ -75,9 +75,6 @@ function vtt_default_theme_setup()
 	vtt_default_add_featured_image_support();
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'custom-background' );
-	
-	// add editor styles.
-	add_editor_style( 'editor-style.css' );
 }
 endif; 
 
