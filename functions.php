@@ -1160,61 +1160,6 @@ endif;
 
 
 /**
- * Save the Theme Customizer options.
- * @param  WP_Customize_Manager  $wp_customize  Theme Customizer API controller.
- */
-if( !function_exists('vtt_customize_save') ):
-function vtt_customize_save( $wp_customize )
-{
-	global $vtt_config;
-	$vtt_config->set_variation( get_theme_mod(VTT_VARIATION_OPTION), true );
-	$theme_mods = get_theme_mods();
-	foreach( $theme_mods as $key => $value )
-	{
-		$vtt_config->set_value( 'theme-mods', $key, $value );
-	}
-}
-endif;
-
-
-/**
- * Update the Variation through the theme customizer.
- * @param  string  $old_value  The old variation name.
- * @param  string  $new_value  The new variation name.
- */
-if( !function_exists('vtt_customize_update_variation') ):
-function vtt_customize_update_variation( $old_value, $new_value )
-{
-	global $wp_customize;
-	if( isset($wp_customize) ) return;
-	set_theme_mod( VTT_VARIATION_OPTION, $new_value );
-}
-endif;
-
-
-/**
- * Update the theme mod options through the theme customizer.
- * @param  mixed  $old_value  The old value.
- * @param  mixed  $new_value  The new value.
- */
-if( !function_exists('vtt_customize_update_options') ):
-function vtt_customize_update_options( $old_value, $new_value )
-{
-	global $vtt_config, $wp_customize;
-	if( isset($wp_customize) ) return;
-	if( !array_key_exists('theme-mods', $new_value) ) return;
-
-	$theme_mods = $new_value['theme-mods'];
-	foreach( $theme_mods as $key => $value )
-	{
-		set_theme_mod( $key, $value );
-		$vtt_config->set_value( 'theme-mods', $key, $value );
-	}
-}
-endif;
-
-
-/**
  * Get the full path to the the comments template.
  * @param  string  $path  The default path.
  */

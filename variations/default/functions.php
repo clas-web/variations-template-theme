@@ -13,6 +13,9 @@ if( is_customize_preview() ):
 	require_once( __DIR__.'/classes/customizer/header-position/control.php' );
 endif;
 
+// Config setup.
+add_filter( 'vtt-options', 'vtt_default_default_options' );
+
 // Theme setup.
 add_action( 'after_setup_theme', 'vtt_default_theme_setup', 5 );
 add_action( 'init', 'vtt_default_register_menus' );
@@ -37,6 +40,26 @@ add_filter( 'the_content_more_link', 'vtt_default_read_more_link' );
 
 // Add Home to Pages menu.
 add_filter( 'wp_page_menu_args', 'vtt_default_add_home_pages_menu_item' );
+
+
+/**
+ * Sets the default options for $vtt_config.
+ * @return  Array  The default options.
+ */
+if( !function_exists('vtt_default_default_options') ):
+function vtt_default_default_options( $options )
+{
+	return array(
+		'featured-image-position' => 'left',
+		'header-title-position'   => 'hleft vcenter',
+		'header-title-hide'       => false,
+		'blogname'                => '/',
+		'blogname_url'            => '/',
+		'blogdescription'         => '/',
+		'blogdescription_url'     => '/',
+	);
+}
+endif;
 
 
 /**
@@ -237,7 +260,7 @@ function vtt_default_customize_register( $wp_customize )
 	$wp_customize->add_setting(
 		'header-title-hide',
 		array(
-			'default'     => $vtt_config->get_theme_value( 'header-title-hide' ),
+			'default'     => $vtt_config->get_value( 'header-title-hide' ),
 		)
 	);
 
@@ -258,7 +281,7 @@ function vtt_default_customize_register( $wp_customize )
 	$wp_customize->add_setting(
 		'header-title-position',
 		array(
-			'default'     => $vtt_config->get_theme_value( 'header-title-position' ),
+			'default'     => $vtt_config->get_value( 'header-title-position' ),
 			'transport'   => 'refresh',
 		)
 	);
@@ -288,7 +311,7 @@ function vtt_default_customize_register( $wp_customize )
 	$wp_customize->add_setting(
 		'featured-image-position',
 		array(
-			'default'     => $vtt_config->get_theme_value( 'featured-image-position' ),
+			'default'     => $vtt_config->get_value( 'featured-image-position' ),
 			'transport'   => 'refresh',
 		)
 	);
@@ -318,8 +341,8 @@ function vtt_default_customize_register( $wp_customize )
 	$wp_customize->remove_setting( 'blogdescription' );
 	$wp_customize->remove_control( 'blogdescription' );
 	
-	$name = $vtt_config->get_theme_value( 'blogname' );
-	$url = $vtt_config->get_theme_value( 'blogname_url' );
+	$name = $vtt_config->get_value( 'blogname' );
+	$url = $vtt_config->get_value( 'blogname_url' );
 	if( $name == '/' ) $name = get_bloginfo('name');
 	if( $url == '/' ) $url = get_home_url();
 	
@@ -361,8 +384,8 @@ function vtt_default_customize_register( $wp_customize )
 		)
 	);
 
-	$name = $vtt_config->get_theme_value( 'blogdescription' );
-	$url = $vtt_config->get_theme_value( 'blogdescription_url' );
+	$name = $vtt_config->get_value( 'blogdescription' );
+	$url = $vtt_config->get_value( 'blogdescription_url' );
 	if( $name == '/' ) $name = get_bloginfo('description');
 	if( $url == '/' ) $url = get_home_url();
 	
