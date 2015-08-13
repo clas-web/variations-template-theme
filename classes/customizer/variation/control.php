@@ -1,8 +1,7 @@
 <?php
 if( !class_exists('WP_Customize_Control') )
 	require_once( ABSPATH . '/wp-includes/class-wp-customize-control.php' );
-require_once( dirname(__FILE__).'/functions.php' );
-
+require_once( __DIR__.'/functions.php' );
 
 /**
  * Theme Customizer variation selector.

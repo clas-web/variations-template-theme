@@ -1,12 +1,11 @@
 <?php
-
 /**
  * Handles the config data and processing, including the current variation and variation directories.
  * 
  * @package    variations-template-theme
  * @author     Crystal Barton <atrus1701@gmail.com>
- * @version    1.0
  */
+
 if( !class_exists('VTT_Config') ):
 class VTT_Config
 {
@@ -53,7 +52,7 @@ class VTT_Config
 
 
 	/**
-	 * A list of all allowed variations for the current theme.
+	 * The complete combined data of the options and config data.
 	 * @var  Array
 	 */
 	private  $data;

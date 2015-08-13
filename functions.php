@@ -1,81 +1,49 @@
 <?php
-
 /**
  * The main functions for the Variations Template Theme.
  * 
  * @package    variations-template-theme
  * @author     Crystal Barton <atrus1701@gmail.com>
- * @version    1.0
  */
 
 
 if( !defined('VTT') ):
 
 /**
- * The full title of VTT.
- * @var string
+ * The full title of the Variations Template Theme.
+ * @var  string
  */
 define( 'VTT', 'Variations Template Theme' );
 
 /**
  * True if debug is active, otherwise False.
- * @var string
+ * @var  string
  */
-define( 'VTT_DEBUG', true );
+define( 'VTT_DEBUG', false );
 
 /**
  * The path to the VTT theme.
- * @var string
+ * @var  string
  */
-define( 'VTT_PATH', dirname(__FILE__) );
+define( 'VTT_PATH', __DIR__ );
 
 /**
  * The url to the VTT theme.
- * @var string
+ * @var  string
  */
 define( 'VTT_URL', get_template_directory_uri() );
 
 /**
  * The version of the VTT theme.
- * @var string
+ * @var  string
  */
 define( 'VTT_VERSION', '1.0.0' );
 
 /**
  * The database version of the VTT theme.
- * @var string
+ * @var  string
  */
 define( 'VTT_DB_VERSION', '1.1' );
-
-/**
- * 
- * @var string
- */
-define( 'VTT_VERSION_OPTION', 'vtt-version' );
-
-/**
- * 
- * @var string
- */
-define( 'VTT_VARIATION_OPTION', 'vtt-variation' );
-
-/**
- * 
- * @var string
- */
-define( 'VTT_DB_VERSION_OPTION', 'vtt-db-version' );
-
-/**
- * 
- * @var string
- */
-define( 'VTT_OPTIONS', 'vtt-options' );
-
-/**
- * 
- * @var string
- */
-define( 'VTT_HEADER_TITLE_POSITION', 'header-title-position' );
 
 endif;
 

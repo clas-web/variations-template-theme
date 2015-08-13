@@ -1,12 +1,12 @@
 <?php
-require_once( dirname(__FILE__).'/../libraries/mobile-detect/Mobile-Detect-2.7.1/Mobile_Detect.php' );
+
+require_once( __DIR__.'/../libraries/mobile-detect/Mobile-Detect-2.7.1/Mobile_Detect.php' );
 
 /**
  * Handles checking and storing which version of site to display (full or mobile).
  *
  * @package    variations-template-theme
  * @author     Crystal Barton <atrus1701@gmail.com>
- * @version    1.0
  */
 if( !class_exists('VTT_Mobile_Support') ):
 class VTT_Mobile_Support

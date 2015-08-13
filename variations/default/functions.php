@@ -4,7 +4,7 @@
  * The functions for the Light (default) variation for Variations Template Theme.
  * 
  * @package    variations-template-theme
- * @author     Crystal Barton <cbarto11@uncc.edu>
+ * @author     Crystal Barton <atrus1701@gmail.com>
  */
 
 
@@ -81,7 +81,8 @@ endif;
 
 /**
  * Always show admin bar.
- * @param  bool  True to show admin bar.
+ * @param  bool  $show_admin_bar  Current state of whether the admin bar is shown.
+ * @return  bool  True to show the admin bar.
  */
 if( !function_exists('vtt_default_show_admin_bar') ):
 function vtt_default_show_admin_bar( $show_admin_bar )
@@ -259,7 +260,7 @@ endif;
 
 
 /**
- * 
+ * Setup the default-specific sections in the Theme Customizer.
  * @param  WP_Customize_Manager  $wp_customize  Theme Customizer API controller.
  */
 if( !function_exists('vtt_default_customize_register') ):

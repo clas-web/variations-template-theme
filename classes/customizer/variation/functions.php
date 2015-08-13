@@ -4,7 +4,6 @@
  *
  * @package    variations-template-theme
  * @author     Crystal Barton <atrus1701@gmail.com>
- * @version    1.0
  */
 
 add_action( 'wp_ajax_vtt-variation-customizer-control', 'vtt_variation_customizer_control_action' );
@@ -44,7 +43,6 @@ function vtt_variation_customizer_control_action()
 			break;
 		
 		case 'reset':
-			delete_option( VTT_OPTIONS );
 			remove_theme_mods();
 			break;
 		

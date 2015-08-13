@@ -1,13 +1,12 @@
 <?php
-
 /**
  * Modified version of the Walker_Category class.
  * Adds class for flat category and class for category term that has children.
  *
  * @package variations-template-theme
- * @since 
  * @uses Walker
  */
+
 if( !class_exists('VTT_Categories_Walker') ):
 class VTT_Categories_Walker extends Walker 
 {

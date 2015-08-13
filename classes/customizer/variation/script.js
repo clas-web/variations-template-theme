@@ -3,8 +3,8 @@
  *
  * @package    variations-template-theme
  * @author     Crystal Barton <atrus1701@gmail.com>
- * @version    1.0
  */
+
 jQuery(document).ready( function()
 {
 	// Variation change event
