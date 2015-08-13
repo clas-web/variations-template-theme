@@ -1,5 +1,5 @@
+<?php //vtt_print('default:other:pagination'); ?>
 
-<?php global $nh_config, $nh_mobile_support, $nh_template_vars, $wp_query; ?>
 
 <?php
 if( $wp_query->max_num_pages > 1 ):
@@ -15,6 +15,5 @@ if( $wp_query->max_num_pages > 1 ):
 	</div>
 	<?php
 
-endif; // if( $wp_query->max_num_pages > 1 )
-
-
+endif;
+?>

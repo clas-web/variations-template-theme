@@ -14,12 +14,13 @@ var window_scroll_position = 0;
 jQuery(document).ready( function()
 {
 	// Copy the full menu into the responsive menu area.
+	jQuery('body').prepend('<div id="responsive-menu"></div>');
 	jQuery('#responsive-menu').append( jQuery('#full-menu').html() );
 	jQuery('#full-menu').addClass('hide');
 
 
 	// Add menu button to the responsive title.
-	jQuery('#responsive-title .relative-wrapper').append( '<div class="menu-button icon-button"></div>' );
+	jQuery('#responsive-title .relative-wrapper').append('<div class="menu-button icon-button"></div>');
 	jQuery('#responsive-title .menu-button').click( function()
 	{
 		window_scroll_position = jQuery(window).scrollTop();

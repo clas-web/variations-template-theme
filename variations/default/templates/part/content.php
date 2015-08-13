@@ -1,6 +1,5 @@
+<?php //vtt_print('default:part:content'); ?>
 
-
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars; ?>
 
 <?php
 $widgets = wp_get_sidebars_widgets();
@@ -39,12 +38,7 @@ switch( $sidebar_count )
 <div id="content-wrapper" class="<?php echo $class; ?> wrapper">
 	<div id="content" class="<?php echo $class; ?>">
 
-	<?php
-	// content-type can be: single, listing, search, author, 404
-	vtt_get_template_part( $vtt_template_vars['content-type'], 'content', vtt_get_queried_object_type() );
-	?>
-
+	<?php vtt_get_template_part( vtt_get_page_content_type(), 'content', vtt_get_queried_object_type() ); ?>
 	
 	</div><!-- #content -->
 </div><!-- #content-wrapper -->
-

@@ -1,6 +1,4 @@
-<?php //vtt_print('PART: standard'); ?>
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars; ?>
-
+<?php global $vtt_config, $vtt_mobile_support; ?>
 
 <!DOCTYPE html>
 
@@ -9,7 +7,7 @@
 <head>
 
 	<meta charset="<?php bloginfo('charset'); ?>" />
-	<title><?php echo bloginfo('name').' | '.$vtt_template_vars['page-title']; ?></title>
+	<title><?php echo bloginfo('name').' | '.vtt_get_page_content_type(); ?></title>
 	
 	<link rel="profile" href="http://gmpg.org/xfn/11" />
 	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
@@ -36,15 +34,17 @@
 ?>
 <body <?php body_class($class); ?> >
 
-<div id="responsive-menu" class="hide"></div><!-- #responsive-menu -->
-
 <div id="site-outside-wrapper" class="clearfix">
 <div id="site-inside-wrapper" class="clearfix">
 
 	<?php
-	vtt_get_template_part( 'header', 'part', vtt_get_queried_object_type() );
-	vtt_get_template_part( 'main', 'part', vtt_get_queried_object_type() );
-	vtt_get_template_part( 'footer', 'part', vtt_get_queried_object_type() );
+	$vtt_main_template_parts = array( 'header', 'main', 'footer' );
+	$vtt_main_template_parts = apply_filters( 'vtt_main_template_parts', $vtt_main_template_parts );
+
+	foreach( $vtt_main_template_parts as $part )
+	{
+		vtt_get_template_part( $part, 'part', vtt_get_queried_object_type() );
+	}
 	?>
 
 </div> <!-- #site-inside-wrapper -->
@@ -55,4 +55,3 @@
 </body>
 
 </html>
-

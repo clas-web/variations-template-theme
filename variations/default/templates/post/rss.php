@@ -1,6 +1,5 @@
-
-
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $post; ?>
+<?php //vtt_print('default:post:rss'); ?>
+<?php global $post; ?>
 
 
 <div class="post">
@@ -16,4 +15,3 @@
 </div><!-- .description -->
 
 </div><!-- .post -->
-

@@ -1,36 +1,38 @@
-<?php //vtt_print('PART: footer'); ?>
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars; ?>
+<?php //vtt_print('default:part:footer'); ?>
 
 
 <div id="footer-wrapper" class="clearfix">
 	<div id="footer">
 
+
 <?php
-$widgets = wp_get_sidebars_widgets();
-$footer_widgets = array();
-$footer_widgets_count = 0;
-$widget_area_class = '';
-$fw = -1;
-$lw = -1;
-for( $i = 0; $i < 4; $i++ )
-{
-	$widget_area = 'vtt-footer-'.($i+1);
-	$footer_widgets[$widget_area] = false;
-	if( array_key_exists($widget_area, $widgets) && count($widgets[$widget_area]) )
+	$widgets = wp_get_sidebars_widgets();
+	$footer_widgets = array();
+	$footer_widgets_count = 0;
+	$widget_area_class = '';
+	$fw = -1;
+	$lw = -1;
+	for( $i = 0; $i < 4; $i++ )
 	{
-		$footer_widgets[$widget_area] = true;
-		$footer_widgets_count++;
-		$widget_area_class .= ' widget-'.($i+1);
-		if( $fw < 0 ) $fw = $i;
-		if( $lw < $i ) $lw = $i;
+		$widget_area = 'vtt-footer-'.($i+1);
+		$footer_widgets[$widget_area] = false;
+		if( array_key_exists($widget_area, $widgets) && count($widgets[$widget_area]) )
+		{
+			$footer_widgets[$widget_area] = true;
+			$footer_widgets_count++;
+			$widget_area_class .= ' widget-'.($i+1);
+			if( $fw < 0 ) $fw = $i;
+			if( $lw < $i ) $lw = $i;
+		}
 	}
-}
-$widget_area_class = trim($widget_area_class);
+	$widget_area_class = trim($widget_area_class);
 ?>
+
 
 <div class="widget-area num-cols-<?php echo $footer_widgets_count ?> <?php echo $widget_area_class; ?>">
 	<div class="widget-row">
 
+	
 	<?php
 	if( $footer_widgets_count == 4 ):
 		?>
@@ -84,6 +86,7 @@ $widget_area_class = trim($widget_area_class);
 	endif;
 	?>
 
+	
 	</div>
 </div>
 

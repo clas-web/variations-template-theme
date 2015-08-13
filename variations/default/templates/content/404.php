@@ -1,12 +1,10 @@
-
-
-<?php //vtt_print('part:404'); ?>
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $wp_query; ?>
+<?php //vtt_print('default:content:404'); ?>
 
 
 <div class="page-title">
-<h1>Entry not found.</h1>
+	<h1>Entry not found.</h1>
 </div>
+
 
 <div class="not-found">
 
@@ -18,4 +16,3 @@
 	</form>
 
 </div>
-

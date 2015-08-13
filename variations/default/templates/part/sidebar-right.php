@@ -1,11 +1,11 @@
-<?php //vtt_print( 'RIGHT-SIDEBAR-PAGE' ); ?>
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars; ?>
+<?php //vtt_print('default:part:sidebar-right'); ?>
+
 
 <?php
 $widgets = wp_get_sidebars_widgets();
 if( array_key_exists('vtt-right-sidebar', $widgets) && count($widgets['vtt-right-sidebar']) ):
-?>
 
+	?>
 	<div id="right-sidebar-wrapper" class="sidebar-wrapper">
 		<div id="right-sidebar" class="sidebar">
 	
@@ -13,10 +13,10 @@ if( array_key_exists('vtt-right-sidebar', $widgets) && count($widgets['vtt-right
 	
 		</div><!-- #right-sidebar -->
 	</div><!-- #right-sidebar-wrapper -->
+	<?php
 
-<?php else: ?>
+else:
 
-	<?php 
 	global $wp_customize;
 	if( isset($wp_customize) ):
 
@@ -27,7 +27,6 @@ if( array_key_exists('vtt-right-sidebar', $widgets) && count($widgets['vtt-right
 		<?php
 	
 	endif;
-	?>
 
-<?php endif; ?>
-
+endif;
+?>

@@ -1,8 +1,7 @@
+<?php //vtt_print('default:other:comment'); ?>
 
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $post, $wp_query; ?>
 
 <?php if( post_password_required() ) return; ?>
-
 
 
 <div id="comments" class="comments-area">

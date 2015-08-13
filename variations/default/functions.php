@@ -10,7 +10,7 @@
 
 // Setup theme customizer controls
 if( is_customize_preview() ):
-	require_once( VTT_PATH.'/classes/customizer/header-position/control.php' );
+	require_once( __DIR__.'/classes/customizer/header-position/control.php' );
 endif;
 
 // Theme setup.

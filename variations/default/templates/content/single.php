@@ -1,24 +1,22 @@
-
-
-<?php //vtt_print('single.php'); ?>
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $post, $wp_query; ?>
+<?php //vtt_print('default:content:single'); ?>
 <?php
-$featured_image_position = $vtt_config->get_theme_value( 'featured-image-position' );
+global $post;
+$featured_image_position = $vtt_config->get_value( 'featured-image-position' );
 ?>
 
 
 <div class="page-title">
-<div class="breadcrumbs"><?php echo vtt_get_breadcrumbs( $post ); ?></div>
-
-<h1><?php echo apply_filters( 'the_title', $post->post_title ); ?></h1>
+	<div class="breadcrumbs"><?php echo vtt_get_breadcrumbs( $post ); ?></div>
+	<?php echo '<h1>'.vtt_get_page_title().'</h1>'; ?>
 </div>
+
 
 <div class="post">
 
 	<div class="details">
 
 	<?php if( $post->post_type === 'post' ): ?>
-		<div class="entry-meta"><?php echo vtt_get_byline($post); ?></div><!-- .entry-meta -->
+		<div class="entry-meta"><?php echo vtt_get_byline($post); ?></div>
 	<?php endif; ?>
 
 	<?php if( $post->post_type === 'post' ): ?>
@@ -47,4 +45,3 @@ $featured_image_position = $vtt_config->get_theme_value( 'featured-image-positio
 	<?php comments_template() ?>
 	
 </div><!-- .post -->
-

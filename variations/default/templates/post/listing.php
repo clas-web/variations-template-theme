@@ -1,8 +1,7 @@
-
-
-<?php global $vtt_config, $vtt_mobile_support, $vtt_template_vars, $post; ?>
+<?php //vtt_print('default:post:listing'); ?>
 <?php
-$featured_image_position = $vtt_config->get_theme_value( 'featured-image-position' );
+global $vtt_config, $post;
+$featured_image_position = $vtt_config->get_value( 'featured-image-position' );
 ?>
 
 
@@ -14,9 +13,6 @@ $featured_image_position = $vtt_config->get_theme_value( 'featured-image-positio
 		
 		<?php if( $post->post_type === 'post' ): ?>
 			<div class="entry-meta"><?php echo vtt_get_byline($post); ?></div>
-		<?php endif; ?>
-
-		<?php if( $post->post_type === 'post' ): ?>
 			<?php echo vtt_get_taxonomy_list('category', $post); ?>
 		<?php endif; ?>
 		
@@ -28,6 +24,7 @@ $featured_image_position = $vtt_config->get_theme_value( 'featured-image-positio
 					<img src="<?php echo $image[0]; ?>" title="Featured Image" />
 				</div>
 			<?php endif; ?>
+			
 			<?php if( $post->post_excerpt ): ?>
 				<?php echo the_excerpt(); ?>
 			<?php else:?>
@@ -43,4 +40,3 @@ $featured_image_position = $vtt_config->get_theme_value( 'featured-image-positio
 	</div><!-- .description -->
 
 </div><!-- .post -->
-
