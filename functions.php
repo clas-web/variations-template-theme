@@ -129,6 +129,154 @@ add_filter( 'pre_option_link_manager_enabled', '__return_true' );
 
 
 /**
+ * Store the content type for the page.
+ * @param  string  $value  The content type.
+ */
+if( !function_exists('vtt_set_page_content_type') ):
+function vtt_set_page_content_type( $value )
+{
+	global $vtt_template_vars;
+	$vtt_template_vars['content_type'] = $value;
+}
+endif;
+
+
+/**
+ * Get the content type for the page.
+ * @return  string  The content type.
+ */
+if( !function_exists('vtt_get_page_content_type') ):
+function vtt_get_page_content_type()
+{
+	global $vtt_template_vars;
+	return ( isset($vtt_template_vars['content_type']) ? $vtt_template_vars['content_type'] : '' );
+}
+endif;
+
+
+/**
+ * Store the title for the page.
+ * @param  string  $value  The title.
+ */
+if( !function_exists('vtt_set_page_title') ):
+function vtt_set_page_title( $value )
+{
+	global $vtt_template_vars;
+	$vtt_template_vars['page_title'] = $value;
+}
+endif; 
+
+
+/**
+ * Get the title for the page.
+ * @return  string  The title.
+ */
+if( !function_exists('vtt_get_page_title') ):
+function vtt_get_page_title()
+{
+	global $vtt_template_vars;
+	return ( isset($vtt_template_vars['page_title']) ? $vtt_template_vars['page_title'] : '' );
+}
+endif;
+
+
+/**
+ * Store the listing name for the the page.
+ * @param  string  $value  The listing name.
+ */
+if( !function_exists('vtt_set_page_listing_name') ):
+function vtt_set_page_listing_name( $value )
+{
+	global $vtt_template_vars;
+	$vtt_template_vars['listing_name'] = $value;
+}
+endif; 
+
+
+/**
+ * Determines iif the current page has a listing name.
+ * @return  bool  True if the current page has a listing name, otherwise False.
+ */
+if( !function_exists('vtt_has_page_listing_name') ):
+function vtt_has_page_listing_name()
+{
+	global $vtt_template_vars;
+	return isset($vtt_template_vars['listing_name']);
+}
+endif; 
+
+
+/**
+ * Get the listing name for the the page.
+ * @return  string  The listing name.
+ */
+if( !function_exists('vtt_get_page_listing_name') ):
+function vtt_get_page_listing_name( $value )
+{
+	global $vtt_template_vars;
+	return ( isset($vtt_template_vars['listing_name']) ? $vtt_template_vars['listing_name'] : '' );
+}
+endif; 
+
+
+/**
+ * Store the description for the page.
+ * @param  string  $value  The description.
+ */
+if( !function_exists('vtt_set_page_description') ):
+function vtt_set_page_description( $value )
+{
+	global $vtt_template_vars;
+	$vtt_template_vars['description'] = $value;
+}
+endif; 
+
+
+/**
+ * Determines if the current page has a description.
+ * @return  bool  True if the current page has a description, otherwise False.
+ */
+if( !function_exists('vtt_has_page_description') ):
+function vtt_has_page_description()
+{
+	global $vtt_template_vars;
+	return isset($vtt_template_vars['description']);
+}
+endif; 
+
+
+/**
+ * Get the description for the the page.
+ * @return  string  The description.
+ */
+if( !function_exists('vtt_get_page_description') ):
+function vtt_get_page_description()
+{
+	global $vtt_template_vars;
+	return ( isset($vtt_template_vars['description']) ? $vtt_template_vars['description'] : '' );
+}
+endif; 
+
+
+/**
+ * Show the current page.
+ */
+if( !function_exists('vtt_render_page') ):
+function vtt_render_page()
+{
+	$page_path = vtt_get_theme_file_path( 'templates/page.php' );
+	if( $page_path )
+	{
+		require_once( $page_path );
+		return;
+	}
+
+	die( 'The page.php in the templates folder could not be found.' );
+}
+endif;
+
+
+/**
  * Get today's date for the WordPress site's chosen timezone.
  * @return  DateTime  The current date/time.
  */

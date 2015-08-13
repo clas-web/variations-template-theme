@@ -2,29 +2,28 @@
 /**
  * The template for displaying all pages.
  *
- * @package WordPress
- * @subpackage unc-charlotte-theme
+ * @package variations-template-theme
  */
 
 // vtt_print( 'PAGE:index.php' );
-global $vtt_config, $vtt_template_vars;
 
-$vtt_template_vars = array();
-if( is_singular() ):
-	$vtt_template_vars['content-type'] = 'single';
-else:
-	$vtt_template_vars['content-type'] = 'listing';
-endif;
-if( is_home() ):
+if( is_singular() ) $content_type = 'single';
+else                $content_type = 'listing';
+
+if( is_home() )
+{
 	if( is_singular() ):
 		global $post;
-		$vtt_template_vars['page-title'] = $post->post_title;
+		$page_title = $post->post_title;
 	else:
-		$vtt_template_vars['page-title'] = 'Home';
+		$page_title = 'Home';
 	endif;
-else:
-	$vtt_template_vars['page-title'] = 'Index Page';
-endif;
+}
+else
+{
+	$page_title = 'Index Page';
+}
 
-vtt_get_template_part( 'standard', 'page' );
-
+vtt_set_page_content_type( $content_type );
+vtt_set_page_title( $page_title );
+vtt_render_page();
