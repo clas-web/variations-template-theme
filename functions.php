@@ -100,8 +100,10 @@ if( defined('DOING_AJAX') && DOING_AJAX ):
 	require_once( VTT_PATH.'/classes/customizer/variation/functions.php' );
 endif;
 
-// Admin Bar
-add_action( 'admin_bar_menu', 'vtt_add_responsive_close_button', 1 );
+// Admin styles
+add_action( 'admin_init', 'vtt_add_editor_styles' );
+
+// Admin bar
 add_action( 'admin_bar_menu', 'vtt_add_login', 10 );
 
 // Theme setup
@@ -114,9 +116,6 @@ add_filter( 'video_embed_html', 'vtt_video_embed_html' );
 
 // Theme Customizer
 add_action( 'customize_register', 'vtt_customize_register', 11 );
-add_action( 'customize_save_after', 'vtt_customize_save', 11 );
-add_action( 'update_option_'.VTT_VARIATION_OPTION, 'vtt_customize_update_variation', 99, 2 );
-add_action( 'update_option_'.VTT_OPTIONS, 'vtt_customize_update_options', 99, 2 );
 
 // Comments
 add_filter( 'comments_template', 'vtt_find_comments_template_part', 999 );
@@ -330,27 +329,6 @@ function vtt_video_embed_html( $html )
 	return '<div class="video-container">' . $html . '</div>';
 }
 endif; 
-
-
-/**
- * Add the close responsive menu button to the admin bar.
- * @param  WP_Admin_Bar  $wp_admin_bar  
- */
-if( !function_exists('vtt_add_responsive_close_button') ):
-function vtt_add_responsive_close_button( $wp_admin_bar )
-{
-	$wp_admin_bar->add_menu(
-		array(
-			'id'	=> 'close-menu-button',
-			'href'	=> '#',
-			'meta'	=> array(
-				'class'	=> 'icon-button',
-			),
-			'parent' => 'top-secondary',
-		)
-	);
-}
-endif;
 
 
 /**

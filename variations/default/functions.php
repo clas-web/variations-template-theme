@@ -21,8 +21,9 @@ add_action( 'after_setup_theme', 'vtt_default_theme_setup', 5 );
 add_action( 'init', 'vtt_default_register_menus' );
 add_action( 'init', 'vtt_default_setup_widget_areas' );
 
-// Always show the admin bar.
+// Admin Bar
 add_filter( 'show_admin_bar', 'vtt_default_show_admin_bar', 10 );
+add_action( 'admin_bar_menu', 'vtt_default_add_responsive_close_button', 1 );
 
 // Theme customizer.
 add_action( 'customize_register', 'vtt_default_customize_register', 11 );
@@ -89,6 +90,27 @@ if( !function_exists('vtt_default_show_admin_bar') ):
 function vtt_default_show_admin_bar( $show_admin_bar )
 {
 	return true;
+}
+endif;
+
+
+/**
+ * Add the close responsive menu button to the admin bar.
+ * @param  WP_Admin_Bar  $wp_admin_bar  
+ */
+if( !function_exists('vtt_default_add_responsive_close_button') ):
+function vtt_default_add_responsive_close_button( $wp_admin_bar )
+{
+	$wp_admin_bar->add_menu(
+		array(
+			'id'	=> 'close-menu-button',
+			'href'	=> '#',
+			'meta'	=> array(
+				'class'	=> 'icon-button',
+			),
+			'parent' => 'top-secondary',
+		)
+	);
 }
 endif;
 
