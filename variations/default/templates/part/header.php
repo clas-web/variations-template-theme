@@ -27,10 +27,10 @@ $title_link = $vtt_config->get_value( 'blogname_url' );
 $description = $vtt_config->get_value( 'blogdescription' );
 $description_link = $vtt_config->get_value( 'blogdescription_url' );
 
-if( $title == '/' )				$title = get_bloginfo('name');
-if( $title_link == '/' )		$title_link = get_site_url();
-if( $description == '/' )		$description = get_bloginfo('description');
-if( $description_link == '/' )	$description_link = get_site_url();
+if( $title === null || $title == '/' )				         $title = get_bloginfo('name');
+if( $title_link === null || $title_link == '/' )		     $title_link = get_site_url();
+if( $description === null || $description == '/' )		     $description = get_bloginfo('description');
+if( $description_link === null || $description_link == '/' ) $description_link = get_site_url();
 
 
 // Create the header title text styles.
