@@ -95,6 +95,13 @@ class VTT_Config
 		$this->config = apply_filters( 'vtt-config', array() );
 		$this->options = apply_filters( 'vtt-options', array() );
 		$this->options = array_merge( $this->options, get_theme_mods() );
+
+		if( isset($wp_customize) && !empty($_POST['customized']) )
+		{
+			$values = json_decode(wp_unslash($_POST['customized']), true);
+			$this->options = array_merge( $this->options, $values );
+		}
+
 		$this->data = array_merge( $this->options, $this->config );
 
 		// Update the database, if needed.
