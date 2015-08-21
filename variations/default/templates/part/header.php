@@ -80,7 +80,7 @@ function vtt_title_box( $title_box_height, $position, $title, $title_link, $desc
 			if( !empty($title_link) ):
 				echo vtt_get_anchor( $title_link, null, null, $html );
 			else:
-				echo $html;
+				echo '<span>'.$html.'</span>';
 			endif;
 		endif;
 		
@@ -89,7 +89,7 @@ function vtt_title_box( $title_box_height, $position, $title, $title_link, $desc
 			if( !empty($description_link) ):
 				echo vtt_get_anchor( $description_link, null, null, $html );
 			else:
-				echo $html;
+				echo '<span>'.$html.'</span>';
 			endif;
 		endif;
 		?>

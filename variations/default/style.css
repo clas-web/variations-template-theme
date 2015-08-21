@@ -477,7 +477,8 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		padding:1em;
 	}
 	
-	#title-box > a {
+	#title-box > a,
+	#title-box > span {
 		display:block;
 	}
 	
