@@ -628,8 +628,10 @@ class VTT_Config
 			{
 				foreach( $vname as $name )
 				{
-					$directory['all'][] = $dir;
-					$directory['all'][] = $dir.'/variations/'.$name;
+					if( !in_array($dir, $directory['all']) )
+						$directory['all'][] = $dir;
+					if( !in_array($dir.'/variations/'.$name, $directory['all']) )
+						$directory['all'][] = $dir.'/variations/'.$name;
 				}
 			}
 		}
