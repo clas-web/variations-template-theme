@@ -7,7 +7,7 @@
 <head>
 
 	<meta charset="<?php bloginfo('charset'); ?>" />
-	<title><?php echo bloginfo('name').' | '.vtt_get_page_content_type(); ?></title>
+	<title><?php echo bloginfo('name').' | '.vtt_get_page_title(); ?></title>
 	
 	<link rel="profile" href="http://gmpg.org/xfn/11" />
 	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
