@@ -1,7 +1,9 @@
-<?php //vtt_print('default:other:pagination'); ?>
+<?php // vtt_print('default:other:pagination'); ?>
 
 
 <?php
+global $wp_query;
+
 if( $wp_query->max_num_pages > 1 ):
 
 	?>
