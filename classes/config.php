@@ -86,8 +86,10 @@ class VTT_Config
 		array_unshift( $this->search_directories[5], get_template_directory() );
 		
 		if( is_child_theme() && !array_key_exists(10, $this->search_directories) ) 
+		{
 			$this->search_directories[10] = array();
-		array_unshift( $this->search_directories[10], get_stylesheet_directory() );
+			array_unshift( $this->search_directories[10], get_stylesheet_directory() );
+		}
 		
 		ksort( $this->search_directories );
 
