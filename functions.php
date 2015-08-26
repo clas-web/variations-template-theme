@@ -45,6 +45,12 @@ define( 'VTT_VERSION', '1.0.0' );
  */
 define( 'VTT_DB_VERSION', '1.1' );
 
+/**
+ * The log file used for debugging.
+ * @var  string
+ */
+define( 'VTT_LOG_PATH', VTT_PATH.'/log.txt' );
+
 endif;
 
 
@@ -93,6 +99,36 @@ add_action( 'init', 'vtt_setup_categories_walker' );
 
 // Enable Links subpanel
 add_filter( 'pre_option_link_manager_enabled', '__return_true' );
+
+
+
+/**
+ * Clear the log file or creates the file, if it does not exist.
+ */
+if( !function_exists('vtt_clear_log') ):
+function vtt_clear_log()
+{
+	file_put_contents( VTT_LOG_PATH, '' );
+}
+endif;
+
+
+/**
+ * Writes an object to the log file.
+ * @param  mixed  $var  An object to print to file.
+ * @param  string  $label  The label for the object, if any.
+ */
+if( !function_exists('vtt_write_log') ):
+function vtt_write_log( $var, $label = '' )
+{
+	if( $label !== '' ) 
+		file_put_contents( VTT_LOG_PATH, "-----\r\n$label: \r\n", FILE_APPEND );
+	file_put_contents( VTT_LOG_PATH, print_r($var, TRUE)."\r\n", FILE_APPEND );
+	if( $label !== '' )
+		file_put_contents( VTT_LOG_PATH, "-----\r\n", FILE_APPEND );
+
+}
+endif;
 
 
 /**
