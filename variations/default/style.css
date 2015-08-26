@@ -306,6 +306,7 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		color:#fff;
 		font-size:1.2em;
 		height:100%;
+		display:inline;
 	}
 
 	#responsive-title .name a {
