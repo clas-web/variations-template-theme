@@ -93,22 +93,9 @@ class VTT_Config
 		
 		ksort( $this->search_directories );
 
-		// Get all config and options data.
 		$this->config = apply_filters( 'vtt-config', array() );
-		$this->options = apply_filters( 'vtt-options', array() );
-		$this->options = array_merge( $this->options, get_theme_mods() );
+		$this->data = $this->config;
 
-		if( isset($wp_customize) && !empty($_POST['customized']) )
-		{
-			$values = json_decode(wp_unslash($_POST['customized']), true);
-			$this->options = array_merge( $this->options, $values );
-		}
-
-		$this->data = array_merge( $this->options, $this->config );
-
-		// Update the database, if needed.
-		$this->check_db();
-		
 		// Get list of valid variations for the current theme.
 		$this->valid_variations = apply_filters( 'vtt-valid-variations', array('default','dark') );
 
@@ -120,9 +107,24 @@ class VTT_Config
 		$variation = $this->get_current_variation();
 		$this->current_variation = $this->all_variations[$variation];
 		$variation_directories = $this->get_all_available_variations_directories();
+
+		// Load the variation functions.php file before loading options.
+		$this->load_variations_files( 'functions.php' );
+
+		// Get options data.
+		$this->options = apply_filters( 'vtt-options', array() );
+		$this->options = array_merge( $this->options, get_theme_mods() );
+
+		if( isset($wp_customize) && !empty($_POST['customized']) )
+		{
+			$values = json_decode(wp_unslash($_POST['customized']), true);
+			$this->options = array_merge( $this->options, $values );
+		}
+
+		$this->data = array_merge( $this->options, $this->config );
 	}
-	
-	
+
+
 	/**
 	 * Get a value from the options using a list of keys as the parameters.
 	 * @param   string  {args}  A number of key values used to find data.
@@ -246,7 +248,7 @@ class VTT_Config
 		if( $this->current_variation !== null ) return $this->current_variation;
 		
 		$variation = $this->get_value( 'vtt-variation' );
-		if( $variation === null ) return $this->set_variation();
+		if( $variation === null ) return $this->get_default_variation();
 		
 		if( array_key_exists($variation, $this->filtered_variations) ) return $variation;
 		
@@ -264,16 +266,24 @@ class VTT_Config
 	 */
 	public function set_variation( $name = '' )
 	{
-		if( $name === '' )
-		{
-			$vnames = array_keys( $this->filtered_variations );
-			if( count($this->filtered_variations) > 0 )
-				$name = $this->filtered_variations[$vnames[0]]['name'];
-			else
-				$name = 'default';
-		}
-		
+		if( $name === '' ) $name = $this->get_default_variation();
 		$this->set_value( 'vtt-variation', $name );
+		return $name;
+	}
+
+
+	/**
+	 * Get the default variation.
+	 * @return  string  The default variation.
+	 */
+	public function get_default_variation()
+	{
+		$name = 'default';
+
+		$vnames = array_keys( $this->filtered_variations );
+		if( count($this->filtered_variations) > 0 )
+			$name = $this->filtered_variations[$vnames[0]]['name'];
+
 		return $name;
 	}
 

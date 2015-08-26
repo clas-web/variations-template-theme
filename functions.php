@@ -723,7 +723,7 @@ function vtt_get_template_part( $name, $folder = '', $key = '' )
 	{
 		$filepath = vtt_get_theme_file_path( $folder.$name.'.php' );
 	}
-	
+
 	if( $filepath !== null )
 	{
 		include( $filepath );
@@ -1236,5 +1236,4 @@ endif;
 
 // Load config and variation's functions.php files.
 $vtt_config->load_config();
-$vtt_config->load_variations_files( 'functions.php' );	
 

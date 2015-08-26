@@ -27,14 +27,6 @@ add_action( 'admin_bar_menu', 'vtt_default_add_responsive_close_button', 1 );
 
 // Theme customizer.
 add_action( 'customize_register', 'vtt_default_customize_register', 11 );
-add_filter( 'theme_mod_blogname', 'vtt_default_customize_theme_mod_blogname', 99 );
-add_filter( 'theme_mod_blogname_url', 'vtt_default_customize_theme_mod_blogname_url', 99 );
-add_filter( 'theme_mod_blogdescription', 'vtt_default_customize_theme_mod_blogdescription', 99 );
-add_filter( 'theme_mod_blogdescription_url', 'vtt_default_customize_theme_mod_blogdescription_url', 99 );
-add_filter( 'pre_set_theme_mod_blogname', 'vtt_default_customize_set_theme_mod_blogname', 99, 2 );
-add_filter( 'pre_set_theme_mod_blogname_url', 'vtt_default_customize_set_theme_mod_blogname_url', 99, 2 );
-add_filter( 'pre_set_theme_mod_blogdescription', 'vtt_default_customize_set_theme_mod_blogdescription', 99, 2 );
-add_filter( 'pre_set_theme_mod_blogdescription_url', 'vtt_default_customize_set_theme_mod_blogdescription_url', 99, 2 );
 
 // Post Content
 add_filter( 'the_content_more_link', 'vtt_default_read_more_link' );
@@ -51,13 +43,13 @@ if( !function_exists('vtt_default_default_options') ):
 function vtt_default_default_options( $options )
 {
 	return array(
-		'featured-image-position' => 'left',
-		'header-title-position'   => 'hleft vcenter',
-		'header-title-hide'       => false,
-		'blogname'                => '/',
-		'blogname_url'            => '/',
-		'blogdescription'         => '/',
-		'blogdescription_url'     => '/',
+		'featured-image-position'		=> 'left',
+		'header-title-position'			=> 'hleft vcenter',
+		'header-title-hide'				=> false,
+		'blogname_url'					=> '',
+		'blogname_url_default'			=> false,
+		'blogdescription_url'			=> '',
+		'blogdescription_url_default'	=> false,
 	);
 }
 endif;
@@ -268,19 +260,158 @@ function vtt_default_customize_register( $wp_customize )
 {
 	global $vtt_config;
 
-	// Header Title section
+
+	//-------------------------------------------------------
+	// HEADER: TITLE AND TAGLINE
+	//-------------------------------------------------------
 	$wp_customize->add_section(
-		'vtt-header-title-section',
+		'vtt-header-title-tagline-section',
 		array(
-			'title'      => 'Header Title',
-			'priority'   => 0,
+			'title'      	=> 'Header Title and Tagline',
+			'priority'   	=> 0,
 		)
 	);
 
 	$wp_customize->add_setting(
+		'blogname',
+		array(
+			'default'		=> get_option('blogname'),
+			'type'			=> 'option',
+		)
+	);
+
+	$wp_customize->add_control( 
+		new WP_Customize_Control( 
+			$wp_customize, 
+			'blogname-control',
+			array(
+				'label'		=> 'Site Title',
+				'section'	=> 'vtt-header-title-tagline-section',
+				'settings'	=> 'blogname',
+			)
+		)
+	);
+	
+	$wp_customize->add_setting(
+		'blogname_url',
+		array(
+			'default'		=> $vtt_config->get_value('blogname_url'),
+			'type'			=> 'theme_mod',
+		)
+	);
+
+	$wp_customize->add_control( 
+		new WP_Customize_Control( 
+			$wp_customize, 
+			'blogname_url-control',
+			array(
+				'label'		=> 'Site Title URL',
+				'section'	=> 'vtt-header-title-tagline-section',
+				'settings'	=> 'blogname_url',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'blogname_url_default',
+		array(
+			'default'		=> $vtt_config->get_value('blogname_url_default'),
+			'type'			=> 'theme_mod',
+		)
+	);
+
+	$wp_customize->add_control( 
+		new WP_Customize_Control( 
+			$wp_customize, 
+			'blogname_url_default-control',
+			array(
+				'label'		=> 'Use site URL for Site Title.',
+				'section'	=> 'vtt-header-title-tagline-section',
+				'settings'	=> 'blogname_url_default',
+				'type'		=> 'checkbox',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'blogdescription',
+		array(
+			'default'		=> get_option('blogdescription'),
+			'type'			=> 'option',
+		)
+	);
+
+	$wp_customize->add_control( 
+		new WP_Customize_Control( 
+			$wp_customize, 
+			'blogdescription-control',
+			array(
+				'label'		=> 'Site Tagline',
+				'section'	=> 'vtt-header-title-tagline-section',
+				'settings'	=> 'blogdescription',
+			)
+		)
+	);
+	
+	$wp_customize->add_setting(
+		'blogdescription_url',
+		array(
+			'default'		=> $vtt_config->get_value('blogdescription_url'),
+			'type'			=> 'theme_mod',
+		)
+	);
+
+	$wp_customize->add_control( 
+		new WP_Customize_Control( 
+			$wp_customize, 
+			'blogdescription_url-control',
+			array(
+				'label'		=> 'Site Description URL',
+				'section'	=> 'vtt-header-title-tagline-section',
+				'settings'	=> 'blogdescription_url',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'blogdescription_url_default',
+		array(
+			'default'		=> $vtt_config->get_value('blogdescription_url_default'),
+			'type'			=> 'theme_mod',
+		)
+	);
+
+	$wp_customize->add_control( 
+		new WP_Customize_Control( 
+			$wp_customize, 
+			'blogdescription_url_default-control',
+			array(
+				'label'		=> 'Use site URL for Site Description.',
+				'section'	=> 'vtt-header-title-tagline-section',
+				'settings'	=> 'blogdescription_url_default',
+				'type'		=> 'checkbox',
+			)
+		)
+	);
+
+
+	//-------------------------------------------------------
+	// HEADER: POSITION
+	//-------------------------------------------------------
+	$wp_customize->add_section(
+		'vtt-header-position-section',
+		array(
+			'title'      	=> 'Header Title Position',
+			'priority'   	=> 0,
+		)
+	);	
+
+	// Hide header title.
+	$wp_customize->add_setting(
 		'header-title-hide',
 		array(
-			'default'     => $vtt_config->get_value( 'header-title-hide' ),
+			'default'     	=> $vtt_config->get_value( 'header-title-hide' ),
+			'type'			=> 'theme_mod',
 		)
 	);
 
@@ -289,20 +420,21 @@ function vtt_default_customize_register( $wp_customize )
 			$wp_customize, 
 			'vtt-header-title-hide-control', 
 			array(
-				'label'      => 'Hide header title',
-				'section'    => 'vtt-header-title-section',
-				'settings'   => 'header-title-hide',
-				'type'       => 'checkbox',
+				'label'		=> 'Hide header title',
+				'section'	=> 'vtt-header-position-section',
+				'settings'	=> 'header-title-hide',
+				'type'		=> 'checkbox',
 			)
 		)
 	);
-	
-	// Header Title Position
+
+	// Header position.
 	$wp_customize->add_setting(
 		'header-title-position',
 		array(
-			'default'     => $vtt_config->get_value( 'header-title-position' ),
-			'transport'   => 'refresh',
+			'default'     	=> $vtt_config->get_value( 'header-title-position' ),
+			'type'			=> 'theme_mod',
+			'transport'   	=> 'refresh',
 		)
 	);
 
@@ -312,141 +444,23 @@ function vtt_default_customize_register( $wp_customize )
 			'vtt-header-title-position-control', 
 			array(
 				'label'      => 'Position',
-				'section'    => 'vtt-header-title-section',
+				'section'    => 'vtt-header-position-section',
 				'settings'   => 'header-title-position',
 			)
 		)
-	);
-	
-	// Featured Image section
+	);	
+
+
+	//-------------------------------------------------------
+	// HEADER: COLORS
+	//-------------------------------------------------------
 	$wp_customize->add_section(
-		'vtt-featured-image-section',
+		'vtt-header-colors-section',
 		array(
-			'title'      => 'Featured Image',
-			'priority'   => 0,
+			'title'      	=> 'Header Title Colors',
+			'priority'   	=> 0,
 		)
 	);
-	
-	// Featured Image Position select
-	$wp_customize->add_setting(
-		'featured-image-position',
-		array(
-			'default'     => $vtt_config->get_value( 'featured-image-position' ),
-			'transport'   => 'refresh',
-		)
-	);
-	
-	$wp_customize->add_control( 
-		new WP_Customize_Control( 
-			$wp_customize, 
-			'vtt-featured-image-position-control', 
-			array(
-				'label'      => 'Position',
-				'section'    => 'vtt-featured-image-section',
-				'settings'   => 'featured-image-position',
-				'type'       => 'select',
-				'choices'    => array(
-					'header'	=> 'Header Image',
-					'left'		=> 'Left Image',
-					'right'		=> 'Right Image',
-					'center'	=> 'Across Top Centered',
-				),
-			)
-		)
-	);
-	
-	// Site Title & Tagline
-	$wp_customize->remove_setting( 'blogname' );
-	$wp_customize->remove_control( 'blogname' );
-	$wp_customize->remove_setting( 'blogdescription' );
-	$wp_customize->remove_control( 'blogdescription' );
-	
-	$name = $vtt_config->get_value( 'blogname' );
-	$url = $vtt_config->get_value( 'blogname_url' );
-	if( $name == '/' ) $name = get_bloginfo('name');
-	if( $url == '/' ) $url = get_home_url();
-	
-	$wp_customize->add_setting(
-		'blogname',
-		array(
-			'default'		=> $name,
-		)
-	);
-
-	$wp_customize->add_control( 
-		new WP_Customize_Control( 
-			$wp_customize, 
-			'blogname-control',
-			array(
-				'label'			=> 'Site Title',
-				'section'		=> 'title_tagline',
-				'settings'		=> 'blogname',
-			)
-		)
-	);
-	
-	$wp_customize->add_setting(
-		'blogname_url',
-		array(
-			'default'		=> $url,
-		)
-	);
-
-	$wp_customize->add_control( 
-		new WP_Customize_Control( 
-			$wp_customize, 
-			'blogname_url-control',
-			array(
-				'label'			=> 'Site Title URL',
-				'section'		=> 'title_tagline',
-				'settings'		=> 'blogname_url',
-			)
-		)
-	);
-
-	$name = $vtt_config->get_value( 'blogdescription' );
-	$url = $vtt_config->get_value( 'blogdescription_url' );
-	if( $name == '/' ) $name = get_bloginfo('description');
-	if( $url == '/' ) $url = get_home_url();
-	
-	$wp_customize->add_setting(
-		'blogdescription',
-		array(
-			'default'		=> $name,
-		)
-	);
-
-	$wp_customize->add_control( 
-		new WP_Customize_Control( 
-			$wp_customize, 
-			'blogdescription-control',
-			array(
-				'label'			=> 'Site Description',
-				'section'		=> 'title_tagline',
-				'settings'		=> 'blogdescription',
-			)
-		)
-	);
-	
-	$wp_customize->add_setting(
-		'blogdescription_url',
-		array(
-			'default'		=> $url,
-		)
-	);
-
-	$wp_customize->add_control( 
-		new WP_Customize_Control( 
-			$wp_customize, 
-			'blogdescription_url-control',
-			array(
-				'label'			=> 'Site Description URL',
-				'section'		=> 'title_tagline',
-				'settings'		=> 'blogdescription_url',
-			)
-		)
-	);
-
 
 	// Header Title Box Text Color
 	$wp_customize->add_setting(
@@ -465,7 +479,7 @@ function vtt_default_customize_register( $wp_customize )
 			'header_textcolor', 
 			array(
 				'label'				=> 'Header Text Color',
-				'section'			=> 'colors',
+				'section'			=> 'vtt-header-colors-section',
 			)
 		)
 	);
@@ -488,13 +502,68 @@ function vtt_default_customize_register( $wp_customize )
 			array(
 				'label'		=> 'Header Text Background Color',
 				'palette'	=> true,
-				'section'	=> 'colors'
+				'section'	=> 'vtt-header-colors-section'
 			)
 		)
 	);
 
-	// Remote Display Header Text checkbox
-	$wp_customize->remove_control( 'display_header_text' );
+
+	//-------------------------------------------------------
+	// HEADER IMAGE
+	//-------------------------------------------------------
+	$wp_customize->get_section( 'header_image' )->title = 'Header Image';
+	$wp_customize->get_section( 'header_image' )->priority = 0;
+
+
+	//-------------------------------------------------------
+	// BACKGROUND COLOR
+	//-------------------------------------------------------
+	$wp_customize->get_section( 'colors' )->title = 'Background Color';
+	$wp_customize->get_section( 'colors' )->priority = 40;
+
+
+	//-------------------------------------------------------
+	// FEATURED IMAGE
+	//-------------------------------------------------------
+	$wp_customize->add_section(
+		'vtt-featured-image-section',
+		array(
+			'title'      	=> 'Featured Image',
+			'priority'   	=> 80,
+		)
+	);
+	
+	// Featured Image Position select
+	$wp_customize->add_setting(
+		'featured-image-position',
+		array(
+			'default'     	=> $vtt_config->get_value( 'featured-image-position' ),
+			'type'			=> 'theme_mod',
+			'transport'   	=> 'refresh',
+		)
+	);
+	
+	$wp_customize->add_control( 
+		new WP_Customize_Control( 
+			$wp_customize, 
+			'vtt-featured-image-position-control', 
+			array(
+				'label'      => 'Position',
+				'section'    => 'vtt-featured-image-section',
+				'settings'   => 'featured-image-position',
+				'type'       => 'select',
+				'choices'    => array(
+					'header'	=> 'Header Image',
+					'left'		=> 'Left Image',
+					'right'		=> 'Right Image',
+					'center'	=> 'Across Top Centered',
+				),
+			)
+		)
+	);
+	
+	// Remove Title & Tagline section.
+	$wp_customize->remove_section( 'title_tagline' );
 }
 endif;
 
@@ -551,8 +620,8 @@ endif;
  * Sanitizes and verifies the blog description from the theme customizer.
  * @param  string  $value  The value from the blog description theme customizer control.
  */
-if( !function_exists('vtt_default_customize_theme_mod_blogdescription') ):
-function vtt_default_customize_theme_mod_blogdescription( $value )
+if( !function_exists('vtt_default_customize_theme_mod_blogtagline') ):
+function vtt_default_customize_theme_mod_blogtagline( $value )
 {
 	if( $value == '/' ) return get_bloginfo('description');
 	return $value;
@@ -564,8 +633,8 @@ endif;
  * Sanitizes and verifies the blog description url from the theme customizer.
  * @param  string  $value  The value from the blog description url theme customizer control.
  */
-if( !function_exists('vtt_default_customize_theme_mod_blogdescription_url') ):
-function vtt_default_customize_theme_mod_blogdescription_url( $value )
+if( !function_exists('vtt_default_customize_theme_mod_blogtagline_url') ):
+function vtt_default_customize_theme_mod_blogtagline_url( $value )
 {
 	if( $value == '/' ) return get_site_url();
 	return $value;
@@ -606,8 +675,8 @@ endif;
  * @param  string  $new_value  The new value of the blog description.
  * @param  string  $old_value  The old value of the blog description.
  */
-if( !function_exists('vtt_default_customize_set_theme_mod_blogdescription') ):
-function vtt_default_customize_set_theme_mod_blogdescription( $new_value, $old_value )
+if( !function_exists('vtt_default_customize_set_theme_mod_blogtagline') ):
+function vtt_default_customize_set_theme_mod_blogtagline( $new_value, $old_value )
 {
 	if( $new_value == get_bloginfo('description') ) $new_value = '/';
 	return $new_value;
@@ -620,8 +689,8 @@ endif;
  * @param  string  $new_value  The new value of the blog description url.
  * @param  string  $old_value  The old value of the blog description url.
  */
-if( !function_exists('vtt_default_customize_set_theme_mod_blogdescription_url') ):
-function vtt_default_customize_set_theme_mod_blogdescription_url( $new_value, $old_value )
+if( !function_exists('vtt_default_customize_set_theme_mod_blogtagline_url') ):
+function vtt_default_customize_set_theme_mod_blogtagline_url( $new_value, $old_value )
 {
 	if( $new_value == get_site_url() ) $new_value = '/';
 	return $new_value;
@@ -654,16 +723,16 @@ function vtt_customize_pre_update_options( $new_value, $old_value )
 		$new_value['theme-mods']['blogname_url'] = '/';
 	}
 
-	if( (array_key_exists('blogdescription', $new_value['theme-mods'])) &&
-	    ($new_value['theme-mods']['blogdescription'] == get_bloginfo('description')) )
+	if( (array_key_exists('blogtagline', $new_value['theme-mods'])) &&
+	    ($new_value['theme-mods']['blogtagline'] == get_bloginfo('description')) )
 	{
-		$new_value['theme-mods']['blogdescription'] = '/';
+		$new_value['theme-mods']['blogtagline'] = '/';
 	}
 
-	if( (array_key_exists('blogdescription_url', $new_value['theme-mods'])) &&
-	    ($new_value['theme-mods']['blogdescription_url'] == get_site_url()) )
+	if( (array_key_exists('blogtagline_url', $new_value['theme-mods'])) &&
+	    ($new_value['theme-mods']['blogtagline_url'] == get_site_url()) )
 	{
-		$new_value['theme-mods']['blogdescription_url'] = '/';
+		$new_value['theme-mods']['blogtagline_url'] = '/';
 	}
 	
 	return $new_value;

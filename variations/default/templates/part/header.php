@@ -22,16 +22,19 @@ else
 // Get the header Theme Customizer options.
 $position = $vtt_config->get_value( 'header-title-position' );
 $hide_title = $vtt_config->get_value( 'header-title-hide' );
-$title = $vtt_config->get_value( 'blogname' );
-$title_link = $vtt_config->get_value( 'blogname_url' );
-$description = $vtt_config->get_value( 'blogdescription' );
-$description_link = $vtt_config->get_value( 'blogdescription_url' );
+$title = get_option( 'blogname' );
+$title_link_default = $vtt_config->get_value( 'blogname_url_default' );
+$description = get_option( 'blogdescription' );
+$description_link_default = $vtt_config->get_value( 'blogdescription_url_default' );
 
-if( $title === null || $title == '/' )				         $title = get_bloginfo('name');
-if( $title_link === null || $title_link == '/' )		     $title_link = get_site_url();
-if( $description === null || $description == '/' )		     $description = get_bloginfo('description');
-if( $description_link === null || $description_link == '/' ) $description_link = get_site_url();
-
+if( $title_link_default )
+	$title_link = get_site_url();
+else
+	$title_link = $vtt_config->get_value( 'blogname_url' );
+if( $description_link_default )
+	$description_link = get_site_url();
+else
+	$description_link = $vtt_config->get_value( 'blogdescription_url' );
 
 // Create the header title text styles.
 $text_color = get_theme_mod(
@@ -154,9 +157,6 @@ endif;
 		
 	</div><!-- .masthead -->
 	
-
-	<a href="<?php echo get_site_url(); ?>" title="<?php echo get_bloginfo('name'); ?>" class="click-box"></a>
-
 	</div><!-- #header -->
 </div><!-- #header-wrapper -->
 
