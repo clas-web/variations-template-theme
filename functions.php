@@ -214,7 +214,7 @@ endif;
  * @return  string  The listing name.
  */
 if( !function_exists('vtt_get_page_listing_name') ):
-function vtt_get_page_listing_name( $value )
+function vtt_get_page_listing_name()
 {
 	global $vtt_template_vars;
 	return ( isset($vtt_template_vars['listing_name']) ? $vtt_template_vars['listing_name'] : '' );
