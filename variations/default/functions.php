@@ -8,12 +8,23 @@
  */
 
 
+if( !defined('VTT_DEFAULT_DB_VERSION') ):
+
+	/**
+	 * The current version of the db settings for the default variation.
+	 * @var  String
+	 */
+	define( 'VTT_DEFAULT_DB_VERSION', '1.1' );
+
+endif;
+
 // Setup theme customizer controls
 if( is_customize_preview() ):
 	require_once( __DIR__.'/classes/customizer/header-position/control.php' );
 endif;
 
 // Config setup.
+add_action( 'vtt-update-db', 'vtt_default_update_db' );
 add_filter( 'vtt-options', 'vtt_default_default_options' );
 
 // Theme setup.
@@ -36,6 +47,40 @@ add_filter( 'wp_page_menu_args', 'vtt_default_add_home_pages_menu_item' );
 
 
 /**
+ * Check if database needs to updated.
+ */
+if( !function_exists('vtt_default_update_db') ):
+function vtt_default_update_db()
+{
+	$current_db_version = get_theme_mod( 'vtt-default-db-version' );
+	if( !$current_db_version ) $current_db_version = '1.0';
+	if( $current_db_version === VTT_DEFAULT_DB_VERSION ) return;
+
+	switch( $current_db_version )
+	{
+		case '1.0':
+			$blogname_url = get_theme_mod( 'blogname_url' );
+			if( $blogname_url === '/' )
+			{
+				set_theme_mod( 'blogname_url_default', true );
+				set_theme_mod( 'blogname_url', '' );
+			}
+
+			$blogdescription_url = get_theme_mod( 'blogdescription_url' );
+			if( $blogdescription_url === '/' )
+			{
+				set_theme_mod( 'blogdescription_url_default', true );
+				set_theme_mod( 'blogdescription_url', '' );
+			}
+			break;
+	}
+
+	set_theme_mod( 'vtt-default-db-version', VTT_DEFAULT_DB_VERSION );
+}
+endif;
+
+
+/**
  * Sets the default options for $vtt_config.
  * @return  Array  The default options.
  */
@@ -47,7 +92,7 @@ function vtt_default_default_options( $options )
 		'header-title-position'			=> 'hleft vcenter',
 		'header-title-hide'				=> false,
 		'blogname_url'					=> '',
-		'blogname_url_default'			=> false,
+		'blogname_url_default'			=> true,
 		'blogdescription_url'			=> '',
 		'blogdescription_url_default'	=> false,
 	);
@@ -512,7 +557,7 @@ function vtt_default_customize_register( $wp_customize )
 	// HEADER IMAGE
 	//-------------------------------------------------------
 	$wp_customize->get_section( 'header_image' )->title = 'Header Image';
-	$wp_customize->get_section( 'header_image' )->priority = 0;
+	$wp_customize->get_section( 'header_image' )->priority = 10;
 
 
 	//-------------------------------------------------------
@@ -586,156 +631,6 @@ function vtt_default_sanitize_header_textbgcolor( $color )
 		$color = get_theme_support( 'custom-header', 'default-text-bgcolor' );
 	
 	return $color;
-}
-endif;
-
-
-/**
- * Sanitizes and verifies the blog name from the theme customizer.
- * @param  string  $value  The value from the blog name theme customizer control.
- */
-if( !function_exists('vtt_default_customize_theme_mod_blogname') ):
-function vtt_default_customize_theme_mod_blogname( $value )
-{
-	if( $value == '/' ) return get_bloginfo('name');
-	return $value;
-}
-endif;
-
-
-/**
- * Sanitizes and verifies the blog name url from the theme customizer.
- * @param  string  $value  The value from the blog name url theme customizer control.
- */
-if( !function_exists('vtt_default_customize_theme_mod_blogname_url') ):
-function vtt_default_customize_theme_mod_blogname_url( $value )
-{
-	if( $value == '/' ) return get_site_url();
-	return $value;
-}
-endif;
-
-
-/**
- * Sanitizes and verifies the blog description from the theme customizer.
- * @param  string  $value  The value from the blog description theme customizer control.
- */
-if( !function_exists('vtt_default_customize_theme_mod_blogtagline') ):
-function vtt_default_customize_theme_mod_blogtagline( $value )
-{
-	if( $value == '/' ) return get_bloginfo('description');
-	return $value;
-}
-endif;
-
-
-/**
- * Sanitizes and verifies the blog description url from the theme customizer.
- * @param  string  $value  The value from the blog description url theme customizer control.
- */
-if( !function_exists('vtt_default_customize_theme_mod_blogtagline_url') ):
-function vtt_default_customize_theme_mod_blogtagline_url( $value )
-{
-	if( $value == '/' ) return get_site_url();
-	return $value;
-}
-endif;
-
-
-/**
- * Sanitizes and verifies the blog name for saving.
- * @param  string  $new_value  The new value of the blog name.
- * @param  string  $old_value  The old value of the blog name.
- */
-if( !function_exists('vtt_default_customize_set_theme_mod_blogname') ):
-function vtt_default_customize_set_theme_mod_blogname( $new_value, $old_value )
-{
-	if( $new_value == get_bloginfo('name') ) $new_value = '/';
-	return $new_value;
-}
-endif;
-
-
-/**
- * Sanitizes and verifies the blog name url for saving.
- * @param  string  $new_value  The new value of the blog name url.
- * @param  string  $old_value  The old value of the blog name url.
- */
-if( !function_exists('vtt_default_customize_set_theme_mod_blogname_url') ):
-function vtt_default_customize_set_theme_mod_blogname_url( $new_value, $old_value )
-{
-	if( $new_value == get_site_url() ) $new_value = '/';
-	return $new_value;
-}
-endif;
-
-
-/**
- * Sanitizes and verifies the blog description for saving.
- * @param  string  $new_value  The new value of the blog description.
- * @param  string  $old_value  The old value of the blog description.
- */
-if( !function_exists('vtt_default_customize_set_theme_mod_blogtagline') ):
-function vtt_default_customize_set_theme_mod_blogtagline( $new_value, $old_value )
-{
-	if( $new_value == get_bloginfo('description') ) $new_value = '/';
-	return $new_value;
-}
-endif;
-
-
-/**
- * Sanitizes and verifies the blog description url for saving.
- * @param  string  $new_value  The new value of the blog description url.
- * @param  string  $old_value  The old value of the blog description url.
- */
-if( !function_exists('vtt_default_customize_set_theme_mod_blogtagline_url') ):
-function vtt_default_customize_set_theme_mod_blogtagline_url( $new_value, $old_value )
-{
-	if( $new_value == get_site_url() ) $new_value = '/';
-	return $new_value;
-}
-endif;
-
-
-/**
- * Sanitize and verifies the theme mod options.
- * @param  string  $new_value  The new value of the theme mods.
- * @param  string  $old_value  The old value of the theme mods.
- */
-if( !function_exists('vtt_customize_pre_update_options') ):
-function vtt_customize_pre_update_options( $new_value, $old_value )
-{
-	global $wp_customize;
-	if( isset($wp_customize) ) return;
-
-	if( !array_key_exists('theme-mods', $new_value) ) return;
-
-	if( (array_key_exists('blogname', $new_value['theme-mods'])) &&
-	    ($new_value['theme-mods']['blogname'] == get_bloginfo('name')) )
-	{
-		$new_value['theme-mods']['blogname'] = '/';
-	}
-
-	if( (array_key_exists('blogname_url', $new_value['theme-mods'])) &&
-	    ($new_value['theme-mods']['blogname_url'] == get_site_url()) )
-	{
-		$new_value['theme-mods']['blogname_url'] = '/';
-	}
-
-	if( (array_key_exists('blogtagline', $new_value['theme-mods'])) &&
-	    ($new_value['theme-mods']['blogtagline'] == get_bloginfo('description')) )
-	{
-		$new_value['theme-mods']['blogtagline'] = '/';
-	}
-
-	if( (array_key_exists('blogtagline_url', $new_value['theme-mods'])) &&
-	    ($new_value['theme-mods']['blogtagline_url'] == get_site_url()) )
-	{
-		$new_value['theme-mods']['blogtagline_url'] = '/';
-	}
-	
-	return $new_value;
 }
 endif;
 

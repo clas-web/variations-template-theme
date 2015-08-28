@@ -36,6 +36,7 @@ if( $description_link_default )
 else
 	$description_link = $vtt_config->get_value( 'blogdescription_url' );
 
+
 // Create the header title text styles.
 $text_color = get_theme_mod(
 	'header_textcolor', 

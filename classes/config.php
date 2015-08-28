@@ -72,6 +72,8 @@ class VTT_Config
 	{
 		global $wp_customize;
 
+		$this->check_db();
+
 		// Initialize class variables.
 		$this->all_variations = array();
 		$this->filtered_variations = array();
@@ -93,9 +95,6 @@ class VTT_Config
 		
 		ksort( $this->search_directories );
 
-		$this->config = apply_filters( 'vtt-config', array() );
-		$this->data = $this->config;
-
 		// Get list of valid variations for the current theme.
 		$this->valid_variations = apply_filters( 'vtt-valid-variations', array('default','dark') );
 
@@ -111,7 +110,11 @@ class VTT_Config
 		// Load the variation functions.php file before loading options.
 		$this->load_variations_files( 'functions.php' );
 
+		// Action to allow variations to update the db before getting the options.
+		do_action( 'vtt-update-db' );
+
 		// Get options data.
+		$this->config = apply_filters( 'vtt-config', array() );
 		$this->options = apply_filters( 'vtt-options', array() );
 		$this->options = array_merge( $this->options, get_theme_mods() );
 
@@ -247,7 +250,7 @@ class VTT_Config
 	{
 		if( $this->current_variation !== null ) return $this->current_variation;
 		
-		$variation = $this->get_value( 'vtt-variation' );
+		$variation = get_theme_mod( 'vtt-variation' );
 		if( $variation === null ) return $this->get_default_variation();
 		
 		if( array_key_exists($variation, $this->filtered_variations) ) return $variation;
@@ -691,7 +694,7 @@ class VTT_Config
 	 */
 	private function check_db()
 	{
-		$db_version = $this->get_value( 'vtt-db-version' );
+		$db_version = get_theme_mod( 'vtt-db-version' );
 		if( ($db_version === false) || ($db_version === VTT_DB_VERSION) ) return;
 		
 		switch( $db_version )
@@ -700,7 +703,7 @@ class VTT_Config
 				break;
 		}
 		
-		$this->set_value( 'vtt-db-version', VTT_DB_VERSION );
+		update_theme_mod( 'vtt-db-version', VTT_DB_VERSION );
 	}
 }
 endif;

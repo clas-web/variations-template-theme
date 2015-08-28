@@ -270,11 +270,6 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		text-shadow: #444444 1px 1px 2px;
 	}
 
-/*	
-	body.admin-bar #responsive-title {
-		top:46px;
-	}
-*/
 	#responsive-title .relative-wrapper {
 		position:relative;
 		height:100%;
@@ -336,16 +331,6 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		margin-top:0px;
 	}
 
-/*
-	body.admin-bar #header-wrapper {
-		margin-top:96px;
-	}
-
-	body.admin-bar #header-wrapper.responsive-overlap {
-		margin-top:46px;
-	}
-*/
-
 	#header .masthead {
 		background-repeat:no-repeat;
 		background-position:center center;
@@ -368,6 +353,11 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		list-style:none;
 		margin:0;
 		padding:0;
+	}
+
+	#title-box a:hover,
+	#title-box a:hover {
+		text-decoration:none;
 	}
 	
 	#main {
@@ -530,11 +520,10 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		line-height:1.5em;
 	}
 
-	#title-box .name a,
-	#title-box .description a {
+	#title-box a {
 		color:#fff;
 	}
-	
+
 	#title-box.vabove {
 		margin-bottom:1em;
 	}
