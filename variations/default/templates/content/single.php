@@ -32,8 +32,8 @@ $featured_image_position = $vtt_config->get_value( 'featured-image-position' );
 			</div>
 		<?php endif; ?>
 
-		<?php echo apply_filters('the_content', get_the_content()); ?>
-
+		<?php echo apply_filters('the_content', $post->post_content); ?>
+		
 		<?php wp_link_pages('before=<div id="page-links">&after=</div>'); ?>
 		
 	</div><!-- .entry-content -->
