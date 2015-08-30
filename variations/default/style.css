@@ -972,6 +972,10 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 	#content .page-title {
 		margin-top:1em;
 	}
+
+	#content .post {
+		overflow:hidden;
+	}
 	
 	.widget_pages h2.widget-title,
 	.widget_nav_menu h2.widget-title {
@@ -1231,12 +1235,11 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 	#content blockquote,
 	.sidebar blockquote,
 	#footer blockquote {
-		padding:0.5em 1.5em;
-		margin:0em;
-		border-top:solid 1px #ccc;
-		border-bottom:solid 1px #ccc;
+		padding:0.5em;
+		margin:0em 0.5em;
 		font-size:1.05em;
-		line-height:1.2em;
+		line-height:1.2em;		
+		border-left:solid 1px #ccc;
 	}
 	
 	#content blockquote > div,

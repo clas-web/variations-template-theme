@@ -15,7 +15,7 @@ jQuery(document).ready( function()
 {
 	// Copy the full menu into the responsive menu area.
 	jQuery('body').prepend('<div id="responsive-menu"></div>');
-	jQuery('#responsive-menu').append( jQuery('#full-menu').html() );
+	jQuery('#responsive-menu').append( jQuery('#full-menu').html() ).addClass('hide');
 	jQuery('#full-menu').addClass('hide');
 
 

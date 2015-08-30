@@ -5,7 +5,7 @@ $featured_image_position = $vtt_config->get_value( 'featured-image-position' );
 ?>
 
 
-<div class="post">
+<div class="post <?php post_class(); ?>>
 
 	<h2 class="entry-title"><a href="<?php echo get_permalink($post->ID); ?>"><?php echo $post->post_title; ?></a></h2>
 
@@ -26,10 +26,12 @@ $featured_image_position = $vtt_config->get_value( 'featured-image-position' );
 			<?php endif; ?>
 			
 			<?php if( $post->post_excerpt ): ?>
-				<?php echo the_excerpt(); ?>
+				<?php the_excerpt(); ?>
 			<?php else:?>
-				<?php echo the_content(); ?>
+				<?php the_content(); ?>
 			<?php endif; ?>
+
+			<?php wp_link_pages('before=<div id="page-links">&after=</div>'); ?>
 			
 		</div><!-- .entry-content -->
 		
