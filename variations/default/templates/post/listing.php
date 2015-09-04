@@ -5,7 +5,7 @@ $featured_image_position = $vtt_config->get_value( 'featured-image-position' );
 ?>
 
 
-<div class="post <?php post_class(); ?>>
+<div <?php post_class(); ?>>
 
 	<h2 class="entry-title"><a href="<?php echo get_permalink($post->ID); ?>"><?php echo $post->post_title; ?></a></h2>
 
