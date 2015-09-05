@@ -178,7 +178,15 @@ if( !function_exists('vtt_get_page_title') ):
 function vtt_get_page_title()
 {
 	global $vtt_template_vars;
-	return ( isset($vtt_template_vars['page_title']) ? $vtt_template_vars['page_title'] : '' );
+	if ( is_post_type_archive() )
+	{
+		$vtt_template_vars['page_title'] = post_type_archive_title('', false);
+	}
+	elseif( !isset($vtt_template_vars['page_title']) )
+	{
+		$vtt_template_vars['page_title'] = '';
+	} 		
+	return $vtt_template_vars['page_title'];
 }
 endif;
 
