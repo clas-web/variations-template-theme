@@ -251,7 +251,7 @@ class VTT_Config
 		if( $this->current_variation !== null ) return $this->current_variation;
 		
 		$variation = get_theme_mod( 'vtt-variation' );
-		if( $variation === null ) return $this->get_default_variation();
+		if( !$variation ) return $this->get_default_variation();
 		
 		if( array_key_exists($variation, $this->filtered_variations) ) return $variation;
 		
