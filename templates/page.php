@@ -39,7 +39,7 @@
 
 	<?php
 	$vtt_main_template_parts = array( 'header', 'main', 'footer' );
-	$vtt_main_template_parts = apply_filters( 'vtt_main_template_parts', $vtt_main_template_parts );
+	$vtt_main_template_parts = apply_filters( 'vtt-main-template-parts', $vtt_main_template_parts );
 
 	foreach( $vtt_main_template_parts as $part )
 	{
