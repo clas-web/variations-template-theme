@@ -821,8 +821,8 @@ function vtt_get_post_type( $p = null )
 	
 	if( !$p ) $p = $post;
 	if( is_a($p, 'WP_Post') ) $post_type = $p->post_type;
-	
-	return $post_type;
+
+	return apply_filters( 'vtt-post-type', $post_type, $p );
 }
 endif;
 
