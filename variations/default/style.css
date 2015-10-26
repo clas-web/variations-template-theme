@@ -372,6 +372,11 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		padding:1em;
 	}
 
+	body.author .author-info {
+		margin:1em 0em;
+		overflow:hidden;
+	}
+
 
 /****************************************************************************************
  * Tablet-sized device or larger.
