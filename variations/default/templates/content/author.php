@@ -24,5 +24,5 @@
 <?php if( have_posts() ): ?>
 	<?php vtt_get_template_part( 'listing', 'content', vtt_get_queried_object_type() ); ?>
 <?php else: ?>
-	<p>No stories found.</p>
+	<p>No posts.</p>
 <?php endif; ?>

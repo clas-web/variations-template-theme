@@ -31,7 +31,7 @@ if( vtt_has_page_description() )
 <?php
 if( !have_posts() ):
 
-	echo '<p>No stories found.</p>';
+	echo '<p>No posts.</p>';
 
 else:
 
