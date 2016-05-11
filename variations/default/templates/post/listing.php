@@ -25,7 +25,7 @@ $featured_image_position = $vtt_config->get_value( 'featured-image-position' );
 				</div>
 			<?php endif; ?>
 			
-			<?php if( $post->post_excerpt ): ?>
+			<?php if( $post->post_excerpt || is_search()): ?>
 				<?php the_excerpt(); ?>
 			<?php else:?>
 				<?php the_content(); ?>
