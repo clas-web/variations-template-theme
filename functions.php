@@ -1027,15 +1027,21 @@ endif;
  * Get the breadcrumb html for a taxonomy term.
  * @param  int  $term_id  The id of the term.
  * @param  string  $taxonomy  The taxonomy of the term.
+ * @param  bool  $include_home  Include home in the breadcrumb.
  * @return  string  The generated html, or an empty string if no parent is found.
  */
 if( !function_exists( 'vtt_get_taxonomy_breadcrumbs' ) ):
-function vtt_get_taxonomy_breadcrumbs( $term_id, $taxonomy = 'category' )
+function vtt_get_taxonomy_breadcrumbs( $term_id, $taxonomy = 'category', $include_home = FALSE )
 {
 	$term = get_term( $term_id, $taxonomy );
 	if( $term === null || is_wp_error($term) ) return '';
 	
 	$breadcrumbs = array();
+	
+	if( $include_home ) {
+		$breadcrumbs[] = '<a href="'.site_url().'" title="Home">Home</a>';
+	}
+	
 	while( $term->parent )
 	{
 		$term = get_term( $term->parent, $taxonomy );
@@ -1044,8 +1050,9 @@ function vtt_get_taxonomy_breadcrumbs( $term_id, $taxonomy = 'category' )
 		$breadcrumbs[] = '<a href="'.$link.'" title="'.$title.'">'.$title.'</a>';
 	}
 	
-	if( count($breadcrumbs) > 0 )
+	if( count($breadcrumbs) > 0 ) {
 		return implode( ' &raquo; ',  $breadcrumbs ).' &raquo; ';
+	}
 	return '';
 }
 endif;
