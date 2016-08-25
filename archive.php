@@ -15,6 +15,12 @@ elseif( is_month() ):
 	$page_title = sprintf( 'Monthly Archives: %s', '<span>'.get_the_date('F Y').'</span>' );
 elseif( is_year() ):
 	$page_title = sprintf( 'Yearly Archives: %s', '<span>'.get_the_date('Y').'</span>' );
+elseif( is_tax() ):
+	$qo = get_queried_object();
+	if( $qo && is_a( $qo, 'WP_Term' ) ) {
+		$page_title = $qo->name;
+		vtt_set_page_description( term_description( $qo->term_id, $qo->taxonomy ) );
+	}
 endif;
 
 vtt_set_page_content_type( 'listing' );
