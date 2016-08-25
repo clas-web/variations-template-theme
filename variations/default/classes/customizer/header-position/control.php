@@ -79,7 +79,7 @@ class VTT_Customize_Header_Position extends WP_Customize_Control
 		?>
 		<label>
 			<?php if ( ! empty( $this->label ) ) : ?>
-				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+				<span class="customize-control-title"><?php echo $this->label; ?></span>
 			<?php endif;
 			if ( ! empty( $this->description ) ) : ?>
 				<span class="description customize-control-description"><?php echo $this->description; ?></span>
