@@ -477,8 +477,24 @@ if( !function_exists('vtt_get_header_image') ):
 function vtt_get_header_image()
 {
 	$header_url = get_header_image();
-	list( $header_width, $header_height ) = @getimagesize( $header_url );
+
+	//Set height and width to zero in case there is no header image.
+	$header_width = 0;
+        $header_height = 0;
 	
+	//get_custom_header will return a height and width even if there is no header image.
+	$data = get_custom_header();
+
+	if ($data && has_header_image())
+	{
+		$header_width = $data->width;
+		$header_height = $data->height;
+	}
+	
+	//Debuging Helpers
+	//vtt_print($data); exit;
+	//vtt_print($header_url); exit;
+
 	return array(
 		'url' 		=> $header_url,
 		'width' 	=> $header_width,
