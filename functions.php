@@ -478,9 +478,9 @@ function vtt_get_header_image()
 {
 	$header_url = get_header_image();
 
-	//Set height and width to zero in case there is no header image.
-	$header_width = 0;
-        $header_height = 0;
+	//Set height and width to null in case there is no header image.
+	$header_width = "";
+    $header_height = "";
 	
 	//get_custom_header will return a height and width even if there is no header image.
 	$data = get_custom_header();
