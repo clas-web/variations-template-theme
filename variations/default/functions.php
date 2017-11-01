@@ -130,6 +130,11 @@ endif;
 
 
 /**
+ * Remove login header.
+ */
+add_theme_support( 'admin-bar', array( 'callback' => '__return_false' ) );
+
+/**
  * Add the close responsive menu button to the admin bar.
  * @param  WP_Admin_Bar  $wp_admin_bar  
  */
@@ -163,9 +168,9 @@ function vtt_default_add_featured_image_support()
 	
 	add_theme_support( 'custom-header',
 		array( 
-			'width' 					=> 950, 
-			'height'					=> 200,
-			'flex-width'				=> false,
+			'width' 					=> 1800, 
+			'height'					=> 300,
+			'flex-width'				=> true,
 			'flex-height'				=> true,
 			'random-default' 			=> true,
 			'admin-head-callback' 		=> 'vtt_default_admin_head_callback',

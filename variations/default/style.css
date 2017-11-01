@@ -174,7 +174,7 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 
 	#site-outside-wrapper {
 		z-index:5;
-		position:absolute;
+		position:relative;
 		top:0;
 		left:0;
 		width:100%;
@@ -324,7 +324,7 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 	}
 
 	#header-wrapper {
-		margin-top:50px;
+		margin-top:0px;
 	}
 
 	#header-wrapper.responsive-overlap {
@@ -430,7 +430,7 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 	}
 	
 	body.admin-bar #site-outside-wrapper {
-		margin-top:32px;
+		margin-top:0px;
 	}
 
 	#site-inside-wrapper, #header, #main, #footer {
@@ -1678,3 +1678,15 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		margin-top:0;
 	}
 
+/****************************************************************************************
+ *  
+ * Print Styles
+ * 
+ * Styles for printing out content from a page.
+ * 
+ ****************************************************************************************/
+ 
+ @media print {
+	#responsive-title{position:relative;}
+}
+ 

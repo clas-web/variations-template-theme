@@ -1000,7 +1000,7 @@ function vtt_get_byline( $p = null )
 	$author = get_the_author_meta( 'display_name', $p->post_author );
 	$url = get_author_posts_url($p->post_author);
 	
-	return $date.' by <a href="'.$url.'" title="Posts by '.$author.'">'.$author.'</a>';
+	return '<span class="entry-date">'.$date.'</span><span class="entry-author"> by <a href="'.$url.'" title="Posts by '.$author.'">'.$author.'</a></span>';
 }
 endif;
 
