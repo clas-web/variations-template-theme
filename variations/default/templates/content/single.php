@@ -1,6 +1,6 @@
 <?php //vtt_print('default:content:single'); ?>
 <?php
-global $post;
+global $vtt_config, $post;
 $featured_image_position = $vtt_config->get_value( 'featured-image-position' );
 ?>
 

@@ -1192,9 +1192,100 @@ function vtt_customize_register( $wp_customize )
 			)
 		)
 	);
+	
+	$wp_customize->add_setting(
+        'header_type',
+        array(
+            'default'    => get_theme_mod('header_type'),
+            'capability' => 'edit_theme_options',
+            'type'       => 'theme_mod'
+        )
+    );
+
+    $wp_customize->add_control(
+        'custom_header_type',
+        array(
+            'settings' => 'header_type',
+            'label'    => __( 'Type of Header:', 'textdomain' ),
+            'section'  => 'header_image',
+            'type'     => 'select',
+            'choices'  => array(
+				'none'   => 'No Header',
+                'slider' => 'Slider',
+                'image'  => 'Image'
+            ),
+			'priority'	=> 1
+        )
+    );
+	
+	$wp_customize->add_setting(
+        'header_slider',
+        array(
+			'default'	 => get_theme_mod('header_slider'),
+            'capability' => 'edit_theme_options',
+            'type'       => 'theme_mod'
+        )
+    );
+
+    $wp_customize->add_control(
+        'header_slider',
+        array(
+            'settings' => 'header_slider',
+            'label'    => __( 'Pick your slider:', 'textdomain' ),
+            'section'  => 'header_image',
+            'type'     => 'select',
+			'priority'	=> 2,
+            'choices'  => get_slider_posts(),
+			'active_callback' => 'header_controls',
+        )
+    );
+	
+	$wp_customize->add_setting(
+        'header_home_only',
+        array(
+			'default'	 => get_theme_mod('header_home_only'),
+            'capability' => 'edit_theme_options',
+            'type'       => 'theme_mod'
+        )
+    );
+
+    $wp_customize->add_control(
+        'header_home_only',
+        array(
+            'settings' => 'header_home_only',
+            'label'    => __( 'Display only on the home page', 'textdomain' ),
+            'section'  => 'header_image',
+            'type'     => 'checkbox',
+			'priority'	=> 3,
+			'std'        => '1',
+			'active_callback' => 'header_controls'
+        )
+    );
+	
+	$wp_customize->get_control( 'header_image' )->active_callback = 'header_controls';
 }
 endif;
 
+function header_controls($control) {
+	$control_id = $control->id;
+	$header_type = get_theme_mod('header_type');
+	
+	if ( $control_id == 'header_slider' && $header_type == 'slider' ) return true;
+	if ( $control_id == 'header_image' && $header_type == 'image' ) return true;
+	if ( $control_id == 'header_home_only' && ($header_type == 'image' || $header_type == 'slider')) return true;
+		return false;
+}
+
+function get_slider_posts() {
+	$soliloquy_header = array();
+	$args = array('post_type' => 'soliloquy');
+    $soliloquy_posts = get_posts($args);
+    foreach($soliloquy_posts as $soliloquy_post) {
+            $soliloquy_header[$soliloquy_post->ID] = $soliloquy_post->post_title;
+    }
+	//if (empty($soliloquy_header)) $soliloquy_header[0] = 'Create a new slider.';
+	return $soliloquy_header;
+}
 
 /**
  * Get the full path to the the comments template.
