@@ -1,25 +1,22 @@
-<?php //vtt_print('default:part:header'); ?>
+<?php //vtt_print('part:header'); ?>
 <?php
 global $vtt_config, $post;
-$featured_image_position = $vtt_config->get_value( 'featured-image-position' );
 
 
-// Get the featured image if going to be shown as header.
+// Check if the header should be the current post's featured image.
 $image = false;
-if( $featured_image_position === 'header' )
-{
+if( 'header' === $vtt_config->get_value('featured-image-position') )
 	$image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large' );
-}
 
 
-// Get header image and its properties (url and size).
+// If no featured image is found, then get the header image from the theme mods.
 if( $image === false )
 	list( $header_url, $header_width, $header_height ) = array_values( vtt_get_header_image() );
 else
 	list( $header_url, $header_width, $header_height ) = $image; 
 
 
-// Get the header Theme Customizer options.
+// Get the header title position and contents.
 $position = $vtt_config->get_value( 'header-title-position' );
 $hide_title = $vtt_config->get_value( 'header-title-hide' );
 $title = get_option( 'blogname' );
@@ -37,7 +34,7 @@ else
 	$description_link = $vtt_config->get_value( 'blogdescription_url' );
 
 
-// Create the header title text styles.
+// Calculate the text color and background colors.
 $text_color = get_theme_mod(
 	'header_textcolor', 
 	get_theme_support( 'custom-header', 'default-text-color' )
@@ -75,7 +72,7 @@ function vtt_title_box( $title_box_height, $position, $title, $title_link, $desc
 	if( is_int($title_box_height) ) $title_box_height .= 'px';
 	?>
 		<div id="title-box-placeholder">
-		<div id="title-box-wrapper" style="height:<?php echo $title_box_height; ?>;">
+		<div id="title-box-wrapper">
 		<div id="title-box" class="<?php echo $position; ?>">
 		
 		<?php
@@ -105,6 +102,7 @@ function vtt_title_box( $title_box_height, $position, $title, $title_link, $desc
 }
 endif;
 
+
 // Determine if the responsive (mobile) header overlaps the header image.
 $responsive_overlap = '';
 if( $header_url && strpos($position, 'vabove') === false )
@@ -115,6 +113,8 @@ if( $header_url && strpos($position, 'vabove') === false )
 <?php // Responsive (mobile) header ?>
 <div id="responsive-title" clas="clearfix" style="<?php echo $text_style; ?>">
 <div class="relative-wrapper">
+
+<div class="logo icon-button"></div>
 
 <div class="title"><div><div>
 <?php
@@ -145,19 +145,32 @@ endif;
 	?>
 
 	<div id="header">
-
-	<div class="masthead" style="background-image:url('<?php echo $header_url; ?>'); width:<?php echo $header_width; ?>px; height:<?php echo $header_height; ?>px;">
 	
-		<?php
-			if( !$hide_title && strpos($position, 'vabove') === false ):
-				echo '<div id="full-title">';
-				vtt_title_box( $header_height, $position, $title, $title_link, $description, $description_link, $text_style );
-				echo '</div>';
-			endif;
-		?>
+	<?php $header_type = get_theme_mod('header_type');
+	if ($header_type == 'image' || $image != false || empty($header_type)) { 
+		if (!get_theme_mod('header_home_only') || (get_theme_mod('header_home_only')&& is_front_page()) || empty($header_type)){	?>
+		<div class="masthead" style="background-image:url('<?php echo $header_url; ?>'); width:<?php echo $header_width; ?>px; height:<?php echo $header_height; ?>px;"></div>
+		<?php }} elseif ( $header_type == 'slider' )  { 
+		if (!get_theme_mod('header_home_only') || (get_theme_mod('header_home_only')&& is_front_page())){		?>
+		<div id="banner-wrapper">
+		<div id="banner">
+		<div class="placeholder"></div>
+		<?php if (get_theme_mod( 'header_slider') != 0) soliloquy( get_theme_mod( 'header_slider') ); ?>
+		</div><!-- #banner -->
+		</div><!-- #banner-wrapper -->
+		<?php }} ?>
+	<?php
+				if( !$hide_title && strpos($position, 'vabove') === false ):
+					echo '<div id="full-title">';
+					vtt_title_box( $header_height, $position, $title, $title_link, $description, $description_link, $text_style );
+					echo '</div>';
+				endif;
+			?>
 		
-	</div><!-- .masthead -->
+		<!--</div> .masthead -->
 	
 	</div><!-- #header -->
 </div><!-- #header-wrapper -->
+
+
 
