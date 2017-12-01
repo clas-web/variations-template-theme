@@ -111,7 +111,7 @@ if( $header_url && strpos($position, 'vabove') === false )
 
 
 <?php // Responsive (mobile) header ?>
-<div id="responsive-title" clas="clearfix" style="<?php echo $text_style; ?>">
+<div id="responsive-title" class="clearfix" style="<?php echo $text_style; ?>">
 <div class="relative-wrapper">
 
 <div class="logo icon-button"></div>
