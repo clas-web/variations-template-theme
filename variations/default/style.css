@@ -17,6 +17,7 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 	height: auto !important;
 	max-width: 100% !important;
 	width: 100% !important;
+	margin: 0px auto !important;
 }
 
 .soliloquy-container .soliloquy-item img {
@@ -274,7 +275,6 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 	#responsive-menu {
 		padding:1em;
 		padding-top:76px;
-		padding-top:1em;
 	}
 
 	#wp-admin-bar-login-link {

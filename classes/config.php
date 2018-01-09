@@ -257,7 +257,8 @@ class VTT_Config
 		
 		$vnames = array_keys($this->filtered_variations);
 		if( count($this->filtered_variations) > 0 )
-			return $this->filtered_variations[$vnames[0]]['name'];
+			//return $this->filtered_variations[$vnames[0]]['name'];
+			return get_theme_mod('vtt-variation');
 		return 'default';
 	}
 	
@@ -669,7 +670,9 @@ class VTT_Config
 		$this->current_variation['directory'] = $directory;
 	}
 	
-	
+/*This function has been replaced by get_all_site_variation_names
+Leaving to avoid potential conflicts or unforeseen consequences of removal.
+*/	
 	/**
 	 * Get all the variations that are found and are allowed by the theme.
 	 * @return  Array  The array of variation names.
@@ -680,6 +683,24 @@ class VTT_Config
 		$names = array();
 		
 		foreach( $this->filtered_variations as $name => $variation )
+		{
+			$names[$name] = $variation['title'];
+		}
+		
+		return $names;
+	}
+	
+	
+		/**
+	 * Get all the variations that are found and are allowed by the site.
+	 * @return  Array  The array of variation names.
+	 *                 The key of the array is the name and value is the title.
+	 */
+	public function get_all_site_variation_names()
+	{
+		$names = array();
+		
+		foreach( $this->all_variations as $name => $variation )
 		{
 			$names[$name] = $variation['title'];
 		}

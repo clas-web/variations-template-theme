@@ -1166,7 +1166,7 @@ if( !function_exists('vtt_customize_register') ):
 function vtt_customize_register( $wp_customize )
 {
 	global $vtt_config;
-	
+
 	$wp_customize->add_section(
 		'vtt-variation-section',
 		array(
@@ -1189,6 +1189,32 @@ function vtt_customize_register( $wp_customize )
 			array(
 				'label'   => 'Name',
 				'section' => 'vtt-variation-section',
+			)
+		)
+	);
+	
+	
+	$wp_customize->add_setting(
+		'vtt-variation-choices',
+		array(
+			'default' => '',
+			'capability' => 'manage_sites',
+			'type' => 'theme_mod',
+			'transport' => 'postMessage',
+			'sanitize_callback' => 'sanitize_variation_choices'
+		)
+	);
+	
+	$wp_customize->add_control( 
+		new VTT_Customize_Variation_Checkboxes(
+			$wp_customize,
+			'vtt-variation-choices-control', 
+			array(
+				'label'   => 'Variations Available on this Site',
+				'description' => 'Only visible to SuperAdmins',
+				'section' => 'vtt-variation-section',
+				'settings' => 'vtt-variation-choices',
+				'choices' => $vtt_config->get_all_site_variation_names()
 			)
 		)
 	);
@@ -1285,6 +1311,11 @@ function get_slider_posts() {
     }
 	//if (empty($soliloquy_header)) $soliloquy_header[0] = 'Create a new slider.';
 	return $soliloquy_header;
+}
+
+function sanitize_variation_choices( $values ) {
+    $multi_values = !is_array( $values ) ? explode( ',', $values ) : $values;
+    return !empty( $multi_values ) ? array_map( 'sanitize_text_field', $multi_values ) : array();
 }
 
 /**
