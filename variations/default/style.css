@@ -77,7 +77,14 @@ Author URI: https://www.linkedin.com/in/crytalbarton
  * Styles for default colors and sizes of common html tags.
  * 
  ****************************************************************************************/
-
+	#wp-admin-bar-wp-logo .ab-item{
+			display:none;
+	}
+	
+	#wp-admin-bar-stats, #wp-admin-bar-customize, #wp-admin-bar-notes {
+		display: none !important;
+	}
+	
 	html, body {
 		padding:0;
 		margin:0;
@@ -250,6 +257,7 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		width:100%;
 		min-height:98vh;
 	    background-color: #FFF;
+		margin-top:51px;
 	}
 
 	#wp-toolbar > ul > li {
@@ -335,7 +343,7 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		box-shadow:0em 0em 0.5em rgba(0,0,0,0.2);
 		z-index:100;
 		background-color:#333;
-		background-color:rgba(0,0,0,0.6);
+		background-color:rgba(0,0,0,1);
 		color:#fff;
 		text-shadow: #444444 1px 1px 2px;
 	}
@@ -401,10 +409,6 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		margin-top:0px;
 	}
 	
-	#header{
-		min-height:200px;
-	}
-	
 	#header .masthead {
 		background-repeat:no-repeat;
 		background-position:center center;
@@ -461,7 +465,11 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		height:32px;
 		z-index:999;
 	}
-
+	
+	#wp-admin-bar-stats, #wp-admin-bar-customize, #wp-admin-bar-notes {
+		display: inline-block !important;
+	}
+	
 	#wp-admin-bar-close-menu-button {
 		display:none !important;
 	}
@@ -470,9 +478,12 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 	#responsive-title {
 		display:none;
 	}
-
+	
 	#full-title {
 		display:block;
+	}
+	#site-outside-wrapper{
+		margin-top:32px;
 	}
 
 	#site-outside-wrapper.hide {
@@ -519,10 +530,6 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 	body.admin-bar #header-wrapper.responsive-overlap {
 		margin-top:0px;
 	}
-	
-	body.admin-bar #site-outside-wrapper {
-		margin-top:0px;
-	}
 
 	#site-inside-wrapper, #header, #main, #footer {
 		max-width:950px;
@@ -534,6 +541,7 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		font-family:Times New Roman, Times, serif;
 		max-width: 1500px;
 		margin: 0 auto;
+		min-height: 150px;
 	}
 	
 	#title-box-placeholder {
@@ -919,6 +927,10 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 	#full-menu.hide {
 		width:auto;
 		float:none;
+	}
+	
+	#header{
+		min-height:200px;
 	}
 	
 	#header-menu {
@@ -1835,6 +1847,28 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		color:#666;
 		margin-top:0;
 	}
+
+/****************************************************************************************
+ * Admin bar fixes for small screens
+ ****************************************************************************************/
+@media (max-width: 782px) {
+	#wpadminbar {
+		height: 50px !important;
+	}
+	#wp-admin-bar-uncc-logo .ab-item:before {
+		line-height: 50px !important;
+	}
+}
+@media (min-width: 782px) and (max-width: 910px) {
+	#wp-admin-bar-uncc-logo {
+		display: none !important;
+	}
+}
+@media (min-width: 782px) and (max-width: 1053px) {
+	#wp-admin-bar-notes, #wp-admin-bar-stats {
+		display: none !important;
+	}
+}
 
 /****************************************************************************************
  *  
