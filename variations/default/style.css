@@ -400,7 +400,11 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 	#header-wrapper.responsive-overlap {
 		margin-top:0px;
 	}
-
+	
+	#header{
+		min-height:200px;
+	}
+	
 	#header .masthead {
 		background-repeat:no-repeat;
 		background-position:center center;
