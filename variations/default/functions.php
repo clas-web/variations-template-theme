@@ -659,7 +659,7 @@ endif;
 if( !function_exists('vtt_default_add_home_pages_menu_item') ):
 function vtt_default_add_home_pages_menu_item( $args )
 {
-	$args['show_home'] = true;
+	//$args['show_home'] = true;
 	return $args;
 }
 endif;

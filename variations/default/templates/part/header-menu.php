@@ -8,6 +8,7 @@ $header_menu = wp_nav_menu(
 		'container_class' => 'header-navigation',
 		'theme_location'  => 'header-navigation',
 		'echo'            => false,
+		'fallback_cb'	  => false,
 	)
 );
 ?>
