@@ -259,7 +259,7 @@ class VTT_Config
 		if( count($this->filtered_variations) > 0 )
 			//return $this->filtered_variations[$vnames[0]]['name'];
 			return get_theme_mod('vtt-variation');
-		return 'default';
+		return 'light';
 	}
 	
 	
@@ -282,7 +282,7 @@ class VTT_Config
 	 */
 	public function get_default_variation()
 	{
-		$name = 'default';
+		$name = 'light';
 
 		$vnames = array_keys( $this->filtered_variations );
 		if( count($this->filtered_variations) > 0 )
@@ -385,16 +385,16 @@ class VTT_Config
 			switch( $priority )
 			{
 				case 5:
-					if( !array_key_exists('default', $directories) )
-						$directories['default'] = array();
-					$directories['default'][] = get_template_directory();
+					if( !array_key_exists('light', $directories) )
+						$directories['light'] = array();
+					$directories['light'][] = get_template_directory();
 					break;
 				case 10:
 					if( is_child_theme() )
 					{
-						if( !array_key_exists('default', $directories) )
-							$directories['default'] = array();
-						$directories['default'][] = get_stylesheet_directory();
+						if( !array_key_exists('light', $directories) )
+							$directories['light'] = array();
+						$directories['light'][] = get_stylesheet_directory();
 					}
 					break;
 			}
