@@ -16,7 +16,7 @@ Parent Variation: default
  ****************************************************************************************/
 
 	html, body {
-		background-color:#333;
+		background-color:#444444;
 		color:#ccc;
 	}
 
@@ -33,7 +33,6 @@ Parent Variation: default
  * 
  ****************************************************************************************/
 
-	#site-inside-wrapper,
 	#responsive-menu {
 		background-color:#444;
 	}
@@ -61,7 +60,9 @@ Parent Variation: default
 		color:#fff;
 	}
 
-
+	#main {
+		background-color: #444;
+	}
 /****************************************************************************************
  * Tablet-sized device or larger.
  ****************************************************************************************/
