@@ -483,6 +483,10 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		display:none;
 	}
 	
+	#full-menu.hide{
+		display:block;
+	}
+	
 	#full-title {
 		display:block;
 	}
