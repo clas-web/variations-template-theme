@@ -136,6 +136,9 @@ endif;
 
 
 <?php // Tablet and Desktop header ?>
+<?php $constrain_header = '';
+if (get_theme_mod('header_constrain_width')== 1) $constrain_header = 'constrain-header';
+?>
 <div id="header-wrapper" class="<?php echo $responsive_overlap; ?> clearfix">
 
 	<?php
@@ -146,7 +149,7 @@ endif;
 		endif;
 	?>
 
-	<div id="header">
+	<div id="header" class="<?php echo $constrain_header;?>" >
 	
 	<?php $header_type = get_theme_mod('header_type');
 	if ($header_type == 'image' || $image != false || empty($header_type)) { 

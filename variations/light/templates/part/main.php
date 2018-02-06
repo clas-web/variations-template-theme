@@ -2,7 +2,7 @@
 
 
 <div id="main-wrapper" class="clearfix">
-	<div id="main">
+	<div id="main" role="main">
 	
 	<?php
 	echo '<div id="full-menu" class="hide">';

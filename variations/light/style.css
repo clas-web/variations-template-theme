@@ -417,7 +417,8 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		position:relative;
 		min-width:100% !important;
 		width:100% !important;
-		background-size: cover;
+		background-size: contain;
+		max-height:200px;
 	}
 
 	#header-menu {
@@ -549,7 +550,11 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		font-family:Times New Roman, Times, serif;
 		max-width: 1500px;
 		margin: 0 auto;
-		min-height: 150px;
+	/*	min-height: 150px; */
+	}
+	
+	#header.constrain-header{
+		max-width: 1140px;
 	}
 	
 	#title-box-placeholder {
@@ -649,6 +654,8 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 
 	#header .masthead {
 		min-height:100px;
+		background-size: cover;
+		max-height: none;
 	}
 
 	#header .click-box {
@@ -935,11 +942,11 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		width:auto;
 		float:none;
 	}
-	
+/* 	
 	#header{
 		min-height:200px;
 	}
-	
+*/
 	#header-menu {
 		display:block;
 		width:100%;

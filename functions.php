@@ -1267,6 +1267,29 @@ function vtt_customize_register( $wp_customize )
     );
 	
 	$wp_customize->add_setting(
+        'header_constrain_width',
+        array(
+			'default'	 => true,
+            'capability' => 'edit_theme_options',
+            'type'       => 'theme_mod'
+        )
+    );
+
+    $wp_customize->add_control(
+        'header_constrain_width',
+        array(
+            'settings' => 'header_constrain_width',
+            'label'    => __( 'Constrain header width', 'textdomain' ),
+			'description' => 'Limits the width of the header image/slider to the width of the main content',
+            'section'  => 'header_image',
+            'type'     => 'checkbox',
+			'priority'	=> 2,
+			'std'        => '1',
+			'active_callback' => 'header_controls'
+        )
+    );
+	
+	$wp_customize->add_setting(
         'header_home_only',
         array(
 			'default'	 => get_theme_mod('header_home_only'),
@@ -1299,6 +1322,7 @@ function header_controls($control) {
 	if ( $control_id == 'header_slider' && $header_type == 'slider' ) return true;
 	if ( $control_id == 'header_image' && $header_type == 'image' ) return true;
 	if ( $control_id == 'header_home_only' && ($header_type == 'image' || $header_type == 'slider')) return true;
+	if ( $control_id == 'header_constrain_width' && ($header_type == 'image' || $header_type == 'slider')) return true;
 		return false;
 }
 
