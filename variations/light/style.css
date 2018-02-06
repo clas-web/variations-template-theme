@@ -554,7 +554,7 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 	}
 	
 	#header.constrain-header{
-		max-width: 1140px;
+		max-width: 980px;
 	}
 	
 	#title-box-placeholder {
@@ -947,6 +947,10 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		min-height:200px;
 	}
 */
+	#header.constrain-header{
+		max-width: 1140px;
+	}
+	
 	#header-menu {
 		display:block;
 		width:100%;
