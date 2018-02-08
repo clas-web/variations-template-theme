@@ -61,7 +61,7 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 }
 
 
-#banner {
+#header-image {
     width: auto !important;
 	background-repeat: repeat;
 }
@@ -411,16 +411,20 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		margin-top:0px;
 	}
 	
-	#header .masthead {
+	#header .header-title {
 		background-repeat:no-repeat;
 		background-position:center center;
 		position:relative;
 		min-width:100% !important;
-		width:100% !important;
-		background-size: contain;
-		max-height:200px;
+		width:100%;
+		background-size: auto 100%;
 	}
 
+	#header.constrain-header, #header-image.constrain-header, #header.constrain-header .header-title{
+		background-size: contain;
+		max-height: 200px;
+	}
+	
 	#header-menu {
 		display:block;
 		font-family:Arial, sanserif;
@@ -550,11 +554,17 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		font-family:Times New Roman, Times, serif;
 		max-width: 1500px;
 		margin: 0 auto;
-	/*	min-height: 150px; */
 	}
 	
-	#header.constrain-header{
+	.mini-header{
+		min-height: 150px;
+	}
+	
+	#header.constrain-header, #header-image.constrain-header, #header.constrain-header .header-title{
 		max-width: 980px;
+		min-width: 0px;
+		max-height: none;
+		background-size: cover;
 	}
 	
 	#title-box-placeholder {
@@ -652,7 +662,7 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		margin-bottom:1em;
 	}
 
-	#header .masthead {
+	#header .header-title {
 		min-height:100px;
 		background-size: cover;
 		max-height: none;
@@ -732,11 +742,11 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		border-bottom:1px solid transparent;
 	}
 
-	#header .masthead {
+	#header .header-title {
 		background-repeat: no-repeat;
 		background-position: center center;
 		position: relative;
-		min-width: 100% !important;
+		min-width: 100%;
 		width: 100% !important;
 	}
 
@@ -942,12 +952,12 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		width:auto;
 		float:none;
 	}
-/* 	
-	#header{
+ 	
+	.mini-header{
 		min-height:200px;
 	}
-*/
-	#header.constrain-header{
+
+	#header.constrain-header, #header-image.constrain-header, #header.constrain-header .header-title{
 		max-width: 1140px;
 	}
 	

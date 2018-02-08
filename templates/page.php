@@ -38,7 +38,7 @@
 <div id="site-inside-wrapper" class="clearfix">
 
 	<?php
-	$vtt_main_template_parts = array( 'header', 'main', 'footer' );
+	$vtt_main_template_parts = array( 'header-title', 'main', 'footer' );
 	$vtt_main_template_parts = apply_filters( 'vtt-main-template-parts', $vtt_main_template_parts );
 
 	foreach( $vtt_main_template_parts as $part )

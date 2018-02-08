@@ -217,7 +217,7 @@ endif;
 if( !function_exists('vtt_default_admin_preview_callback') ):
 function vtt_default_admin_preview_callback()
 {
-	vtt_get_template_part( 'header', 'part' );
+	vtt_get_template_part( 'header-title', 'part' );
 }
 endif;
 

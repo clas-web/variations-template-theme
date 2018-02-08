@@ -2,19 +2,20 @@
 <?php
 global $vtt_config, $post;
 
+$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large' );
+$featured_image_position = $vtt_config->get_value('featured-image-position');
 
-// Check if the header should be the current post's featured image.
-$image = false;
-if( 'header' === $vtt_config->get_value('featured-image-position') )
-	$image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large' );
+$header_type = get_theme_mod('header_type');
+	
+list( $header_url, $header_width, $header_height ) = array_values( vtt_get_header_image() );
+list( $featured_url, $featured_width, $featured_height ) = $featured_image; 
 
+$header_size = '';
+if($header_height < 200) $header_size = 'mini-header';
+if($featured_height < 200) $header_size = 'mini-header';
 
-// If no featured image is found, then get the header image from the theme mods.
-if( $image === false )
-	list( $header_url, $header_width, $header_height ) = array_values( vtt_get_header_image() );
-else
-	list( $header_url, $header_width, $header_height ) = $image; 
-
+$constrain_header = '';
+if (get_theme_mod('header_constrain_width')== 1) $constrain_header = 'constrain-header';
 
 // Get the header title position and contents.
 $position = $vtt_config->get_value( 'header-title-position' );
@@ -136,9 +137,6 @@ endif;
 
 
 <?php // Tablet and Desktop header ?>
-<?php $constrain_header = '';
-if (get_theme_mod('header_constrain_width')== 1) $constrain_header = 'constrain-header';
-?>
 <div id="header-wrapper" class="<?php echo $responsive_overlap; ?> clearfix">
 
 	<?php
@@ -149,31 +147,38 @@ if (get_theme_mod('header_constrain_width')== 1) $constrain_header = 'constrain-
 		endif;
 	?>
 
-	<div id="header" class="<?php echo $constrain_header;?>" >
+	<div id="header" class="<?php echo $constrain_header.' '; echo $header_size;?>" >
 	
-	<?php $header_type = get_theme_mod('header_type');
-	if ($header_type == 'image' || $image != false || empty($header_type)) { 
-		if (!get_theme_mod('header_home_only') || (get_theme_mod('header_home_only')&& is_front_page()) || empty($header_type)){	?>
-		<div class="masthead" style="background-image:url('<?php echo $header_url; ?>'); width:<?php echo $header_width; ?>px; height:<?php echo $header_height; ?>px;"></div>
-		<?php }} elseif ( $header_type == 'slider' )  { 
-		if (!get_theme_mod('header_home_only') || (get_theme_mod('header_home_only')&& is_front_page())){		?>
-		<div id="banner-wrapper">
-		<div id="banner">
-		<div class="placeholder"></div>
-		<?php if (get_theme_mod( 'header_slider') != 0) soliloquy( get_theme_mod( 'header_slider') ); ?>
-		</div><!-- #banner -->
-		</div><!-- #banner-wrapper -->
-		<?php }} ?>
+	<?php 
+	//IF on the front page
+	//OR the featured image is not set to display in the header and the header image is shown on all pages
+	//OR there is no featured image	and the header image is shown on all pages
+	if (is_front_page() || ($featured_image_position != 'header' && !get_theme_mod('header_home_only')) || (!$featured_url && !get_theme_mod('header_home_only'))){
+		if ($header_type == 'image' || empty($header_type)){?>
+			<div class="header-title" style="background-image:url('<?php echo $header_url; ?>'); width:<?php echo $header_width; ?>px; height:<?php echo $header_height; ?>px;"></div>
+			<?php
+		} 
+		elseif ($header_type == 'slider') {?>
+			<div id="header-image">
+			<?php if (get_theme_mod( 'header_slider') != 0) soliloquy( get_theme_mod( 'header_slider') );?>
+			</div><!-- #header-image --><?php 
+		}
+	}
+	else{
+		if ($featured_image_position == 'header'){?>
+			<div class="header-title" style="background-image:url('<?php echo $featured_url; ?>'); width:<?php echo $featured_width; ?>px; height:<?php echo $featured_height; ?>px;"></div>
+			<?php
+		}		
+	}
+	
+	?>
 	<?php
 				if( !$hide_title && strpos($position, 'vabove') === false ):
 					echo '<div id="full-title">';
 					vtt_title_box( $header_height, $position, $title, $title_link, $description, $description_link, $text_style );
 					echo '</div>';
 				endif;
-			?>
-		
-		<!--</div> .masthead -->
-	
+			?>	
 	</div><!-- #header -->
 </div><!-- #header-wrapper -->
 
