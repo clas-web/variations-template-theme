@@ -6,13 +6,10 @@ $featured_image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID),
 $featured_image_position = $vtt_config->get_value('featured-image-position');
 
 $header_type = get_theme_mod('header_type');
-	
 list( $header_url, $header_width, $header_height ) = array_values( vtt_get_header_image() );
-list( $featured_url, $featured_width, $featured_height ) = $featured_image; 
 
-$header_size = '';
-if($header_height < 200) $header_size = 'mini-header';
-if($featured_height < 200) $header_size = 'mini-header';
+if($featured_image)	list( $featured_url, $featured_width, $featured_height ) = $featured_image; 
+
 
 $constrain_header = '';
 if (get_theme_mod('header_constrain_width')== 1) $constrain_header = 'constrain-header';
@@ -148,7 +145,7 @@ endif;
 		endif;
 	?>
 
-	<div id="header" class="<?php echo $constrain_header.' '; echo $header_size;?>" >
+	<div id="header" class="mini-header <?php echo $constrain_header;?>" >
 	
 	<?php 
 	//IF on the front page

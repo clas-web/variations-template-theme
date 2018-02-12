@@ -162,8 +162,10 @@ endif;
 function vtt_shorten_admin_bar_title() {
 	global $wp_admin_bar;
 	$site_name_node = $wp_admin_bar->get_node('site-name');
-	$site_name_node->title = mb_strimwidth($site_name_node->title, 0, 20, '...');
-	$wp_admin_bar->add_node( $site_name_node );
+	if($site_name_node){
+		$site_name_node->title = mb_strimwidth($site_name_node->title, 0, 20, '...');
+		$wp_admin_bar->add_node( $site_name_node );
+	}
 }
 
 /**
