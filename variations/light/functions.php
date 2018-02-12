@@ -35,6 +35,7 @@ add_action( 'init', 'vtt_default_setup_widget_areas' );
 // Admin Bar
 add_filter( 'show_admin_bar', 'vtt_default_show_admin_bar', 10 );
 add_action( 'admin_bar_menu', 'vtt_default_add_responsive_close_button', 1 );
+add_action( 'wp_before_admin_bar_render', 'vtt_shorten_admin_bar_title' );
 
 // Theme customizer.
 add_action( 'customize_register', 'vtt_default_customize_register', 11 );
@@ -154,6 +155,16 @@ function vtt_default_add_responsive_close_button( $wp_admin_bar )
 }
 endif;
 
+/**
+ * Shorten site titles longer than 20 characters in the admin bar.
+ * @param  WP_Admin_Bar  $wp_admin_bar  
+ */
+function vtt_shorten_admin_bar_title() {
+	global $wp_admin_bar;
+	$site_name_node = $wp_admin_bar->get_node('site-name');
+	$site_name_node->title = mb_strimwidth($site_name_node->title, 0, 20, '...');
+	$wp_admin_bar->add_node( $site_name_node );
+}
 
 /**
  * Adds support for featured images.

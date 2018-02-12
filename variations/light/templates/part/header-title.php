@@ -24,6 +24,8 @@ $title = get_option( 'blogname' );
 $title_link_default = $vtt_config->get_value( 'blogname_url_default' );
 $description = get_option( 'blogdescription' );
 $description_link_default = $vtt_config->get_value( 'blogdescription_url_default' );
+$smalltitleclass = '';
+if (strlen($title) > 30) $smalltitleclass = 'small-title';
 
 if( $title_link_default )
 	$title_link = get_site_url();
@@ -78,12 +80,11 @@ function vtt_title_box( $title_box_height, $position, $title, $title_link, $desc
 		
 		<?php
 		if( !empty($title) ):
-			$html = '<div class="name" style="'.$text_style.'">'.$title.'</div>';
+			$html = '<div class="name '.$smalltitleclass.'" style="'.$text_style.'">'.$title.'</div>';
 			if( !empty($title_link) ):
 				echo vtt_get_anchor( $title_link, null, null, $html );
 			else:
-			//Need to remove the $html from within span for validation
-				echo '<span>'.$html.'</span>';
+				echo $html;
 			endif;
 		endif;
 		
@@ -122,7 +123,7 @@ if( $header_url && strpos($position, 'vabove') === false )
 <div class="title"><div><div>
 <?php
 if( !empty($title) ):
-	$html = '<div class="name" style="'.$text_color.'">'.$title.'</div>';
+	$html = '<div class="name '.$smalltitleclass.'" style="'.$text_color.'">'.$title.'</div>';
 	if( !empty($title_link) ):
 		echo vtt_get_anchor( $title_link, null, null, $html );
 	else:

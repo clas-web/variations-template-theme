@@ -1269,7 +1269,7 @@ function vtt_customize_register( $wp_customize )
 	$wp_customize->add_setting(
         'header_constrain_width',
         array(
-			'default'	 => true,
+			'default'	 => get_theme_mod('header_constrain_width'),
             'capability' => 'edit_theme_options',
             'type'       => 'theme_mod'
         )
