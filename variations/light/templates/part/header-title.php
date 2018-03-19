@@ -120,7 +120,7 @@ if( $header_url && strpos($position, 'vabove') === false )
 <div class="title"><div><div>
 <?php
 if( !empty($title) ):
-	$html = '<div class="name '.$smalltitleclass.'" style="'.$text_color.'">'.$title.'</div>';
+	$html = '<div class="name '.$smalltitleclass.'">'.$title.'</div>';
 	if( !empty($title_link) ):
 		echo vtt_get_anchor( $title_link, null, null, $html );
 	else:
