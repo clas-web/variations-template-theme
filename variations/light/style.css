@@ -460,6 +460,11 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 	#content .page-title h1 {
 		margin-top:0.2em;
 	}
+	
+	#footer{
+		background: #FFF;
+		padding: 0px 20px;
+	}
 
 	#footer .widget-column .widgets-wrapper {
 		padding:1em;

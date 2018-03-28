@@ -1,8 +1,8 @@
 <?php //vtt_print('default:part:footer'); ?>
 
 
-<div id="footer-wrapper" class="clearfix">
-	<div id="footer">
+<div id="footer-wrapper">
+	<div id="footer" class="clearfix">
 
 
 <?php

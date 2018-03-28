@@ -140,7 +140,7 @@ endif;
 	<?php
 		if( !$hide_title && strpos($position, 'vabove') !== false ):
 			echo '<div id="full-title">';
-			vtt_title_box( 'auto', $position, $title, $title_link, $description, $description_link, $text_style );
+			vtt_title_box( 'auto', $position, $title, $title_link, $smalltitleclass, $description, $description_link, $text_style );
 			echo '</div>';
 		endif;
 	?>
