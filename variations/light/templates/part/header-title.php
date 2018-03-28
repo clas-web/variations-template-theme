@@ -21,8 +21,8 @@ $title = get_option( 'blogname' );
 $title_link_default = $vtt_config->get_value( 'blogname_url_default' );
 $description = get_option( 'blogdescription' );
 $description_link_default = $vtt_config->get_value( 'blogdescription_url_default' );
-$smalltitleclass = '';
-if (strlen($title) > 30) $smalltitleclass = 'small-title';
+$longtitleclass = '';
+if (strlen($title) > 30) $longtitleclass = 'long-title';
 
 if( $title_link_default )
 	$title_link = get_site_url();
@@ -67,7 +67,7 @@ $text_style = implode( ';', array($text_color, $text_bgcolor) );
  * @param  string  $text_style  The css styles for the text (text color and bg color).
  */
 if( !function_exists('vtt_title_box') ):
-function vtt_title_box( $title_box_height, $position, $title, $title_link, $description, $description_link, $text_style )
+function vtt_title_box( $title_box_height, $position, $title, $title_link, $longtitleclass, $description, $description_link, $text_style )
 {
 	if( is_int($title_box_height) ) $title_box_height .= 'px';
 	?>
@@ -77,7 +77,7 @@ function vtt_title_box( $title_box_height, $position, $title, $title_link, $desc
 		
 		<?php
 		if( !empty($title) ):
-			$html = '<div class="name '.$smalltitleclass.'" style="'.$text_style.'">'.$title.'</div>';
+			$html = '<div class="name '.$longtitleclass.'" style="'.$text_style.'">'.$title.'</div>';
 			if( !empty($title_link) ):
 				echo vtt_get_anchor( $title_link, null, null, $html );
 			else:
@@ -120,7 +120,7 @@ if( $header_url && strpos($position, 'vabove') === false )
 <div class="title"><div><div>
 <?php
 if( !empty($title) ):
-	$html = '<div class="name '.$smalltitleclass.'">'.$title.'</div>';
+	$html = '<div class="name '.$longtitleclass.'">'.$title.'</div>';
 	if( !empty($title_link) ):
 		echo vtt_get_anchor( $title_link, null, null, $html );
 	else:
@@ -140,7 +140,7 @@ endif;
 	<?php
 		if( !$hide_title && strpos($position, 'vabove') !== false ):
 			echo '<div id="full-title">';
-			vtt_title_box( 'auto', $position, $title, $title_link, $smalltitleclass, $description, $description_link, $text_style );
+			vtt_title_box( 'auto', $position, $title, $title_link, $longtitleclass, $description, $description_link, $text_style );
 			echo '</div>';
 		endif;
 	?>
@@ -173,7 +173,7 @@ endif;
 	<?php
 				if( !$hide_title && strpos($position, 'vabove') === false ):
 					echo '<div id="full-title">';
-					vtt_title_box( $header_height, $position, $title, $title_link, $description, $description_link, $text_style );
+					vtt_title_box( $header_height, $position, $title, $title_link, $longtitleclass, $description, $description_link, $text_style );
 					echo '</div>';
 				endif;
 			?>	

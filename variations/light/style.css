@@ -385,7 +385,7 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		display:inline;
 	}
 	
-	#responsive-title .small-title {
+	#responsive-title .long-title {
 	font-size: .9em;
 	display: block;
 	line-height: 20px;
@@ -935,7 +935,7 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		line-height: 1.25em;
 	}
 	
-	#title-box .name.small-title {
+	#title-box .name.long-title {
 		font-size: 3em;
 	}
 	
