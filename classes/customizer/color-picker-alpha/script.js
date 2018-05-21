@@ -123,7 +123,12 @@ jQuery(document).ready( function($)
 			alpha_val = 100;
 		}
 		
-
+		$('.iris-palette').css({'height':'20px','width':'20px', 'margin-left':'','margin-right':'3px','margin-top':'3px'});
+		$('.iris-strip').css('height','185px');
+		paletteCount = $('.iris-palette').length
+		paletteRowCount = Math.ceil(paletteCount / 8);
+		$('.iris-picker').css({'height': 150 + (paletteRowCount * 23)+'px', 'padding-bottom':'15px'});
+	
 		// Alpha Slider
 		$alpha_slider.slider({
 			slide: function(event, ui) {

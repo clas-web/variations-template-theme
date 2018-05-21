@@ -46,17 +46,18 @@
     width:88%;
 }
  
-.wp-picker-container a.wp-picker-open ~ div.pluto-alpha-container {
+.wp-picker-container .wp-picker-open ~ div.pluto-alpha-container {
     display:block;
 }
  
 .pluto-alpha-container {
-    box-sizing:padding-box;
+    box-sizing:border-box;
     display:none;
     border:1px solid #dfdfdf;
     border-top:none;
     background:#FFF;
     padding:0 11px 6px;
+	max-width: 257px;
 }
  
 .customize-control-alphacolor .wp-picker-container .iris-picker {
