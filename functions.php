@@ -1198,7 +1198,7 @@ function vtt_customize_register( $wp_customize )
 		'vtt-variation-choices',
 		array(
 			'default' => '',
-			'capability' => 'manage_sites',
+			'capability' => 'update_themes',
 			'type' => 'theme_mod',
 			'transport' => 'postMessage',
 			'sanitize_callback' => 'sanitize_variation_choices'
