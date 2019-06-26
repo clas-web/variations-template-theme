@@ -1,7 +1,10 @@
 <?php //vtt_print('default:part:content'); ?>
 
-
 <?php
+
+if(function_exists("collections_sf_redirect")) $search_term = collections_sf_redirect($searchandfilter, $post);
+
+
 $widgets = wp_get_sidebars_widgets();
 $class = '';
 $sidebar_count = 0;
@@ -37,7 +40,8 @@ switch( $sidebar_count )
 
 <div id="content-wrapper" class="<?php echo $class; ?> wrapper">
 	<div id="content" class="<?php echo $class; ?>">
-
+	
+	<?php if(function_exists("collections_get_searchform"))print collections_get_searchform($search_term); ?>
 	<?php vtt_get_template_part( vtt_get_page_content_type(), 'content', vtt_get_queried_object_type() ); ?>
 	
 	</div><!-- #content -->
