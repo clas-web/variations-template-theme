@@ -475,6 +475,20 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 		overflow:hidden;
 	}
 
+	/* From News Hub variation */
+	#content-wrapper.fullwrapper {
+		margin-right:0px;
+	}
+
+	#right-sidebar-wrapper.hide {
+		width: 0px;
+		display: none;
+	}
+
+	#right-sidebar-wrapper.hide {
+		width: 0px;
+		display: none;
+	}
 
 /****************************************************************************************
  * Tablet-sized device or larger.
