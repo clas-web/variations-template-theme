@@ -42,8 +42,12 @@ if( !have_posts() ) {
 	while( have_posts() ):
 		the_post();
 		
-		$post_listing = "<h2 class='entry-title'><a href=".get_permalink($post->ID).">".$post->post_title."</a></h2>";
-		echo apply_filters('collections_post_listing', $post_listing, $post, $number);
+		if (has_filter('collections_post_listing')) {
+			$post_listing = "<h2 class='entry-title'><a href=".get_permalink($post->ID).">".$post->post_title."</a></h2>";
+			echo apply_filters('collections_post_listing', $post_listing, $post, $number);
+		} else {
+			vtt_get_template_part( 'listing', 'post', vtt_get_post_type() );
+		}
 		$number ++;
 	endwhile;
 	
