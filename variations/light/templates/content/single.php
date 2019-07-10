@@ -25,7 +25,7 @@ $featured_image_position = $vtt_config->get_value( 'featured-image-position' );
 	
 	<div class="entry-content">
 	
-		<?php if( $featured_image_position !== 'header' && has_post_thumbnail($post->ID) ): ?>
+		<?php if( $featured_image_position !== 'header' && has_post_thumbnail($post->ID) && !get_field( 'featured_story' ) ): ?>
 			<?php $image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large' ); ?>
 			<div class="featured-image <?php echo $featured_image_position; ?>">
 				<img src="<?php echo $image[0]; ?>" title="Featured Image" />
