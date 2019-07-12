@@ -17,7 +17,13 @@ if (get_theme_mod('header_constrain_width')== 1) $constrain_header = 'constrain-
 // Get the header title position and contents.
 $position = $vtt_config->get_value( 'header-title-position' );
 $hide_title = $vtt_config->get_value( 'header-title-hide' );
-$title = get_option( 'blogname' );
+
+if (has_filter('collections_header_title')) {
+	$title = apply_filters('collections_header_title', $title, $archive);
+} else {
+	$title = get_option( 'blogname' );
+}
+
 $title_link_default = $vtt_config->get_value( 'blogname_url_default' );
 $description = get_option( 'blogdescription' );
 $description_link_default = $vtt_config->get_value( 'blogdescription_url_default' );
