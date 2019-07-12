@@ -19,7 +19,7 @@ $position = $vtt_config->get_value( 'header-title-position' );
 $hide_title = $vtt_config->get_value( 'header-title-hide' );
 
 if (has_filter('collections_header_title')) {
-	$title = apply_filters('collections_header_title', $title, $archive);
+	$title = apply_filters('collections_header_title', $title);
 } else {
 	$title = get_option( 'blogname' );
 }
