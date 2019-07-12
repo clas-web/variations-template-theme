@@ -34,8 +34,21 @@ switch( $sidebar_count )
 }
 ?>
 
+<?php 
+// Add proper class if Featured Story is checked
+if ( is_single() ) {
+	$featured = get_field( 'featured_story' );
+	$featured = $featured[0];
+} else {
+	$featured = 'not featured';
+}
+if ($featured == 'featured') {
+	echo '<div id="content-wrapper" class =  "' . $class . ' fullwrapper">';
+} else {
+	echo '<div id="content-wrapper" class =  "' . $class . ' wrapper">';
+}
+?>
 
-<div id="content-wrapper" class="<?php echo $class; ?> wrapper">
 	<div id="content" class="<?php echo $class; ?>">
 
 	<?php vtt_get_template_part( vtt_get_page_content_type(), 'content', vtt_get_queried_object_type() ); ?>
