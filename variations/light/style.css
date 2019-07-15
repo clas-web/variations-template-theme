@@ -529,6 +529,38 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 }
 
 /****************************************************************************************
+ * Search bar (from Inventory variation)
+ ****************************************************************************************/
+	#content .textbox_wrapper {
+	  height:30px;
+	  border:solid 1px #ccc;
+	  padding:0;
+	  padding-left:5px;
+	  padding-right:125px;
+	  overflow:hidden;
+	}
+
+	#content input[type="text"] {
+	  font-size:1em;
+	  height:30px;
+	  margin:0px;
+	  border-radius:0;
+	  border:0;
+	  width:100%;
+	}
+
+	#content input[type="submit"] {
+	  width:120px;
+	  font-size:1em;
+	  height:32px;
+	  border-radius:0;
+	  margin-left:5px;
+	  border:solid 1px #ccc;
+	  background-color:#f6f6f6;
+	}
+
+
+/****************************************************************************************
  * Tablet-sized device or larger.
  ****************************************************************************************/
 
