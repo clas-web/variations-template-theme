@@ -60,7 +60,7 @@ if ( $wide_header && 'featured' === $featured ) :
 			<?php
 	else :
 		// Not using Featured Story
-		echo "HELLO WORLD";
+		// echo "HELLO WORLD";
 		?>
 		
 
