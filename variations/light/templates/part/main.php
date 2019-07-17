@@ -9,16 +9,16 @@ if ( is_single() ) {
 	include_once ABSPATH . 'wp-admin/includes/plugin.php';
 	if ( is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
 		$featured = get_field( 'featured_story' );
-		if ( $featured ) { 
+		if ( $featured ) {
 			$featured = $featured[0];
 		}
 	}
-	
+
 	$nhs_section = nhs_get_wpquery_section();
 	$post        = $nhs_section->get_single_story( $post );
 	extract( $post->nhs_data );
 	$wide_header = false;
-	
+
 	switch ( $nhs_section->thumbnail_image ) :
 		case 'landscape':
 		case 'normal':
@@ -39,7 +39,7 @@ if ( is_single() ) {
 
 	<?php
 		// Using Featured Story from News Hub variation
-		if ( $wide_header && 'featured' === $featured ) :
+	if ( $wide_header && 'featured' === $featured ) :
 		?>
 		<div class="feature-wrapper break-out">
 			<div class="wide-header" title="Featured Image" style="background-image:url(<?php echo $image; ?>)"></div>
@@ -51,13 +51,13 @@ if ( is_single() ) {
 		</div>
 		<div id="main" class="feature">
 			<div id="full-menu" class="hide">
-				<?php vtt_get_template_part( 'sidebar', 'part', vtt_get_queried_object_type() ); ?>
+			<?php vtt_get_template_part( 'sidebar', 'part', vtt_get_queried_object_type() ); ?>
 
-				<?php
-				// vtt_get_template_part( 'sidebar', 'part', vtt_get_queried_object_type() );
-				// vtt_get_theme_file_path( 'variations/light/templates/part/page.php' );
-				/* From News Hub variation */
-				?>
+			<?php
+			// vtt_get_template_part( 'sidebar', 'part', vtt_get_queried_object_type() );
+			// vtt_get_theme_file_path( 'variations/light/templates/part/page.php' );
+			/* From News Hub variation */
+			?>
 
 
 
@@ -71,19 +71,24 @@ if ( is_single() ) {
 				<?php
 					echo '<div id="full-menu" class="hide">';
 
-
- 				if ( ! has_nav_menu( 'header-navigation' ) ) {
+					// Add header menu if needed
+				if ( ! has_nav_menu( 'header-navigation' ) ) {
 					vtt_get_template_part( 'header-menu', 'part', vtt_get_queried_object_type() );
 
- 				} 
+				}
 
+					// Add sidebars if needed
+				if ( vtt_get_theme_file_path( 'templates/part/sidebar.php' ) ) {
+					vtt_get_template_part( 'sidebar', 'part', vtt_get_queried_object_type() );
+				} else {
+					if ( vtt_get_theme_file_path( 'templates/part/sidebar-left.php' ) ) {
+						vtt_get_template_part( 'sidebar-left', 'part', vtt_get_queried_object_type() );
+					}
+					if ( vtt_get_theme_file_path( 'templates/part/sidebar-right.php' ) ) {
+						vtt_get_template_part( 'sidebar-right', 'part', vtt_get_queried_object_type() );
+					}
+				}
 
-
-					//  vtt_get_template_part( 'header-menu', 'part', vtt_get_queried_object_type() );
-					(vtt_get_template_part( 'sidebar', 'part', vtt_get_queried_object_type() ));
-					vtt_get_template_part( 'sidebar-left', 'part', vtt_get_queried_object_type() );
-					vtt_get_template_part( 'sidebar-right', 'part', vtt_get_queried_object_type() );
-					// echo '</div>';
 					endif;
 	?>
 
