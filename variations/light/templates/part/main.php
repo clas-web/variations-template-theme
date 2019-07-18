@@ -7,36 +7,35 @@ $featured = 'not featured';
 
 // Feature Story only works for single posts
 if ( is_single() ) {
-	include_once ABSPATH . 'wp-admin/includes/plugin.php';
+	require_once ABSPATH . 'wp-admin/includes/plugin.php';
 	if ( is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
 		$featured = get_field( 'featured_story' );
 		if ( $featured ) {
 			$featured = $featured[0];
 		}
 	}
-}
 
+	// // For News Hub sections
 	// if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
-		// print_r( $post );
-// } else {
-	// $nhs_section = nhs_get_wpquery_section();
-	// 	$post        = $nhs_section->get_single_story( $post );W
+	// 	// TODO: fix for variations not using sections
+	// } else {
+	// 	$nhs_section = nhs_get_wpquery_section();
+	// 	$post        = $nhs_section->get_single_story( $post );
 	// 	extract( $post->nhs_data );
-	// 	$wide_header = false;
-
-	// 	switch ( $nhs_section->thumbnail_image ) :
-	// 		case 'landscape':
-	// 		case 'normal':
-	// 		case 'embed':
-	// 			if ( $image ) :
-	// 				$wide_header = true;
-	// 			endif;
-	// 			break;
-	// 		default:
-	// 			break;
-	// endswitch;
+	// 	// Debugging
+	// 	vtt_print( $post->nhs_data );
+		vtt_print(
+			wp_get_attachment_image_src(
+				get_post_thumbnail_id( $post_id ),
+				'full'
+			)
+		);
 	// }
-// }
+}
+$image = wp_get_attachment_image_src(
+	get_post_thumbnail_id( $post_id ),
+	'full'
+)[0];
 
 
 ?>

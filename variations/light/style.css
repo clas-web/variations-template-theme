@@ -527,6 +527,15 @@ Author URI: https://www.linkedin.com/in/crytalbarton
 	text-align: center;
 	font-weight: 900;
 }
+ /* TODO: what's up with that URL? */
+.wide-header{
+	background: black;
+	background-image: url(https://www.rockpointgroup.com/wp-content/uploads/15th-St-Office-1800-x-750-1.jpg);
+	background-size: contain;
+	height: 41vw;
+	background-repeat: no-repeat;
+	background-position: 50%;
+}
 
 /****************************************************************************************
  * Search bar (from Inventory variation)
