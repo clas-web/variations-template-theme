@@ -1572,7 +1572,7 @@ body.author .author-info {
 .custom-size-small blockquote > p {
 	font-size: 90%;
 	font-weight: bold;
-	font-family: inherit;
+	font-family: Helvetica, Arial, sanserif;
 }
 
 #content .listing-name {
