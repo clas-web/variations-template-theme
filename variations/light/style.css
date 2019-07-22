@@ -1567,6 +1567,14 @@ body.author .author-info {
 	line-height: 1.2em;
 }
 
+/* For reusable Pull Quote block using custom-size-small */
+
+.custom-size-small blockquote > p {
+	font-size: 90%;
+	font-weight: bold;
+	font-family: inherit;
+}
+
 #content .listing-name {
 	display: block;
 	margin-top: 10px;
