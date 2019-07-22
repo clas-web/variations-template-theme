@@ -1564,6 +1564,7 @@ body.author .author-info {
 .sidebar blockquote > p,
 #footer blockquote > p {
 	margin: 0em;
+	line-height: 1.2em;
 }
 
 #content .listing-name {
