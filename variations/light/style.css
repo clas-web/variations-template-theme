@@ -1540,7 +1540,10 @@ body.author .author-info {
 }
 
 .wp-block-pullquote {
-    padding: 0 !important;
+	padding: 0 !important;
+}
+.wp-block-pullquote cite {
+	word-spacing: normal;
 }
 
 @font-face {
