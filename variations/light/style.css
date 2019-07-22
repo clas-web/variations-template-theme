@@ -1520,23 +1520,37 @@ body.author .author-info {
 #content blockquote,
 .sidebar blockquote,
 #footer blockquote {
+	/* padding: 0.5em; */
+	/* margin: 0em 0.5em; */
 	padding: 1em 2em 1em 3.5em;
 	margin: 1em 2em 1em 1.5em;
-	font-size: 1.4em;
+	font-size: 1.05em;
 	line-height: 1.2em;
-	justify-content: left;
+	text-align: left;
 	color: darkgreen;
+}
+
+/* TODO: move blockquote settings to pullquote */
+.wp-block-pullquote blockquote {
+	/* font-size: 1.4em; */
 	/* font-weight: bold; */
 	text-shadow: #000 0 0 0;
-	/* word-spacing: -0.1em; */
-	font-family: 'BebasNeueRegular', Arial, sans-serif;	
+	word-spacing: -0.1em;
+	font-family: 'BebasNeueRegular', Arial, sans-serif;
+}
+
+.wp-block-pullquote {
+    padding: 0 !important;
 }
 
 @font-face {
 	font-family: 'BebasNeueRegular';
-	src: url('/wp-content/themes/unc-charlotte-theme/variations/uncc-epsilon/fonts/BebasNeueRegular.otf') format('opentype'),
-	url('https://www.uncc.edu/sites/all/themes/uncctheme/assets/fonts/Bebas/BebasNeueRegular.otf') format('opentype'),
-	url('https://www.uncc.edu/sites/all/themes/uncctheme/assets/fonts/Bebas/woff/BebasNeueRegular.woff') format('woff');
+	src: url('/wp-content/themes/unc-charlotte-theme/variations/uncc-epsilon/fonts/BebasNeueRegular.otf')
+			format('opentype'),
+		url('https://www.uncc.edu/sites/all/themes/uncctheme/assets/fonts/Bebas/BebasNeueRegular.otf')
+			format('opentype'),
+		url('https://www.uncc.edu/sites/all/themes/uncctheme/assets/fonts/Bebas/woff/BebasNeueRegular.woff')
+			format('woff');
 	unicode-range: U+0020-U+007F;
 }
 
