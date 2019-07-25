@@ -1,7 +1,7 @@
 /*
 Variation Name: Light
 Description: The default variation for the Variations Template Theme with white background and blue highlight text.
-Version: 1.0.0
+Version: 1.0.1
 Author: Crystal Barton
 Author URI: https://www.linkedin.com/in/crytalbarton
 */
@@ -1527,7 +1527,7 @@ body.author .author-info {
 	font-size: 1.05em;
 	line-height: 1.2em;
 	text-align: left;
-	color: darkgreen;
+	color: #00693C;
 }
 
 /* TODO: move blockquote settings to pullquote */
