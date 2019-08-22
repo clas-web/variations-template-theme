@@ -3,53 +3,32 @@
 <?php
 // From News Hub variation, determine if Featured Story option is selected
 global $nhs_section;
-$featured = 'not featured';
 
-// Feature Story only works for single posts
-if ( is_single() ) {
-	require_once ABSPATH . 'wp-admin/includes/plugin.php';
+if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
 
-	if ( is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
-		$featured = get_field( 'featured_story' );
-		if ( $featured ) {
-			$featured = $featured[0];
-		}
-	}
+	$image = wp_get_attachment_image_src(
+		get_post_thumbnail_id( $post_id ),
+		'full'
+	)[0];
 
-	if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
+} else {
 
-		$image = wp_get_attachment_image_src(
-			get_post_thumbnail_id( $post_id ),
-			'full'
-		)[0];
-
-	} else {
-
-		// For News Hub sections
-		$nhs_section = nhs_get_wpquery_section();
-		$post        = $nhs_section->get_single_story( $post );
-		extract( $post->nhs_data );
-		$wide_header = false;
-		switch ( $nhs_section->thumbnail_image ) :
-			case 'landscape':
-			case 'normal':
-			case 'embed':
-				if ( $image ) :
-					$wide_header = true;
+	// For News Hub sections
+	$nhs_section = nhs_get_wpquery_section();
+	$post        = $nhs_section->get_single_story( $post );
+	extract( $post->nhs_data );
+	$wide_header = false;
+	switch ( $nhs_section->thumbnail_image ) :
+		case 'landscape':
+		case 'normal':
+		case 'embed':
+			if ( $image ) :
+				$wide_header = true;
 				endif;
-				break;
-			default:
-				break;
+			break;
+		default:
+			break;
 	endswitch;
-
-		// Debugging
-		// vtt_print(
-		// wp_get_attachment_image_src(
-		// get_post_thumbnail_id( $post_id ),
-		// 'full'
-		// )
-		// );
-	}
 }
 
 ?>
@@ -57,7 +36,7 @@ if ( is_single() ) {
 <div id="main-wrapper" class="clearfix">
 
 <!-- Using Featured Story from News Hub variation -->
-	<?php if ( 'featured' === $featured ) : ?>
+	<?php if ( isFeatured() ) : ?>
 
 	<div class="feature-wrapper break-out">
 			<div class="wide-header" title="Featured Image" style="background-image:url(<?php echo $image; ?>)"></div>
@@ -98,7 +77,6 @@ if ( is_single() ) {
 
 		echo '</div><!-- #full-menu -->';
 	?>
-		
 
 	<?php vtt_get_template_part( 'content', 'part', vtt_get_queried_object_type() ); ?>
 
