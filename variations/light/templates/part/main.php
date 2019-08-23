@@ -46,6 +46,7 @@ if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
 				</div><!-- #feature-title -->
 			</div><!-- #featured-meta -->
 		</div><!-- #feature-wrapper break-out -->
+		<?php // TODO: Add feature class to other variation main divs ?>
 		<div id="main" class="feature" role="main">
 
 	<?php else : ?>
