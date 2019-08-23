@@ -559,6 +559,7 @@ body.single #main.feature .story.embed-image .image {
 }
 
 #main.feature #left-sidebar-wrapper {
+	width: 0px;
 	display: none;
 }
 
@@ -605,6 +606,101 @@ body.single #main.feature .story.embed-image .image {
 	max-width:100%;
 	padding: 0 0 0 0;
 }
+
+/* From Customizer */
+
+.feature #content p,
+.feature #content ul,
+.feature #content ol,
+.feature #content dd,
+.feature #content pre,
+.feature #content hr,
+.feature #content address {
+    margin: auto;
+    margin-bottom: 1em;
+    max-width: 900px;
+}
+
+@media (min-width: 64.063em) {
+.feature #right-sidebar-wrapper {
+    display: none;
+}
+}
+
+@media (min-width: 48em) {
+.feature #content-wrapper {
+    margin-left: 0em;
+    margin-right: 0px;
+}
+
+.feature #full-menu, 
+.feature #full-menu.hide {
+    display: none;
+    width: 0px;
+    float: left;
+}
+}
+
+
+.feature #header, 
+.feature #main, 
+.feature #footer {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.feature h1, .single h2, .feature h3, .single h4, .feature h5, .single h6,
+.feature #content .page-title h1,
+.feature #content .page-title .listing-name{
+    max-width: 900px;
+    display: block;
+    margin: auto;
+		margin-bottom: 1em;
+}
+
+.feature .wp-block-image .alignleft {
+    margin-left: 4vw;
+}
+
+.feature .wp-block-image .alignright {
+    margin-right: 4vw;
+}
+
+.feature #content div, 
+.feature .sidebar div, 
+.feature #footer div {
+ margin: 0 0.2em 0 0.2em
+}
+
+#main.feature #content .page-title .listing-name {
+    padding: 0 0px 0 0px;
+}
+
+
+#responsive-header-menu .textbox_wrapper {
+    font-size: 1.5em;
+}
+
+#responsive-header-menu .searchform > div {
+    height: 31px;
+    border-bottom: solid 1px #ccc;
+}
+
+@media (max-width: 64.062em) {
+#responsive-header-menu .header-navigation li:hover {
+  background-color: #eee;
+}
+
+#responsive-header-menu .header-navigation li a:hover {
+  text-decoration: none;
+}
+}
+
+.featured-meta #feature-title h1 {
+		display: block;
+		width: 80%;
+		margin-left: 10%;
+	}
 
 /****************************************************************************************
  * Search bar (from Inventory variation)

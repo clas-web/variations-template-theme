@@ -675,16 +675,20 @@ if ( ! function_exists( 'vtt_default_add_home_pages_menu_item' ) ) :
 endif;
 
 /**
- * Determine if Featured Story option is select.
+ * Determine if Featured Story option is selected.
  *
  * @return boolean True if post is a Featured Story, false if not.
  */
 if ( ! function_exists( 'vtt_is_featured' ) ) :
-	function vtt_is_featured() {
+	function vtt_is_featured() {		
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		
+		// Advanced Custom Fields must be active
 		if ( is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
 			$featured = get_field( 'featured_story' );
-			if ( $featured ) {
+
+			// If Featured Story is checked on the single post, return true
+			if ( $featured && is_single() ) {
 				return true;
 			} else {
 				return false;

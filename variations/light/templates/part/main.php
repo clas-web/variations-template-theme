@@ -6,6 +6,7 @@ global $nhs_section;
 
 if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
 
+	// Get Feature Image
 	$image = wp_get_attachment_image_src(
 		get_post_thumbnail_id( $post_id ),
 		'full'
@@ -36,7 +37,7 @@ if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
 <div id="main-wrapper" class="clearfix">
 
 <?php // Using Featured Story from News Hub variation ?>
-	<?php if ( vtt_is_featured() ) : ?>
+	<?php if ( vtt_is_featured() && $image ) : ?>
 
 	<div class="feature-wrapper break-out">
 			<div class="wide-header" title="Featured Image" style="background-image:url(<?php echo $image; ?>)"></div>
@@ -46,7 +47,6 @@ if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
 				</div><!-- #feature-title -->
 			</div><!-- #featured-meta -->
 		</div><!-- #feature-wrapper break-out -->
-		<?php // TODO: Add feature class to other variation main divs ?>
 		<div id="main" class="feature" role="main">
 
 	<?php else : ?>
