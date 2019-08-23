@@ -679,8 +679,8 @@ endif;
  *
  * @return boolean True if post is a Featured Story, false if not.
  */
-if ( ! function_exists( 'vtt_isFeatured' ) ) :
-	function vtt_isFeatured() {
+if ( ! function_exists( 'vtt_is_featured' ) ) :
+	function vtt_is_featured() {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		if ( is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
 			$featured = get_field( 'featured_story' );

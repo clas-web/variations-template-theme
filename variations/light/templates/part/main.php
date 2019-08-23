@@ -35,8 +35,8 @@ if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
 
 <div id="main-wrapper" class="clearfix">
 
-<!-- Using Featured Story from News Hub variation -->
-	<?php if ( vtt_isFeatured() ) : ?>
+<?php // Using Featured Story from News Hub variation ?>
+	<?php if ( vtt_is_featured() ) : ?>
 
 	<div class="feature-wrapper break-out">
 			<div class="wide-header" title="Featured Image" style="background-image:url(<?php echo $image; ?>)"></div>
