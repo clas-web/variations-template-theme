@@ -550,7 +550,7 @@ body.single #main.feature .story.embed-image .image {
 }
 
 #main.feature #content-wrapper {
-	margin-right:0px;
+	/* margin-right:0px; */
 }
 
 #main.feature #right-sidebar-wrapper {
@@ -641,7 +641,6 @@ body.single #main.feature .story.embed-image .image {
 }
 }
 
-
 .feature #header, 
 .feature #main, 
 .feature #footer {
@@ -669,7 +668,8 @@ body.single #main.feature .story.embed-image .image {
 .feature #content div, 
 .feature .sidebar div, 
 .feature #footer div {
- margin: 0 0.2em 0 0.2em
+ margin: 0 0.2em 0 0.2em;
+ /* max-width: 900px; */
 }
 
 #main.feature #content .page-title .listing-name {

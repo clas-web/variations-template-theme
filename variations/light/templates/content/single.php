@@ -14,7 +14,7 @@ $featured_image_position = $vtt_config->get_value( 'featured-image-position' );
 <div <?php post_class(); ?>>
 
 	<div class="details">
-	
+
 	<?php if ( $post->post_type === 'post' ) : ?>
 		<div class="entry-meta"><?php echo vtt_get_byline( $post ); ?></div>
 	<?php endif; ?>
@@ -25,9 +25,9 @@ $featured_image_position = $vtt_config->get_value( 'featured-image-position' );
 
 	<div class="entry-content">
 
-		<!-- If we have a featured image, display image at top of post (unless Featured Story is active) -->
-		<?php if ( $featured_image_position !== 'header' && has_post_thumbnail( $post->ID ) && ( ! vtt_is_featured() ) ) : ?>
-			<?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' ); ?>
+	<?php // If we have a featured image, display image at top of post (unless Featured Story is active) ?>
+	<?php if ( $featured_image_position !== 'header' && has_post_thumbnail( $post->ID ) && ( ! vtt_is_featured() ) ) : ?>
+		<?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' ); ?>
 			<div class="featured-image <?php echo $featured_image_position; ?>">
 				<img src="<?php echo $image[0]; ?>" title="Featured Image" />
 			</div>

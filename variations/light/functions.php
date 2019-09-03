@@ -687,7 +687,7 @@ if ( ! function_exists( 'vtt_is_featured' ) ) :
 		if ( is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
 			$featured = get_field( 'featured_story' );
 
-			// If Featured Story is checked on the single post, return true
+			// If Featured Story is checked on the single post or page, return true
 			if ( $featured && is_singular() ) {
 				return true;
 			} else {
