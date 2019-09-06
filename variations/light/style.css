@@ -602,13 +602,6 @@ body.single #main.feature .story.embed-image .image {
 	color: #fff;
 	text-shadow: 0px 0px 10px rgba(0,0,0,0.8);
 }
-
-/* .featured-meta #feature-title h1 {
-	font-size: 70px;
-	line-height: 60px;
-} */
-
-
 }
 
 .wide-header {
@@ -638,11 +631,10 @@ body.single #main.feature .story.embed-image .image {
     max-width: 900px;
 }
 
-/* .feature #content {
-    margin: auto;
-    margin-bottom: 1em;
-    max-width: fit-content;
-} */
+.feature #content figure.wp-block-image {
+	text-align: center;
+	display: block;
+}
 
 .feature-wrapper.break-out {
     margin-bottom: 1em;
