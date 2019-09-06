@@ -490,6 +490,11 @@ body.author .author-info {
  * Featured Stories (from News Hub variation)
  ****************************************************************************************/
 
+#main.feature {
+	max-width:100%;
+	padding: 0 0 0 0;
+}
+
 .feature-title h1 {
 	font-size: 2em;
 	font-weight: bold;
@@ -549,6 +554,7 @@ body.single #main.feature .story.embed-image .image {
 	display: none;
 }
 
+@media (min-width: 48.000em) {
 #main.feature #content-wrapper {
 	/* margin-right:0px; */
 }
@@ -556,6 +562,14 @@ body.single #main.feature .story.embed-image .image {
 #main.feature #right-sidebar-wrapper {
 	width: 0px;
 	display: none;
+}
+
+.feature #content-wrapper.right-sidebar {
+    margin-right: 0px;
+}
+
+.feature #content-wrapper.left-sidebar {
+    margin-left: 0px;
 }
 
 #main.feature #left-sidebar-wrapper {
@@ -589,9 +603,12 @@ body.single #main.feature .story.embed-image .image {
 	text-shadow: 0px 0px 10px rgba(0,0,0,0.8);
 }
 
-.featured-meta #feature-title h1 {
+/* .featured-meta #feature-title h1 {
 	font-size: 70px;
 	line-height: 60px;
+} */
+
+
 }
 
 .wide-header {
@@ -602,11 +619,6 @@ body.single #main.feature .story.embed-image .image {
 	background-position: 50%;
 }
 
-#main.feature {
-	max-width:100%;
-	padding: 0 0 0 0;
-}
-
 /* From Customizer */
 
 .feature #content p,
@@ -615,10 +627,30 @@ body.single #main.feature .story.embed-image .image {
 .feature #content dd,
 .feature #content pre,
 .feature #content hr,
-.feature #content address {
+.feature #content address,
+.feature #content .taxonomy-list, 
+.feature #content .post_tag-list,
+.feature #content .page-title .listing-name {
     margin: auto;
     margin-bottom: 1em;
     max-width: 900px;
+}
+
+/* .feature #content {
+    margin: auto;
+    margin-bottom: 1em;
+    max-width: fit-content;
+} */
+
+.feature #content .details .entry-meta,
+.feature #content .page-title .breadcrumbs {
+	margin: auto;
+    max-width: 900px;
+    margin-bottom: 1em;
+}
+
+.feature-wrapper.break-out {
+    margin-bottom: 1em;
 }
 
 @media (min-width: 64.063em) {
@@ -667,9 +699,16 @@ body.single #main.feature .story.embed-image .image {
 
 .feature #content div, 
 .feature .sidebar div, 
-.feature #footer div {
+.feature #footer div,
+.feature .category-list,
+.feature .post_tag-list {
  margin: 0 0.2em 0 0.2em;
+ margin: auto;
  /* max-width: 900px; */
+}
+
+.feature #content .clas-search {
+    max-width: 900px;
 }
 
 #main.feature #content .page-title .listing-name {

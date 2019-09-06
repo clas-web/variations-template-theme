@@ -2,19 +2,20 @@
 
 <?php
 
-if ( function_exists( 'collections_sf_redirect' ) ) { $search_term = collections_sf_redirect( $searchandfilter, $post );
+if ( function_exists( 'collections_sf_redirect' ) ) {
+	$search_term = collections_sf_redirect( $searchandfilter, $post );
 }
 
 
-$widgets           = wp_get_sidebars_widgets();
-$class             = '';
-$sidebar_count     = 0;
-$use_left_sidebar  = false;
-$use_right_sidebar = false;
-$left_sidebar = ' left-sidebar';
-$right_sidebar = ' right-sidebar';
-$full_width = 'full-width';
-$one_sidebar_width = 'one-sidebar-width';
+$widgets            = wp_get_sidebars_widgets();
+$class              = '';
+$sidebar_count      = 0;
+$use_left_sidebar   = false;
+$use_right_sidebar  = false;
+$left_sidebar       = ' left-sidebar';
+$right_sidebar      = ' right-sidebar';
+$full_width         = 'full-width';
+$one_sidebar_width  = 'one-sidebar-width';
 $two_sidebars_width = 'two-sidebars-width';
 
 if ( array_key_exists( 'vtt-left-sidebar', $widgets ) && count( $widgets['vtt-left-sidebar'] ) ) :
