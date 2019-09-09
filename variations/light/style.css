@@ -636,6 +636,12 @@ body.single #main.feature .story.embed-image .image {
 	display: block;
 }
 
+.feature #content .wp-block-columns{
+	max-width: 1200px;
+	/* vertical-align: top; */
+	margin: auto;
+}
+
 .feature-wrapper.break-out {
     margin-bottom: 1em;
 }
@@ -690,7 +696,7 @@ body.single #main.feature .story.embed-image .image {
 .feature .category-list,
 .feature .post_tag-list {
  margin: 0 0.2em 0 0.2em;
- margin: auto;
+ /* margin: auto; */
  /* max-width: 900px; */
 }
 
