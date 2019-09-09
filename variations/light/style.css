@@ -625,7 +625,9 @@ body.single #main.feature .story.embed-image .image {
 .feature #content .post_tag-list,
 .feature #content .page-title .listing-name,
 .feature #content .details .entry-meta,
-.feature #content .page-title .breadcrumbs {
+.feature #content .page-title .breadcrumbs,
+.feature #content .clas-search,
+.feature #content div#toc_container {
     margin: auto;
     margin-bottom: 1em;
     max-width: 900px;
@@ -673,9 +675,7 @@ body.single #main.feature .story.embed-image .image {
     margin: 0 auto;
 }
 
-.feature h1, .single h2, .feature h3, .single h4, .feature h5, .single h6,
-.feature #content .page-title h1,
-.feature #content .page-title .listing-name{
+.feature h1, .single h2, .feature h3, .single h4, .feature h5, .single h6, .feature #content .page-title h1, .feature #content .page-title .listing-name, .feature #content h2, .feature #content h4, .feature #content h6{
     max-width: 900px;
     display: block;
     margin: auto;
@@ -700,14 +700,9 @@ body.single #main.feature .story.embed-image .image {
  /* max-width: 900px; */
 }
 
-.feature #content .clas-search {
-    max-width: 900px;
-}
-
 #main.feature #content .page-title .listing-name {
     padding: 0 0px 0 0px;
 }
-
 
 #responsive-header-menu .textbox_wrapper {
     font-size: 1.5em;
