@@ -625,7 +625,8 @@ body.single #main.feature .story.embed-image .image {
 .feature #content .clas-search,
 .feature #content div#toc_container,
 .feature #content .frm_forms,
-.feature #content .sharedaddy {
+.feature #content .sharedaddy,
+.feature #content .wp-block-soliloquy-soliloquywp {
 	margin: auto;
 	margin-bottom: 1em;
 	max-width: 900px;
