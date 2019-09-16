@@ -628,7 +628,8 @@ body.single #main.feature .story.embed-image .image {
 .feature #content .sharedaddy,
 .feature #content .wp-block-soliloquy-soliloquywp,
 .feature #content blockquote,
-.feature #content .properties {
+.feature #content .properties,
+.feature #content .multi-column-taxonomy-list {
 	margin: auto;
 	margin-bottom: 1em;
 	max-width: 900px;
