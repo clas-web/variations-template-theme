@@ -665,7 +665,8 @@ body.single #main.feature .story.embed-image .image {
 }
 
 .feature #content .wp-block-columns,
-.feature #content .wp-block-embed {
+.feature #content .wp-block-embed,
+.feature #content table {
 	max-width: 1200px;
 	margin: auto;
 }
