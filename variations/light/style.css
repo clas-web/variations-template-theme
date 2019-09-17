@@ -489,6 +489,33 @@ body.author .author-info {
 /****************************************************************************************
  * Featured Stories (from News Hub variation)
  ****************************************************************************************/
+ .alignfull {
+	/* margin: 32px calc(50% - 50vw) !important; */
+	background-size: cover;
+	max-width: 100vw !important;
+	width: 100vw !important;
+	/* max-width: 1200px !important; */
+	margin: auto !important;
+	margin-bottom: 1em !important;
+}
+
+.alignwide {
+	/* margin: 32px calc(25% - 25vw) !important; */
+	background-size: cover;
+	max-width: 100vw !important;
+	width: 100vw !important;
+	max-width: 1200px !important;
+	margin: auto !important;
+	margin-bottom: 1em !important;
+}
+
+/* @media (max-width: 920px) {
+	.alignwide {
+		margin: 32px calc( ( 767px - 920px ) / 2 );
+		max-width: 920px;
+		width: 920px;
+	}
+} */
 
 #main.feature {
 	max-width: 100%;

@@ -698,3 +698,14 @@ if ( ! function_exists( 'vtt_is_featured' ) ) :
 		}
 	}
 	endif;
+
+/**
+ * Add theme support for wide and full alignments on front end and back end.
+ *
+ */
+add_action( 'after_setup_theme', 'vtt_add_wide_alignment' );
+if ( ! function_exists( 'vtt_add_wide_alignment' ) ) :
+	function vtt_add_wide_alignment() {
+		add_theme_support( 'align-wide' );
+	}
+endif;
