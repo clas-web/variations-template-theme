@@ -37,11 +37,15 @@ if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
 <div id="main-wrapper" class="clearfix">
 
 <?php // Using Featured Story from News Hub variation ?>
-	<?php if ( vtt_is_featured() && $image ) : ?>
+	<?php if ( vtt_is_featured() ) : ?>
 
 	<div class="feature-wrapper break-out">
+		<?php if ( $image ) : ?>		
 			<div class="wide-header" title="Featured Image" style="background-image:url(<?php echo $image; ?>)"></div>
 			<div class="featured-meta">
+		<?php else : ?>
+			<div class="featured-meta-no-image">
+		<?php endif; ?>
 				<div id="feature-title">
 					<h1><?php echo vtt_get_page_title(); ?></h1>
 				</div><!-- #feature-title -->
