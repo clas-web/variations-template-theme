@@ -487,35 +487,24 @@ body.author .author-info {
 }
 
 /****************************************************************************************
- * Featured Stories (from News Hub variation)
+ * Alignment Styles
  ****************************************************************************************/
- .alignfull {
-	/* margin: 32px calc(50% - 50vw) !important; */
-	background-size: cover;
+
+.alignfull {
 	max-width: 100vw !important;
-	width: 100vw !important;
-	/* max-width: 1200px !important; */
 	margin: auto !important;
 	margin-bottom: 1em !important;
 }
 
 .alignwide {
-	/* margin: 32px calc(25% - 25vw) !important; */
-	background-size: cover;
-	max-width: 100vw !important;
-	width: 100vw !important;
 	max-width: 1200px !important;
 	margin: auto !important;
 	margin-bottom: 1em !important;
 }
 
-/* @media (max-width: 920px) {
-	.alignwide {
-		margin: 32px calc( ( 767px - 920px ) / 2 );
-		max-width: 920px;
-		width: 920px;
-	}
-} */
+/****************************************************************************************
+ * Featured Stories (from News Hub variation)
+ ****************************************************************************************/
 
 #main.feature {
 	max-width: 100%;
@@ -638,8 +627,14 @@ body.single #main.feature .story.embed-image .image {
 	background-position: 50%;
 }
 
-.feature #content #feature-title div > :first-child {
-	/* max-width: 100%; */
+/* .feature #content .wp-block-columns,
+.feature #content .wp-block-embed,
+.feature #content table,
+/* .feature #content #feature-title div > :first-child, */
+.feature #content [class*="wp-block-"] {
+	max-width: 1200px;
+	margin: auto;
+	margin-bottom: 1em;
 }
 
 .feature #content p,
@@ -662,7 +657,10 @@ body.single #main.feature .story.embed-image .image {
 .feature #content .wp-block-soliloquy-soliloquywp,
 .feature #content blockquote,
 .feature #content .properties,
-.feature #content .multi-column-taxonomy-list {
+.feature #content .multi-column-taxonomy-list,
+.feature #content .wp-block-columns,
+.feature #content .wp-block-embed,
+.feature #content table {
 	margin: auto;
 	margin-bottom: 1em;
 	max-width: 900px;
@@ -694,15 +692,6 @@ body.single #main.feature .story.embed-image .image {
 	display: block;
 	margin: auto;
 	margin-top: 1em;
-	margin-bottom: 1em;
-}
-
-.feature #content .wp-block-columns,
-.feature #content .wp-block-embed,
-.feature #content table,
-.feature #content [class*="wp-block-"] {
-	max-width: 1200px;
-	margin: auto;
 	margin-bottom: 1em;
 }
 
