@@ -632,9 +632,9 @@ body.single #main.feature .story.embed-image .image {
 .feature #content table,
 /* .feature #content #feature-title div > :first-child, */
 .feature #content [class*="wp-block-"] {
-	max-width: 1200px;
+	/* max-width: 1200px;
 	margin: auto;
-	margin-bottom: 1em;
+	margin-bottom: 1em; */
 }
 
 .feature #content p,
@@ -661,9 +661,9 @@ body.single #main.feature .story.embed-image .image {
 .feature #content .wp-block-columns,
 .feature #content .wp-block-embed,
 .feature #content table {
-	margin: auto;
-	margin-bottom: 1em;
-	max-width: 900px;
+	/* margin: auto; */
+	/* margin-bottom: 1em; */
+	/* max-width: 900px; */
 }
 
 .feature h1,
@@ -677,10 +677,26 @@ body.single #main.feature .story.embed-image .image {
 .feature #content h2,
 .feature #content h4,
 .feature #content h6 {
-	max-width: 900px;
+	/* max-width: 900px;
 	display: block;
 	margin: auto;
-	margin-bottom: 1em;
+	margin-bottom: 1em; */
+}
+
+/* .feature #content-wrapper div {
+	max-width: 900px;
+    margin: auto;
+    margin-bottom: 1em;
+} */
+
+/* .feature #content .entry-content > * {
+    margin: 1.5em auto;
+    max-width: 900px;
+} */
+
+.feature #content > * > :not([class*="align"]) {
+    margin: 1.5em auto;
+    max-width: 900px;
 }
 
 .feature #content figure.wp-block-image {
