@@ -494,13 +494,14 @@ body.author .author-info {
 	max-width: 100vw !important;	
 	margin-left: calc( -100vw / 2 + 100% / 2 ) !important;
 	margin-right: calc( -100vw / 2 + 100% / 2 ) !important;
-	width: auto !important;
+	width: 100vw !important;
 }
 
 .alignwide {
 	max-width: 1200px !important;
 	margin-left: calc( -25vw / 2 + 25% / 2 ) !important;
-    margin-right: calc( -25vw / 2 + 25% / 2 ) !important;
+	margin-right: calc( -25vw / 2 + 25% / 2 ) !important;
+	width: 100vw !important;
 }
 
 /****************************************************************************************
@@ -626,6 +627,10 @@ body.single #main.feature .story.embed-image .image {
 	height: 41vw;
 	background-repeat: no-repeat;
 	background-position: 50%;
+}
+
+.feature #content p {
+    margin-left: 0.5em;
 }
 
 /* .feature #content .wp-block-columns,
