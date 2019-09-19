@@ -491,15 +491,16 @@ body.author .author-info {
  ****************************************************************************************/
 
 .alignfull {
-	max-width: 100vw !important;
-	margin: auto !important;
-	margin-bottom: 1em !important;
+	max-width: 100vw !important;	
+	margin-left: calc( -100vw / 2 + 100% / 2 ) !important;
+	margin-right: calc( -100vw / 2 + 100% / 2 ) !important;
+	width: auto !important;
 }
 
 .alignwide {
 	max-width: 1200px !important;
-	margin: auto !important;
-	margin-bottom: 1em !important;
+	margin-left: calc( -25vw / 2 + 25% / 2 ) !important;
+    margin-right: calc( -25vw / 2 + 25% / 2 ) !important;
 }
 
 /****************************************************************************************
