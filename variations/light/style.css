@@ -504,20 +504,22 @@ body.author .author-info {
 	width: 100vw !important;
 }
 
-@media (min-width: 137.5em) {
-	.feature #content .wp-block-embed,
-	.feature #content .wp-block-columns,
-	/* .feature #content .entry-content [class*="wp-block-"]:not([class*="is-resized"]) { */
-		.feature #content [class="wp-block-image"]:not([class*="is-resized"]) {
-		max-width: 1200px !important;
-		margin: 2em calc(10% - 10vw) !important;
-		width: 1200px !important
-	}
-}
-
 /****************************************************************************************
  * Featured Stories (from News Hub variation)
  ****************************************************************************************/
+
+@media (min-width: 1280px) {
+	/* .feature #content .wp-block-embed,
+	.feature #content .wp-block-columns, */
+	.feature #content .entry-content > [class*="wp-block-"]:not([class*="is-resized"]):not(.wp-block-soliloquy-soliloquywp) {
+		/* .feature #content [class="wp-block-image"]:not([class*="is-resized"]) { */
+		max-width: 1200px;
+		margin: 2em calc((1200px - 100rem)/2);
+		/* margin-left: calc((1200px - 100rem)/2); */
+		/* margin-right: calc((1200px - 100rem)/2); */
+		width: 1200px;
+	}
+}
 
 #main.feature {
 	max-width: 100%;
@@ -712,7 +714,7 @@ body.single #main.feature .story.embed-image .image {
     max-width: 900px;
 } */
 
-/* For Light based variations, for News Hub (Exchange) */
+/* Set default width to 900px [Light based variations + News Hub (Exchange)] */
 .feature #content > * > :not([class*="align"]),
 .feature #content .details .description > * {
 	margin: 1.5em auto;
