@@ -505,10 +505,10 @@ body.author .author-info {
 }
 
 @media (min-width: 137.5em) {
-	.feature #content .entry-content .wp-block-embed,
-	.feature #content .entry-content .wp-block-columns,
+	.feature #content .wp-block-embed,
+	.feature #content .wp-block-columns,
 	/* .feature #content .entry-content [class*="wp-block-"]:not([class*="is-resized"]) { */
-		.feature #content .entry-content [class="wp-block-image"]:not([class*="is-resized"]) {
+		.feature #content [class="wp-block-image"]:not([class*="is-resized"]) {
 		max-width: 1200px !important;
 		margin: 2em calc(10% - 10vw) !important;
 		width: 1200px !important
