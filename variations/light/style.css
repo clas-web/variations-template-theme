@@ -633,14 +633,15 @@ body.single #main.feature .story.embed-image .image {
     margin-left: 0.5em;
 }
 
-/* .feature #content .wp-block-columns,
+.feature #content .wp-block-columns,
 .feature #content .wp-block-embed,
 .feature #content table,
-/* .feature #content #feature-title div > :first-child, */
+.feature #content img,
+.feature #content figure,
 .feature #content [class*="wp-block-"] {
 	/* max-width: 1200px;
-	margin: auto;
-	margin-bottom: 1em; */
+	margin: auto; */
+	/* margin-bottom: 1em;  */
 }
 
 .feature #content p,
@@ -700,7 +701,8 @@ body.single #main.feature .story.embed-image .image {
     max-width: 900px;
 } */
 
-.feature #content > * > :not([class*="align"]) {
+/* For Light based variations, for News Hub (Exchange) */
+.feature #content > * > :not([class*="align"]), .feature #content .details .description > * {
     margin: 1.5em auto;
     max-width: 900px;
 }

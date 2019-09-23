@@ -701,6 +701,7 @@ if ( ! function_exists( 'vtt_is_featured' ) ) :
 
 /**
  * Add theme support for wide and full alignments on front end and back end.
+ * Supports Cover Image, Image, Gallery, Pullquote, Video, Table, Columns, Categories, & Embed blocks
  *
  */
 add_action( 'after_setup_theme', 'vtt_add_wide_alignment' );
