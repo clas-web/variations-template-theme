@@ -499,9 +499,11 @@ body.author .author-info {
 
 .alignwide {
 	max-width: 1200px !important;
-	margin-left: calc(-25vw / 2 + 25% / 2) !important;
+	margin: 2em calc((1200px - 100rem)/2) !important;
+	width: 1200px !important;
+	/* margin-left: calc(-25vw / 2 + 25% / 2) !important;
 	margin-right: calc(-25vw / 2 + 25% / 2) !important;
-	width: 100vw !important;
+	width: 100vw !important; */
 }
 
 /****************************************************************************************
