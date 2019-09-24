@@ -497,14 +497,19 @@ body.author .author-info {
 	width: 100vw !important;
 }
 
-/* Calculate margins of Featured blocks/images with [(content width - full page width) divided by two] */
-@media (min-width: 80em) {
+/* Calculate margins of Featured blocks/images with [(-content width - full page width) divided by two] */
+/* @media (min-width: 80em) { */
+	@media (min-width: 112.5em) {	
 	.feature #content .details .description > * > [class*="wp-block-"]:not([class*="is-resized"]):not(.wp-block-soliloquy-soliloquywp),
 	.feature #content .entry-content > [class*="wp-block-"]:not([class*="is-resized"]):not(.wp-block-soliloquy-soliloquywp),
 	.alignwide {
-		max-width: 1200px;		
+		/* max-width: 1200px;		
 		margin: 2em calc((1200px - 100rem)/2);
-		width: 1200px;
+		width: 1200px; */
+
+		max-width: 50vw;
+    margin: 2em calc(-50vw / 2 + 100% / 2);
+    width: 50vw;
 	}
 }
 
