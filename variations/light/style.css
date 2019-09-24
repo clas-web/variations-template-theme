@@ -508,7 +508,7 @@ body.author .author-info {
  * Featured Stories (from News Hub variation)
  ****************************************************************************************/
 
-/* Calculate margins of Featured blocks/images with [full page width - content width divided by two] */
+/* Calculate margins of Featured blocks/images with [content width - full page width divided by two] */
 @media (min-width: 1280px) {
 	.feature #content .entry-content > [class*="wp-block-"]:not([class*="is-resized"]):not(.wp-block-soliloquy-soliloquywp) {
 		/* .feature #content [class="wp-block-image"]:not([class*="is-resized"]) { */
