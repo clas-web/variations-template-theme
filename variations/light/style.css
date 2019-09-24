@@ -508,15 +508,12 @@ body.author .author-info {
  * Featured Stories (from News Hub variation)
  ****************************************************************************************/
 
+/* Calculate margins of Featured blocks/images with [full page width - content width divided by two] */
 @media (min-width: 1280px) {
-	/* .feature #content .wp-block-embed,
-	.feature #content .wp-block-columns, */
 	.feature #content .entry-content > [class*="wp-block-"]:not([class*="is-resized"]):not(.wp-block-soliloquy-soliloquywp) {
 		/* .feature #content [class="wp-block-image"]:not([class*="is-resized"]) { */
-		max-width: 1200px;
+		max-width: 1200px;		
 		margin: 2em calc((1200px - 100rem)/2);
-		/* margin-left: calc((1200px - 100rem)/2); */
-		/* margin-right: calc((1200px - 100rem)/2); */
 		width: 1200px;
 	}
 }
@@ -714,7 +711,7 @@ body.single #main.feature .story.embed-image .image {
     max-width: 900px;
 } */
 
-/* Set default width to 900px [Light based variations + News Hub (Exchange)] */
+/* Set default width to 900px when featured [Light based variations + News Hub (Exchange)] */
 .feature #content > * > :not([class*="align"]),
 .feature #content .details .description > * {
 	margin: 1.5em auto;
