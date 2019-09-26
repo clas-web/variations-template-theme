@@ -680,9 +680,9 @@ endif;
  * @return boolean True if post is a Featured Story, false if not.
  */
 if ( ! function_exists( 'vtt_is_featured' ) ) :
-	function vtt_is_featured() {		
+	function vtt_is_featured() {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		
+
 		// Advanced Custom Fields must be active
 		if ( is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
 			$featured = get_field( 'featured_story' );
@@ -702,7 +702,6 @@ if ( ! function_exists( 'vtt_is_featured' ) ) :
 /**
  * Add theme support for wide and full alignments on front end and back end.
  * Supports Cover Image, Image, Gallery, Pullquote, Video, Table, Columns, Categories, & Embed blocks
- *
  */
 add_action( 'after_setup_theme', 'vtt_add_wide_alignment' );
 if ( ! function_exists( 'vtt_add_wide_alignment' ) ) :
@@ -710,3 +709,118 @@ if ( ! function_exists( 'vtt_add_wide_alignment' ) ) :
 		add_theme_support( 'align-wide' );
 	}
 endif;
+
+/**
+ * Registers a custom field titled Featured Story
+ * Requires the Advanced Custom Fields plugin to work
+ * This field group will NOT appear in the ACF admin page
+ */
+add_action( 'acf/register_fields', 'vtt_add_featured_story_custom_field' );
+if ( ! function_exists( 'vtt_add_featured_story_custom_field' ) ) :
+	function vtt_add_featured_story_custom_field() {
+		if ( function_exists( 'acf_add_local_field_group' ) ) :
+
+			acf_add_local_field_group(
+				array(
+					'key'                   => 'group_5d5c5a9cd1505',
+					'title'                 => 'Featured Story',
+					'fields'                => array(
+						array(
+							'key'               => 'field_5d5c5aa6a7972',
+							'label'             => '',
+							'name'              => 'featured_story',
+							'type'              => 'checkbox',
+							'instructions'      => 'Check if this is a featured story',
+							'required'          => 0,
+							'conditional_logic' => 0,
+							'wrapper'           => array(
+								'width' => '',
+								'class' => '',
+								'id'    => '',
+							),
+							'choices'           => array(
+								'featured' => 'Featured Story',
+							),
+							'allow_custom'      => 0,
+							'default_value'     => array(),
+							'layout'            => 'vertical',
+							'toggle'            => 0,
+							'return_format'     => 'value',
+							'save_custom'       => 0,
+						),
+					),
+					'location'              => array(
+						array(
+							array(
+								'param'    => 'post_type',
+								'operator' => '==',
+								'value'    => 'post',
+							),
+						),
+						array(
+							array(
+								'param'    => 'post_type',
+								'operator' => '==',
+								'value'    => 'page',
+							),
+						),
+					),
+					'menu_order'            => 0,
+					'position'              => 'normal',
+					'style'                 => 'default',
+					'label_placement'       => 'top',
+					'instruction_placement' => 'label',
+					'hide_on_screen'        => '',
+					'active'                => true,
+					'description'           => '',
+				)
+			);
+			endif;
+	}
+endif;
+
+
+// add_action( 'acf/register_fields', 'vtt_add_featured_story_custom_field' );
+// if ( ! function_exists( 'vtt_add_featured_story_custom_field' ) ) :
+// 	function vtt_add_featured_story_custom_field() {
+// 		if ( function_exists( 'register_field_group' ) ) {
+// 			register_field_group(
+// 				array(
+// 					'id'         => 'acf_featured-story',
+// 					'title'      => 'Featured Story',
+// 					'fields'     => array(
+// 						array(
+// 							'key'           => 'field_5b63756d66f99',
+// 							'label'         => 'Featured Story',
+// 							'name'          => 'featured_story',
+// 							'type'          => 'checkbox',
+// 							'instructions'  => 'Check if this is a featured story',
+// 							'choices'       => array(
+// 								'featured' => 'Featured Story',
+// 							),
+// 							'default_value' => '',
+// 							'layout'        => 'vertical',
+// 						),
+// 					),
+// 					'location'   => array(
+// 						array(
+// 							array(
+// 								'param'    => 'post_type',
+// 								'operator' => '==',
+// 								'value'    => 'post',
+// 								'order_no' => 0,
+// 								'group_no' => 0,
+// 							),
+// 						),
+// 					),
+// 					'options'    => array(
+// 						'position'       => 'normal',
+// 						'layout'         => 'default',
+// 						'hide_on_screen' => array(),
+// 					),
+// 					'menu_order' => 0,
+// 				)
+// 			);
+// 		}
+// 	}
+// endif;
