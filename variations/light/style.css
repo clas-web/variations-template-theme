@@ -490,10 +490,12 @@ body.author .author-info {
  * Alignment Styles
  ****************************************************************************************/
 
+ /* Widen margins automatically if wide or full alignment is chosen while not featured */
 .alignwide, .alignfull{
 	margin: auto;
 }
 
+/* Edge to edge breakout alignment if block is set to full while featured */
 .feature #content .alignfull {
 	max-width: 100vw !important;
 	margin-left: calc(-100vw / 2 + 100% / 2) !important;
@@ -501,8 +503,7 @@ body.author .author-info {
 	width: 100vw !important;
 }
 
-/* Calculate margins of Featured blocks/images with [(-content width / 2) + (full page width / 2)] */
-/* TODO: Fix quote margins */
+/* Calculate margins of Featured blocks, images, and elements with wide alignment with [(-content width / 2) + (full page width / 2)] */
 @media (min-width: 112.5em) {
 	.feature
 		#content
@@ -531,16 +532,29 @@ body.author .author-info {
 .feature #content ol{
 	padding-left: 2rem;
 	border: none;
+	margin-bottom: 1em;
 }
 
-/* Hide search bar */
+/* Do not change margin of text within quotes while featured */
+.feature #content blockquote > p {
+    margin: 0;
+}
+
+/* Hide search bar while featured */
 .feature #content .clas-search {
 	display: none;
 }
 
-/* Hide breadcrumbs/category list if empty */
+/* Hide breadcrumbs/category list if empty while featured */
 .feature #content .page-title > :empty {
 	display: none;
+}
+
+/* Set default width to 900px when featured [Light based variations & News Hub (Exchange)] */
+.feature #content > * > :not([class*="align"]),
+.feature #content .details .description > * {
+	margin: 1.5em auto;
+	max-width: 900px;
 }
 
 #main.feature {
@@ -666,81 +680,6 @@ body.single #main.feature .story.embed-image .image {
 
 .feature #content p {
 	margin-left: 0.5em;
-}
-
-/* .feature #content .wp-block-columns,
-.feature #content .wp-block-embed,
-.feature #content table,
-.feature #content img,
-.feature #content figure,
-.feature #content [class*="wp-block-"] {
-	max-width: 1200px;
-	margin: auto;
-	margin-bottom: 1em; 
-} */
-
-/* .feature #content p,
-.feature #content ul,
-.feature #content ol,
-.feature #content dd,
-.feature #content pre,
-.feature #content hr,
-.feature #content address,
-.feature #content .taxonomy-list,
-.feature #content .post_tag-list,
-.feature #content .page-title .listing-name,
-.feature #content .details .entry-meta,
-.feature #content .byline,
-.feature #content .page-title .breadcrumbs,
-.feature #content .clas-search,
-.feature #content div#toc_container,
-.feature #content .frm_forms,
-.feature #content .sharedaddy,
-.feature #content .wp-block-soliloquy-soliloquywp,
-.feature #content blockquote,
-.feature #content .properties,
-.feature #content .multi-column-taxonomy-list,
-.feature #content .wp-block-columns,
-.feature #content .wp-block-embed,
-.feature #content table {
-	margin: auto;
-	margin-bottom: 1em;
-	max-width: 900px;
-} */
-
-/* .feature h1,
-.single h2,
-.feature h3,
-.single h4,
-.feature h5,
-.single h6,
-.feature #content .page-title h1,
-.feature #content .page-title .listing-name,
-.feature #content h2,
-.feature #content h4,
-.feature #content h6 {
-	max-width: 900px;
-	display: block;
-	margin: auto;
-	margin-bottom: 1em;
-} */
-
-/* .feature #content-wrapper div {
-	max-width: 900px;
-    margin: auto;
-    margin-bottom: 1em;
-} */
-
-/* .feature #content .entry-content > * {
-    margin: 1.5em auto;
-    max-width: 900px;
-} */
-
-/* Set default width to 900px when featured [Light based variations + News Hub (Exchange)] */
-.feature #content > * > :not([class*="align"]),
-.feature #content .details .description > * {
-	margin: 1.5em auto;
-	max-width: 900px;
 }
 
 .feature #content figure.wp-block-image {
