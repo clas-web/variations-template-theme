@@ -490,6 +490,10 @@ body.author .author-info {
  * Alignment Styles
  ****************************************************************************************/
 
+.alignwide, .alignfull{
+	margin: auto;
+}
+
 .feature #content .alignfull {
 	max-width: 100vw !important;
 	margin-left: calc(-100vw / 2 + 100% / 2) !important;
@@ -520,6 +524,14 @@ body.author .author-info {
 /****************************************************************************************
  * Featured Stories (from News Hub variation)
  ****************************************************************************************/
+
+ /* Increase padding for certain blocks while featured */
+.feature #content [class*="quote"],
+.feature #content ul, 
+.feature #content ol{
+	padding-left: 2rem;
+	border: none;
+}
 
 /* Hide search bar */
 .feature #content .clas-search {
