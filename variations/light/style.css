@@ -526,11 +526,12 @@ body.author .author-info {
  * Featured Stories (from News Hub variation)
  ****************************************************************************************/
 
- /* Increase padding for certain blocks while featured */
+ /* Modify padding/margins for certain blocks while featured */
 .feature #content [class*="quote"],
 .feature #content ul, 
 .feature #content ol{
 	padding-left: 2rem;
+	padding-right: 4rem;
 	border: none;
 	margin-bottom: 1em;
 }
