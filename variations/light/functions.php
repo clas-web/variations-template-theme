@@ -715,9 +715,9 @@ endif;
  * Requires the Advanced Custom Fields plugin to work
  * This field group will NOT appear in the ACF admin page
  */
-add_action( 'acf/include_fields', 'vtt_add_featured_story_custom_field' );
-if ( ! function_exists( 'vtt_add_featured_story_custom_field' ) ) :
-	function vtt_add_featured_story_custom_field() {
+add_action( 'acf/include_fields', 'vtt_add_featured_story_advanced_custom_field' );
+if ( ! function_exists( 'vtt_add_featured_story_advanced_custom_field' ) ) :
+	function vtt_add_featured_story_advanced_custom_field() {
 		if ( function_exists( 'acf_add_local_field_group' ) ) :
 			acf_add_local_field_group(
 				array(
