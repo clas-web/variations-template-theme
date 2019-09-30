@@ -163,7 +163,6 @@ endif;
 		// IF on the front page
 		// OR the featured image is not set to display in the header and the header image is shown on all pages
 		// OR there is no featured image and the header image is shown on all pages
-		// if ( ! vtt_is_featured() ) {
 		if ( is_front_page() || ( $featured_image_position != 'header' && ! get_theme_mod( 'header_home_only' ) ) || ( ! $featured_url && ! get_theme_mod( 'header_home_only' ) ) ) {
 			if ( $header_type == 'image' || empty( $header_type ) ) {
 				?>
@@ -183,7 +182,6 @@ endif;
 				<?php
 			}
 		}
-	// }
 
 		?>
 		<?php
@@ -193,7 +191,7 @@ endif;
 			echo '</div>';
 					endif;
 		?>
-					
+
 		</div><!-- #header -->
 	</div><!-- #header-wrapper -->
 				<?php endif; ?>
