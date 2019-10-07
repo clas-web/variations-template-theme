@@ -503,7 +503,7 @@ body.author .author-info {
 	width: 100vw !important;
 }
 
-/* Calculate margins of Featured blocks, images, and elements with wide alignment with [(-content width / 2) + (full page width / 2)] */
+/* Calculate margins of Featured blocks, images, and elements that have a wide alignment with [(-content width / 2) + (full page width / 2)] */
 @media (min-width: 112.5em) {
 	.feature
 		#content
@@ -2274,5 +2274,41 @@ h2.widget-title {
 @media print {
 	#responsive-title {
 		position: relative;
+	}
+}
+
+/****************************************************************************************
+ * Mobile Soliloquy Styles (per Gardens request)
+ ****************************************************************************************/
+
+ @media (max-width: 48em){
+	/* .soliloquy-theme-base .soliloquy-caption-bottom .soliloquy-caption-inside{ */
+	.soliloquy-theme-base .soliloquy-caption{
+		position: absolute;
+		top: 70%;
+		transform: translateY(-50%);
+		width: 100vw;
+		background: none !important;
+		display: contents;
+	}
+	.soliloquy-container .soliloquy-caption .soliloquy-caption-inside{
+		display: contents !important;
+	}
+	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside h1{
+		color: #846800;
+		text-shadow: none;
+		text-align: center !important;
+	}
+	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside p{
+		color: #172b0b;
+		text-shadow: none;
+		text-align: center !important;
+	}	
+	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside button{
+		text-shadow: none;
+		font-weight: bold;
+	}
+	.soliloquy-wrapper .soliloquy-controls.soliloquy-has-pager.soliloquy-has-controls-direction{
+		opacity: .3 !important;
 	}
 }
