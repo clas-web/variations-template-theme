@@ -490,8 +490,9 @@ body.author .author-info {
  * Alignment Styles
  ****************************************************************************************/
 
- /* Widen margins automatically if wide or full alignment is chosen while not featured */
-.alignwide, .alignfull{
+/* Widen margins automatically if wide or full alignment is chosen while not featured */
+.alignwide,
+.alignfull {
 	margin: auto;
 }
 
@@ -526,10 +527,10 @@ body.author .author-info {
  * Featured Stories (from News Hub variation)
  ****************************************************************************************/
 
- /* Modify padding/margins for certain blocks while featured */
+/* Modify padding/margins for certain blocks while featured */
 .feature #content [class*="quote"],
-.feature #content ul, 
-.feature #content ol{
+.feature #content ul,
+.feature #content ol {
 	padding-left: 2rem;
 	padding-right: 4rem;
 	border: none;
@@ -538,7 +539,7 @@ body.author .author-info {
 
 /* Do not change margin of text within quotes while featured */
 .feature #content blockquote > p {
-    margin: 0;
+	margin: 0;
 }
 
 /* Hide search bar while featured */
@@ -2281,34 +2282,37 @@ h2.widget-title {
  * Mobile Soliloquy Styles (per Gardens request)
  ****************************************************************************************/
 
- @media (max-width: 48em){
+@media (max-width: 48em) {
 	/* .soliloquy-theme-base .soliloquy-caption-bottom .soliloquy-caption-inside{ */
-	.soliloquy-theme-base .soliloquy-caption{
+	.soliloquy-theme-base .soliloquy-caption {
 		position: absolute;
 		top: 70%;
 		transform: translateY(-50%);
 		width: 100vw;
 		background: none !important;
 		display: contents;
-	}
-	.soliloquy-container .soliloquy-caption .soliloquy-caption-inside{
+	}	
+	/* .soliloquy-container .soliloquy-caption, .soliloquy-container .soliloquy-controls-auto, .soliloquy-container .soliloquy-pager */
+	.soliloquy-container .soliloquy-caption .soliloquy-caption-inside, .soliloquy-container .soliloquy-caption, .soliloquy-container .soliloquy-controls-auto, .soliloquy-container .soliloquy-pager {
 		display: contents !important;
 	}
-	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside h1{
+	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside h1 {
 		color: #846800;
 		text-shadow: none;
 		text-align: center !important;
 	}
-	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside p{
+	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside p {
 		color: #172b0b;
 		text-shadow: none;
 		text-align: center !important;
-	}	
-	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside button{
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+	}
+	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside button {
 		text-shadow: none;
 		font-weight: bold;
 	}
-	.soliloquy-wrapper .soliloquy-controls.soliloquy-has-pager.soliloquy-has-controls-direction{
+	.soliloquy-wrapper .soliloquy-controls.soliloquy-has-pager.soliloquy-has-controls-direction {
 		opacity: .3 !important;
 	}
 }
