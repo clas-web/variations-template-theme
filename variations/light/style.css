@@ -501,6 +501,7 @@ body.author .author-info {
 	max-width: 100vw !important;
 	margin-left: calc(-100vw / 2 + 100% / 2) !important;
 	margin-right: calc(-100vw / 2 + 100% / 2) !important;
+	margin-bottom: 1em;
 	width: 100vw !important;
 }
 
