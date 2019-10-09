@@ -145,7 +145,6 @@ endif;
 
 
 <?php // Tablet and Desktop header ?>
-<?php if ( ! vtt_is_featured() ) : ?>
 	<div id="header-wrapper" class="<?php echo $responsive_overlap; ?> clearfix">
 
 		<?php
@@ -158,7 +157,7 @@ endif;
 
 
 		<div id="header" class="mini-header <?php echo $constrain_header; ?>" >
-		
+
 		<?php
 		// IF on the front page
 		// OR the featured image is not set to display in the header and the header image is shown on all pages
@@ -194,6 +193,3 @@ endif;
 
 		</div><!-- #header -->
 	</div><!-- #header-wrapper -->
-				<?php endif; ?>
-
-
