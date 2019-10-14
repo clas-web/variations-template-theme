@@ -507,7 +507,7 @@ body.author .author-info {
 
 /* Calculate margins of Featured blocks, images, and elements that have a wide alignment with [(-content width / 2) + (full page width / 2)] */
 @media (min-width: 112.5em) {
-	.feature
+	/* .feature
 		#content
 		.details
 		.description
@@ -516,7 +516,7 @@ body.author .author-info {
 	.feature
 		#content
 		.entry-content
-		> [class*="wp-block-"]:not([class*="is-resized"]):not(.wp-block-soliloquy-soliloquywp):not([class*="quote"]),
+		> [class*="wp-block-"]:not([class*="is-resized"]):not(.wp-block-soliloquy-soliloquywp):not([class*="quote"]), */
 	.feature #content .alignwide {
 		max-width: 50vw;
 		margin: 2em calc(-50vw / 2 + 100% / 2);
