@@ -530,9 +530,7 @@ body.author .author-info {
 
 /* Modify padding/margins for certain blocks while featured */
 .feature #content [class*="quote"],
-.feature #content blockquote,
-.feature #content ul,
-.feature #content ol {
+.feature #content blockquote{
 	padding-left: 2rem;
 	padding-right: 4rem;
 	padding-top: .5em;
