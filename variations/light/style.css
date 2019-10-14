@@ -560,6 +560,16 @@ body.author .author-info {
 	max-width: 900px;
 }
 
+/* Modify table of contents while featured */
+.feature #content .entry-content div#toc_container{
+	width: auto;
+    margin-left: 10%;
+    margin-right: 10%;
+    float: none;
+    margin-bottom: 1em;
+    display: block;
+}
+
 #main.feature {
 	max-width: 100%;
 	padding: 0 0 0 0;
