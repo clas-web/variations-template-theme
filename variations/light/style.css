@@ -697,7 +697,7 @@ body.single #main.feature .story.embed-image .image {
 	margin-bottom: 1em;
 }
 
-.feature-wrapper.break-out {
+.feature-wrapper.break-out, .feature #content .taxonomy-list {
 	margin-bottom: 1em;
 }
 
