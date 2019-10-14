@@ -544,6 +544,10 @@ body.author .author-info {
 	width: auto !important;
 }
 
+.feature #content ul {
+    margin-bottom: auto;
+}
+
 /* Do not change margin of text within quotes while featured */
 .feature #content blockquote > p {
 	margin: 0;
