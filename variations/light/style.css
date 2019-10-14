@@ -530,12 +530,17 @@ body.author .author-info {
 
 /* Modify padding/margins for certain blocks while featured */
 .feature #content [class*="quote"],
+.feature #content blockquote,
 .feature #content ul,
 .feature #content ol {
 	padding-left: 2rem;
 	padding-right: 4rem;
 	border: none;
 	margin-bottom: 1em;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	max-width: 100% !important;
+	width: auto !important;
 }
 
 /* Do not change margin of text within quotes while featured */
