@@ -535,11 +535,12 @@ body.author .author-info {
 .feature #content ol {
 	padding-left: 2rem;
 	padding-right: 4rem;
+	padding-top: .5em;
+    padding-bottom: .5em;
 	border: none;
 	margin-bottom: 1em;
 	margin-left: auto !important;
 	margin-right: auto !important;
-	max-width: 100% !important;
 	width: auto !important;
 }
 
