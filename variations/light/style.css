@@ -505,23 +505,16 @@ body.author .author-info {
 	width: 100vw !important;
 }
 
-/* Calculate margins of Featured blocks, images, and elements that have a wide alignment with [(-content width / 2) + (full page width / 2)] */
-@media (min-width: 112.5em) {
-	/* .feature
-		#content
-		.details
-		.description
-		> *
-		> [class*="wp-block-"]:not([class*="is-resized"]):not(.wp-block-soliloquy-soliloquywp):not([class*="quote"]),
-	.feature
-		#content
-		.entry-content
-		> [class*="wp-block-"]:not([class*="is-resized"]):not(.wp-block-soliloquy-soliloquywp):not([class*="quote"]), */
-	.feature #content .alignwide {
-		max-width: 50vw;
-		margin: 2em calc(-50vw / 2 + 100% / 2);
-		width: 50vw;
-	}
+/* Constrained breakout alignment if block is set to wide while featured [(-content width / 2) + (full page width / 2)] */
+@media (min-width: 1200px) {
+.feature #content .alignwide {
+	min-width: 1200px !important;
+	max-width: 1200px !important;
+	margin-left: calc(-1200px / 2 + 100% / 2) !important;
+	margin-right: calc(-1200px / 2 + 100% / 2) !important;
+	margin-bottom: 1em;
+	width: 1200px !important;
+}
 }
 
 /****************************************************************************************
