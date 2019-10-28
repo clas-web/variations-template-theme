@@ -2332,6 +2332,9 @@ h2.widget-title {
 	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside button {
 		text-shadow: none;
 		font-weight: bold;
+		margin-left: 30%;
+		margin-right: 30%;
+		width: 40%;
 	}
 	.soliloquy-wrapper .soliloquy-controls.soliloquy-has-pager.soliloquy-has-controls-direction {
 		opacity: .3 !important;
