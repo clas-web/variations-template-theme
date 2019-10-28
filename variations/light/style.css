@@ -537,6 +537,15 @@ body.author .author-info {
 	width: auto;
 }
 
+.feature #content .wp-block-columns .wp-block-columns.has-3-columns {
+    /* flex-wrap: wrap; */
+}
+
+.wp-block-columns {
+	flex-flow: row wrap;
+    justify-content: space-around;
+}
+
 .feature #content ul {
     margin-bottom: auto;
 }
