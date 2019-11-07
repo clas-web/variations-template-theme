@@ -2319,23 +2319,28 @@ h2.widget-title {
 	.soliloquy-container .soliloquy-caption .soliloquy-caption-inside, .soliloquy-container .soliloquy-caption, .soliloquy-container .soliloquy-controls-auto, .soliloquy-container .soliloquy-pager {
 		display: contents !important;
 	}
-	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside h1 {
+	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside h1,
+	.soliloquy-container .image-title {
 		color: #846800;
 		text-shadow: none;
 		text-align: center !important;
+		font-weight: bold;
+		font-size: 2rem;
 	}
-	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside p {
+	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside p,
+	.soliloquy-container .body-text {
 		color: #172b0b;
 		text-shadow: none;
 		text-align: center !important;
 		padding-top: 1rem;
 		padding-bottom: 1rem;
 	}
-	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside button {
+	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside button,
+	.soliloquy-container .read-more{
 		text-shadow: none;
 		font-weight: bold;
-		margin-left: 30%;
-		margin-right: 30%;
+		/* margin-left: 30%;
+		margin-right: 30%; */
 		width: max-content;
 	}
 	.soliloquy-wrapper .soliloquy-controls.soliloquy-has-pager.soliloquy-has-controls-direction {
