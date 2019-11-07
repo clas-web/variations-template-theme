@@ -2336,7 +2336,7 @@ h2.widget-title {
 		font-weight: bold;
 		margin-left: 30%;
 		margin-right: 30%;
-		width: 40%;
+		width: max-content;
 	}
 	.soliloquy-wrapper .soliloquy-controls.soliloquy-has-pager.soliloquy-has-controls-direction {
 		opacity: .3 !important;
