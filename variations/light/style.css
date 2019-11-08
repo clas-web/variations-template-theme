@@ -537,6 +537,11 @@ body.author .author-info {
 	width: auto;
 }
 
+.feature #content .wp-block-soliloquy-soliloquywp ul{
+	padding: 0;
+	margin: 0;
+}
+
 .feature #content .wp-block-columns .wp-block-columns.has-3-columns {
     /* flex-wrap: wrap; */
 }
@@ -567,6 +572,7 @@ body.author .author-info {
 
 /* Set default width to 900px when featured [Light based variations & News Hub (Exchange)] */
 .feature #content > * > :not([class*="align"]),
+.feature #content .wp-block-soliloquy-soliloquywp,
 .feature #content .details .description > * {
 	margin: 1.5em auto;
 	max-width: 900px;
