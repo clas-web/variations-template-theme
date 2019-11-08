@@ -2321,16 +2321,16 @@ h2.widget-title {
 	}
 	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside h1,
 	.soliloquy-container .image-title {
-		color: #846800;
-		text-shadow: none;
+		color: #846800 !important;
+		text-shadow: none !important;
 		text-align: center !important;
-		font-weight: bold;
+		font-weight: bold !important;
 		font-size: 2rem;
 	}
 	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside p,
 	.soliloquy-container .body-text {
-		color: #172b0b;
-		text-shadow: none;
+		color: #172b0b !important;
+		text-shadow: none !important;
 		text-align: center !important;
 		padding-top: 1rem;
 		padding-bottom: 1rem;
