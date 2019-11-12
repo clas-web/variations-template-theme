@@ -507,14 +507,14 @@ body.author .author-info {
 
 /* Constrained breakout alignment if block is set to wide while featured [(-content width / 2) + (full page width / 2)] */
 @media (min-width: 1200px) {
-.feature #content .alignwide {
-	min-width: 1200px !important;
-	max-width: 1200px !important;
-	margin-left: calc(-1200px / 2 + 100% / 2) !important;
-	margin-right: calc(-1200px / 2 + 100% / 2) !important;
-	margin-bottom: 1em;
-	width: 1200px !important;
-}
+	.feature #content .alignwide {
+		min-width: 1200px !important;
+		max-width: 1200px !important;
+		margin-left: calc(-1200px / 2 + 100% / 2) !important;
+		margin-right: calc(-1200px / 2 + 100% / 2) !important;
+		margin-bottom: 1em;
+		width: 1200px !important;
+	}
 }
 
 /****************************************************************************************
@@ -529,7 +529,7 @@ body.author .author-info {
 	padding-left: 2rem;
 	padding-right: 4rem;
 	padding-top: .5em;
-    padding-bottom: .5em;
+	padding-bottom: .5em;
 	border: none;
 	margin-bottom: 1em;
 	margin-left: auto;
@@ -537,12 +537,17 @@ body.author .author-info {
 	width: auto;
 }
 
+.feature #content .video-container{
+	overflow: visible;
+	margin-bottom: 1em !important;
+}
+
 .feature #content .wp-block-columns .wp-block-columns.has-3-columns {
-    /* flex-wrap: wrap; */
+	/* flex-wrap: wrap; */
 }
 
 .feature #content ul {
-    margin-bottom: auto;
+	margin-bottom: auto;
 }
 
 /* Do not change margin of text within quotes while featured */
@@ -569,13 +574,13 @@ body.author .author-info {
 }
 
 /* Modify table of contents while featured */
-.feature #content .entry-content div#toc_container{
+.feature #content .entry-content div#toc_container {
 	width: auto;
-    margin-left: 10%;
-    margin-right: 10%;
-    float: none;
-    margin-bottom: 1em;
-    display: block;
+	margin-left: 10%;
+	margin-right: 10%;
+	float: none;
+	margin-bottom: 1em;
+	display: block;
 }
 
 #main.feature {
@@ -715,7 +720,8 @@ body.single #main.feature .story.embed-image .image {
 	margin-bottom: 1em;
 }
 
-.feature-wrapper.break-out, .feature #content .taxonomy-list {
+.feature-wrapper.break-out,
+.feature #content .taxonomy-list {
 	margin-bottom: 1em;
 }
 
@@ -763,7 +769,7 @@ body.single #main.feature .story.embed-image .image {
 }
 
 .feature #content .wp-block-soliloquy-soliloquywp div {
-    margin-left: 0;
+	margin-left: 0;
 }
 
 #main.feature #content .page-title .listing-name {
@@ -1551,14 +1557,14 @@ body.single #main.feature .story.embed-image .image {
  * 
  ****************************************************************************************/
 
-#content .wp-block-soliloquy-soliloquywp ul{
+#content .wp-block-soliloquy-soliloquywp ul {
 	padding: 0;
 	margin: 0;
 }
 
 .wp-block-columns {
 	flex-flow: row wrap;
-    justify-content: space-around;
+	justify-content: space-around;
 }
 
 #content .page-title .listing-name {
@@ -2324,15 +2330,18 @@ h2.widget-title {
 		width: 100vw;
 		background: none !important;
 		display: contents;
-	}	
-	.soliloquy-container a{
+	}
+	.soliloquy-container a {
 		text-decoration: none !important;
 	}
 	/* .soliloquy-container .soliloquy-caption, .soliloquy-container .soliloquy-controls-auto, .soliloquy-container .soliloquy-pager */
-	.soliloquy-container .soliloquy-caption .soliloquy-caption-inside, .soliloquy-container .soliloquy-caption, .soliloquy-container .soliloquy-controls-auto, .soliloquy-container .soliloquy-pager {
+	.soliloquy-container .soliloquy-caption .soliloquy-caption-inside,
+	.soliloquy-container .soliloquy-caption,
+	.soliloquy-container .soliloquy-controls-auto,
+	.soliloquy-container .soliloquy-pager {
 		display: contents !important;
 	}
-	.soliloquy-container .soliloquy-caption .soliloquy-caption-inside{
+	.soliloquy-container .soliloquy-caption .soliloquy-caption-inside {
 		text-shadow: none !important;
 		color: #172b0b !important;
 		text-align: center !important;
@@ -2354,7 +2363,7 @@ h2.widget-title {
 		padding-bottom: 1rem;
 	}
 	.soliloquy-caption.soliloquy-caption-bottom .soliloquy-caption-inside button,
-	.soliloquy-container .read-more{
+	.soliloquy-container .read-more {
 		text-shadow: none;
 		font-weight: bold;
 		/* margin-left: 30%;
