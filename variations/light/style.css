@@ -536,6 +536,9 @@ body.author .author-info {
 	margin-right: auto;
 	width: auto;
 }
+.feature #content blockquote > p {
+	max-width: none;
+}
 
 .feature #content .video-container{
 	overflow: visible;
