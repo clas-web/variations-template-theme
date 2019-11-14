@@ -542,7 +542,7 @@ body.author .author-info {
 
 .feature #content .video-container{
 	overflow: visible;
-	margin-bottom: 1em !important;
+	margin-bottom: 2em !important;
 }
 
 .feature #content .wp-block-columns .wp-block-columns.has-3-columns {
