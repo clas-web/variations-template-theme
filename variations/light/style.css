@@ -641,6 +641,7 @@ body.author .author-info {
 	display: block;
 	width: 80%;
 	margin-left: 10%;
+	word-break: break-word;
 }
 
 body.single #main.feature .story .image,
