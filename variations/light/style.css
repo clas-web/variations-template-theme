@@ -570,7 +570,6 @@ body.author .author-info {
 
 /* Set default width to 900px when featured [Light based variations & News Hub (Exchange)] */
 .feature #content > * > :not([class*="align"]),
-.feature #content .soliloquy-outer-container,
 .feature #content .details .description > * {
 	margin: 1.5em auto;
 	max-width: 900px;
