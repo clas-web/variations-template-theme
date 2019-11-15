@@ -545,10 +545,6 @@ body.author .author-info {
 	margin-bottom: 2em !important;
 }
 
-.feature #content .wp-block-columns .wp-block-columns.has-3-columns {
-	/* flex-wrap: wrap; */
-}
-
 .feature #content ul {
 	margin-bottom: auto;
 }
