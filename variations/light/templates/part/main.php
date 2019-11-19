@@ -63,8 +63,8 @@ if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
 	<?php
 		echo '<div id="full-menu" class="hide">';
 
-		// Add header menu if needed
-	if ( ! has_nav_menu( 'header-navigation' ) ) {
+	// Add header menu if needed for Light Variation, not for News Hub or Epsilon
+	if ( has_nav_menu( 'header-navigation' ) && ! function_exists( 'nhs_get_wpquery_section' ) && ! function_exists( 'epsilon_enqueue_scripts' ) ) {
 		vtt_get_template_part( 'header-menu', 'part', vtt_get_queried_object_type() );
 	}
 
