@@ -19,4 +19,5 @@ Complete instructions on how to use the Variations Template Theme can be found i
 ## Authors
 
 [Crystal Barton](https://github.com/atrus1701)
+[Alex Chapin](https://github.com/marpa)
 
