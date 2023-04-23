@@ -75,8 +75,16 @@ class VTT_Customize_Variation extends WP_Customize_Control
 
 			<select>
 				<?php
+
+				$theme_mod = get_theme_mod('vtt-variation-choices');
 				foreach ( $this->choices as $value => $label )
-				if(in_array($value, get_theme_mod('vtt-variation-choices'))){
+				
+// 				if(in_array($value, get_theme_mod('vtt-variation-choices'))){
+// 					echo '<option value="' . esc_attr( $value ) . '"' . selected( $this->value(), $value, false ) . '>' . $label . '</option>';
+// 				}
+				
+
+				if (is_array($theme_mod) && in_array($value, $theme_mod)) {
 					echo '<option value="' . esc_attr( $value ) . '"' . selected( $this->value(), $value, false ) . '>' . $label . '</option>';
 				}
 				?>

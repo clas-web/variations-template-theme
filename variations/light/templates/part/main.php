@@ -3,14 +3,19 @@
 <?php
 // From News Hub variation, determine if Featured Story option is selected
 global $nhs_section;
+global $post;
 
 if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
 
 	// Get Feature Image
-	$image = wp_get_attachment_image_src(
-		get_post_thumbnail_id( $post_id ),
+	$image_data = wp_get_attachment_image_src(
+		get_post_thumbnail_id($post->ID),
 		'full'
-	)[0];
+	);
+
+	if ( is_array($image_data) && array_key_exists(0, $image_data) ) {
+		$image = $image_data[0];
+	}
 
 } else {
 
