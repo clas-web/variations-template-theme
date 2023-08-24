@@ -16,7 +16,7 @@
 	{
 		$widget_area = 'vtt-footer-'.($i+1);
 		$footer_widgets[$widget_area] = false;
-		if( array_key_exists($widget_area, $widgets) && count($widgets[$widget_area]) )
+		if( array_key_exists($widget_area, $widgets) && is_countable($widgets[$widget_area]) && count($widgets[$widget_area]) )
 		{
 			$footer_widgets[$widget_area] = true;
 			$footer_widgets_count++;
