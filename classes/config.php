@@ -59,6 +59,13 @@ class VTT_Config
 
 
 	/**
+	 * The search directories for variations.
+	 * @var  Array
+	 */
+	protected $search_directories = array();
+
+
+	/**
 	 * Constructor.
 	 * Creates an VTT_Config object.
 	 */
