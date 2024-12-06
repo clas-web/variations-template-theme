@@ -36,18 +36,15 @@ class VTT_Mobile_Support
 	 */
 	public function __construct()
 	{
+		if (!headers_sent() && session_status() === PHP_SESSION_NONE) {
+			session_start();
+		}
+		
 		$detect = new Mobile_Detect;
 		
 		$this->device_type = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
 		$this->is_mobile = ($detect->isMobile() && !$detect->isTablet());
 
-		if(!session_id()) session_start();
-		
-		// FOR TESTING
-		//$this->is_mobile = true;
-		//$this->set_use_mobile_site(true);
-		//return;
-		
 		if( isset($_GET['mobile']) )
 		{
 			$this->set_use_mobile_site(true);
