@@ -121,11 +121,13 @@ if ( $header_url && strpos( $position, 'vabove' ) === false ) {
 ?>
 
 
+<header id="site-header" role="banner">
+
 <?php // Responsive (mobile) header ?>
 <div id="responsive-title" class="clearfix" style="<?php echo $text_style; ?>">
 <div class="relative-wrapper">
 
-<div class="logo icon-button"></div>
+<button class="logo icon-button" aria-label="<?php esc_attr_e( 'Open menu', 'variations-template-theme' ); ?>"></button>
 
 <div class="title"><div><div>
 <?php
@@ -165,7 +167,7 @@ endif;
 		if ( is_front_page() || ( $featured_image_position != 'header' && ! get_theme_mod( 'header_home_only' ) ) || ( ! $featured_url && ! get_theme_mod( 'header_home_only' ) ) ) {
 			if ( $header_type == 'image' || empty( $header_type ) ) {
 				?>
-				<div class="header-title" style="background-image:url('<?php echo $header_url; ?>'); width:<?php echo $header_width; ?>px; height:<?php echo $header_height; ?>px;"></div>
+				<div class="header-title" role="img" aria-label="<?php echo esc_attr( get_option( 'blogname' ) ); ?> header image" style="background-image:url('<?php echo $header_url; ?>'); width:<?php echo $header_width; ?>px; height:<?php echo $header_height; ?>px;"></div>
 				<?php
 			} elseif ( $header_type == 'slider' ) {
 				?>
@@ -177,7 +179,7 @@ endif;
 		} else {
 			if ( $featured_image_position == 'header' ) {
 				?>
-				<div class="header-title" style="background-image:url('<?php echo $featured_url; ?>'); width:<?php echo $featured_width; ?>px; height:<?php echo $featured_height; ?>px;"></div>
+				<div class="header-title" role="img" aria-label="<?php echo esc_attr( get_the_title() ); ?> featured image" style="background-image:url('<?php echo $featured_url; ?>'); width:<?php echo $featured_width; ?>px; height:<?php echo $featured_height; ?>px;"></div>
 				<?php
 			}
 		}
@@ -193,3 +195,5 @@ endif;
 
 		</div><!-- #header -->
 	</div><!-- #header-wrapper -->
+
+</header><!-- #site-header -->

@@ -6,13 +6,13 @@ $widgets = wp_get_sidebars_widgets();
 if( array_key_exists('vtt-right-sidebar', $widgets) && count($widgets['vtt-right-sidebar']) ):
 
 	?>
-	<div id="right-sidebar-wrapper" class="sidebar-wrapper">
+	<aside id="right-sidebar-wrapper" class="sidebar-wrapper" aria-label="<?php esc_attr_e( 'Right Sidebar', 'variations-template-theme' ); ?>">
 		<div id="right-sidebar" class="sidebar">
 	
 			<?php dynamic_sidebar( 'vtt-right-sidebar' ); ?>
 	
 		</div><!-- #right-sidebar -->
-	</div><!-- #right-sidebar-wrapper -->
+	</aside><!-- #right-sidebar-wrapper -->
 	<?php
 
 else:

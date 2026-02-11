@@ -1,7 +1,7 @@
 <?php //vtt_print('default:part:footer'); ?>
 
 
-<div id="footer-wrapper">
+<footer id="footer-wrapper" role="contentinfo">
 	<div id="footer" class="clearfix">
 
 
@@ -92,5 +92,5 @@
 
 		
 	</div><!-- #footer -->
-</div><!-- #footer-wrapper -->
+</footer><!-- #footer-wrapper -->
 

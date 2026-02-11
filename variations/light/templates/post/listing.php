@@ -20,8 +20,9 @@ $featured_image_position = $vtt_config->get_value( 'featured-image-position' );
 
 			<?php if( $featured_image_position !== 'header' && has_post_thumbnail($post->ID) ): ?>
 				<?php $image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail' ); ?>
+				<?php $image_alt = get_post_meta( get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true ); ?>
 				<div class="featured-image <?php echo $featured_image_position; ?>">
-					<img src="<?php echo $image[0]; ?>" title="Featured Image" />
+					<img src="<?php echo $image[0]; ?>" alt="<?php echo esc_attr( $image_alt ); ?>" />
 				</div>
 			<?php endif; ?>
 			

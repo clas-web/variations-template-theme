@@ -4,11 +4,12 @@
 <?php
 $header_menu = wp_nav_menu( 
 	array(
-		'container'       => 'div',
-		'container_class' => 'header-navigation',
-		'theme_location'  => 'header-navigation',
-		'echo'            => false,
-		'fallback_cb'	  => false,
+		'container'            => 'nav',
+		'container_class'      => 'header-navigation',
+		'container_aria_label' => __( 'Main Navigation', 'variations-template-theme' ),
+		'theme_location'       => 'header-navigation',
+		'echo'                 => false,
+		'fallback_cb'          => false,
 	)
 );
 ?>

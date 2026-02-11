@@ -16,8 +16,8 @@
 	</h2>
 
 	<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : ?>
-	<nav id="comment-nav-above" class="navigation comment-navigation" role="navigation">
-		<h1 class="screen-reader-text">Comment navigation</h1>
+	<nav id="comment-nav-above" class="navigation comment-navigation" aria-label="<?php esc_attr_e( 'Comment navigation', 'variations-template-theme' ); ?>">
+		<h2 class="screen-reader-text"><?php esc_html_e( 'Comment navigation', 'variations-template-theme' ); ?></h2>
 		<div class="nav-previous"><?php previous_comments_link( '&larr; Older Comments' ); ?></div>
 		<div class="nav-next"><?php next_comments_link( 'Newer Comments &rarr;' ); ?></div>
 	</nav><!-- #comment-nav-above -->
@@ -34,8 +34,8 @@
 	</ol><!-- .comment-list -->
 
 	<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : ?>
-	<nav id="comment-nav-below" class="navigation comment-navigation" role="navigation">
-		<h1 class="screen-reader-text">Comment navigation</h1>
+	<nav id="comment-nav-below" class="navigation comment-navigation" aria-label="<?php esc_attr_e( 'Comment navigation', 'variations-template-theme' ); ?>">
+		<h2 class="screen-reader-text"><?php esc_html_e( 'Comment navigation', 'variations-template-theme' ); ?></h2>
 		<div class="nav-previous"><?php previous_comments_link( '&larr; Older Comments' ); ?></div>
 		<div class="nav-next"><?php next_comments_link( 'Newer Comments &rarr;' ); ?></div>
 	</nav><!-- #comment-nav-below -->

@@ -46,7 +46,7 @@ if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
 
 	<div class="feature-wrapper break-out">
 		<?php if ( $image ) : ?>		
-			<div class="wide-header" title="Featured Image" style="background-image:url(<?php echo $image; ?>)"></div>
+			<div class="wide-header" role="img" aria-label="<?php echo esc_attr( get_the_title() ); ?> featured image" style="background-image:url(<?php echo $image; ?>)"></div>
 			<div class="featured-meta">
 		<?php else : ?>
 			<div class="featured-meta-no-image">
@@ -56,12 +56,12 @@ if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
 				</div><!-- #feature-title -->
 			</div><!-- #featured-meta -->
 		</div><!-- #feature-wrapper break-out -->
-		<div id="main" class="feature" role="main">
+		<main id="main" class="feature">
 
 	<?php else : ?>
 
 		<!-- Not using Featured Story -->
-		<div id="main" role="main">
+		<main id="main">
 
 	<?php endif; ?>
 
@@ -90,5 +90,5 @@ if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
 
 	<?php vtt_get_template_part( 'content', 'part', vtt_get_queried_object_type() ); ?>
 
-		</div><!-- #main -->
+		</main><!-- #main -->
 	</div><!-- #main-wrapper -->

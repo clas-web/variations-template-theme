@@ -143,9 +143,11 @@ if ( ! function_exists( 'vtt_default_add_responsive_close_button' ) ) :
 		$wp_admin_bar->add_menu(
 			array(
 				'id'     => 'close-menu-button',
+				'title'  => '<span class="screen-reader-text">' . __( 'Close menu', 'variations-template-theme' ) . '</span>',
 				'href'   => '#',
 				'meta'   => array(
-					'class' => 'icon-button',
+					'class'      => 'icon-button',
+					'aria-label' => __( 'Close menu', 'variations-template-theme' ),
 				),
 				'parent' => 'top-secondary',
 			)

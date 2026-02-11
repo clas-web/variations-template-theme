@@ -857,10 +857,10 @@ function vtt_get_anchor( $url, $title, $class = null, $contents = null )
 {
 	if( empty($url) ) return $contents;
 	
-	// Ensure title is a string and not null
-	$title = !is_null($title) ? (string)$title : '';
-	
-	$anchor = '<a href="'.$url.'" title="'.htmlentities($title, ENT_QUOTES, 'UTF-8').'"';
+	$anchor = '<a href="'.$url.'"';
+	if( !empty($title) ) {
+		$anchor .= ' title="'.htmlentities($title, ENT_QUOTES, 'UTF-8').'"';
+	}
 	if( $class ) $anchor .= ' class="'.$class.'"';
 	$anchor .= '>';
 
