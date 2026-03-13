@@ -56,12 +56,12 @@ if ( ! function_exists( 'nhs_get_wpquery_section' ) ) {
 				</div><!-- #feature-title -->
 			</div><!-- #featured-meta -->
 		</div><!-- #feature-wrapper break-out -->
-		<main id="main" class="feature">
+		<main id="main" class="feature" tabindex="-1">
 
 	<?php else : ?>
 
 		<!-- Not using Featured Story -->
-		<main id="main">
+		<main id="main" tabindex="-1">
 
 	<?php endif; ?>
 

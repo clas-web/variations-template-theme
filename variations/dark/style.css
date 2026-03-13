@@ -413,3 +413,13 @@ Parent Variation: light
 		color:#666;
 	}
 
+	#main:focus {
+		outline: 3px solid #72aee6;
+		outline-offset: 2px;
+	}
+
+	:focus-visible {
+		outline: 3px solid #72aee6 !important;
+		outline-offset: 2px;
+	}
+
